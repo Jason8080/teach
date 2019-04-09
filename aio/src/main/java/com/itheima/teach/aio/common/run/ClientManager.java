@@ -1,5 +1,6 @@
 package com.itheima.teach.aio.common.run;
 
+import java.io.IOException;
 import java.nio.channels.AsynchronousSocketChannel;
 
 /**
@@ -34,5 +35,20 @@ public class ClientManager {
      */
     public static AsynchronousSocketChannel put(AsynchronousSocketChannel asc){
         return client = asc;
+    }
+
+    /**
+     * 关闭客户端
+     * @param asc
+     * @return
+     */
+    public static void close(AsynchronousSocketChannel asc){
+        if(asc.isOpen()){
+            try {
+                asc.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

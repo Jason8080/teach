@@ -1,6 +1,7 @@
 package com.itheima.teach.aio.common.handler;
 
 import com.itheima.teach.aio.common.kit.BufferKit;
+import com.itheima.teach.aio.common.run.ClientManager;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
@@ -48,6 +49,6 @@ public class ReadHandler implements CompletionHandler<Integer, ByteBuffer> {
      */
     @Override
     public void failed(Throwable exc, ByteBuffer buffer) {
-        System.out.println("读取失败");
+        ClientManager.close(asc);
     }
 }
