@@ -1,5 +1,9 @@
 package com.itheima.teach.aio.client;
 
+import com.itheima.teach.aio.common.kit.BufferKit;
+import com.itheima.teach.aio.common.handler.ReadHandler;
+
+import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 
@@ -22,7 +26,9 @@ public class ClientHandler implements CompletionHandler<Void, AsynchronousSocket
      */
     @Override
     public void completed(Void result, AsynchronousSocketChannel asc) {
-        System.out.println("连接成功了"+asc);
+        // 连接成功后读取消息
+        ByteBuffer buffer = BufferKit.getDef();
+        asc.read(buffer, buffer, new ReadHandler(asc));
     }
 
 

@@ -1,5 +1,6 @@
 package com.itheima.teach.aio.client;
 
+import com.itheima.teach.aio.common.handler.WriteHandler;
 import com.itheima.teach.aio.common.constant.Address;
 
 import java.nio.ByteBuffer;
@@ -26,6 +27,9 @@ public class Client {
         ByteBuffer buffer = ByteBuffer.wrap("666".getBytes());
 
         // 写出内容
-        asc.write(buffer, buffer, new WriteHandler());
+        asc.write(buffer, buffer, new WriteHandler(asc));
+
+        // 主线程睡眠1小时
+        Thread.sleep(1000*60*60);
     }
 }

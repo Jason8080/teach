@@ -1,6 +1,7 @@
-package com.itheima.teach.aio.server;
+package com.itheima.teach.aio.common.handler;
 
 import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 
 /**
@@ -14,6 +15,12 @@ import java.nio.channels.CompletionHandler;
  */
 public class ReadHandler implements CompletionHandler<Integer, ByteBuffer> {
 
+    private final AsynchronousSocketChannel asc;
+
+    public ReadHandler(AsynchronousSocketChannel asc) {
+        this.asc = asc;
+    }
+
     /**
      * 有内容读取将触发该方法
      * @param result
@@ -21,7 +28,11 @@ public class ReadHandler implements CompletionHandler<Integer, ByteBuffer> {
      */
     @Override
     public void completed(Integer result, ByteBuffer buffer) {
-        System.out.println(new String(buffer.array(), 0, result));
+        String text = new String(buffer.array(), 0, result);
+        System.out.println(text);
+        // 处理信息后回复消息
+        ByteBuffer content = ByteBuffer.wrap("收到: ".concat(text).getBytes());
+        asc.write(content, content, new WriteHandler(asc));
     }
 
     /**

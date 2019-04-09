@@ -1,6 +1,7 @@
-package com.itheima.teach.aio.client;
+package com.itheima.teach.aio.common.handler;
 
 import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 
 /**
@@ -15,6 +16,12 @@ import java.nio.channels.CompletionHandler;
 public class WriteHandler implements CompletionHandler<Integer, ByteBuffer> {
 
 
+    private final AsynchronousSocketChannel asc;
+
+    public WriteHandler(AsynchronousSocketChannel asc) {
+        this.asc = asc;
+    }
+
     /**
      * 写出完成触发该方法
      *
@@ -24,9 +31,7 @@ public class WriteHandler implements CompletionHandler<Integer, ByteBuffer> {
     @Override
     public void completed(Integer result, ByteBuffer buffer) {
         if (buffer.hasRemaining()) {
-            System.out.println("没写完");
-        } else {
-            System.out.println("写完了");
+            asc.write(buffer, buffer, this);
         }
     }
 

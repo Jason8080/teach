@@ -1,5 +1,6 @@
 package com.itheima.teach.aio.server;
 
+import com.itheima.teach.aio.common.handler.ReadHandler;
 import com.itheima.teach.aio.common.kit.BufferKit;
 
 import java.nio.ByteBuffer;
@@ -28,9 +29,9 @@ public class ServerHandler implements CompletionHandler<AsynchronousSocketChanne
     public void completed(AsynchronousSocketChannel asc, AsynchronousServerSocketChannel server) {
         // 不断接收新连接
         server.accept(server, new ServerHandler());
-        System.out.println("有链接了"+asc);
+        // 读取客户端消息
         ByteBuffer buffer = BufferKit.getDef();
-        asc.read(buffer, buffer, new ReadHandler());
+        asc.read(buffer, buffer, new ReadHandler(asc));
     }
 
 
