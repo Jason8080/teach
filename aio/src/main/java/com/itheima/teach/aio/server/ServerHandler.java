@@ -21,11 +21,13 @@ public class ServerHandler implements CompletionHandler<AsynchronousSocketChanne
 
     /**
      * 有客户端连接触发该方法
-     * @param asc
-     * @param server
+     * @param asc 客户端
+     * @param server 服务端参数
      */
     @Override
     public void completed(AsynchronousSocketChannel asc, AsynchronousServerSocketChannel server) {
+        // 不断接收新连接
+        server.accept(server, new ServerHandler());
         System.out.println("有链接了"+asc);
         ByteBuffer buffer = BufferKit.getDef();
         asc.read(buffer, buffer, new ReadHandler());
