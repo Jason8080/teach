@@ -1,8 +1,14 @@
 package com.itheima.teach.aio.server;
 
 import com.itheima.teach.aio.common.constant.Address;
+import com.itheima.teach.aio.common.handler.WriteHandler;
+import com.itheima.teach.aio.common.kit.Console;
+import com.itheima.teach.aio.common.kit.Writer;
+import com.itheima.teach.aio.common.run.ClientManager;
 
+import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousServerSocketChannel;
+import java.nio.channels.AsynchronousSocketChannel;
 
 /**
  * 服务器入口.
@@ -24,7 +30,16 @@ public class Server {
         // 接受请求
         server.accept(server, new ServerHandler());
 
-        // 主线程睡眠1小时
-        Thread.sleep(1000*60*60);
+        String content;
+        while (true) {
+            // 获取用户输入内容
+            content = Console.reader.readLine();
+            // 封装内容
+            ByteBuffer buffer = ByteBuffer.wrap(content.getBytes());
+            // 获取客户端
+            AsynchronousSocketChannel asc = ClientManager.get();
+            // 写出内容
+            Writer.write(buffer, asc);
+        }
     }
 }

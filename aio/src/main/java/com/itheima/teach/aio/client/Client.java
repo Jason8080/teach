@@ -1,7 +1,8 @@
 package com.itheima.teach.aio.client;
 
-import com.itheima.teach.aio.common.handler.WriteHandler;
 import com.itheima.teach.aio.common.constant.Address;
+import com.itheima.teach.aio.common.kit.Console;
+import com.itheima.teach.aio.common.kit.Writer;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
@@ -23,13 +24,14 @@ public class Client {
         // 连接服务器
         asc.connect(Address.loc, asc, new ClientHandler());
 
-        // 准备内容
-        ByteBuffer buffer = ByteBuffer.wrap("666".getBytes());
-
-        // 写出内容
-        asc.write(buffer, buffer, new WriteHandler(asc));
-
-        // 主线程睡眠1小时
-        Thread.sleep(1000*60*60);
+        String content;
+        while (true) {
+            // 获取用户输入内容
+            content = Console.reader.readLine();
+            // 封装内容
+            ByteBuffer buffer = ByteBuffer.wrap(content.getBytes());
+            // 写出内容
+            Writer.write(buffer, asc);
+        }
     }
 }
