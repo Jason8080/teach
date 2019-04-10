@@ -3,11 +3,12 @@ package com.itheima.teach.aio.server;
 import com.itheima.teach.aio.common.constant.Address;
 import com.itheima.teach.aio.common.kit.Console;
 import com.itheima.teach.aio.common.kit.Writer;
-import com.itheima.teach.aio.common.run.ClientManager;
+import com.itheima.teach.aio.common.run.GroupManager;
+import com.itheima.teach.aio.common.bo.Client;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousServerSocketChannel;
-import java.nio.channels.AsynchronousSocketChannel;
+import java.util.List;
 
 /**
  * 服务器入口.
@@ -36,9 +37,9 @@ public class Server {
             // 封装内容
             ByteBuffer buffer = ByteBuffer.wrap(content.getBytes());
             // 获取客户端
-            AsynchronousSocketChannel asc = ClientManager.get();
+            List<Client> clients = GroupManager.get(GroupManager.DEFAULT_ID);
             // 写出内容
-            Writer.write(buffer, asc);
+            Writer.write(buffer, clients);
         }
     }
 }

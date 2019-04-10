@@ -1,6 +1,6 @@
 package com.itheima.teach.aio.common.handler;
 
-import com.itheima.teach.aio.server.bo.Client;
+import com.itheima.teach.aio.common.bo.Client;
 import com.itheima.teach.aio.common.kit.BufferKit;
 import com.itheima.teach.aio.common.run.ClientManager;
 

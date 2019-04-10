@@ -2,7 +2,7 @@ package com.itheima.teach.aio.common.run;
 
 
 
-import com.itheima.teach.aio.server.bo.Client;
+import com.itheima.teach.aio.common.bo.Client;
 
 import java.io.IOException;
 import java.nio.channels.AsynchronousSocketChannel;
@@ -85,6 +85,7 @@ public class ClientManager {
     public static void put(AsynchronousSocketChannel asc) {
         Client client = new Client(asc);
         clients.put(client.getAlias(), client);
+        GroupManager.put(GroupManager.DEFAULT_ID, client);
     }
 
     /**

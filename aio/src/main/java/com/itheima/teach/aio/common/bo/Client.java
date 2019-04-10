@@ -1,4 +1,4 @@
-package com.itheima.teach.aio.server.bo;
+package com.itheima.teach.aio.common.bo;
 
 import java.nio.channels.AsynchronousSocketChannel;
 import java.util.UUID;
