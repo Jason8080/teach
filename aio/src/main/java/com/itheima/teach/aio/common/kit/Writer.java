@@ -4,6 +4,7 @@ import com.itheima.teach.aio.common.handler.WriteHandler;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
+import java.util.Arrays;
 
 /**
  * 写出工具.
@@ -18,10 +19,15 @@ public class Writer {
     /**
      * 写出内容到指定客户端.
      *
-     * @param buffer 内容
-     * @param asc    客户端
+     * @param buffer  内容
+     * @param clients 客户端
      */
-    public static void write(ByteBuffer buffer, AsynchronousSocketChannel asc){
-        asc.write(buffer, buffer, new WriteHandler(asc));
+    public static void write(ByteBuffer buffer, AsynchronousSocketChannel... clients) {
+        Arrays.stream(clients)
+                .forEach(asc -> {
+                    if (asc != null) {
+                        asc.write(buffer, buffer, new WriteHandler(asc));
+                    }
+                });
     }
 }

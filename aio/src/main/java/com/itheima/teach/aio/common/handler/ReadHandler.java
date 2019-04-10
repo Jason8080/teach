@@ -1,5 +1,6 @@
 package com.itheima.teach.aio.common.handler;
 
+import com.itheima.teach.aio.server.bo.Client;
 import com.itheima.teach.aio.common.kit.BufferKit;
 import com.itheima.teach.aio.common.run.ClientManager;
 
@@ -26,6 +27,7 @@ public class ReadHandler implements CompletionHandler<Integer, ByteBuffer> {
 
     /**
      * 有内容读取将触发该方法
+     *
      * @param result
      * @param buffer
      */
@@ -34,16 +36,17 @@ public class ReadHandler implements CompletionHandler<Integer, ByteBuffer> {
         // 不断读取客户端消息
         ByteBuffer next = BufferKit.getDef();
         asc.read(next, next, new ReadHandler(asc));
+        // 根据asc获取客户端
+        Client client = ClientManager.get(asc);
+        String alias = client != null ? client.getAlias() : "服务端";
         // 处理消息
         String text = new String(buffer.array(), 0, result);
-        System.out.println(text);
-        // 处理信息后回复消息
-//        ByteBuffer content = ByteBuffer.wrap("收到: ".concat(text).getBytes());
-//        asc.write(content, content, new WriteHandler(asc));
+        System.out.println(alias + ": " + text);
     }
 
     /**
      * 内容读取失败将触发该方法
+     *
      * @param exc
      * @param buffer
      */
