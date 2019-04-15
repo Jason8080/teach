@@ -11,5 +11,7 @@
 
     <artifactId>mybatis-day01-custom</artifactId>
 
+    <dependencies>
 
+    </dependencies>
 </project>

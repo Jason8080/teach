@@ -11,4 +11,7 @@
 
     <artifactId>mybatis-day01-jdbc</artifactId>
 
+    <dependencies>
+
+    </dependencies>
 </project>
