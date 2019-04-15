@@ -2,13 +2,7 @@ package com.itheima.mybatis.day01.framework;
 
 import com.itheima.mybatis.day01.framework.mapper.UserMapper;
 import com.itheima.mybatis.day01.framework.model.User;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.jdbc.SQL;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -29,31 +23,19 @@ public class MybatisFrameworkTests {
 4. 编写启动程序 (官网)
      */
     public static void main(String[] args) throws Exception {
-        // 加载配置文件
-        InputStream in = Resources.getResourceAsStream("mybatis.xml");
-        // 根据文件构造会话工厂 (生产会话连接的工具类)
-        SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
-        // 获取会话连接对象 (数据库连接对象)
-        SqlSession sqlSession = factory.openSession();
-        // 创建实例对象 (根据配置信息创建)
-        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+
+        // 第1步: 创建连接
 
 
 
-
-
-        // 执行查找所有用户操作
+        // 第2步: 执行操作 (别想太多, 你只会方法调用!)
+        UserMapper mapper = null;
+        // 执行操作
         List<User> all = mapper.findAll();
-        // 处理结果
         all.forEach(u -> System.out.println(u));
 
 
+        // 第3步: 关闭资源
 
-
-
-
-        // 关闭资源
-        sqlSession.close();
-        in.close();
     }
 }
