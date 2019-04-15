@@ -352,38 +352,12 @@
 
 ###### 准备文件
 
-1. User.java (接收数据)
-2. UserMapper.java (操作对象)
-3. **数据库文件** (连接参数)
-4. **sql文件** (执行语句)
+​	==引入案例 **所有文件** , 唯独不引入Mybatis.==
 
-
-
-###### 文件示例
-
-- User.java
-
-  ```java
-  
-  ```
-
-- UserMapper.java
-
-  ```java
-  
-  ```
-
-- mybatis.xml
-
-  ```xml
-  
-  ```
-
-- userMapper.xml
-
-  ```xml
-  
-  ```
+ 	1. User.java (已复制)
+ 	2. UserMapper.java (已复制)
+ 	3. 数据库文件 (已复制)
+ 	4. sql文件 (已复制)
 
 
 
@@ -394,6 +368,8 @@
    
 
 2. 需要准备哪些配置?
+
+   
 
 
 
