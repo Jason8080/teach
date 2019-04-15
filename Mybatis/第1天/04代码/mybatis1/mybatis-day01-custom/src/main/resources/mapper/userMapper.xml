@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 使用namespace指定操作类型; -->
+<mapper namespace="com.itheima.mybatis.day01.framework.mapper.UserMapper">
+    <!-- 指定操作名称; 指定封装类; 执行语句 -->
+    <select id="findAll" resultType="com.itheima.mybatis.day01.framework.model.User">
+
+
+
+        /*别找了, 你只认识我*/
+        select * from user
+
+
+
+
+    </select>
+    <!-- 一大波 sql语句 即将来袭.. -->
+    <!-- 一大波 sql语句 即将来袭.. -->
+    <!-- 一大波 sql语句 即将来袭.. -->
+</mapper>
