@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 指定操作类型(指定文件归属的操作类) -->
+<mapper namespace="com.itheima.mybatis.day02.crud.mapper.OrderMapper">
+
+    <resultMap id="OrderMap" type="com.itheima.mybatis.day02.crud.model.Order">
+        <result column="user_id" property="userId"/>
+    </resultMap>
+
+    <!-- 指定操作名称; 指定封装类; 执行语句 -->
+    <select id="countOrder" resultType="int">
+        select count(*) from orders where user_id = #{id}
+    </select>
+
+    <!-- 指定操作名称; 指定封装类; 执行语句 -->
+    <select id="findAll" resultMap="OrderMap">
+        select * from orders
+    </select>
+
+
+</mapper>
