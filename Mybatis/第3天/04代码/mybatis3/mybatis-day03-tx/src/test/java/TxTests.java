@@ -1,3 +1,5 @@
+import com.itheima.mybatis.day03.tx.dao.mapper.impl.UserDaoImpl;
+import com.itheima.mybatis.day03.tx.dao.model.User;
 import org.junit.Test;
 
 /**
@@ -12,7 +14,20 @@ import org.junit.Test;
 public class TxTests {
 
     @Test
-    public void testJdbc() {
+    public void testJdbcManual() {
+        UserDaoImpl userDao = new UserDaoImpl();
+        User user = new User();
+        user.setUsername("JDBC");
+        user.setAddress("手动");
+        userDao.saveUserManual(user);
+    }
 
+    @Test
+    public void testJdbcAuto() {
+        UserDaoImpl userDao = new UserDaoImpl();
+        User user = new User();
+        user.setUsername("JDBC");
+        user.setAddress("自动");
+        userDao.saveUserAuto(user);
     }
 }

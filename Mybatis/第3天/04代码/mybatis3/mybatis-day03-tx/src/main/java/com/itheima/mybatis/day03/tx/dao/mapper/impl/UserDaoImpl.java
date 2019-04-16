@@ -17,8 +17,16 @@ import org.apache.ibatis.session.SqlSession;
 public class UserDaoImpl implements UserDao {
 
     @Override
-    public void saveUser(User user) {
+    public void saveUserManual(User user) {
         SqlSession sqlSession = SqlSessionKit.openSession();
         sqlSession.insert("test.save", user);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+    @Override
+    public void saveUserAuto(User user) {
+        SqlSession sqlSession = SqlSessionKit.openSession(true);
+        sqlSession.insert("test.save", user);
+        sqlSession.close();
     }
 }

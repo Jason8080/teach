@@ -11,5 +11,6 @@ public interface UserDao {
      *
      * @param user 用户
      */
-    void saveUser(User user);
+    void saveUserManual(User user);
+    void saveUserAuto(User user);
 }
