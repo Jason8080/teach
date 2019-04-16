@@ -1,4 +1,4 @@
-package com.itheima.mybatis.day02.crud.kit;
+package com.itheima.mybatis.day02.dao.kit;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;

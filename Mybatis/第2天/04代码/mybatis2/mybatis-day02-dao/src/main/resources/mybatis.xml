@@ -14,7 +14,7 @@
     <!-- 别名设置 -->
     <typeAliases>
         <!-- 单独设置 -->
-        <!--<typeAlias type="com.itheima.mybatis.day02.crud.model.User" alias="user"/>-->
+        <!--<typeAlias type="User" alias="user"/>-->
         <package name="com.itheima.mybatis.day02.crud.model"/>
     </typeAliases>
 

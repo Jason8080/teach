@@ -1,4 +1,4 @@
-package com.itheima.mybatis.day02.crud.model;
+package com.itheima.mybatis.day02.dao.model;
 
 import lombok.Data;
 

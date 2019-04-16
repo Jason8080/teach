@@ -1,8 +1,8 @@
-package com.itheima.mybatis.day02.crud.mapper.impl;
+package com.itheima.mybatis.day02.dao.mapper.impl;
 
-import com.itheima.mybatis.day02.crud.kit.SqlSessionKit;
-import com.itheima.mybatis.day02.crud.mapper.UserDao;
-import com.itheima.mybatis.day02.crud.model.User;
+import com.itheima.mybatis.day02.dao.kit.SqlSessionKit;
+import com.itheima.mybatis.day02.dao.mapper.UserDao;
+import com.itheima.mybatis.day02.dao.model.User;
 import org.apache.ibatis.session.SqlSession;
 
 /**

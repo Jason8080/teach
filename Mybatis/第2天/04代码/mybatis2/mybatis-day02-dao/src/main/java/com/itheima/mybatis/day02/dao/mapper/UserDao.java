@@ -1,6 +1,6 @@
-package com.itheima.mybatis.day02.crud.mapper;
+package com.itheima.mybatis.day02.dao.mapper;
 
-import com.itheima.mybatis.day02.crud.model.User;
+import com.itheima.mybatis.day02.dao.model.User;
 
 /**
  * 用户操作类
