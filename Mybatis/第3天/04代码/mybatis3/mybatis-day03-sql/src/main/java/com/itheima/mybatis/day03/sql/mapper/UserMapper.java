@@ -1,6 +1,6 @@
 package com.itheima.mybatis.day03.sql.mapper;
 
-import com.itheima.mybatis.day02.crud.model.User;
+import com.itheima.mybatis.day03.sql.model.User;
 
 import java.util.List;
 
@@ -12,54 +12,17 @@ import java.util.List;
  */
 public interface UserMapper {
     /**
-     * 查询所有用户.
-     * <p>
-     * findAll: 操作名称
-     * </p>
+     * 根据用户对象参数查询用户
      *
+     * @param user 查询条件对象
      * @return 查询结果 list
      */
-    List<User> findAll();
-
-
-    /**
-     * 根据ID查找用户.
-     *
-     * @param id 参数
-     * @return 查询结果 user
-     */
-    User findById(Integer id);
-
+    List<User> findBy(User user);
 
     /**
-     * 保存用户.
+     * 更新用户.
      *
-     * @param user the user
+     * @param user 用户信息
      */
-    void saveUser(User user);
-
-
-    /**
-     * 根据部分用户名模糊查询用户.
-     *
-     * @param username the username
-     * @return the list
-     */
-    List<User> likeByUsername(String username);
-
-
-    /**
-     * 修改用户.
-     *
-     * @param user the user
-     */
-    void updateUser(User user);
-
-    /**
-     * 删除用户.
-     *
-     * @param user the user
-     */
-    void deleteUser(User user);
-
+    void update(User user);
 }

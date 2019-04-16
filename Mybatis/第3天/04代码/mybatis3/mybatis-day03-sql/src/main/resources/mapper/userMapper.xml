@@ -5,46 +5,35 @@
 <!-- 指定操作类型(指定文件归属的操作类) -->
 <mapper namespace="com.itheima.mybatis.day03.sql.mapper.UserMapper">
 
-
+    <sql id="fields">
+        username,birthday,sex,address
+    </sql>
     <!-- 指定操作名称; 指定封装类; 执行语句 -->
-    <select id="findAll" resultType="com.itheima.mybatis.day03.sql.model.User">
-        select * from user
+    <select id="findBy" resultType="com.itheima.mybatis.day03.sql.model.User">
+        select <include refid="fields"/> from user
+        <where>
+            <if test="username !=null and username!=''">
+                and username like #{username}
+            </if>
+            <if test="sex !=null and sex!=''">
+                and sex = #{sex}
+            </if>
+        </where>
     </select>
 
-
-
-    <!-- 指定操作名称; 指定封装类; 执行语句 -->
-    <select id="findById" parameterType="int" resultType="user">
-        select * from user where id = #{usernmae}
-    </select>
-
-
-    <!-- 指定操作名称; 指定封装类; 执行语句 -->
-    <insert id="saveUser" parameterType="com.itheima.mybatis.day03.sql.model.User"
-            useGeneratedKeys="true" keyProperty="id">
-        <!--<selectKey resultType="int" keyColumn="id" keyProperty="id">
-            &#45;&#45; 查询当前连接中最后一个自增长主键值
-            select LAST_INSERT_ID()
-        </selectKey>-->
-
-        insert into user(username, birthday, sex, address)
-        values(#{username}, #{birthday}, #{sex}, #{address})
-    </insert>
-
-
-    <!-- 指定操作名称; 指定封装类; 执行语句 -->
-    <select id="likeByUsername" parameterType="string" resultType="com.itheima.mybatis.day03.sql.model.User">
-        select * from user where username like '${value}'
-    </select>
-
-    <!-- 指定操作名称; 指定封装类; 执行语句 -->
-    <update id="updateUser" parameterType="com.itheima.mybatis.day03.sql.model.User">
-        update user set username=#{username}, birthday=#{birthday}, sex=#{sex}, address=#{address} where id = #{id}
+    <update id="update" parameterType="com.itheima.mybatis.day03.sql.model.User">
+        update user
+        <set>
+            <if test="birthday!=null">
+                birthday=#{birthday},
+            </if>
+            <if test="sex!=null and sex!=''">
+                sex=#{sex},
+            </if>
+        </set>
+        where id = #{id}
     </update>
 
-    <!-- 指定操作名称; 指定封装类; 执行语句 -->
-    <delete id="deleteUser" parameterType="com.itheima.mybatis.day03.sql.model.User">
-        delete from user where id = #{id}
-    </delete>
+
 
 </mapper>
