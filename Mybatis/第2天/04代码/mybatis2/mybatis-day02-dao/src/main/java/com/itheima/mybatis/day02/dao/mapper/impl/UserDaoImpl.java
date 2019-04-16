@@ -19,6 +19,7 @@ public class UserDaoImpl implements UserDao{
     public User findById(Integer id) {
         SqlSession sqlSession = SqlSessionKit.openSession();
         User user = sqlSession.selectOne("test.queryById", id);
+        sqlSession.close();
         return user;
     }
 }

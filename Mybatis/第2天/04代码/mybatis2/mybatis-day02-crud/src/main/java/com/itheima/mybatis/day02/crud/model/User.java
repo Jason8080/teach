@@ -1,7 +1,5 @@
 package com.itheima.mybatis.day02.crud.model;
 
-import lombok.Data;
-
 import java.util.Date;
 
 /**
@@ -16,7 +14,6 @@ import java.util.Date;
  * @description : User
  * @modified : -
  */
-@Data
 public class User {
     private Integer id;
     private String username;
@@ -34,5 +31,25 @@ public class User {
                 ", sex='" + sex + '\'' +
                 ", address='" + address + '\'' +
                 '}';
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

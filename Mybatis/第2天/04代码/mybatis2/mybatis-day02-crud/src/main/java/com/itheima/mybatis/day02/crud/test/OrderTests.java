@@ -29,7 +29,7 @@ public class OrderTests {
         Integer count = mapper.countOrder(1);
         System.out.println(count);
         // 关闭资源
-        SqlSessionKit.close();
+        sqlSession.close();
     }
 
     @Test
@@ -41,6 +41,6 @@ public class OrderTests {
         List<Order> all = mapper.findAll();
         all.forEach(u -> System.out.println(u));
         // 关闭资源
-        SqlSessionKit.close();
+        sqlSession.close();
     }
 }

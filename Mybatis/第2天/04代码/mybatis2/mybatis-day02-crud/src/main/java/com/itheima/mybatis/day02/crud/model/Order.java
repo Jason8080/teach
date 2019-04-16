@@ -1,7 +1,5 @@
 package com.itheima.mybatis.day02.crud.model;
 
-import lombok.Data;
-
 import java.util.Date;
 
 /**
@@ -16,11 +14,21 @@ import java.util.Date;
  * @description : Order
  * @modified : -
  */
-@Data
 public class Order {
     private Integer id;
     private Integer userId;
     private String number;
     private Date createTime;
     private String note;
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", number='" + number + '\'' +
+                ", createTime=" + createTime +
+                ", note='" + note + '\'' +
+                '}';
+    }
 }

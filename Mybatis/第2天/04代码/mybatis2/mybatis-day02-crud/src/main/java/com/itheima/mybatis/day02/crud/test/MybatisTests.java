@@ -29,7 +29,7 @@ public class MybatisTests {
         List<User> all = mapper.findAll();
         all.forEach(u -> System.out.println(u));
         // 关闭资源
-        SqlSessionKit.close();
+        sqlSession.close();
     }
 
 
@@ -42,7 +42,7 @@ public class MybatisTests {
         User u = mapper.findById(24);
         System.out.println(u);
         // 关闭资源
-        SqlSessionKit.close();
+        sqlSession.close();
     }
 
 
@@ -63,7 +63,7 @@ public class MybatisTests {
 
         System.out.println(u);
         // 关闭资源
-        SqlSessionKit.close();
+        sqlSession.close();
     }
 
 
@@ -79,7 +79,7 @@ public class MybatisTests {
         List<User> all = mapper.likeByUsername("陈");
         all.forEach(u -> System.out.println(u));
         // 关闭资源
-        SqlSessionKit.close();
+        sqlSession.close();
     }
 
 
@@ -100,7 +100,7 @@ public class MybatisTests {
         // 提交事务
         sqlSession.commit();
         // 关闭资源
-        SqlSessionKit.close();
+        sqlSession.close();
     }
 
 
@@ -116,7 +116,7 @@ public class MybatisTests {
         // 提交事务
         sqlSession.commit();
         // 关闭资源
-        SqlSessionKit.close();
+        sqlSession.close();
     }
 
 
