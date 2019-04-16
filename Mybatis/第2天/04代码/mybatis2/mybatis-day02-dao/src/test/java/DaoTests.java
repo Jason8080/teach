@@ -1,4 +1,3 @@
-package com.itheima.mybatis.day02.dao.test;
 
 import com.itheima.mybatis.day02.dao.mapper.impl.UserDaoImpl;
 import com.itheima.mybatis.day02.dao.model.User;

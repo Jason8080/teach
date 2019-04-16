@@ -1,4 +1,3 @@
-package com.itheima.mybatis.day01.custom;
 
 /**
  * 自定义框架测试.

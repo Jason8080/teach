@@ -1,4 +1,3 @@
-package com.itheima.mybatis.day02.crud.test;
 
 import com.itheima.mybatis.day02.crud.kit.SqlSessionKit;
 import com.itheima.mybatis.day02.crud.mapper.UserMapper;
