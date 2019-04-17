@@ -12,7 +12,7 @@
         <result property="sex" column="sex"/>
         <result property="address" column="address"/>
         <collection property="orders" ofType="order">
-            <id property="id" column="id"/>
+            <id property="id" column="oid"/>
             <result property="userId" column="user_id"/>
             <result property="number" column="number"/>
             <result property="createTime" column="createTime"/>
@@ -21,7 +21,16 @@
     </resultMap>
 
     <select id="findAll" resultMap="UserMap">
-        SELECT * FROM user u
+        SELECT
+        u.id,
+        u.username,
+        u.birthday,
+        u.sex,
+        u.address,
+        o.id oid,
+        o.number,
+        o.createtime
+        FROM user u
         LEFT JOIN orders o ON o.user_id = u.id
     </select>
 
