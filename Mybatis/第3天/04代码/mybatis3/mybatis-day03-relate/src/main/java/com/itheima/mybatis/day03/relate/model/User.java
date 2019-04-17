@@ -23,6 +23,7 @@ public class User {
     private String address;
 
     private List<Order> orders;
+    private List<Role> roles;
 
     @Override
     public String toString() {
@@ -33,6 +34,7 @@ public class User {
                 ", sex='" + sex + '\'' +
                 ", address='" + address + '\'' +
                 ", orders=" + orders +
+                ", roles=" + roles +
                 '}';
     }
 

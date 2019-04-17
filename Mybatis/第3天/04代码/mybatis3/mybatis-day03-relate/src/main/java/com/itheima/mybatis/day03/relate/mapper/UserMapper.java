@@ -17,4 +17,10 @@ public interface UserMapper {
      * @return the list
      */
     List<User> findAll();
+
+    /**
+     * 查找所有用户并显示关联角色信息
+     * @return
+     */
+    List<User> findM2M();
 }

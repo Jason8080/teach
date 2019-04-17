@@ -35,4 +35,10 @@ public class AssociationTests {
         all.forEach(u -> System.out.println(u));
         sqlSession.close();
     }
+    @Test
+    public void testM2M(){
+        List<User> all = userMapper.findM2M();
+        all.forEach(u -> System.out.println(u));
+        sqlSession.close();
+    }
 }
