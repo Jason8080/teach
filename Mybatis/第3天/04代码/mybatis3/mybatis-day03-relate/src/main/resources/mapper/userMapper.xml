@@ -4,5 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 指定操作类型(指定文件归属的操作类) -->
 <mapper namespace="com.itheima.mybatis.day03.relate.mapper.UserMapper">
+    <resultMap id="UserMap" type="user">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="birthday" column="birthday"/>
+        <result property="sex" column="sex"/>
+        <result property="address" column="address"/>
+        <collection property="orders" ofType="order">
+            <id property="id" column="id"/>
+            <result property="userId" column="user_id"/>
+            <result property="number" column="number"/>
+            <result property="createTime" column="createTime"/>
+            <result property="note" column="note"/>
+        </collection>
+    </resultMap>
 
+    <select id="findAll" resultMap="UserMap">
+        SELECT * FROM user u
+        LEFT JOIN orders o ON o.user_id = u.id
+    </select>
 </mapper>

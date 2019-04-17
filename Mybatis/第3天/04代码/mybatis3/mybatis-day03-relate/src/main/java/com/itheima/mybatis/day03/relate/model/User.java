@@ -1,6 +1,7 @@
 package com.itheima.mybatis.day03.relate.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户类.
@@ -21,6 +22,7 @@ public class User {
     private String sex;
     private String address;
 
+    private List<Order> orders;
 
     @Override
     public String toString() {
@@ -30,6 +32,7 @@ public class User {
                 ", birthday=" + birthday +
                 ", sex='" + sex + '\'' +
                 ", address='" + address + '\'' +
+                ", orders=" + orders +
                 '}';
     }
 
