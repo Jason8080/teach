@@ -59,4 +59,12 @@ public class SqlTests {
         List<User> users = mapper.findBy(new User());
         users.forEach(u -> System.out.println(u));
     }
+    @Test
+    public void testForeach(){
+        SqlSession sqlSession = SqlSessionKit.openSession(true);
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        // 查询所有用户
+        List<User> users = mapper.findByIds(1,11);
+        users.forEach(u -> System.out.println(u));
+    }
 }

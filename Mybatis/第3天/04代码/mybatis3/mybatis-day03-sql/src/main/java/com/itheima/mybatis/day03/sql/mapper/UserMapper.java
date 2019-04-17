@@ -12,6 +12,14 @@ import java.util.List;
  */
 public interface UserMapper {
     /**
+     * 根据多个id查找用户
+     *
+     * @param ids id数组
+     * @return 查询结果 list
+     */
+    List<User> findByIds(Integer... ids);
+
+    /**
      * 根据用户对象参数查询用户
      *
      * @param user 查询条件对象
