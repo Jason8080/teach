@@ -353,10 +353,10 @@
 
 ​	==引入案例 **所有文件** , 唯独不引入Mybatis.==
 
- 	1. User.java (已复制)
-		2. UserMapper.java (已复制)
-		3. 数据库文件 (已复制)
-		4. sql文件 (已复制)
+   	1. User.java (已复制)
+   	2. UserMapper.java (已复制)
+   	3. mybatis.xml (已复制)
+   	4. userMapper.xml(已复制)
 
 
 
@@ -380,20 +380,20 @@
 
 ##### 步骤
 
-###### 核心代码封装
+###### 封装配置文件
 
-1. Configuration.java封装  *数据库文件*
-2. Mapper.java封装  *sql文件*
-3. SqlSession.java提供动态代理方法
+1. Configuration.java - **mybatis.xml**
+2. Mapper.java - **userMapper.xml**
+3. SqlSession.java - 提供生成实例对象的方法
 
-###### 核心配置加载
+###### 加载配置文件
 
-1. 主配置文件 ---- **数据库文件**
-2. 操作映射配置文件 ---- **sql文件**
+1. **mybatis.xml**
+2. **userMapper.xml**
 
-###### 操作工具封装
+###### 封装操作工具
 
-1. public static <T> List<T> selectList(Mapper mapper, Connection con);
+1. public static <T> List<T> selectList(Connection con, Mapper mapper);
 2. private static List handler(rs, resultType)
 
 ##### 操作
