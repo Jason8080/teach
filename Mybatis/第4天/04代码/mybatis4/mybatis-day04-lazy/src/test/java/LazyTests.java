@@ -21,6 +21,7 @@ public class LazyTests {
 
     SqlSession sqlSession = SqlSessionKit.openSession();
     OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+    UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
 
     @Test
@@ -28,6 +29,12 @@ public class LazyTests {
         List<Order> all = orderMapper.findAll();
         all.get(0).getId();
 //        all.forEach(o -> System.out.println(o));
+        sqlSession.close();
+    }
+    @Test
+    public void testById(){
+        User user = userMapper.findById(24);
+        System.out.println(user);
         sqlSession.close();
     }
 }
