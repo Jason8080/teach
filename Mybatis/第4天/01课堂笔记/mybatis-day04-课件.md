@@ -553,3 +553,50 @@ public void testO2M(){
 
 ### 五、总结
 
+#### 延迟加载
+
+##### setting
+
+- lazyLoadingEnabled: 开启延迟加载
+- aggressiveLazyLoading: 方法调用时触发延迟加载
+
+##### association
+
+```xml
+<association property="user" javaType="user" column="user_id" select="com.itheima.mybatis.day02.lazy.mapper.UserMapper.findById"/>
+```
+
+##### collection
+
+```xml
+<collection property="orders" ofType="order" column="id" select="com.itheima.mybatis.day02.lazy.mapper.OrderMapper.findByUserId"/>
+```
+
+#### 缓存
+
+##### 一级缓存
+
+- 同SqlSession中执行过的语句将被保存, 再次执行将从一级缓存中读取
+- 共享范围仅限相同的SqlSession
+- 清除时会清除整个SqlSession的缓存数据
+
+##### 二级缓存
+
+- 不同SqlSession中执行过的语句将被保存, 再次执行将从二级缓存中读取
+- 共享范围在整个框架的上下文
+- 清除时只清除名称空间的缓存数据
+
+#### 注解开发
+
+##### 基本注解
+
+```java
+@Insert, @Update, @Select, @Delete, @SelectKey
+```
+
+##### 高级注解
+
+```java
+@Results, @Result, @One, @Many
+```
+
