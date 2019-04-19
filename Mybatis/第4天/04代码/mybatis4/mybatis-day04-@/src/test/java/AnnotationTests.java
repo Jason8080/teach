@@ -1,5 +1,7 @@
 import com.itheima.mybatis.day04.a.kit.SqlSessionKit;
+import com.itheima.mybatis.day04.a.mapper.OrderMapper;
 import com.itheima.mybatis.day04.a.mapper.UserMapper;
+import com.itheima.mybatis.day04.a.model.Order;
 import com.itheima.mybatis.day04.a.model.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
@@ -80,6 +82,19 @@ public class AnnotationTests {
         mapper.deleteUser(u);
         // 提交事务
         sqlSession.commit();
+        // 关闭资源
+        sqlSession.close();
+    }
+
+
+    @Test
+    public void testO2O(){
+        // 创建连接
+        SqlSession sqlSession = SqlSessionKit.openSession();
+        // 执行操作
+        OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+        List<Order> all = mapper.findO2O();
+        all.forEach(o -> System.out.println(o));
         // 关闭资源
         sqlSession.close();
     }

@@ -1,7 +1,12 @@
 package com.itheima.mybatis.day04.a.mapper;
 
 import com.itheima.mybatis.day04.a.model.Order;
+import org.apache.ibatis.annotations.One;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * 操作类.
@@ -21,4 +26,18 @@ public interface OrderMapper {
             "where user_id = #{id}")
     Order findById(Integer id);
 
+    /**
+     * 一对一关联查询
+     * @return
+     */
+    @Select("select * from orders")
+    @Results({
+            @Result(id = true, property = "id", column = "id"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "number", column = "number"),
+            @Result(property = "createTime", column = "createtime"),
+            @Result(property = "note", column = "note"),
+            @Result(property = "user", column = "user_id", one = @One(select = "com.itheima.mybatis.day04.a.mapper.UserMapper.findById"))
+    })
+    List<Order> findO2O();
 }
