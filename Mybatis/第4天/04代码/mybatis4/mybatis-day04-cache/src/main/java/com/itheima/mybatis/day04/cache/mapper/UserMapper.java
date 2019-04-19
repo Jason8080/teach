@@ -1,6 +1,6 @@
-package com.itheima.mybatis.day02.lazy.mapper;
+package com.itheima.mybatis.day04.cache.mapper;
 
-import com.itheima.mybatis.day02.lazy.model.User;
+import com.itheima.mybatis.day04.cache.model.User;
 
 import java.util.List;
 
@@ -30,4 +30,9 @@ public interface UserMapper {
      */
     User findById(Integer id);
 
+    /**
+     *
+     * @param user
+     */
+    void update(User user);
 }

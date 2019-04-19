@@ -1,8 +1,8 @@
-import com.itheima.mybatis.day02.lazy.kit.SqlSessionKit;
-import com.itheima.mybatis.day02.lazy.mapper.OrderMapper;
-import com.itheima.mybatis.day02.lazy.mapper.UserMapper;
-import com.itheima.mybatis.day02.lazy.model.Order;
-import com.itheima.mybatis.day02.lazy.model.User;
+import com.itheima.mybatis.day04.lazy.kit.SqlSessionKit;
+import com.itheima.mybatis.day04.lazy.mapper.OrderMapper;
+import com.itheima.mybatis.day04.lazy.mapper.UserMapper;
+import com.itheima.mybatis.day04.lazy.model.Order;
+import com.itheima.mybatis.day04.lazy.model.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 

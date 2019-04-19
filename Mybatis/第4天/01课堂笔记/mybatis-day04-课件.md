@@ -125,9 +125,53 @@ public void testCollection(){
 
 　　Mybatis框架提供了缓存策略，通过缓存策略可以减少查询数据库的次数，提升系统性能。在mybatis框架中缓存分为一级缓存，和二级缓存。
 
-![1555653971467](assets/1555653971467.png)
-
 #### 3.2 一级缓存
+
+##### 3.2.1 用法
+
+###### 图解
+
+![1555662546255](assets/1555662546255.png)
+
+###### 测试
+
+- 在同一个SqlSession中执行相同的SQL语句
+
+###### 清空
+
+- 使用SqlSession提交事务即清空缓存
+- 清空缓存的目的是为了让缓存中存放最新数据，避免脏读
+
+
+
+##### 3.2.2 测试
+
+```java
+@Test
+public void testOne(){
+    SqlSession sqlSession = SqlSessionKit.openSession();
+    UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+    userMapper.findAll();
+    userMapper.findAll();
+    sqlSession.close();
+}
+```
+
+##### 3.2.3 结果
+
+> DEBUG [main] - Created connection 367967231.
+> DEBUG [main] - Setting autocommit to false on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@15eebbff]
+> DEBUG [main] - ==>  Preparing: **select * from user** 
+> DEBUG [main] - ==> Parameters: 
+> DEBUG [main] - <==      Total: 7
+> DEBUG [main] - Resetting autocommit to true on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@15eebbff]
+> DEBUG [main] - Closing JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@15eebbff]
+
+##### 3.2.4 结论
+
+- 同一个SqlSession执重复的SQL语句将从缓存中获取值
+- 第一次执行会从数据库中查询并存储到缓存中
+- 第二次执行会从缓存中获取值返回
 
 
 
@@ -135,11 +179,116 @@ public void testCollection(){
 
 #### 3.3 二级缓存
 
+##### 3.2.1 用法
+
+###### 图解
+
+![1555662647445](assets/1555662647445.png)
+
+###### 配置
+
+- mybatis.xml
+
+```xml
+<!-- 开启二级缓存 -->
+<setting name="cacheEnabled" value="true"/>
+```
+
+- userMapper.xml
+
+```xml
+<!-- 支持二级缓存 -->
+<cache/>
+```
+
+- User.java
+
+```java
+/**
+ * 二级缓存需要相关类实现序列化接口.
+ * <p>
+ *	二级缓存存储的是该对象的二进制数组
+ * </p>
+ */
+public class User implements Serializable {
+```
+
+###### 测试
+
+- 在不同的SqlSession中执行相同的SQL语句
+
+
+
+##### 3.2.2 测试
+
+```java
+@Test
+public void testOne(){
+    SqlSession sqlSession = SqlSessionKit.openSession();
+    UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+    OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+    // 查询userMapper
+    userMapper.findAll();
+    // 查询orderMapper
+    orderMapper.findAll();
+    User user = new User();
+    user.setId(1);
+    user.setAddress("6666666");
+    // 修改userMapper内容
+    userMapper.update(user);
+    sqlSession.commit();
+    sqlSession.close();
+}
+```
+
+```java
+@Test
+public void testTwo(){
+    testOne();
+    testOne();
+}
+```
+
+##### 3.2.3 结果
+
+> DEBUG [main] - ==>  Preparing: **select * from user** 
+> DEBUG [main] - ==> Parameters: 
+> DEBUG [main] - <==      Total: 7
+> DEBUG [main] - Cache Hit Ratio [com.itheima.mybatis.day04.cache.mapper.OrderMapper]: 0.0
+> DEBUG [main] - ==>  Preparing: select * from orders 
+> DEBUG [main] - ==> Parameters: 
+> DEBUG [main] - <==      Total: 3
+> DEBUG [main] - ==>  Preparing: update user SET address=? WHERE id = ? 
+> DEBUG [main] - ==> Parameters: 6666666(String), 1(Integer)
+> DEBUG [main] - <==    Updates: 1
+> DEBUG [main] - Committing JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@61bcd567]
+> DEBUG [main] - Resetting autocommit to true on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@61bcd567]
+> DEBUG [main] - Closing JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@61bcd567]
+> DEBUG [main] - Returned connection 1639765351 to pool.
+> DEBUG [main] - Cache Hit Ratio [com.itheima.mybatis.day04.cache.mapper.UserMapper]: 0.0
+> DEBUG [main] - Opening JDBC Connection
+> DEBUG [main] - Checked out connection 1639765351 from pool.
+> DEBUG [main] - Setting autocommit to false on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@61bcd567]
+> DEBUG [main] - ==>  Preparing: **select * from user** 
+> DEBUG [main] - ==> Parameters: 
+> DEBUG [main] - <==      Total: 7
+> DEBUG [main] - Cache Hit Ratio [com.itheima.mybatis.day04.cache.mapper.OrderMapper]: 0.5
+> DEBUG [main] - ==>  Preparing: update user SET address=? WHERE id = ? 
+> DEBUG [main] - ==> Parameters: 6666666(String), 1(Integer)
+> DEBUG [main] - <==    Updates: 1
+
+##### 3.2.3 结论
+
+- 不论哪个SqlSession执行相同的语句都将从二级缓存中获取数据
+- 清除二级缓存需要提交具体的增删改事务才会清除 **相应命名空间** 的缓存
+
 
 
 
 
 ### 四、注解开发
+
+
 
 
 

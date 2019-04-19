@@ -3,11 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 指定操作类型(指定文件归属的操作类) -->
-<mapper namespace="com.itheima.mybatis.day04.lazy.mapper.UserMapper">
+<mapper namespace="com.itheima.mybatis.day04.cache.mapper.UserMapper">
+
+    <cache/>
 
     <resultMap id="UserMap" type="user">
         <collection property="orders" ofType="order"
-                    select="com.itheima.mybatis.day04.lazy.mapper.OrderMapper.findByUserId"
+                    select="com.itheima.mybatis.day04.cache.mapper.OrderMapper.findByUserId"
                     column="id"/>
     </resultMap>
 
@@ -23,5 +25,20 @@
     <select id="findById" parameterType="int" resultType="user">
         select * from user where id = #{id}
     </select>
+
+
+    <update id="update" parameterType="user" >
+        update user
+        <set>
+            <if test="address!=null and address!=''">
+              address=#{address}
+            </if>
+        </set>
+        <where>
+            <if test="id!=null">
+                id = #{id}
+            </if>
+        </where>
+    </update>
 
 </mapper>

@@ -1,4 +1,4 @@
-package com.itheima.mybatis.day02.lazy.model;
+package com.itheima.mybatis.day04.lazy.model;
 
 import java.util.Date;
 import java.util.List;

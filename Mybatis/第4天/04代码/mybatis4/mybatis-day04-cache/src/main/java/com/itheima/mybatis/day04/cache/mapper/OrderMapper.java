@@ -1,6 +1,6 @@
-package com.itheima.mybatis.day02.lazy.mapper;
+package com.itheima.mybatis.day04.cache.mapper;
 
-import com.itheima.mybatis.day02.lazy.model.Order;
+import com.itheima.mybatis.day04.cache.model.Order;
 
 import java.util.List;
 
