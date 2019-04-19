@@ -451,19 +451,105 @@ public void testDeleteUser(){
 
 ###### 用法
 
+```java
+/**
+ * 一对一关联查询
+ * @return
+ */
+@Select("select * from orders")
+@Results({
+        @Result(id = true, property = "id", column = "id"),
+        @Result(property = "userId", column = "user_id"),
+        @Result(property = "number", column = "number"),
+        @Result(property = "createTime", column = "createtime"),
+        @Result(property = "note", column = "note"),
+        @Result(property = "user", column = "user_id", one = @One(select = "com.itheima.mybatis.day04.a.mapper.UserMapper.findById"))
+})
+List<Order> findO2O();
+```
+
 ###### 测试
+
+```java
+@Test
+public void testO2O(){
+    // 创建连接
+    SqlSession sqlSession = SqlSessionKit.openSession();
+    // 执行操作
+    OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
+    List<Order> all = mapper.findO2O();
+    all.forEach(o -> System.out.println(o));
+    // 关闭资源
+    sqlSession.close();
+}
+```
 
 ##### 4.2.2 一对多查询
 
 ###### 用法
 
+```java
+/**
+ * 一对多关联查询
+ * @return
+ */
+@Select("select * from user")
+@Results({
+        @Result(id = true, property = "id", column = "id"),
+        @Result(property = "username", column = "username"),
+        @Result(property = "birthday", column = "birthday"),
+        @Result(property = "sex", column = "sex"),
+        @Result(property = "address", column = "address"),
+        @Result(property = "orders", column = "id",
+                many = @Many(select = "com.itheima.mybatis.day04.a.mapper.OrderMapper.findById"))
+})
+List<User> findO2M();
+```
+
 ###### 测试
+
+```java
+@Test
+public void testO2M(){
+    // 创建连接
+    SqlSession sqlSession = SqlSessionKit.openSession();
+    // 执行操作
+    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+    List<User> all = mapper.findO2M();
+    all.forEach(u -> System.out.println(u));
+    // 关闭资源
+    sqlSession.close();
+}
+```
 
 ##### 4.2.3 延迟加载
 
 ###### 用法
 
+- FetchType: LAZY(懒加载), EAGER(急加载), DEFAULT(默认急加载)
+
+```java
+// 在一对一映射注解中加入fetchType = FetchType.LAZY
+@One(select = "com.itheima.mybatis.day04.a.mapper.UserMapper.findById", fetchType = FetchType.LAZY)
+// 在一对多映射注解中加入fetchType = FetchType.LAZY
+@Many(select = "com.itheima.mybatis.day04.a.mapper.OrderMapper.findById", fetchType = FetchType.LAZY)
+```
+
 ###### 测试
+
+```java
+@Test
+public void testO2M(){
+    // 创建连接
+    SqlSession sqlSession = SqlSessionKit.openSession();
+    // 执行操作
+    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+    List<User> all = mapper.findO2M();
+    //        all.forEach(u -> System.out.println(u));
+    // 关闭资源
+    sqlSession.close();
+}
+```
 
 ### 五、总结
 

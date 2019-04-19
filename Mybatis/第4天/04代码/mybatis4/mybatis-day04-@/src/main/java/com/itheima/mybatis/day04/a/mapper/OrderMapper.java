@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.mapping.FetchType;
 
 import java.util.List;
 
@@ -37,7 +38,10 @@ public interface OrderMapper {
             @Result(property = "number", column = "number"),
             @Result(property = "createTime", column = "createtime"),
             @Result(property = "note", column = "note"),
-            @Result(property = "user", column = "user_id", one = @One(select = "com.itheima.mybatis.day04.a.mapper.UserMapper.findById"))
+            @Result(property = "user", column = "user_id",
+                    one = @One(
+                            select = "com.itheima.mybatis.day04.a.mapper.UserMapper.findById",
+                            fetchType = FetchType.LAZY))
     })
     List<Order> findO2O();
 }

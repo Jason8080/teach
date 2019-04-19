@@ -2,6 +2,7 @@ package com.itheima.mybatis.day04.a.mapper;
 
 import com.itheima.mybatis.day04.a.model.User;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.FetchType;
 
 import java.util.List;
 
@@ -65,7 +66,9 @@ public interface UserMapper {
             @Result(property = "sex", column = "sex"),
             @Result(property = "address", column = "address"),
             @Result(property = "orders", column = "id",
-                    many = @Many(select = "com.itheima.mybatis.day04.a.mapper.OrderMapper.findById"))
+                    many = @Many(
+                            select = "com.itheima.mybatis.day04.a.mapper.OrderMapper.findById",
+                            fetchType = FetchType.LAZY))
     })
     List<User> findO2M();
 }

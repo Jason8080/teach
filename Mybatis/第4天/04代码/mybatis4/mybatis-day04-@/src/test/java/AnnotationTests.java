@@ -107,7 +107,7 @@ public class AnnotationTests {
         // 执行操作
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         List<User> all = mapper.findO2M();
-        all.forEach(u -> System.out.println(u));
+//        all.forEach(u -> System.out.println(u));
         // 关闭资源
         sqlSession.close();
     }
