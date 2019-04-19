@@ -32,6 +32,13 @@ public class LazyTests {
         sqlSession.close();
     }
     @Test
+    public void testCollection(){
+        List<User> all = userMapper.findAll();
+        all.get(0).getId();
+//        all.forEach(o -> System.out.println(o));
+        sqlSession.close();
+    }
+    @Test
     public void testById(){
         User user = userMapper.findById(24);
         System.out.println(user);

@@ -21,7 +21,7 @@
     <!-- 关联对象延迟加载 -->
     <setting name="lazyLoadingEnabled" value="true"/>
     <!-- 任何方法调用触发延迟加载 -->
-    <setting name="aggressiveLazyLoading" value="false"/>
+    <setting name="aggressiveLazyLoading" value="true"/>
 </settings>
 ```
 
@@ -77,30 +77,65 @@ public void testAssociation(){
 ##### 2.4.1 测试
 
 ```java
-
+@Test
+public void testCollection(){
+    List<User> all = userMapper.findAll();
+    all.get(0).getId();
+    // all.forEach(o -> System.out.println(o));
+    sqlSession.close();
+}
 ```
 
 ##### 2.4.2 用法
 
 ```xml
-
+<resultMap id="UserMap" type="user">
+    <collection property="orders" ofType="order" select="com.itheima.mybatis.day02.lazy.mapper.OrderMapper.findByUserId" column="id"/>
+</resultMap>
 ```
 
 ```xml
-
+<select id="findByUserId" parameterType="int" resultType="order">
+    select * from orders where user_id = #{id}
+</select>
 ```
 
 ##### 2.4.3 结果
 
-> 
+> DEBUG [main] - Setting autocommit to false on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@22d6f11]
+> DEBUG [main] - ==>  Preparing: select * from user 
+> DEBUG [main] - ==> Parameters: 
+> DEBUG [main] - <==      Total: 7
+> DEBUG [main] - ==>  Preparing: select * from orders where user_id = ? 
+> DEBUG [main] - ==> Parameters: 1(Integer)
+> DEBUG [main] - <==      Total: 2
+
+
 
 ##### 2.3.4 结论
 
-- 
+- collection用法与association一致
+- 多个查询结果时调用其中一个对象的方法只触发执行一个外部对象的查询操作
 
 
 
 ### 三、缓存
+
+#### 3.1 概念
+
+　　Mybatis框架提供了缓存策略，通过缓存策略可以减少查询数据库的次数，提升系统性能。在mybatis框架中缓存分为一级缓存，和二级缓存。
+
+![1555653971467](assets/1555653971467.png)
+
+#### 3.2 一级缓存
+
+
+
+
+
+#### 3.3 二级缓存
+
+
 
 
 

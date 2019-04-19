@@ -15,7 +15,7 @@
         <!-- 关联对象延迟加载 -->
         <setting name="lazyLoadingEnabled" value="true"/>
         <!-- 任何方法调用触发延迟加载 -->
-        <setting name="aggressiveLazyLoading" value="false"/>
+        <setting name="aggressiveLazyLoading" value="true"/>
     </settings>
 
     <!-- 别名设置 -->

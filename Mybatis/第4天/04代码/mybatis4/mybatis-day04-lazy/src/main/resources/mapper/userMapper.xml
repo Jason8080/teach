@@ -5,9 +5,15 @@
 <!-- 指定操作类型(指定文件归属的操作类) -->
 <mapper namespace="com.itheima.mybatis.day02.lazy.mapper.UserMapper">
 
+    <resultMap id="UserMap" type="user">
+        <collection property="orders" ofType="order"
+                    select="com.itheima.mybatis.day02.lazy.mapper.OrderMapper.findByUserId"
+                    column="id"/>
+    </resultMap>
+
 
     <!-- 指定操作名称; 指定封装类; 执行语句 -->
-    <select id="findAll" resultType="com.itheima.mybatis.day02.lazy.model.User">
+    <select id="findAll" resultMap="UserMap">
         select * from user
     </select>
 

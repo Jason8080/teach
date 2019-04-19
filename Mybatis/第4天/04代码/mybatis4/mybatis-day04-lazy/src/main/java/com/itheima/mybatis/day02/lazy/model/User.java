@@ -24,6 +24,10 @@ public class User {
 
     List<Order> orders;
 
+    public Integer getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "User{" +

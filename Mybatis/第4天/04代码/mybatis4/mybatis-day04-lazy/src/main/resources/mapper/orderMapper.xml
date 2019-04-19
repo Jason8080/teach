@@ -18,5 +18,10 @@
         select * from orders
     </select>
 
+    <!-- 指定操作名称; 指定封装类; 执行语句 -->
+    <select id="findByUserId" parameterType="int" resultType="order">
+        select * from orders where user_id = #{id}
+    </select>
+
 
 </mapper>
