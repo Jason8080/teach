@@ -288,9 +288,182 @@ public void testTwo(){
 
 ### 四、注解开发
 
+- 不需要提供映射配置文件
+
+- 采用注解声明操作代替文件
+
+  ```xml
+  <!-- 多映射文件配置 -->
+  <mappers>
+      <!-- 批量配置映射文件路径 -->
+      <package name="com.itheima.mybatis.day04.a.mapper"/>
+  </mappers>
+  ```
+
+#### 4.1 基本操作
+
+##### 4.1.1 查询
+
+###### 用法
+
+```java
+/**
+ * 根据ID查找用户.
+ *
+ * @param id 参数
+ * @return 查询结果 user
+ */
+@Select("select * from user " +
+        "where id = #{id}")
+User findById(Integer id);
+```
+
+###### 测试
+
+```java
+@Test
+public void testFindById(){
+    // 创建连接
+    SqlSession sqlSession = SqlSessionKit.openSession();
+    // 执行操作
+    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+    User u = mapper.findById(1);
+    System.out.println(u);
+    // 关闭资源
+    sqlSession.close();
+}
+```
+
+##### 4.1.2 保存
+
+###### 用法
+
+```java
+/**
+ * 保存用户.
+ *
+ * @param user the user
+ */
+@Insert("insert into user(username,birthday,sex,address) " +
+        "values(#{username},#{birthday},#{sex},#{address})")
+@SelectKey(statement = "select LAST_INSERT_ID()", resultType = Integer.class,
+        keyProperty = "id", keyColumn = "id", before = false)
+void saveUser(User user);
+```
+
+###### 测试
+
+```java
+@Test
+public void testSaveUser(){
+    // 创建连接
+    SqlSession sqlSession = SqlSessionKit.openSession();
+    // 执行操作
+    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+    User u = new User();
+    u.setUsername("马拉松");
+    u.setBirthday(new Date());
+    u.setSex("1");
+    u.setAddress("江西");
+    mapper.saveUser(u);
+    // 提交事务
+    sqlSession.commit();
+    System.out.println(u);
+    // 关闭资源
+    sqlSession.close();
+}
+```
+
+##### 4.1.3 修改
+
+###### 用法
+
+```java
+/**
+ * 修改用户.
+ *
+ * @param user the user
+ */
+@Update("update user set username=#{username},birthday=#{birthday},sex=#{sex},address=#{address} " +
+        "where id = #{id}")
+void updateUser(User user);
+```
+
+###### 测试
+
+```java
+@Test
+public void testUpdateUser(){
+    // 创建连接
+    SqlSession sqlSession = SqlSessionKit.openSession();
+    // 执行操作
+    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+    User u = new User();
+    u.setId(61);
+    u.setAddress("江西 抚州");
+    mapper.updateUser(u);
+    // 提交事务
+    sqlSession.commit();
+    // 关闭资源
+    sqlSession.close();
+}
+```
+
+##### 4.1.4 删除
+
+###### 用法
+
+```java
+/**
+ * 删除用户.
+ *
+ * @param user the user
+ */
+@Delete("delete from user " +
+        "where id = #{id}")
+void deleteUser(User user);
+```
+
+###### 测试
+
+```java
+@Test
+public void testDeleteUser(){
+    // 创建连接
+    SqlSession sqlSession = SqlSessionKit.openSession();
+    // 执行操作
+    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+    User u = new User();
+    u.setId(61);
+    mapper.deleteUser(u);
+    // 提交事务
+    sqlSession.commit();
+    // 关闭资源
+    sqlSession.close();
+}
+```
 
 
 
+#### 4.2 关系映射
+
+##### 4.2.1 一对一查询
+
+###### 用法
+
+###### 测试
+
+##### 4.2.2 一对多查询
+
+###### 用法
+
+###### 测试
+
+##### 4.2.3 延迟加载
+
+###### 用法
+
+###### 测试
 
 ### 五、总结
 
