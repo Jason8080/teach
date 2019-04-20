@@ -37,12 +37,13 @@ public class SqlSessionKit {
 
 
 
+
     /**
      * 获取会话连接
      *
      * @return
      */
-    public static SqlSession openSession() {
-        return factory.openSession();
+    public static SqlSession openSession(boolean... auto) {
+        return factory.openSession(auto.length>0?auto[0]:false);
     }
 }

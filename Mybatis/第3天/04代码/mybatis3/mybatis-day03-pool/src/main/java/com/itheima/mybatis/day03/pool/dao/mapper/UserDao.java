@@ -13,4 +13,13 @@ public interface UserDao {
      * @return the user
      */
     User findById(Integer id);
+
+
+    /**
+     * 保存用户.
+     *
+     * @param user 用户
+     */
+    void saveUserManual(User user);
+    void saveUserAuto(User user);
 }

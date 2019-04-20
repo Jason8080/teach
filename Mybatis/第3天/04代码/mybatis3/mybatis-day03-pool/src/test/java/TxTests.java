@@ -1,5 +1,5 @@
-import com.itheima.mybatis.day03.tx.dao.mapper.impl.UserDaoImpl;
-import com.itheima.mybatis.day03.tx.dao.model.User;
+import com.itheima.mybatis.day03.pool.dao.mapper.impl.UserDaoImpl;
+import com.itheima.mybatis.day03.pool.dao.model.User;
 import org.junit.Test;
 
 /**
