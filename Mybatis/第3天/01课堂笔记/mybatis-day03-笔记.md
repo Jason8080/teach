@@ -67,38 +67,6 @@
   - db.properties
   - log4j.properties
 
-- mybatis.xml
-- userMapper.xml
-
-- mybatis.xml
-- userMapper.xml
-
-- mybatis.xml
-- userMapper.xml
-
-- mybatis.xml
-- userMapper.xml
-
-- mybatis.xml
-- userMapper.xml
-
-- mybatis.xml
-- userMapper.xml
-
-- mybatis.xml
-- userMapper.xml
-
-- mybatis.xml
-- userMapper.xml
-
-- mybatis.xml
-- userMapper.xml
-
-- mybatis.xml
-- userMapper.xml
-
-- mybatis.xml
-- userMapper.xml
 
 ###### 环境测试
 
@@ -132,7 +100,7 @@
   2. 执行测试方法
   3. 观察连接对象
 - 配置dataSource type=**jndi实现类**
-  1. 创建**jndi实现类**
+  1. 创建**jndi实现类**(C3P0DataSourceFactory)
   2. 配置dataSource属性
   3. 添加测试方法
   4. 执行测试方法
