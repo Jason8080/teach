@@ -1,7 +1,5 @@
 package com.itheima.mybatis.day03.relate.model;
 
-import java.util.List;
-
 /**
  * 角色类.
  *
@@ -16,15 +14,12 @@ public class Role {
     private String roleName;
     private String roleDetail;
 
-    private List<User> users;
-
     @Override
     public String toString() {
         return "Role{" +
                 "roleId=" + roleId +
                 ", roleName='" + roleName + '\'' +
                 ", roleDetail='" + roleDetail + '\'' +
-                ", users=" + users +
                 '}';
     }
 }

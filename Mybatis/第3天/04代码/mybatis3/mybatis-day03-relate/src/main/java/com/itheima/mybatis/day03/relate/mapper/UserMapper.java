@@ -12,15 +12,16 @@ import java.util.List;
  */
 public interface UserMapper {
     /**
-     * 查找所有用户并显示关联订单信息.
+     * 查找所有用户并关联显示订单信息.
      *
      * @return the list
      */
-    List<User> findAll();
+    List<User> findO2M();
 
     /**
-     * 查找所有用户并显示关联角色信息
-     * @return
+     * 查询所有用户并显示关联角色信息.
+     *
+     * @return the list
      */
     List<User> findM2M();
 }

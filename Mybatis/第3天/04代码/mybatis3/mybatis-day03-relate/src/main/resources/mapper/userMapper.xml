@@ -5,9 +5,10 @@
 <!-- 指定操作类型(指定文件归属的操作类) -->
 <mapper namespace="com.itheima.mybatis.day03.relate.mapper.UserMapper">
 
-    <resultMap id="UserMap" type="user">
+    <resultMap id="O2M" type="user">
         <id property="id" column="id"/>
         <result property="username" column="username"/>
+        <result property="birthday" column="birthday"/>
         <result property="birthday" column="birthday"/>
         <result property="sex" column="sex"/>
         <result property="address" column="address"/>
@@ -20,7 +21,25 @@
         </collection>
     </resultMap>
 
-    <select id="findAll" resultMap="UserMap">
+    <resultMap id="M2M" type="user">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="birthday" column="birthday"/>
+        <result property="birthday" column="birthday"/>
+        <result property="sex" column="sex"/>
+        <result property="address" column="address"/>
+        <collection property="roles" javaType="list" ofType="role">
+            <!-- 名称不能与外部的名称相同 -->
+            <id property="roleId" column="role_di"/>
+            <result property="roleName" column="role_name"/>
+            <result property="roleDetail" column="role_detail"/>
+        </collection>
+    </resultMap>
+
+
+
+
+    <select id="findO2M" resultMap="O2M">
         SELECT
         u.id,
         u.username,
@@ -34,24 +53,12 @@
         LEFT JOIN orders o ON o.user_id = u.id
     </select>
 
-
-
-    <resultMap id="M2MMap" type="user">
-        <id property="id" column="id"/>
-        <result property="username" column="username"/>
-        <result property="birthday" column="birthday"/>
-        <result property="sex" column="sex"/>
-        <result property="address" column="address"/>
-        <collection property="roles" ofType="role">
-            <id property="roleId" column="role_id"/>
-            <result property="roleName" column="role_name"/>
-            <result property="roleDetail" column="role_detail"/>
-        </collection>
-    </resultMap>
-
-    <select id="findM2M" resultMap="M2MMap">
-        SELECT * FROM user_role ur
-        INNER JOIN user u ON ur.user_id=u.id
-        INNER JOIN role r ON ur.role_id=r.role_id
+    <select id="findM2M" resultMap="M2M">
+        SELECT
+            *
+        FROM
+            user_role ur
+        LEFT JOIN USER u ON u.id = ur.user_id
+        LEFT JOIN role r ON ur.role_id = r.role_id
     </select>
 </mapper>

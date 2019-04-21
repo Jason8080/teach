@@ -25,13 +25,13 @@ public class AssociationTests {
 
     @Test
     public void testO2O(){
-        List<Order> all = orderMapper.findAll();
+        List<Order> all = orderMapper.findO2O();
         all.forEach(o -> System.out.println(o));
         sqlSession.close();
     }
     @Test
     public void testO2M(){
-        List<User> all = userMapper.findAll();
+        List<User> all = userMapper.findO2M();
         all.forEach(u -> System.out.println(u));
         sqlSession.close();
     }
