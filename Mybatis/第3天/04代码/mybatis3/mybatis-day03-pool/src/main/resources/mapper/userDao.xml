@@ -10,5 +10,9 @@
         select * from user where id =#{id}
     </select>
 
+    <insert id="saveUser" parameterType="user">
+        insert into USER (username,birthday,sex,address)
+        values (#{username},#{birthday},#{sex},#{address})
+    </insert>
 
 </mapper>

@@ -3,7 +3,13 @@ package com.itheima.mybatis.day03.pool.dao.mapper;
 import com.itheima.mybatis.day03.pool.dao.model.User;
 
 /**
- * 用户操作类
+ * 用户操作类.
+ *
+ * @author ：Jason.lee
+ * @version : 1.0
+ * @date ：2019-4-21 15:46
+ * @description : UserDao
+ * @modified : -
  */
 public interface UserDao {
     /**

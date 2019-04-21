@@ -77,23 +77,21 @@
 ###### 环境测试
 
 - 创建测试类
-- 执行查找操作
+
+  ```java
+  
+  ```
 
 
 
 ##### 小结
 
-- 回顾了第2天的常用标签
-
-  ```xml
-  <insert, <select, <update, <delete
-  ```
-
-- 搭建Mybatis项目环境的固定步骤
+- 搭建Mybatis项目环境的步骤是怎样的?
 
   1. 创建项目
   2. 引入依赖
   3. 引入文件
+  4. 环境测试
 
 
 
@@ -106,38 +104,102 @@
 ##### 步骤
 
 - 配置dataSource type=POOLED
-  1. 添加测试方法
-  2. 执行测试方法
-  3. 观察连接对象
 - 配置dataSource type=UNPOOLED
-  1. 添加测试方法
-  2. 执行测试方法
-  3. 观察连接对象
 - 配置dataSource type=**jndi实现类**
-  1. 创建**jndi实现类**(C3P0DataSourceFactory)
-  2. 配置dataSource属性
-  3. 添加测试方法
-  4. 执行测试方法
-  5. 观察连接对象
 
 ##### 操作
 
-###### POOLED
+###### 内部连接池
 
 - 配置
+
+  ```xml
+  <dataSource type="POOLED">
+      <property name="driver" value="${db.driver}"/>
+      <property name="url" value="${db.url}"/>
+      <property name="username" value="${db.username}"/>
+      <property name="password" value="${db.password}"/>
+  </dataSource>
+  ```
+
 - 测试
 
-###### UNPOOLED
+  ```java
+  @Test
+  public void testPooled(){
+      testEnv();
+      System.out.println("==========分割线=========");
+      testEnv();
+  }
+  ```
+
+###### 不用连接池
 
 - 配置
+
+  ```xml
+  <dataSource type="UNPOOLED">
+      <property name="driver" value="${db.driver}"/>
+      <property name="url" value="${db.url}"/>
+      <property name="username" value="${db.username}"/>
+      <property name="password" value="${db.password}"/>
+  </dataSource>
+  ```
+
 - 测试
 
-###### JNDI
+  ```java
+  @Test
+  public void testUnPooled(){
+      testEnv();
+      System.out.println("==========分割线=========");
+      testEnv();
+  }
+  ```
+
+###### 外部连接池
 
 - 创建jndi实现类
 
+  ```java
+  /**
+   * C3P0DataSourceFactory.
+   *
+   * @author ：Jason.lee
+   * @version : 1.0
+   * @date ：2019-4-21 16:13
+   * @description : C3P0DataSourceFactory
+   * @modified : -
+   */
+  public class C3P0DataSourceFactory extends UnpooledDataSourceFactory {
+  
+      public C3P0DataSourceFactory() {
+          dataSource = new ComboPooledDataSource();
+      }
+  }
+  ```
+
 - 配置
+
+  ```xml
+  <dataSource type="com.itheima.mybatis.day03.pool.jndi.C3P0DataSourceFactory">
+      <property name="driverClass" value="${db.driver}"/>
+      <property name="jdbcUrl" value="${db.url}"/>
+      <property name="user" value="${db.username}"/>
+      <property name="password" value="${db.password}"/>
+  </dataSource>
+  ```
+
 - 测试
+
+  ```java
+  @Test
+  public void testJndi(){
+      testEnv();
+      System.out.println("==========分割线=========");
+      testEnv();
+  }
+  ```
 
 ##### 小结
 
@@ -169,32 +231,38 @@
 
 ###### 添加手动提交操作
 
+```java
 
+```
 
 ###### 添加手动提交测试
 
+```java
 
-
-###### 测试
+```
 
 
 
 ###### 添加自动提交操作
 
+```java
 
+```
 
 ###### 添加自动提交测试
 
+```
 
-
-###### 测试
+```
 
 
 
 ##### 小结
 
 - JDBC类型的事务有哪两种提交方式?
+  - 
 - MANAGED类型的事务是Mybatis管理的吗?
+  - 
 
 
 

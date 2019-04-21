@@ -1,4 +1,4 @@
-
+import com.itheima.mybatis.day03.pool.dao.mapper.UserDao;
 import com.itheima.mybatis.day03.pool.dao.mapper.impl.UserDaoImpl;
 import com.itheima.mybatis.day03.pool.dao.model.User;
 import org.junit.Test;
@@ -8,29 +8,40 @@ import org.junit.Test;
  *
  * @author ：Jason.lee
  * @version : 1.0
- * @date ：2019/4/7 21:58
- * @description : DaoTests
+ * @date ：2019-4-21 15:55
+ * @description : PoolTests
  * @modified : -
  */
 public class PoolTests {
 
+    /**
+     * 环境测试
+     */
     @Test
-    public void testPool(){
-        UserDaoImpl dao = new UserDaoImpl();
+    public void testEnv(){
+        UserDao dao = new UserDaoImpl();
         User user = dao.findById(24);
         System.out.println(user);
-        System.out.println("--------------------- 分 割 线 ----------------------");
-        User user2 = dao.findById(24);
-        System.out.println(user2);
     }
 
     @Test
-    public void testUnPool(){
-        testPool();
+    public void testPooled(){
+        testEnv();
+        System.out.println("==========分割线=========");
+        testEnv();
+    }
+
+    @Test
+    public void testUnPooled(){
+        testEnv();
+        System.out.println("==========分割线=========");
+        testEnv();
     }
 
     @Test
     public void testJndi(){
-        testPool();
+        testEnv();
+        System.out.println("==========分割线=========");
+        testEnv();
     }
 }
