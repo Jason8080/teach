@@ -22,7 +22,7 @@ public class SqlSessionKit {
     static {
         InputStream in = null;
         try {
-            in = Resources.getResourceAsStream("mybatis-jndi.xml");
+            in = Resources.getResourceAsStream("mybatis-pooled.xml");
             factory = new SqlSessionFactoryBuilder().build(in);
         } catch (IOException e) {
             e.printStackTrace();
@@ -34,7 +34,6 @@ public class SqlSessionKit {
             }
         }
     }
-
 
 
 
