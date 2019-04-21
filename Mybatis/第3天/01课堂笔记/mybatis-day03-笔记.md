@@ -39,7 +39,7 @@
 
 ##### 操作
 
-###### 创建项目
+###### 创建模块
 
 - 接下来学习的是连接池相关内容
 - 项目名称: mybatis-day03-pool
@@ -57,13 +57,13 @@
   - User.java
   - UserDao.java
   - UserDaoImpl.java
+
   - SqlSessionKit.java
 
 - 配置文件
 
   - mybatis.xml
   - userDao.xml
-
   - db.properties
   - log4j.properties
 
