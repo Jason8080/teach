@@ -277,7 +277,7 @@
 ###### 整理需求
 
 - ==根据 **名称和性别** 查找用户==
-- ==根据 **名称** 查找用户==
+- ==只根据 **名称** 查找用户==
 
 ###### 整理步骤
 
@@ -292,16 +292,28 @@
 
 ###### 添加操作
 
+```java
+
+```
+
 ###### 添加配置
+
+```xml
+
+```
 
 ###### 添加测试
 
+```java
 
+```
 
 ##### 小结
 
 - if标签的作用是什么?
+  - 
 - 判断时获取参数需要使用#{}或${}吗?
+  - 
 
 
 
@@ -315,23 +327,27 @@
 
 ###### 整理需求
 
-- ==根据 **性别** 查找用户==
+- ==只根据 **性别** 查找用户==
 
 ###### 整理步骤
 
-1. 不使用where测试
+1. 测试
 2. **使用where标签解决问题**
 3. **测试**
 
 ##### 操作
 
-###### 使用where
+###### 配置where
 
+```xml
 
+```
 
 ###### 测试
 
+```java
 
+```
 
 ##### 小结
 
@@ -353,7 +369,7 @@
 ###### 整理需求
 
 - ==更新用户地址和性别==
-- ==更新用户地址==
+- ==只更新用户性别==
 
 ###### 整理步骤
 
@@ -365,18 +381,24 @@
 
 ##### 操作
 
-###### 使用set
+###### 配置set
 
+```xml
 
+```
 
 ###### 测试
 
+```xml
 
+```
 
 ##### 小结
 
 - set标签的作用是什么?
+  - 
 - 使用set要注意什么?
+  - 
 
 
 
@@ -390,25 +412,35 @@
 
 ###### 整理需求
 
-- ==查询时返回指定字段==
+- ==查询时返回部分字段==
 
 ###### 整理步骤
 
-1. 使用sql提高使用率
+1. 指定字段
 2. 测试
+3. **使用sql, includes标签**
+4. **测试**
 
 ##### 操作
 
-###### 使用sql
+###### 配置sql
+
+```xml
+
+```
 
 ###### 测试
 
+```java
 
+```
 
 ##### 小结
 
 - sql和include标签的作用是什么?
+  - 
 - 为什么要使用sql标签定义sql片段?
+  - 
 
 
 
@@ -422,28 +454,63 @@
 
 ###### 整理需求
 
-- ==根据多个id查找用户==
+- ==查询id集合中的用户==
 
 ###### 整理步骤
 
-1. 添加操作
-2. 配置操作
-3. 测试
+1. **添加操作**
+2. **配置操作**
+3. **测试**
 
 ##### 操作
 
 ###### 添加操作
 
+```java
+/**
+ * 根据多个ID查找用户.
+ *
+ * @param ids id集合
+ * @return 查询结果
+ */
+List<User> findByIds(List<Integer> ids);
+```
+
 ###### 配置操作
+
+```
+<select id="findByIds" parameterType="list" resultType="user">
+    SELECT <include refid="fields"/> FROM user
+    <where>
+        <foreach collection="list" item="id" open="id in(" separator="," close=")">
+            #{id}
+        </foreach>
+    </where>
+</select>
+```
 
 ###### 测试
 
-
+```java
+@Test
+public void testForeach(){
+    SqlSession sqlSession = SqlSessionKit.openSession();
+    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+    List ids = new ArrayList();
+    ids.add(1);
+    ids.add(11);
+    List<User> users = mapper.findByIds(ids);
+    users.forEach(u -> System.out.println(u));
+    sqlSession.close();
+}
+```
 
 ##### 小结
 
 - foreach标签的作用是什么?
+  - 
 - 使用foreach取值时数组和集合有什么不同?
+  - 
 
 
 

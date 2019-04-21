@@ -12,12 +12,12 @@ import java.util.List;
  */
 public interface UserMapper {
     /**
-     * 根据多个id查找用户
+     * 查询id集合中的用户
      *
-     * @param ids id数组
+     * @param ids id集合
      * @return 查询结果 list
      */
-    List<User> findByIds(Integer... ids);
+    List<User> findByIds(List<Integer> ids);
 
     /**
      * 根据用户对象参数查询用户
@@ -30,7 +30,7 @@ public interface UserMapper {
     /**
      * 更新用户.
      *
-     * @param user 用户信息
+     * @param user 参数对象
      */
     void update(User user);
 }

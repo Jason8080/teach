@@ -12,7 +12,7 @@
     <typeAliases>
         <!-- 单独设置 -->
         <!--<typeAlias type="com.itheima.mybatis.day02.crud.model.User" alias="user"/>-->
-        <package name="com.itheima.mybatis.day02.crud.model"/>
+        <package name="com.itheima.mybatis.day03.sql.model"/>
     </typeAliases>
 
     <!-- 多环境配置, default: 指定默认环境名称 -->
