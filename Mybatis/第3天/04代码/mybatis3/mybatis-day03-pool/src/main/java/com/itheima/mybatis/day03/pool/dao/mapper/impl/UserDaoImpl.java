@@ -17,7 +17,7 @@ import org.apache.ibatis.session.SqlSession;
 public class UserDaoImpl implements UserDao {
     @Override
     public User findById(Integer id) {
-        SqlSession sqlSession = SqlSessionKit.openSession();
+        SqlSession sqlSession = SqlSessionKit.openSession(false);
         User user = sqlSession.selectOne("test.queryById", id);
         sqlSession.close();
         return user;
@@ -26,7 +26,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void saveUserManual(User user) {
-        SqlSession sqlSession = SqlSessionKit.openSession();
+        SqlSession sqlSession = SqlSessionKit.openSession(false);
         sqlSession.insert("test.save", user);
         sqlSession.commit();
         sqlSession.close();

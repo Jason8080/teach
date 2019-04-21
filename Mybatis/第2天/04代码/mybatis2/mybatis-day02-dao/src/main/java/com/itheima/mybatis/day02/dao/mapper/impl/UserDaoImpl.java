@@ -17,7 +17,7 @@ import org.apache.ibatis.session.SqlSession;
 public class UserDaoImpl implements UserDao{
     @Override
     public User findById(Integer id) {
-        SqlSession sqlSession = SqlSessionKit.openSession();
+        SqlSession sqlSession = SqlSessionKit.openSession(false);
         User user = sqlSession.selectOne("test.queryById", id);
         sqlSession.close();
         return user;

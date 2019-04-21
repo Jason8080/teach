@@ -42,7 +42,7 @@ public class SqlSessionKit {
      *
      * @return
      */
-    public static SqlSession openSession() {
-        return factory.openSession();
+    public static SqlSession openSession(boolean auto) {
+        return factory.openSession(auto);
     }
 }
