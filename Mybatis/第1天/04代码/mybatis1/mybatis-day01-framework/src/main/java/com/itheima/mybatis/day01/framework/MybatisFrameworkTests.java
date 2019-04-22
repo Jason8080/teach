@@ -28,7 +28,7 @@ public class MybatisFrameworkTests {
 
 
 
-        // 第2步: 执行操作 (别想太多, 你只会方法调用!)
+        // 第2步: 执行操作
         UserMapper mapper = null;
         // 执行操作
         List<User> all = mapper.findAll();
