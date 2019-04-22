@@ -9,7 +9,6 @@
 
 
 
-        /*别找了, 你只认识我*/
         select * from user
 
 
