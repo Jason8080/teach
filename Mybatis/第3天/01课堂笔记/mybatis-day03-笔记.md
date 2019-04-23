@@ -45,17 +45,17 @@
 
 ##### 操作
 
-###### 创建模块
+###### 创建新模块
 
 - 接下来学习的是连接池相关内容
-- 项目名称: mybatis-day03-pool
+- 模块名称: mybatis-day03-pool
 
-###### 引入依赖
+###### 引入依赖包
 
 - 数据库驱动
 - Mybatis框架包
 - log4j日志依赖包(3个)
-- c3p0连接池
+- **c3p0连接池**
 
 ###### 引入文件
 
@@ -76,12 +76,9 @@
 
 ###### 环境测试
 
-- 创建测试类
+```java
 
-  ```java
-  
-  ```
-
+```
 
 
 ##### 小结
@@ -95,11 +92,11 @@
 
 
 
-#### 02主配置中数据源类型配置【了解】
+#### 02连接池类型配置【了解】
 
 ##### 目标
 
-- 了解Mybatis连接池3中类型
+- 配置不同的连接池类型
 
 ##### 步骤
 
@@ -109,96 +106,52 @@
 
 ##### 操作
 
-###### 内部连接池
+###### POOLED: 内部连接池
 
 - 配置
 
   ```xml
-  <dataSource type="POOLED">
-      <property name="driver" value="${db.driver}"/>
-      <property name="url" value="${db.url}"/>
-      <property name="username" value="${db.username}"/>
-      <property name="password" value="${db.password}"/>
-  </dataSource>
+  
   ```
 
 - 测试
 
   ```java
-  @Test
-  public void testPooled(){
-      testEnv();
-      System.out.println("==========分割线=========");
-      testEnv();
-  }
+  
   ```
 
-###### 不用连接池
+###### UNPOOLED: 不用连接池
 
 - 配置
 
   ```xml
-  <dataSource type="UNPOOLED">
-      <property name="driver" value="${db.driver}"/>
-      <property name="url" value="${db.url}"/>
-      <property name="username" value="${db.username}"/>
-      <property name="password" value="${db.password}"/>
-  </dataSource>
+  
   ```
 
 - 测试
 
   ```java
-  @Test
-  public void testUnPooled(){
-      testEnv();
-      System.out.println("==========分割线=========");
-      testEnv();
-  }
+  
   ```
 
-###### 外部连接池
+###### jndi: 外部连接池 
 
 - 创建jndi实现类
 
   ```java
-  /**
-   * C3P0DataSourceFactory.
-   *
-   * @author ：Jason.lee
-   * @version : 1.0
-   * @date ：2019-4-21 16:13
-   * @description : C3P0DataSourceFactory
-   * @modified : -
-   */
-  public class C3P0DataSourceFactory extends UnpooledDataSourceFactory {
   
-      public C3P0DataSourceFactory() {
-          dataSource = new ComboPooledDataSource();
-      }
-  }
   ```
 
 - 配置
 
   ```xml
-  <dataSource type="com.itheima.mybatis.day03.pool.jndi.C3P0DataSourceFactory">
-      <property name="driverClass" value="${db.driver}"/>
-      <property name="jdbcUrl" value="${db.url}"/>
-      <property name="user" value="${db.username}"/>
-      <property name="password" value="${db.password}"/>
-  </dataSource>
+  
   ```
 
 - 测试
 
   ```java
-  @Test
-  public void testJndi(){
-      testEnv();
-      System.out.println("==========分割线=========");
-      testEnv();
-  }
+  
   ```
 
 ##### 小结
@@ -209,11 +162,11 @@
 
 
 
-#### 03主配置中事务类型配置【了解】
+#### 03事务管理类型配置【了解】
 
 ##### 目标
 
-- 了解JDBC事务提交的 **2种** 方式
+- 使用2种不同的事务提交方式操作数据库
 
 ##### 步骤
 
@@ -229,29 +182,21 @@
 
 ##### 操作
 
-###### 添加手动提交操作
+###### 增加 saveUserManual,saveUserAuto 操作方法
 
 ```java
 
 ```
 
-###### 添加手动提交测试
+###### 实现 saveUserManual,saveUserAuto 操作方法
 
 ```java
 
 ```
 
-
-
-###### 添加自动提交操作
+###### 测试
 
 ```java
-
-```
-
-###### 添加自动提交测试
-
-```
 
 ```
 
@@ -274,45 +219,37 @@
 
 ##### 步骤
 
-###### 整理需求
-
 - ==根据 **名称和性别** 查找用户==
 - ==只根据 **名称** 查找用户==
 
-###### 整理步骤
-
-1. 创建项目(已准备)
-2. 引入依赖(已准备)
-3. 引入文件(已准备)
-4. **添加操作**
-5. **添加配置**
+1. idea: 创建项目(已准备)
+2. pom.xml: 引入依赖(已准备)
+3. package,resources: 引入文件(已准备)
+4. UserMapper.java: 增加 **findBy** 操作方法
+5. userMapper.xml: 增加 **findBy** 操作配置
 6. **添加测试**
 
 ##### 操作
 
-###### 添加操作
+- ==根据 **名称和性别** 查找用户==
+
+###### 测试
 
 ```java
 
 ```
 
-###### 添加配置
+- ==只根据 **名称** 查找用户==
 
-```xml
+1. 直接注释其他条件欲达到效果
 
-```
 
-###### 添加测试
-
-```java
-
-```
 
 ##### 小结
 
 - if标签的作用是什么?
   - 
-- 判断时获取参数需要使用#{}或${}吗?
+- if条件中获取参数需要使用#{}或${}吗?
   - 
 
 
@@ -325,15 +262,12 @@
 
 ##### 步骤
 
-###### 整理需求
-
 - ==只根据 **性别** 查找用户==
-
-###### 整理步骤
 
 1. 测试
 2. **使用where标签解决问题**
-3. **测试**
+
+1. **测试**
 
 ##### 操作
 
@@ -366,15 +300,11 @@
 
 ##### 步骤
 
-###### 整理需求
-
 - ==更新用户地址和性别==
 - ==只更新用户性别==
 
-###### 整理步骤
-
-1. 添加操作
-2. 添加配置
+1. UserMapper.java: 增加 update 操作方法
+2. userMapper.xml: 增加 update 操作配置
 3. 测试
 4. **使用set解决问题**
 5. **测试**
@@ -410,14 +340,10 @@
 
 ##### 步骤
 
-###### 整理需求
-
 - ==查询时返回部分字段==
 
-###### 整理步骤
-
 1. 指定字段
-2. 测试
+2. 思考字段部分是否重复
 3. **使用sql, includes标签**
 4. **测试**
 
@@ -452,57 +378,30 @@
 
 ##### 步骤
 
-###### 整理需求
-
 - ==查询id集合中的用户==
 
-###### 整理步骤
-
-1. **添加操作**
-2. **配置操作**
+1. UserMapper.java: 增加 **findByIds** 操作方法
+2. userMapper.xml: 增加 **findByIds** 操作配置
 3. **测试**
 
 ##### 操作
 
-###### 添加操作
+###### 增加 findByIds 操作方法
 
 ```java
-/**
- * 根据多个ID查找用户.
- *
- * @param ids id集合
- * @return 查询结果
- */
-List<User> findByIds(List<Integer> ids);
-```
-
-###### 配置操作
 
 ```
-<select id="findByIds" parameterType="list" resultType="user">
-    SELECT <include refid="fields"/> FROM user
-    <where>
-        <foreach collection="list" item="id" open="id in(" separator="," close=")">
-            #{id}
-        </foreach>
-    </where>
-</select>
+
+###### 增加 findByIds 操作配置
+
+```
+
 ```
 
 ###### 测试
 
 ```java
-@Test
-public void testForeach(){
-    SqlSession sqlSession = SqlSessionKit.openSession();
-    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-    List ids = new ArrayList();
-    ids.add(1);
-    ids.add(11);
-    List<User> users = mapper.findByIds(ids);
-    users.forEach(u -> System.out.println(u));
-    sqlSession.close();
-}
+
 ```
 
 ##### 小结
@@ -514,7 +413,7 @@ public void testForeach(){
 
 
 
-#### 09映射配置关联查询 - O2O【掌握】
+#### 09关联查询 - O2O【掌握】
 
 ##### 目标
 
@@ -522,15 +421,11 @@ public void testForeach(){
 
 ##### 步骤
 
-###### 整理需求
-
 - ==查找所有订单并显示关联用户信息==
-
-###### 整理步骤
 
 1. 分析执行语句
 2. **创建订单类**
-3. **添加操作**
+3. 增加查询所有订单的**操作方法**
 4. 引用用户类
 5. **配置关联映射**
 6. **测试**
@@ -543,13 +438,13 @@ public void testForeach(){
 
 ```
 
-###### 添加操作
+###### 操作方法
 
 ```java
 
 ```
 
-###### 配置映射
+###### 关系映射
 
 ```xml
 
@@ -572,7 +467,7 @@ public void testForeach(){
 
 
 
-#### 10映射配置关联查询 - O2M【掌握】
+#### 10关联查询 - O2M【掌握】
 
 ##### 目标
 
@@ -580,14 +475,10 @@ public void testForeach(){
 
 ##### 步骤
 
-###### 整理需求
-
 - ==查找所有用户并显示关联订单信息==
 
-###### 整理步骤
-
 1. **引用订单集合**
-2. **添加操作**
+2. 增加查询所有用户**操作方法**
 3. **配置映射**
 4. **测试**
 
@@ -599,13 +490,13 @@ public void testForeach(){
 
 ```
 
-###### 添加操作
+###### 操作方法
 
 ```java
 
 ```
 
-###### 配置映射
+###### 关系映射
 
 ```xml
 
@@ -626,7 +517,7 @@ public void testForeach(){
 
 
 
-#### 11映射配置关联查询 - M2M【掌握】
+#### 11关联查询 - M2M【掌握】
 
 ##### 目标
 
@@ -634,18 +525,15 @@ public void testForeach(){
 
 ##### 步骤
 
-###### 整理需求
-
 - ==查询所有用户并显示关联角色信息==
 
-###### 整理步骤
-
 1. 执行课前资料语句
-2. **创建角色类**
-3. 引入角色集合
-4. **添加操作**
-5. **配置映射**
-6. **测试**
+2. 分析查询语句
+3. **创建角色类**
+4. 引入角色集合
+5. UserMapper.java: 增加 **findO2O** 操作方法
+6. userMapper.xml: 增加 **findO2O** 操作配置
+7. **测试**
 
 ##### 操作
 
@@ -655,13 +543,13 @@ public void testForeach(){
 
 ```
 
-###### 添加操作
+###### 增加 findO2O 操作方法
 
 ```java
 
 ```
 
-###### 配置映射
+###### 增加 findO2O 操作配置
 
 ```xml
 
