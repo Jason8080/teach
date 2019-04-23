@@ -31,7 +31,12 @@
 
     <!-- 多映射文件配置 -->
     <mappers>
-        <!-- 使用resource指定映射文件路径 -->
+
+
+        <!-- 使用resource指定sql文件路径 -->
         <mapper resource="mapper/userMapper.xml"/>
+
+
+
     </mappers>
 </configuration>
