@@ -1,6 +1,6 @@
-package com.itheima.mybatis.day03.pool.dao.mapper;
+package com.itheima.mybatis.day03.pool.mapper;
 
-import com.itheima.mybatis.day03.pool.dao.model.User;
+import com.itheima.mybatis.day03.pool.model.User;
 
 /**
  * 用户操作类.

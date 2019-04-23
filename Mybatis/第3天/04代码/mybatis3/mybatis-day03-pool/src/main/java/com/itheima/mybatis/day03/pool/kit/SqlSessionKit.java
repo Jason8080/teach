@@ -1,4 +1,4 @@
-package com.itheima.mybatis.day03.pool.dao.kit;
+package com.itheima.mybatis.day03.pool.kit;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;

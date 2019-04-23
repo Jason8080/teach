@@ -1,4 +1,4 @@
-package com.itheima.mybatis.day03.pool.dao.model;
+package com.itheima.mybatis.day03.pool.model;
 
 import java.util.Date;
 

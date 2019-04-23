@@ -1,8 +1,8 @@
-package com.itheima.mybatis.day03.pool.dao.mapper.impl;
+package com.itheima.mybatis.day03.pool.mapper.impl;
 
-import com.itheima.mybatis.day03.pool.dao.kit.SqlSessionKit;
-import com.itheima.mybatis.day03.pool.dao.mapper.UserDao;
-import com.itheima.mybatis.day03.pool.dao.model.User;
+import com.itheima.mybatis.day03.pool.kit.SqlSessionKit;
+import com.itheima.mybatis.day03.pool.mapper.UserDao;
+import com.itheima.mybatis.day03.pool.model.User;
 import org.apache.ibatis.session.SqlSession;
 
 /**
