@@ -5,17 +5,18 @@
 <!-- 根标签 -->
 <configuration>
 
-    <!-- 引入外部配置 -->
+    <!-- 引用外部配置 -->
     <properties resource="db.properties">
-        <!-- 说明外部配置优先 -->
+        <!-- 定义内部变量 -->
         <property name="db.driver" value="666"/>
     </properties>
 
-    <!-- 别名设置 -->
+    <!-- 批量配置别名 -->
     <typeAliases>
-        <!-- 单独设置 -->
-        <!--<typeAlias type="User" alias="user"/>-->
-        <package name="com.itheima.mybatis.day02.crud.model"/>
+        <!-- 单独设置别名 -->
+        <typeAlias type="com.itheima.mybatis.day02.dao.model.User" alias="user"/>
+        <!-- 批量设置别名 -->
+        <package name="com.itheima.mybatis.day02.dao.model"/>
     </typeAliases>
 
     <!-- 多环境配置, default: 指定默认环境名称 -->

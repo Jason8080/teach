@@ -6,14 +6,14 @@
 
 ##### 步骤
 
-###### 解决问题
+###### Mybatis解决了哪些问题
 
 1. 频繁开关连接, 浪费资源
 2. 结果集处理复杂, 代码重复率高
 3. 不能自动设置参数
 4. sql语句和连接参数硬编码在java代码中
 
-###### 底层技术
+###### 自定义框架依赖了哪些技术
 
 1. mysql
 2. c3p0
@@ -24,722 +24,439 @@
 7. 工厂设计
 8. junit
 
-###### 环境搭建
+###### Mybatis框架的环境搭建步骤
 
-1. 创建项目 (已准备)
-2. 引入依赖 (框架, 驱动包)
-3. 创建文件 
-   1. 用户类
-   2. 操作类
-   3. 主配置文件(连接参数)
-   4. sql文件(sql语句)
-4. 环境测试
+1. idea: 创建项目 (已准备)
+2. pom.xml: **导入框架jar包**
+3. 导入**mybatis.xml**和**userMapper.xml**文件
+4. 创建**User**和**UserMapper**类
+5. **环境测试**
 
 
 
 ##### 操作
 
-###### 创建项目
-
-
-
 ###### 引入依赖
 
+```xml
+
+```
 
 
-###### 创建文件
+
+###### 导入**mybatis.xml**和**userMapper.xml**文件
+
+1. mybatis.xml
+
+   ```xml
+   
+   ```
+
+2. userMapper.xml
+
+   ```xml
+   
+   ```
+
+   
+
+###### 创建**User**和**UserMapper**类
 
 1. User.java
+
+   ```java
+   
+   ```
+
 2. UserMapper.java
-3. mybatis.xml
-4. userMapper.xml
+
+   ```java
+   
+   ```
+
+   
 
 ###### 环境测试
 
-1. 会话工具
-
-```java
-/**
- * 会话工具类
- */
-public class SqlSessionKit {
-
-
-    /**
-     * 主配置文件的输入流
-     */
-    private InputStream in;
-    /**
-     * 会话连接
-     */
-    private SqlSession sqlSession;
-
-    // 初始化工具类
-    private static SqlSessionKit kit = new SqlSessionKit();
-
-
-    /**
-     * 获取会话连接
-     * @return
-     */
-    public static SqlSession openSeesion() {
-        return kit.sqlSession;
-    }
-
-    private SqlSessionKit() {
-        try {
-            this.in = Resources.getResourceAsStream("mybatis.xml");
-            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);
-            this.sqlSession = sqlSessionFactory.openSession();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                in.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-    public static void close(){
-        kit.sqlSession.close();
-    }
-}
-```
-
-2. 测试入口
+1. 测试
 
    ```java
-   /**
-    * MybatisTests.
-    *
-    * @author ：Jason.lee
-    * @version : 1.0
-    * @date ：2019/4/7 17:10
-    * @description : MybatisTests
-    * @modified : -
-    */
-   public class MybatisTests {
    
-       public static void main(String[] args) throws IOException {
-           // 创建连接
-           SqlSession sqlSession = SqlSessionKit.openSeesion();
-           // 执行操作
-           UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-           List<User> all = mapper.findAll();
-           all.forEach(u -> System.out.println(u));
-           // 关闭资源
-           SqlSessionKit.close();
-       }
-   }
+   ```
+
+2. 封装SqlSessionKit工具类
+
+   ```java
+   
    ```
 
 ##### 小结
 
-1. Mybatis环境搭建分哪几步?
+- Mybatis环境搭建的步骤是什么?
 
-   1. 创建项目
-   2. 引入依赖
-   3. 创建java类
-   4. 创建配置文件
-   5. 测试
-2. Mybatis有哪几个配置文件?
-   1. 主配置文件(连接参数)
-   2. sql文件(sql语句)
+1. 
+
+- 使用Mybatis做了哪些操作?
+  - 查询所有用户 - 查询操作
 
 
 
-#### 02使用Mybatis查询数据【掌握】
+#### 02CRUD - 新增操作【掌握】
 
 ##### 目标
 
-​	掌握Mybatis查询操作
+- 使用Mybatis保存数据
+- 即时获取到自增长主键值
 
 ##### 步骤
 
-###### 整理需求
+- ==保存用户==
+- ==打印新增用户的ID==
 
-​	==根据用户ID查询用户==
-
-###### 实现步骤
-
-1. 添加操作
-2. 配置操作
-3. 单元测试
-
-##### 操作
-
-###### 添加操作
-
-```java
-/**
- * 根据ID查找用户.
- *
- * @param id 参数
- * @return 查询结果
- */
-User findById(Integer id);
-```
-
-###### 配置操作
-
-```xml
-<!-- 指定操作名称; 指定封装类; 执行语句 -->
-<select id="findById" parameterType="int" resultType="com.itheima.mybatis.day02.crud.model.User">
-    select * from user where id = #{id}
-</select>
-```
-
-###### 单元测试
-
-```java
-@Test
-public void testFindById(){
-    // 创建连接
-    SqlSession sqlSession = SqlSessionKit.openSeesion();
-    // 执行操作
-    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-    User u = mapper.findById(24);
-    System.out.println(u);
-    // 关闭资源
-    SqlSessionKit.close();
-}
-```
-
-##### 小结
-
-1. 映射文件中怎么接受参数?
-
-   使用 parameterType指定参数类型, 并且使用#{}占位符接收参数值
-
-2. 执行语句中使用了什么占位符?
-
-   \#{}:  是参数占位符
-
-
-
-#### 03学习写入操作极其细节【掌握】
-
-##### 目标
-
-​	掌握数据写入操作和自增长ID查询的方法
-
-##### 步骤
-
-###### 整理需求
-
-​	==保存用户并返回自增长主键==
-
-###### 开发步骤
-
-1. 添加操作
-2. 配置操作
-3. 单元测试
-4. 查询主键
-5. 单元测试
+1. UserMapper.java: 增加 **save** 操作方法
+2. userMapper.xml: 增加 **save** 方法配置
+3. **保存测试**
+4. **返回自增长的主键值**
+5. 测试打印新增的用户ID
 
 ##### 操作
 
-###### 添加操作
+###### 增加 save 操作方法
 
 ```java
 
-
-    /**
-     * 保存用户.
-     *
-     * @param user the user
-     */
-    void saveUser(User user);
 ```
 
-###### 配置操作
+###### 增加 save 方法配置
 
 ```xml
-<!-- 指定操作名称; 指定封装类; 执行语句 -->
-<insert id="saveUser" parameterType="com.itheima.mybatis.day02.crud.model.User">
-    insert into user(id, username, birthday, sex, address)
-    values(#{id}, #{username}, #{birthday}, #{sex}, #{address})
-</insert>
+
 ```
 
-###### 单元测试
+###### 保存测试
 
 ```java
 
-    @Test
-    public void testSaveUser(){
-        // 创建连接
-        SqlSession sqlSession = SqlSessionKit.openSeesion();
-        // 执行操作
-        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-        User u = new User();
-        u.setId(2);
-        u.setUsername("小李");
-        u.setBirthday(new Date());
-        u.setSex("1");
-        u.setAddress("江西");
-        mapper.saveUser(u);
-        // 提交事务
-        sqlSession.commit();
-//        System.out.println(u);
-        // 关闭资源
-        SqlSessionKit.close();
-    }
 ```
 
-###### 查询主键
+###### 返回自增长的主键值
 
-1. 通用查询
+1. 通用写法
 
     ```xml
-      <!-- 指定操作名称; 指定封装类; 执行语句 -->
-      <insert id="saveUser" parameterType="com.itheima.mybatis.day02.crud.model.User">
-       <selectKey resultType="int" keyColumn="id" keyProperty="id">
-           -- 查询当前连接中最后一个自增长主键值
-           select LAST_INSERT_ID()
-       </selectKey>
-      
-       insert into user(username, birthday, sex, address)
-       values(#{username}, #{birthday}, #{sex}, #{address})
-      </insert>
+    
     ```
 
 2. 简洁写法
 
    ```xml
-   <!-- 指定操作名称; 指定封装类; 执行语句 -->
-   <insert id="saveUser" parameterType="com.itheima.mybatis.day02.crud.model.User"
-           useGeneratedKeys="true" keyProperty="id">
-       <!--<selectKey resultType="int" keyColumn="id" keyProperty="id">
-           &#45;&#45; 查询当前连接中最后一个自增长主键值
-           select LAST_INSERT_ID()
-       </selectKey>-->
    
-       insert into user(username, birthday, sex, address)
-       values(#{username}, #{birthday}, #{sex}, #{address})
-   </insert>
    ```
 
    注意: 该写法, 不支持自增长主键的数据库无法使用.
 
-###### 单元测试
+###### 打印新增的用户ID
 
 ```java
-@Test
-public void testSaveUser(){
-    // 创建连接
-    SqlSession sqlSession = SqlSessionKit.openSeesion();
-    // 执行操作
-    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-    User u = new User();
-    u.setUsername("小李");
-    u.setBirthday(new Date());
-    u.setSex("1");
-    u.setAddress("江西");
-    mapper.saveUser(u);
-    // 提交事务
-    sqlSession.commit();
 
-    System.out.println(u);
-    // 关闭资源
-    SqlSessionKit.close();
-}
 ```
 
 ##### 小结
 
-1. 写入操作要注意什么?
-   - 需要提交事务
-2. 返回自增长主键有几种方式?
-   - 使用selectKey标签查询
-   - 使用insert标签中的useGeneratedKeys属性打开主键查询功能
+1. 保存/修改/删除类的操作要注意什么?
+   - 
+2. 如何返回自增长的主键值?
+   - 
 
 
 
-#### 04模糊查询的参数接收细节【掌握】
+#### 03CRUD - 删改操作【掌握】
 
 ##### 目标
 
-​	掌握模糊查询的拼接方式(%%)
+- 使用Mybatis修改数据
+- 使用Mybatis删除数据
 
 ##### 步骤
 
-###### 整理需求
+- ==根据ID修改用户数据==
+- ==根据ID删除用户数据==
 
-​	==根据部分名称查找用户==
-
-###### 开发步骤
-
-1. 添加操作
-2. 配置操作
-3. 单元测试
+1. UserMapper.java: 增加 **update、delete** 操作方法
+2. userMapper.xml: 增加 **update、delete** 方法配置
+3. **测试修改、删除操作**
 
 ##### 操作
 
-###### 添加操作
+###### 增加 **update、delete** 操作方法
 
 ```java
 
-
-    /**
-     * 根据部分用户名模糊查询用户.
-     *
-     * @param username the username
-     * @return the list
-     */
-    List<User> likeByUsername(String username);
 ```
 
-###### 配置操作
+###### 增加 **update、delete** 方法配置
 
 ```xml
 
-
-<!-- 指定操作名称; 指定封装类; 执行语句 -->
-<select id="likeByUsername" parameterType="string" resultType="com.itheima.mybatis.day02.crud.model.User">
-    select * from user where username like #{username}
-</select>
-
 ```
 
-###### 单元测试
+###### 测试修改、删除操作
 
 ```java
 
-    @Test
-    public void testLikeByUsername(){
-        // 创建连接
-        SqlSession sqlSession = SqlSessionKit.openSeesion();
-        // 执行操作
-        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-        List<User> all = mapper.likeByUsername("%陈%");
-        all.forEach(u -> System.out.println(u));
-        // 关闭资源
-        SqlSessionKit.close();
-    }
 ```
 
 ##### 小结
 
-1. 模糊查询有哪些方式拼接%?
+- 修改和删除本质上只是sql语句的变化
 
-   1. java代码拼接
 
-   2. 在sql文件中使用${}占位符和%拼接
 
-      ${}: 使用时必须用value接收参数
-
-    
-
-2. ${}与#{}的区别是什么?
-
-   |          |        \#{*}         |       ${*}        |
-   | :------: | :------------------: | :---------------: |
-   | 简单类型 |  *可以是任意字符串   | *只能是 **value** |
-   | 对象类型 |     **属性名称**     |   **属性名称**    |
-   | 其他结论 | 预编译 **防SQL注入** |    字符串拼接     |
-
-   
-
-#### 05使用Mybatis删改数据【掌握】
+#### 04CRUD - 查询操作【掌握】
 
 ##### 目标
 
-​	掌握Mybatis**修改**和**删除**数据的操作
+- 使用Mybatis查询个别数据
 
 ##### 步骤
 
-###### 整理需求
+- ==根据用户ID查询用户==
 
-​	1. ==根据ID修改用户数据==
-
-​	2. ==根据ID删除用户数据==
-
-###### 开发步骤
-
-1. 添加操作
-2. 配置操作
-3. 单元测试
+1. UserMapper.java: 增加 **findById** 操作方法
+2. userMapper.xml: 增加 **findById** 方法的配置
+3. **测试ID查询**
 
 ##### 操作
 
-###### 添加操作
+###### 增加 findById 操作方法
 
 ```java
-/**
- * 修改用户.
- *
- * @param user the user
- */
-void updateUser(User user);
 
-/**
- * 删除用户.
- *
- * @param user the user
- */
-void deleteUser(User user);
 ```
 
-###### 配置映射
+###### 增加 findById 方法的配置
 
 ```xml
-<!-- 指定操作名称; 指定封装类; 执行语句 -->
-<update id="updateUser" parameterType="com.itheima.mybatis.day02.crud.model.User">
-    update user set username=#{username}, birthday=#{birthday}, sex=#{sex}, address=#{address} where id = #{id}
-</update>
 
-<!-- 指定操作名称; 指定封装类; 执行语句 -->
-<delete id="likeByUsername" parameterType="com.itheima.mybatis.day02.crud.model.User">
-    delete from user where id = #{id}
-</delete>
 ```
 
-###### 单元测试
+###### 测试ID查询
 
 ```java
-@Test
-public void testUpdateUser(){
-    // 创建连接
-    SqlSession sqlSession = SqlSessionKit.openSeesion();
-    // 执行操作
-    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-    User u = new User();
-    u.setId(2);
-    u.setUsername("小李3");
-    u.setBirthday(new Date());
-    u.setSex("1");
-    u.setAddress("江西 抚州");
-    mapper.updateUser(u);
-    // 提交事务
-    sqlSession.commit();
-    // 关闭资源
-    SqlSessionKit.close();
-}
 
-
-@Test
-public void testDeleteUser(){
-    // 创建连接
-    SqlSession sqlSession = SqlSessionKit.openSeesion();
-    // 执行操作
-    UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-    User u = new User();
-    u.setId(49);
-    mapper.deleteUser(u);
-    // 提交事务
-    sqlSession.commit();
-    // 关闭资源
-    SqlSessionKit.close();
-}
 ```
 
 ##### 小结
 
-1. 修改到删除改动了哪里?
-
-   sql执行语句不一样
+- 映射文件中怎么接受参数?
 
 
 
+- 执行语句中使用了什么占位符?
 
 
-#### 06掌握输入输出映射配置【掌握】
+
+
+
+#### 05占位符的孪生兄弟【掌握】
 
 ##### 目标
 
-​	掌握Mybatis输入输出的映射配置
+- 使用 **${}** 拼接符
+- 代替 **#{}** 占位符
 
 ##### 步骤
 
-###### 整理需求
+- ==根据用户名模糊查找用户==
 
-​	==统计1号用户的下单数==
-
-###### 开发步骤
-
-1. 创建订单类
-2. 创建操作类
-3. 创建sql文件
-4. 引入sql文件
-5. 单元测试
+1. UserMapper.java: 增加 **likeByUsername** 操作方法
+2. userMapper.xml: 增加 **likeByUsername** 方法的配置
+3. **测试模糊查询**
 
 ##### 操作
 
-###### 创建订单类
+###### 增加 likeByUsername 操作方法
 
 ```java
-/**
- * 订单类.
- * <p>
- *     用于接收订单表数据.
- * </p>
- *
- * @author ：Jason.lee
- * @version : 1.0
- * @date ：2019/4/7 21:20
- * @description : Order
- * @modified : -
- */
-@Data
-public class Order {
-    private Integer id;
-    private Integer userId;
-    private String number;
-    private Date createTime;
-    private String note;
-}
+
 ```
 
-###### 创建操作类
-
-```java
-/**
- * 订单操作类
- */
-public interface OrderMapper {
-    /**
-     * 统计用户下单数.
-     *
-     * @param id the id
-     * @return the integer
-     */
-    Integer countOrder(Integer id);
-}
-```
-
-###### 创建sql文件
+###### 增加 likeByUsername 方法的配置
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 指定操作类型(指定文件归属的操作类) -->
-<mapper namespace="com.itheima.mybatis.day02.crud.mapper.UserMapper">
 
-
-    <!-- 指定操作名称; 指定封装类; 执行语句 -->
-    <select id="countOrder" resultType="int">
-        select count(*) from orders where user_id = #{id}
-    </select>
-
-
-</mapper>
 ```
 
-###### 引入sql文件
-
-```xml
-<mapper resource="mapper/orderMapper.xml"/>
-```
-
-###### 单元测试
+###### 测试模糊查询
 
 ```java
-@Test
-public void testCountOrder(){
-    // 创建连接
-    SqlSession sqlSession = SqlSessionKit.openSeesion();
-    // 执行操作
-    OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
-    Integer count = mapper.countOrder(1);
-    System.out.println(count);
-    // 关闭资源
-    SqlSessionKit.close();
-}
+
 ```
 
 ##### 小结
 
-1. 输入类型可以是java对象吗?
+- ${}与#{}的区别是什么?
 
-   可以(接收参数)
+|          |        \#{*}         |       ${*}        |
+| :------: | :------------------: | :---------------: |
+| 简单类型 |  *可以是任意字符串   | *只能是 **value** |
+| 对象类型 |     **属性名称**     |   **属性名称**    |
+| 其他结论 | 预编译 **防SQL注入** |    字符串拼接     |
 
-2. 输出类型可以是java对象吗?
+- parameterType(**输入映射**)可以不写吗?
 
-   可以(返回值)
-
-
+  
 
 
 
-#### 07掌握ResultMap输出映射【掌握】
+#### 06输出映射 - resultType【掌握】
 
 ##### 目标
 
-​	掌握ResultMap的基本映射配置
+- 映射文件中**接收参数** - 输入映射
+- 映射文件中**返回结果** - 输出映射
 
 ##### 步骤
 
-###### 整理需求
+- ==统计1号用户的下单数==
 
-​	==查询所有订单==
-
-###### 开发步骤
-
-1. 添加操作
-2. 配置映射
-3. 单元测试
+1. 创建**Order.java**
+2. 创建**OrderMapper.java**
+3. 创建**orderMapper.xml**
+4. 在mybatis.xml文件中**引用orderMapper.xml文件**
+5. **统计测试**
 
 ##### 操作
 
-###### 添加操作
+###### 创建Order.java
 
 ```java
-/**
- * 查询所有订单.
- *
- * @return 查询结果
- */
-List<Order> findAll();
+
 ```
 
-###### 配置映射
+###### 创建OrderMapper.java
+
+```java
+
+```
+
+###### 创建orderMapper.xml
 
 ```xml
-<resultMap id="OrderMap" type="com.itheima.mybatis.day02.crud.model.Order">
-    <result column="user_id" property="userId"/>
-</resultMap>
 
-<!-- 指定操作名称; 指定封装类; 执行语句 -->
-<select id="findAll" resultType="com.itheima.mybatis.day02.crud.model.Order">
-    select * from orders
-</select>
 ```
 
-###### 单元测试
+###### 在mybatis.xml文件中引用orderMapper.xml文件
+
+```xml
+
+```
+
+###### 统计测试
 
 ```java
-@Test
-public void testFindAll(){
-    // 创建连接
-    SqlSession sqlSession = SqlSessionKit.openSeesion();
-    // 执行操作
-    OrderMapper mapper = sqlSession.getMapper(OrderMapper.class);
-    List<Order> all = mapper.findAll();
-    all.forEach(u -> System.out.println(u));
-    // 关闭资源
-    SqlSessionKit.close();
-}
+
 ```
 
 ##### 小结
 
-1. ResultMap的作用是什么?
+- 输入类型可以是java对象吗?
 
-   将数据库字段与java对象属性建立对应关系
+  
+
+- 输出类型可以是java对象吗?
+
+  
 
 
 
-#### 08认识Mybatis传统开发【理解】
+#### 07输出映射 - ResultMap【掌握】
 
 ##### 目标
 
-​	区别代理开发与传统开发两种开发方式
+- 使用ResultMap映射复杂的查询结果
+
+##### 步骤
+
+- ==查询所有订单==
+
+1. OrderMapper.java: 增加 **findAll** 操作方法
+2. orderMapper.xml: 增加 **findAll** 方法配置
+3. **测试订单查询**
+
+##### 操作
+
+###### 增加 findAll 操作方法
+
+```java
+
+```
+
+###### 增加 findAll 方法配置
+
+```xml
+
+```
+
+###### 测试订单查询
+
+```java
+
+```
+
+##### 小结
+
+- ResultMap的作用是什么?
+
+  将数据库字段与java对象属性建立对应关系
+
+- 每个 **映射文件** 中都可以配置ResultMap吗?
+
+  可以, 不止每个文件中可以配置, 而且每个文件中都可以配置多个
+
+
+
+#### 08映射文件 - 批量引用【了解】
+
+##### 目标
+
+- 在主配置文件中批量引入映射文件
+
+##### 步骤
+
+###### 用法
+
+```xml
+
+```
+
+###### 前提
+
+1. 映射文件需要放在映射器同路径下
+
+   **com/itheima/mybatis/day02/crud/mapper**
+
+2. 代理开发方式
+
+   **不支持传统Dao开发方式**
+
+
+
+##### 操作
+
+##### 小结
+
+- 批量加载sql文件有哪些前提?
+  - 需要把sql文件放在操作类相同目录下
+  - 必须是代理开发方式
+
+
+
+#### 09开发方式 - 传统开发【理解】
+
+##### 目标
+
+- 使用传统方式开发需求
 
 ##### 步骤
 
@@ -747,211 +464,90 @@ public void testFindAll(){
 
 　　之前学习的开发方式都是代理开发, 使用了动态代理技术
 
-- sql文件中namespace必须与操作类全名称完全一致
-- sql文件中id必须与操作名称完全一致
+- sql文件中namespace必须与操作类全名称 **完全一致**
+- sql文件中id必须与操作名称 **完全一致**
 
 ###### 传统介绍
 
 ​	不使用代理技术动态创建实现类, 以手动实现操作类的方式提供
 
-
+- sql文件中namespace命名 **没有要求**
+- sql文件中id命名 **没有要求**
 
 ###### 整理需求
 
- 	1. ==根据ID查找用户==
-		2. ==添加新用户==
+- ==根据ID查找用户==
+- ==添加新用户==
 
-
-
-###### 开发步骤
-
-1. 创建新操作类
-2. 创建sql文件
-3. 提供实现类
-4. 引入sql文件
-5. 单元测试
+1. idea: 创建项目 (已准备)
+2. pom.xml: 引入依赖jar包 (已准备)
+3. 创建 **UserDao.java**
+4. 创建 **userDao.xml**
+5. 提供实现类 **UserDaoImpl.java**
+6. 在mybatis.xml文件中 **引用orderMapper.xml文件**
+7. **传统开发测试**
 
 
 
 ##### 操作
 
-###### 创建操作类
+###### 创建 UserDao.java
 
 ```java
 
-/**
- * 用户操作类
- */
-public interface UserDao {
-    /**
-     * 查询所有用户.
-     *
-     * @param id the id
-     * @return the user
-     */
-    User findById(Integer id);
-}
-
 ```
 
-###### 创建sq文件
+###### 创建 userDao.xml
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 指定操作类型(指定文件归属的操作类) -->
-<mapper namespace="com.itheima.mybatis.day02.crud.mapper.UserDao">
 
-    <!-- 指定操作名称; 指定封装类; 执行语句 -->
-    <select id="findById" parameterType="int" resultType="com.itheima.mybatis.day02.crud.model.User">
-        select * from user where id =#{id}
-    </select>
-
-
-</mapper>
 ```
 
-###### 提供实现类
+###### 提供实现类 UserDaoImpl.java
 
 ```java
 
-/**
- * 用户操作实现类.
- *
- * @author ：Jason.lee
- * @version : 1.0
- * @date ：2019/4/7 21:55
- * @description : UserDaoImpl
- * @modified : -
- */
-public class UserDaoImpl implements UserDao{
-    @Override
-    public User findById(Integer id) {
-        SqlSession sqlSession = SqlSessionKit.openSeesion();
-        User user = sqlSession.selectOne("com.itheima.mybatis.day02.crud.mapper.UserDao.findById", id);
-        return user;
-    }
-}
-
 ```
 
-###### 引入sql文件
+###### 在mybatis.xml文件中 引用orderMapper.xml文件
 
 ```xml
-<mapper resource="mapper/userDao.xml"/>
+
 ```
 
-###### 单元测试
+###### 传统开发测试
 
 ```java
-@Test
-public void testFindById(){
-    UserDaoImpl dao = new UserDaoImpl();
-    User user = dao.findById(24);
-    System.out.println(user);
-}
+
 ```
 
 ##### 小结
 
-1. 代理方式与传统方式的区别?
+- 主流的Myabtis开发方式是哪种?
 
-   - 代理方式不需要提供实现类, 但是sql文件中的命名空间和操作名称必须完全与操作类一致
-   - 传统方式需要提供实现类, 但是sql文件中的命名空间和操作名称不需要一致
-
-2. 当今企业中应用哪种?
-
-   代理开发方式
+  
 
 
 
-#### 09主配置文件引用外部配置【掌握】
+#### 10主配置 - 别名配置【掌握】
 
 ##### 目标
 
-​	使用 **外部文件** 配置数据库连接参数 (变量)
+- 使用简短的别名代替较长的类名
 
 ##### 步骤
 
-###### 定义 db.properties
+###### 已经用过哪些别名
 
-###### 引入外部配置
+- 
 
-###### 使用示例
+###### 能否自定义别名
 
-###### 引入远程配置
+- 
 
-##### 操作
+###### 可否批量设置别名
 
-###### 定义 db.properties
-
-```properties
-db.driver=com.mysql.jdbc.Driver
-db.url=jdbc:mysql:///mybatisdb
-db.username=root
-db.password=root
-```
-
-###### 引入外部配置
-
-```xml
-<!-- 引入外部配置 -->
-<properties resource="db.properties">
-    <!-- 说明外部配置优先 -->
-    <property name="db.driver" value="666"/>
-</properties>
-```
-
-###### 使用示例
-
-```xml
-    <property name="driver" value="${db.driver}"/>
-    <property name="url" value="${db.url}"/>
-    <property name="username" value="${db.username}"/>
-    <property name="password" value="${db.password}"/>
-```
-
-###### 引入远程配置
-
-```xml
-<!-- 引入远程配置 -->
-<properties url="http://localhost:8080/db.properties">
-
-</properties>
-```
-
-##### 小结
-
-1. 有几种引用方式?
-
-   - 外部配置 (有重复变量以外部为准)
-   - 内部配置
-   - 远程配置
-
-   
-
-2. 引用内部若配置了与外部文件中相同的变量, 哪个生效?
-
-   最终以外部配置为准
-
-   
-
-#### 10主配置文件配置别名【掌握】
-
-##### 目标
-
-​	学习别名的配置与使用
-
-##### 步骤
-
-###### 内置别名
-
-###### 自定义别名
-
-1. 单独设置
-2. 批量设置
+- 
 
 ##### 操作
 
@@ -989,26 +585,17 @@ db.password=root
 
 ###### 自定义别名
 
-1. 单独设置
+```xml
 
-   ```xml
-   <!-- 别名设置 -->
-   <typeAliases>
-       <!-- 单独设置 -->
-       <typeAlias type="com.itheima.mybatis.day02.crud.model.User" alias="user"/>
-   </typeAliases>
-   ```
+```
 
-2. 批量设置
+###### 批量设置别名
 
 ```xml
-<!-- 别名设置 -->
-<typeAliases>
-    <!-- 单独设置 -->
-    <!--<typeAlias type="com.itheima.mybatis.day02.crud.model.User" alias="user"/>-->
-    <package name="com.itheima.mybatis.day02.crud.model"/>
-</typeAliases>
+
 ```
+
+
 
 ##### 小结
 
@@ -1021,71 +608,82 @@ db.password=root
 
 
 
-#### 11批量加载sql配置文件【了解】
+#### 11主配置 - 变量配置【掌握】
 
 ##### 目标
 
-​	学习批量加载sql文件
+- 使用变量代替连接参数
 
 ##### 步骤
 
-###### 前提条件
+###### 使用示例[官网](http://www.mybatis.org/mybatis-3/zh/getting-started.html)
 
-1. 映射文件需要放在映射器同路径下
+###### 定义内部变量
 
-   **com/itheima/mybatis/day02/crud/mapper**
+###### 引用外部文件
 
-2. 代理开发方式
+###### 创建外部文件
 
-   **不支持传统Dao方式**
-
-###### 语法使用
-
-```xml
-<!-- 批量配置sql文件路径 -->
-<package name="com.itheima.mybatis.day02.crud.mapper"/>
-```
+###### 引入远程配置
 
 ##### 操作
 
+###### 定义内部变量
+
+```xml
+
+```
+
+###### 引用外部文件
+
+```xml
+
+```
+
+###### 创建外部文件
+
+```properties
+
+```
+
+###### 引入远程配置
+
+```xml
+<!-- 引入远程配置 -->
+<properties url="http://localhost:8080/db.properties">
+
+</properties>
+```
+
 ##### 小结
 
-1. 批量加载sql文件有哪些前提?
-   - 必须是代理开发方式
-   - 需要把sql文件放在操作类相同目录下
+1. 有几种引用方式?
 
+   - 外部配置 (有重复变量以外部为准)
+   - 内部配置
+   - 远程配置
 
-
+   
 
 
 #### 12总结
 
-1. CRUD操作对应着哪些标签?
+- CRUD操作对应着哪些标签?
 
-   ```xml
-   select, update, insert, delete
-   ```
-
-2. 模糊查询如何拼接字符?
-
-   - 在java代码中拼接
-   - 直接在sql文件中使用占位符在字符串中获取参数( '%${value}%')
-
-3. 输入输出映射有哪些?
-
-   parameterType: 别名
-
-   resultType: 别名
-
-   resultMap: 将数据库字段与java对象属性建立对应关系
-
-4. 传统开发与代理开发的区别是什么?
-
-   - 传统需要提供实现类, 需要在代码中指定操作类型和操作名
-   - 代理不需要提供实现类, 但是namespace和id必须与操作类和操作名称一致
-
-5. 常用标签有哪些, 做什么用的, 需要注意什么?
-
-   - <properties resource, ur: 引入外部配置
-   - <typeAliases: 设置别名
-   - <package: 批量加载sql文件 (不支持传统开发方式)
+```xml
+select, update, insert, delete
+```
+- 模糊查询如何拼接字符?
+  - 在java代码中拼接
+  - 直接在sql文件中使用占位符在字符串中获取参数( '%${value}%')
+- 输入输出映射有哪些?
+  - parameterType: 别名
+  - resultType: 别名
+  - resultMap: 将数据库字段与java对象属性建立对应关系
+- 传统开发与代理开发的区别是什么?
+  - 传统需要提供实现类, 需要在代码中指定操作类型和操作名
+  - 代理不需要提供实现类, 但是namespace和id必须与操作类和操作名称一致
+- 常用标签有哪些, 做什么用的, 需要注意什么?
+  - <properties resource: 引入外部配置
+  - <typeAliases: 设置别名
+  - <package: 批量加载sql文件 (不支持传统开发方式)
