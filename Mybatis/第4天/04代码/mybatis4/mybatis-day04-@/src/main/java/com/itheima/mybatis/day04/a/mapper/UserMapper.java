@@ -23,6 +23,7 @@ public interface UserMapper {
     @Select("select * from user " +
             "where id = #{id}")
     User findById(Integer id);
+    User findById2(@Param("di") Integer id);
 
 
     /**

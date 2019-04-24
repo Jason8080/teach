@@ -27,7 +27,9 @@ public class AnnotationTests {
         // 执行操作
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
         User u = mapper.findById(1);
+        User u2 = mapper.findById2(1);
         System.out.println(u);
+        System.out.println(u2);
         // 关闭资源
         sqlSession.close();
     }
