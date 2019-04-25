@@ -9,19 +9,24 @@
 
 ###### 动态sql标签
 
-- if: 
-- where: 
-- set: 
-- sql,include: 
-- foreach: 
+- if: 根据test中的条件判断是否拼接标签中的语句
+- where: 代替where关键字, 自动去除多余的and和or关键字
+- set: 代替了set关键字, 自动去除多余的 , 号
+- sql,include: sql用于定义公共的sql, include用于引用共用的sql
+- foreach: 用于接收数组或者集合的参数
+  - 数组必须以array接收
+  - list用list或者collection
 
-###### 1对1实现方式
 
-- association: 
 
-###### 1对多实现方式
+###### 关系映射
 
-- collection: 
+使用ResultMap标签定义数据字段与对象属性的对应关系
+
+- association
+  - 用于配置1对1的关联关系
+- collection
+  - 用于配置1对多的关联关系
 
 
 
