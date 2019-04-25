@@ -6,10 +6,7 @@
 <configuration>
 
     <!-- 引入外部配置 -->
-    <properties resource="db.properties">
-        <!-- 说明外部配置优先 -->
-        <property name="db.driver" value="666"/>
-    </properties>
+    <properties resource="db.properties"/>
 
     <settings>
         <!-- 开启二级缓存 -->
