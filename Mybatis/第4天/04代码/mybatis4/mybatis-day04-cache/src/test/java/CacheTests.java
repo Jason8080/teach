@@ -19,26 +19,26 @@ import java.util.List;
 public class CacheTests {
 
     @Test
-    public void testOne(){
+    public void testEvn (){
         SqlSession sqlSession = SqlSessionKit.openSession();
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-        // 查询userMapper
         userMapper.findAll();
-        // 查询orderMapper
         orderMapper.findAll();
-        User user = new User();
-        user.setId(1);
-        user.setAddress("6666666");
-        // 修改userMapper内容
-        userMapper.update(user);
-        sqlSession.commit();
         sqlSession.close();
+    }
+
+    @Test
+    public void testOne(){
+        testEvn();
+        System.out.println("===============分割线==================");
+        testEvn();
     }
 
     @Test
     public void testTwo(){
         testOne();
+        System.out.println("===============分割线==================");
         testOne();
     }
 }
