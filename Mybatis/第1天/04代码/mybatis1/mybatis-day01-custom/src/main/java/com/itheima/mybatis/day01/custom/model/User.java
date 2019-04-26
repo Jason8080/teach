@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 用户类.
  * <p>
- *     用于封装数据表.
+ *     用于接收用户数据.
  * </p>
  *
  * @author ：Jason.lee
