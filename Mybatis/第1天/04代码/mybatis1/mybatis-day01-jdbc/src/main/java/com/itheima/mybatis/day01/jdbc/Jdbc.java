@@ -1,7 +1,5 @@
 package com.itheima.mybatis.day01.jdbc;
 
-import java.lang.reflect.Method;
-
 /**
  * Jdbc入门案例.
  * <p>
