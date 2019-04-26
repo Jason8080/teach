@@ -9,7 +9,6 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>mybatis-day03-pool</module>
-        <module>mybatis-day03-tx</module>
         <module>mybatis-day03-sql</module>
         <module>mybatis-day03-relate</module>
     </modules>
