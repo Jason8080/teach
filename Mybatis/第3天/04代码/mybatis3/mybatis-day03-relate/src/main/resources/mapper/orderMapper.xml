@@ -24,4 +24,6 @@
         SELECT * FROM orders o
         LEFT JOIN user u ON o.user_id = u.id
     </select>
+
+
 </mapper>

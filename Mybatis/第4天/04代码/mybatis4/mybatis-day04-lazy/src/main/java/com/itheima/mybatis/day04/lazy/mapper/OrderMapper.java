@@ -15,5 +15,5 @@ public interface OrderMapper {
      *
      * @return 查询结果
      */
-    List<Order> findAll();
+    List<Order> findO2O();
 }

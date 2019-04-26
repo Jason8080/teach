@@ -4,24 +4,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 指定操作类型(指定文件归属的操作类) -->
 <mapper namespace="com.itheima.mybatis.day04.lazy.mapper.OrderMapper">
-
-    <resultMap id="OrderMap" type="com.itheima.mybatis.day04.lazy.model.Order">
-        <result column="user_id" property="userId"/>
-        <association property="user" javaType="user"
-                     column="user_id"
-                     select="com.itheima.mybatis.day04.lazy.mapper.UserMapper.findById"/>
+    
+    <resultMap id="O2O" type="order">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="number" column="number"/>
+        <result property="createTime" column="createTime"/>
+        <result property="note" column="note"/>
+        <association property="user" javaType="user">
+            <id property="id" column="user_id"/>
+            <result property="username" column="username"/>
+            <result property="birthday" column="birthday"/>
+            <result property="sex" column="sex"/>
+            <result property="address" column="address"/>
+        </association>
     </resultMap>
-
-
-    <!-- 指定操作名称; 指定封装类; 执行语句 -->
-    <select id="findAll" resultMap="OrderMap">
-        select * from orders
+    
+    <select id="findO2O" resultMap="O2O">
+        SELECT * FROM orders o
+        LEFT JOIN user u ON o.user_id = u.id
     </select>
 
-    <!-- 指定操作名称; 指定封装类; 执行语句 -->
-    <select id="findByUserId" parameterType="int" resultType="order">
+    <select id="findByUserId" resultType="order">
         select * from orders where user_id = #{id}
     </select>
-
-
 </mapper>
