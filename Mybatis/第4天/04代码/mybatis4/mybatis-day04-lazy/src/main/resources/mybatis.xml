@@ -19,7 +19,7 @@
     <typeAliases>
         <!-- 单独设置 -->
         <!--<typeAlias type="User" alias="user"/>-->
-        <package name="com.itheima.mybatis.day02.lazy.model"/>
+        <package name="com.itheima.mybatis.day04.lazy.model"/>
     </typeAliases>
 
     <!-- 多环境配置, default: 指定默认环境名称 -->
