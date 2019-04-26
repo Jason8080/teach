@@ -5,18 +5,17 @@
 <!-- 指定操作类型(指定文件归属的操作类) -->
 <mapper namespace="com.itheima.mybatis.day04.cache.mapper.OrderMapper">
 
-    <cache/>
-
     <resultMap id="OrderMap" type="Order">
         <result column="user_id" property="userId"/>
         <association property="user" javaType="user"
+                     select="com.itheima.mybatis.day04.cache.mapper.UserMapper.findById"
                      column="user_id"
-                     select="com.itheima.mybatis.day04.cache.mapper.UserMapper.findById"/>
+        />
     </resultMap>
 
 
     <!-- 指定操作名称; 指定封装类; 执行语句 -->
-    <select id="findAll" resultMap="OrderMap">
+    <select id="findO2O" resultMap="OrderMap">
         select * from orders
     </select>
 

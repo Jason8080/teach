@@ -15,7 +15,7 @@ import java.util.Date;
  * @description : Order
  * @modified : -
  */
-public class Order implements Serializable {
+public class Order {
     private Integer id;
     private Integer userId;
     private String number;

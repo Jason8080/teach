@@ -5,17 +5,16 @@
 <!-- 指定操作类型(指定文件归属的操作类) -->
 <mapper namespace="com.itheima.mybatis.day04.cache.mapper.UserMapper">
 
-    <cache/>
-
     <resultMap id="UserMap" type="user">
-        <collection property="orders" ofType="order"
+        <collection property="orders" javaType="list" ofType="order"
+                    column="id"
                     select="com.itheima.mybatis.day04.cache.mapper.OrderMapper.findByUserId"
-                    column="id"/>
+        />
     </resultMap>
 
 
     <!-- 指定操作名称; 指定封装类; 执行语句 -->
-    <select id="findAll" resultMap="UserMap">
+    <select id="findO2M" resultMap="UserMap">
         select * from user
     </select>
 
@@ -25,20 +24,5 @@
     <select id="findById" parameterType="int" resultType="user">
         select * from user where id = #{id}
     </select>
-
-
-    <update id="update" parameterType="user" >
-        update user
-        <set>
-            <if test="address!=null and address!=''">
-              address=#{address}
-            </if>
-        </set>
-        <where>
-            <if test="id!=null">
-                id = #{id}
-            </if>
-        </where>
-    </update>
 
 </mapper>

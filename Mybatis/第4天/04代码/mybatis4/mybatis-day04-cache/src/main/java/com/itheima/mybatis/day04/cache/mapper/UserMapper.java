@@ -19,20 +19,5 @@ public interface UserMapper {
      *
      * @return 查询结果 list
      */
-    List<User> findAll();
-
-
-    /**
-     * 根据ID查找用户.
-     *
-     * @param id 参数
-     * @return 查询结果 user
-     */
-    User findById(Integer id);
-
-    /**
-     *
-     * @param user
-     */
-    void update(User user);
+    List<User> findO2M();
 }
