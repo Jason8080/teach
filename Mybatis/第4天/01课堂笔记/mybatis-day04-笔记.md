@@ -25,7 +25,8 @@
 
 - association
   - 用于配置1对1的关联关系
-- co的关联关系
+- collection
+  - 用于配置1对多的关联关系
 
 
 
