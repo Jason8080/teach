@@ -1,11 +1,3 @@
-import com.itheima.mybatis.day04.lazy.kit.SqlSessionKit;
-import com.itheima.mybatis.day04.lazy.mapper.UserMapper;
-import com.itheima.mybatis.day04.lazy.model.User;
-import org.apache.ibatis.session.SqlSession;
-import org.junit.Test;
-
-import java.util.List;
-
 /**
  * 懒加载测试入口.
  *

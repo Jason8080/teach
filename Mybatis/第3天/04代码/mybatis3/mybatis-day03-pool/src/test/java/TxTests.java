@@ -1,7 +1,3 @@
-import com.itheima.mybatis.day03.pool.mapper.impl.UserDaoImpl;
-import com.itheima.mybatis.day03.pool.model.User;
-import org.junit.Test;
-
 /**
  * 事务控制.
  *
@@ -13,21 +9,4 @@ import org.junit.Test;
  */
 public class TxTests {
 
-    @Test
-    public void testJdbcManual() {
-        UserDaoImpl userDao = new UserDaoImpl();
-        User user = new User();
-        user.setUsername("JDBC");
-        user.setAddress("手动");
-        userDao.saveUserManual(user);
-    }
-
-    @Test
-    public void testJdbcAuto() {
-        UserDaoImpl userDao = new UserDaoImpl();
-        User user = new User();
-        user.setUsername("JDBC");
-        user.setAddress("自动");
-        userDao.saveUserAuto(user);
-    }
 }

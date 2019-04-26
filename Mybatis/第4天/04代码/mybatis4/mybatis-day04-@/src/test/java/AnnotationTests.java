@@ -1,8 +1,8 @@
-import com.itheima.mybatis.day04.a.kit.SqlSessionKit;
-import com.itheima.mybatis.day04.a.mapper.OrderMapper;
-import com.itheima.mybatis.day04.a.mapper.UserMapper;
-import com.itheima.mybatis.day04.a.model.Order;
-import com.itheima.mybatis.day04.a.model.User;
+import com.itheima.mybatis.day04.a.SqlSessionKit;
+import com.itheima.mybatis.day04.a.OrderMapper;
+import com.itheima.mybatis.day04.a.UserMapper;
+import com.itheima.mybatis.day04.a.Order;
+import com.itheima.mybatis.day04.a.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 

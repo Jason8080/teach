@@ -24,61 +24,9 @@
 7. 工厂设计
 8. junit
 
-###### Mybatis框架的环境搭建步骤
+###### 创建新的项目
 
-1. idea: 创建项目 (已准备)
-2. pom.xml: **导入框架jar包**
-3. 导入**mybatis.xml**和**userMapper.xml**文件
-4. 创建**User**和**UserMapper**类
-5. **环境测试**
-
-
-
-##### 操作
-
-###### 引入依赖
-
-```xml
-
-```
-
-
-
-###### 导入**mybatis.xml**和**userMapper.xml**文件
-
-1. mybatis.xml
-
-   ```xml
-   
-   ```
-
-2. userMapper.xml
-
-   ```xml
-   
-   ```
-
-   
-
-###### 创建**User**和**UserMapper**类
-
-1. User.java
-
-   ```java
-   
-   ```
-
-2. UserMapper.java
-
-   ```java
-   
-   ```
-
-   
-
-###### 环境测试
-
-1. 测试
+1. 环境测试
 
    ```java
    
@@ -92,7 +40,11 @@
 
 ##### 小结
 
-- Mybatis环境搭建的步骤是什么?
+- Mybatis的配置文件有哪些?
+
+1. 
+
+- Mybatis的开发步骤是哪三步?
 
 1. 
 

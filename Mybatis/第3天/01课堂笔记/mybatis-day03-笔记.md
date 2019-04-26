@@ -50,29 +50,6 @@
 - 接下来学习的是连接池相关内容
 - 模块名称: mybatis-day03-pool
 
-###### 引入依赖包
-
-- 数据库驱动
-- Mybatis框架包
-- log4j日志依赖包(3个)
-- **c3p0连接池**
-
-###### 引入文件
-
-- java文件
-  - User.java
-  - UserDao.java
-  - UserDaoImpl.java
-
-  - SqlSessionKit.java
-
-- 配置文件
-
-  - mybatis.xml
-  - userDao.xml
-  - db.properties
-  - log4j.properties
-
 
 ###### 环境测试
 
@@ -83,12 +60,8 @@
 
 ##### 小结
 
-- 搭建Mybatis项目环境的步骤是怎样的?
-
-  1. 创建项目
-  2. 引入依赖
-  3. 引入文件
-  4. 环境测试
+- 传统开发和代理开发的区别是什么?
+  - 
 
 
 
@@ -222,12 +195,9 @@
 - ==根据 **名称和性别** 查找用户==
 - ==只根据 **名称** 查找用户==
 
-1. idea: 创建项目(已准备)
-2. pom.xml: 引入依赖(已准备)
-3. package,resources: 引入文件(已准备)
-4. UserMapper.java: 增加 **findBy** 操作方法
-5. userMapper.xml: 增加 **findBy** 操作配置
-6. **添加测试**
+1. UserMapper.java: 增加 **findBy** 操作方法
+2. userMapper.xml: 增加 **findBy** 操作配置
+3. **添加测试**
 
 ##### 操作
 
