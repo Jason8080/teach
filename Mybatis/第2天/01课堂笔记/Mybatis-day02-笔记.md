@@ -417,11 +417,12 @@
 - ==根据ID查找用户==
 - ==添加新用户==
 
-1. 创建 **UserMapper.java**
-2. 创建 **userMapper.xml**
-3. 提供实现类 **UserMapperImpl.java**
-4. 在mybatis.xml文件中 **引用userMapper.xml文件**
-5. **传统开发测试**
+1. 创建项目引入依赖
+2. 创建 **UserMapper.java**
+3. 创建 **userMapper.xml**
+4. 提供实现类 **UserMapperImpl.java**
+5. 在mybatis.xml文件中 **引用userMapper.xml文件**
+6. **传统开发测试**
 
 
 
