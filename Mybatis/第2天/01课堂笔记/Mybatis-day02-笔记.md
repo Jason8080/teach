@@ -1,4 +1,4 @@
-#### 01复习Mybatis第1天的内容【了解】
+#### 01复习【了解】
 
 ##### 目标
 
@@ -49,9 +49,6 @@
 
 1. 
 
-- 使用Mybatis做了哪些操作?
-  - 查询所有用户 - 查询操作
-
 
 
 #### 02CRUD - 新增操作【掌握】
@@ -64,7 +61,6 @@
 ##### 步骤
 
 - ==保存用户==
-- ==打印新增用户的ID==
 
 1. UserMapper.java: 增加 **save** 操作方法
 2. userMapper.xml: 增加 **save** 方法配置
@@ -106,13 +102,9 @@
    
    ```
 
-   注意: 该写法, 不支持自增长主键的数据库无法使用.
+   注意: 该写法, **不支持自增长主键的数据库无法使用**.
 
-###### 打印新增的用户ID
 
-```java
-
-```
 
 ##### 小结
 
@@ -127,13 +119,10 @@
 
 ##### 目标
 
-- 使用Mybatis修改数据
-- 使用Mybatis删除数据
-
-##### 步骤
-
 - ==根据ID修改用户数据==
 - ==根据ID删除用户数据==
+
+##### 步骤
 
 1. UserMapper.java: 增加 **update、delete** 操作方法
 2. userMapper.xml: 增加 **update、delete** 方法配置
@@ -169,11 +158,9 @@
 
 ##### 目标
 
-- 使用Mybatis查询个别数据
+- ==根据用户ID查询用户==
 
 ##### 步骤
-
-- ==根据用户ID查询用户==
 
 1. UserMapper.java: 增加 **findById** 操作方法
 2. userMapper.xml: 增加 **findById** 方法的配置
@@ -256,7 +243,7 @@
 | 对象类型 |     **属性名称**     |   **属性名称**    |
 | 其他结论 | 预编译 **防SQL注入** |    字符串拼接     |
 
-- parameterType(**输入映射**)可以不写吗?
+- parameterType可以不写吗?
 
   
 
@@ -327,11 +314,9 @@
 
 ##### 目标
 
-- 使用ResultMap映射复杂的查询结果
+- ==查询所有订单==
 
 ##### 步骤
-
-- ==查询所有订单==
 
 1. OrderMapper.java: 增加 **findAll** 操作方法
 2. orderMapper.xml: 增加 **findAll** 方法配置
@@ -432,31 +417,29 @@
 - ==根据ID查找用户==
 - ==添加新用户==
 
-1. idea: 创建项目 (已准备)
-2. pom.xml: 引入依赖jar包 (已准备)
-3. 创建 **UserDao.java**
-4. 创建 **userDao.xml**
-5. 提供实现类 **UserDaoImpl.java**
-6. 在mybatis.xml文件中 **引用orderMapper.xml文件**
-7. **传统开发测试**
+1. 创建 **UserMapper.java**
+2. 创建 **userMapper.xml**
+3. 提供实现类 **UserMapperImpl.java**
+4. 在mybatis.xml文件中 **引用userMapper.xml文件**
+5. **传统开发测试**
 
 
 
 ##### 操作
 
-###### 创建 UserDao.java
+###### 创建 UserMapper.java
 
 ```java
 
 ```
 
-###### 创建 userDao.xml
+###### 创建 userMapper.xml
 
 ```xml
 
 ```
 
-###### 提供实现类 UserDaoImpl.java
+###### 提供实现类 UserMapperImpl.java
 
 ```java
 
@@ -536,7 +519,7 @@
 | collection | Collection |
 | iterator   | Iterator   |
 
-###### 自定义别名
+###### 单独设置别名
 
 ```xml
 
@@ -561,7 +544,7 @@
 
 
 
-#### 11主配置 - 变量配置【掌握】
+#### 11主配置 - 外部配置【掌握】
 
 ##### 目标
 
@@ -602,10 +585,7 @@
 ###### 引入远程配置
 
 ```xml
-<!-- 引入远程配置 -->
-<properties url="http://localhost:8080/db.properties">
 
-</properties>
 ```
 
 ##### 小结
