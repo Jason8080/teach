@@ -1,4 +1,4 @@
-package com.itheima.mybatis.day04.lazy;
+package com.itheima.mybatis.day03.lazy;
 
 import java.util.List;
 

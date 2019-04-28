@@ -1,4 +1,4 @@
-package com.itheima.mybatis.day04.lazy;
+package com.itheima.mybatis.day03.lazy;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
