@@ -4,24 +4,26 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+    <properties resource="db.properties"/>
+
     <typeAliases>
-        <package name="com.itheima.mybatis.day03.relate"/>
+        <package name="com.itheima.mybatis.day04.lazy.model"/>
     </typeAliases>
 
     <environments default="dev">
         <environment id="dev">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql:///mybatisdb"/>
-                <property name="username" value="root"/>
-                <property name="password" value="root"/>
+                <property name="driver" value="${db.driver}"/>
+                <property name="url" value="${db.url}"/>
+                <property name="username" value="${db.username}"/>
+                <property name="password" value="${db.password}"/>
             </dataSource>
         </environment>
     </environments>
 
     <mappers>
-        <!-- 批量引用时需要将映射文件放置包路径下 -->
-        <package name="com.itheima.mybatis.day03.relate"/>
+        <mapper resource="mapper/userMapper.xml"/>
+        <mapper resource="mapper/orderMapper.xml"/>
     </mappers>
 </configuration>

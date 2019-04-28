@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mybatis.day04.lazy.UserMapper">
+
+    <resultMap id="O2M" type="user">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="birthday" column="birthday"/>
+        <result property="birthday" column="birthday"/>
+        <result property="sex" column="sex"/>
+        <result property="address" column="address"/>
+        <collection property="orders" ofType="order">
+            <id property="id" column="oid"/>
+            <result property="userId" column="user_id"/>
+            <result property="number" column="number"/>
+            <result property="createTime" column="createTime"/>
+            <result property="note" column="note"/>
+        </collection>
+    </resultMap>
+
+    <select id="findO2M" resultMap="O2M">
+        SELECT
+        u.id,
+        u.username,
+        u.birthday,
+        u.sex,
+        u.address,
+        o.id oid,
+        o.number,
+        o.createtime
+        FROM user u
+        LEFT JOIN orders o ON o.user_id = u.id
+    </select>
+
+</mapper>
