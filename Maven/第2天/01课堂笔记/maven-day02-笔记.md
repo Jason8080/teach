@@ -614,17 +614,260 @@
 
 - 了解web子项目中的各个配置内容
 
-##### 步骤
+##### 笔记
 
-- 
+- web.xml
 
-##### 操作
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         id="WebApp_ID" version="2.5">
 
-- 
+  <display-name>ssm</display-name>
+
+    <!--配置spring的配置文件位置(全局参数)-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/applicationContext.xml</param-value>
+    </context-param>
+    
+    <!--配置spring提供的监听器：ContextLoaderListener,说明：
+        1.ContextLoaderListener监听器，监听ServletContext对象的创建和销毁，一旦ServletContet
+        对象创建，就创建spring的容器，并且把spring容器放到ServletContext对象中
+        2.该监听器默认只能加载WEB-INF目录下applicationContext.xml文件
+        3.通过<context-param>标签配置指定spring配置文件的位置，改变默认的加载位置
+    -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!--配置前端控制器（DispatcherServlet）-->
+    <servlet>
+        <servlet-name>ssm</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+        <!--加载springmvc的主配置文件-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/springmvc.xml</param-value>
+        </init-param>
+
+        <!--配置tomcat启动就加载前端控制器-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ssm</servlet-name>
+        <!--配置请求的url规则，说明：
+            1.*.do，表示以.do结尾的请求进入前端控制器
+            2./，表示所有请求都进入前端控制器
+        -->
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+</web-app>
+```
+
+- WEB-INF/jsp/user/list.jsp
+
+```jsp
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--导入jstl标签库--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
+<head>
+    <title>用户列表jsp页面</title>
+</head>
+<body>
+    用户列表：
+    <table>
+        <tr>
+            <th>用户Id</th>
+            <th>用户名称</th>
+            <th>用户地址</th>
+        </tr>
+        <c:forEach items="${list}" var="user">
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>${user.address}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</body>
+</html>
+```
+
+- spring/applicationContext.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--导入其它模块的配置文件-->
+    <import resource="classpath:spring/applicationContext-dao.xml"/>
+    <import resource="classpath:spring/applicationContext-service.xml"/>
+    <import resource="classpath:spring/applicationContext-trans.xml"/>
+
+</beans>
+```
+
+- applicationContext-dao.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--加载属性资源文件,说明：
+        context:property-placeholder：加载属性资源文件
+    -->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <!--配置数据源对象-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <!--注入连接数据库的四个基本要素-->
+        <property name="driverClassName" value="${db.driver}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+
+    <!--让spring框架接管SqlSessionFactory对象-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--注入数据源对象DataSource-->
+        <property name="dataSource" ref="dataSource"/>
+
+        <!--加载mybatis主配置文件-->
+        <property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml"/>
+     </bean>
+
+    <!--配置mapper扫描器，相当于实现sqlMapConfig.xml中的mappers-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--配置要扫描的包-->
+        <property name="basePackage" value="com.itheima.maven.day02.dao"/>
+    </bean>
+
+
+</beans>
+```
+
+- applicationContext-service.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--配置包扫描service-->
+    <context:component-scan base-package="com.itheima.maven.day02.service"/>
+
+</beans>
+```
+
+- applicationContext-trans.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--注入数据源对象-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--配置aop-->
+    <aop:config>
+        <!--配置切入点表达式-->
+        <aop:pointcut id="pt1" expression="execution(* com.itheima.maven.day02.service..*.*(..))"/>
+
+        <!--建立通知（事务管理器）与切入点表达式的关系-->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pt1"/>
+    </aop:config>
+
+    <!--配置通知-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <!--配置事务属性-->
+        <tx:attributes>
+            <!--配置增删改方法，要求事务-->
+            <tx:method name="save*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="add*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="update*" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="del*" propagation="REQUIRED" read-only="false"/>
+
+            <!--配置查询的方法，只要支持事务即可-->
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="query*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+</beans>
+```
+
+- spring/springmvc.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--配置包扫描controller-->
+    <context:component-scan base-package="com.itheima.maven.day02.web"/>
+
+    <!--注解驱动配置处理器映射器处理器适配器-->
+    <mvc:annotation-driven/>
+
+    <!--配置视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--配置视图的公共目录路径（前缀）-->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!--配置视图的扩展名称（后缀）-->
+        <property name="suffix" value=".jsp"/>
+     </bean>
+
+</beans>
+```
+
+
 
 ##### 小结
 
-- 在idea中如何使用插件?
+- 哪些配置文件需要在web.xml中配置?
 
 
 
