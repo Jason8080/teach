@@ -37,6 +37,15 @@
 - 必须信息是坐标
 - scope可以指定引用范围, 默认是compile。
 
+| 依赖范围 | 说明     | 编译是否有效 | 测试是否有效 | 运行是否有效 | 是否打包 | 实际应用    |
+| -------- | -------- | ------------ | ------------ | ------------ | -------- | ----------- |
+| compile  | 编译范围 | √            | √            | √            | √        | ssm         |
+| test     | 测试范围 | √            | √            | ×            | ×        | junit       |
+| provided | 容器范围 | √            | √            | ×            | ×        | servlet-api |
+| runtime  | 运行范围 | ×            | √            | √            | √        | jdbc驱动    |
+
+
+
 ##### 操作
 
 ###### 下载MVN
@@ -71,19 +80,87 @@
 
   
 
-
-
-#### 01复习【理解】
+#### 02使用idea【了解】
 
 ##### 目标
 
-- 
+- 在idea开发工具上使用maven管理项目
 
 ##### 步骤
 
+###### 为什么使用idea
 
+- 手工操作较多，编译、测试、部署等工作都是独立的，很难一步完成。
+- 每个人的 IDE 配置都不同，很容易出 现本地代码换个地方编译就报错。 
+
+###### idea配置
+
+- File > Settings > Build, Execution, Deployment > Build Tools > Maven
+- **Maven home directory** : 安装目录
+- **User settings file** : C:\Users\Administrator.m2\settings.xml
+- **Local repository** : 本地仓库路径 
 
 ##### 操作
+
+…
+
+##### 小结
+
+- 为什么在C:\Users\Administrator.m2目录下放置settings.xml文件
+  - 
+
+
+
+#### 03依赖传递【掌握】
+
+##### 目标
+
+- 理解依赖的可传递特性
+
+##### 步骤
+
+###### 依赖传递案例
+
+- 使用Spring框架时只需要依赖spring-context，即可完成spring的IOC容器的使用;
+-  
+
+###### 依赖传递选项
+
+- 可以使用optional标签控制当前的依赖是否向下传递; 
+- 
+
+###### 依赖传递冲突
+
+![1556527769408](assets/1556527769408.png) 
+
+```xml
+<!-- A项目依赖 -->
+<dependencies>
+    <dependency>
+        <groupId>test</groupId>
+        <artifactId>B</artifactId>
+        <version>1.0</version>
+	</dependency>
+    <dependency>
+        <groupId>test</groupId>
+        <artifactId>D</artifactId>
+        <version>1.0</version>
+    </dependency>
+</dependencies>
+```
+
+- 短路优先
+  -  
+- 解决冲突
+  - 
+
+##### 操作
+
+###### 解决冲突
+
+```xml
+
+```
 
 
 
