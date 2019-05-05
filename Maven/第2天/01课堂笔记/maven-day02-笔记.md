@@ -111,7 +111,7 @@
 
 
 
-#### 03依赖传递【掌握】
+#### 03特性 - 依赖传递【掌握】
 
 ##### 目标
 
@@ -170,203 +170,496 @@
 
 
 
-#### 01复习【理解】
+#### 04高级特性 - 继承【理解】
 
 ##### 目标
 
-- 
+- 理解Maven项目的继承特性
 
 ##### 步骤
+
+###### 创建子项目
+
+- 项目名称: child1
 
 
 
 ##### 操作
 
+###### 继承父项目
+
+```xml
+<parent>
+    <artifactId>maven-day02-parent</artifactId>
+    <groupId>com.itheima</groupId>
+    <version>1.0-SNAPSHOT</version>
+</parent>
+```
+
+###### 父项目配置
+
+```xml
+
+```
+
+###### 子项目引用
+
+```xml
+
+```
+
 
 
 ##### 小结
 
-- 
+- 继承有什么作用?
+  - 
 
 
 
-#### 01复习【理解】
+#### 05高级特性 - 聚合【理解】
 
 ##### 目标
 
-- 
+- 理解maven的聚合特性
 
 ##### 步骤
+
+###### 创建聚合项目
+
+- 项目名称: **maven-day02-agg**regation
+
+##### 操作
+
+###### 编译测试
+
+###### 聚合其他项目
+
+```xml
+
+```
+
+###### 编译测试
+
+##### 小结
+
+- 聚合的作用是什么?
+  - 
+
+
+
+#### 06远程仓库 - 私服【掌握】
+
+##### 目标
+
+- 私服的作用
+- 搭建自己的私服
+
+##### 步骤
+
+###### 中央仓库的缺点
+
+- 地址: [http://repo1.maven.org/maven2/](http://repo1.maven.org/maven2/) (**下载慢**)
+- 限制: 同ip段的机器反复下载可能会被限制访问 (**黑名单**)
+
+###### 私服的好处
+
+- 解决访问限制问题
+- 即使不能上网也可以下载jar包
+- 可以上传自己的jar包
+
+###### 下载私服文件
+
+- nexus: [官网下载](https://help.sonatype.com/repomanager2/download#Download-OlderOSSversions(notrecommended)) 
+- 课前资料中已经下载 “ nexus-2.12.0-01-bundle.zip ” 。
+- 也可以将 “nexus-2.1.2.war”放置在 tomcat 的 webapps 目录下使用。 
+
+##### 操作
+
+1. 解压“nexus-2.12.0-01-bundle.zip” 
+2. 修改默认端口, 路径为：nexus-2.12.0-01\conf\nexus.properties。
+3. “ nexus-2.12.0-01\bin\jsw\windows-x86-64\ ” 目录下, 双击 console-nexus.bat 为后台启动 nexus；
+4. 双击“install-nexus.bat”则会注册为一个 windows 服务。 
+5. 访问: [http://localhost:8081/nexus](http://localhost:8081/nexus)
+6. 默认管理员账户: admin|admin123 
+
+##### 小结
+
+- 为什么要在局域网中搭建私服?
+  - 
+
+
+
+#### 07私服的应用【掌握】
+
+##### 目标
+
+- 掌握私服的各种应用场景
+
+##### 步骤
+
+###### 私服中的仓库类型
+
+- proxy：
+- hosted： 
+- virtual：
+- group：
+
+##### 操作
+
+###### 配置下载私服资源
+
+```xml
+<!-- 远程仓库配置 -->
+<mirror>
+    <!-- ID -->
+    <id>nexus</id>
+    <!-- 名称: 私服 -->
+    <name>nexus</name>
+    <!-- 下载地址 -->
+    <url>http://127.0.0.1:8081/nexus/content/groups/public/</url>
+    <!-- 拦截请求 -->
+    <mirrorOf>central</mirrorOf>
+</mirror>
+```
+
+###### 配置上传私服资源
+
+- 项目配置
+
+```xml
+<distributionManagement>
+    <repository>
+        <id>releases</id>
+        <name>Internal Releases</name>
+        <url>http://localhost:8081/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+        <id>snapshots</id>
+        <name>Internal Snapshots</name>
+        <url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+</distributionManagement>
+```
+- Maven配置
+```xml
+<servers>
+    <!-- 服务器认证信息 -->
+    <server>
+        <!-- ID应与POM中对应 -->
+        <id>releases</id>
+        <username>admin</username>
+        <password>admin123</password>
+    </server>
+    <server>
+        <id>snapshots</id>
+        <username>deployment</username>
+        <password>deployment123</password>
+    </server>
+</servers>
+```
+
+- 上传命令: `mvn deploy`
+
+
+
+###### 后台上传方式
+
+1. 进入后台选中3rd party仓库 
+2. 进入-Select GAV Definition Source 
+3. 下拉滚动条进入-Select Artifact(s) for Upload 
+
+
+
+##### 小结
+
+- settings.xml文件中的mirror标签是什么作用?
+  - 
+- 第3方jar包只能上传到哪个仓库?
+  - 
+
+
+
+#### 08常见插件【了解】
+
+##### 目标
+
+- 了解插件的概念和用法
+- 了解compiler和tomcat插件的引用方式 ( **坐标** )
+
+##### 步骤
+
+###### 插件的概念
+
+- 插件是某种功能的maven工具 (**jar包**) 
 
 
 
 ##### 操作
 
+###### 插件的用法
+
+```xml
+<!-- java 编译插件 -->
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.0</version>
+    <configuration>
+        <source>1.8</source>
+        <target>1.8</target>
+        <encoding>UTF-8</encoding>
+    </configuration>
+</plugin>
+```
+
 
 
 ##### 小结
 
-- 
+- 中央仓库有插件jar包吗?
 
 
 
-#### 01复习【理解】
+#### 09整合SSM - 父工程【理解】
 
 ##### 目标
 
-- 
+- 使用maven整合SSM项目
+- 创建maven-day02-ssm父工程
 
 ##### 步骤
 
+![1556861714918](assets/1556861714918.png) 
 
+- 架构图理解测试: **图中哪个模块传递的依赖最多** ?
 
 ##### 操作
+
+###### 创建父工程
+
+- 版本配置
+
+```xml
+
+```
+
+- 版本控制
+
+```xml
+
+```
+
+- 编译插件
+
+```xml
+
+```
 
 
 
 ##### 小结
 
-- 
+- ssm的子项目将继承哪些配置?
 
 
 
-#### 01复习【理解】
+#### 10整合SSM - main【理解】
 
 ##### 目标
 
-- 
+- 创建maven-day02-main聚合工程
 
 ##### 步骤
 
-
+![1556861714918](../../../../%E5%A4%87%E8%AF%BE/Maven/%E7%AC%AC2%E5%A4%A9/01%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/assets/1556861714918.png) 
 
 ##### 操作
+
+###### 创建聚合工程
+
+- 聚合子工程
+
+```xml
+
+```
+
+- Tomcat插件
+
+```xml
+
+```
+
+
 
 
 
 ##### 小结
 
-- 
+- 如果在聚合项目中启动tomcat将发生什么?
 
 
 
-#### 01复习【理解】
+#### 11整合SSM - domain【理解】
 
 ##### 目标
 
-- 
+- 创建maven-day02-domain实体类子工程
 
 ##### 步骤
 
-
+![1556861714918](../../../../%E5%A4%87%E8%AF%BE/Maven/%E7%AC%AC2%E5%A4%A9/01%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/assets/1556861714918.png) 
 
 ##### 操作
 
+- pom.xml
+
+```xml
+
+```
+
+- 实体类
+
+```xml
+
+```
 
 
-##### 小结
 
-- 
-
-
-
-#### 01复习【理解】
+#### 12整合SSM - dao【理解】
 
 ##### 目标
 
-- 
+- 创建maven-day02-dao持久层子工程
 
 ##### 步骤
 
-
+![1556861714918](../../../../%E5%A4%87%E8%AF%BE/Maven/%E7%AC%AC2%E5%A4%A9/01%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/assets/1556861714918.png) 
 
 ##### 操作
 
+- pom.xml
+
+```xml
+
+```
+
+- dao
+
+```xml
+
+```
 
 
-##### 小结
 
-- 
-
-
-
-#### 01复习【理解】
+#### 13整合SSM - service【理解】
 
 ##### 目标
 
-- 
+- 创建maven-day02-service业务层子工程
 
 ##### 步骤
 
-
+![1556861714918](../../../../%E5%A4%87%E8%AF%BE/Maven/%E7%AC%AC2%E5%A4%A9/01%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/assets/1556861714918.png) 
 
 ##### 操作
 
+- pom.xml
+
+```xml
+
+```
+
+- service
+
+```xml
+
+```
 
 
-##### 小结
 
-- 
-
-
-
-#### 01复习【理解】
+#### 14整合SSM - web【理解】
 
 ##### 目标
 
-- 
+- 创建maven-day02-web控制层子工程
 
 ##### 步骤
 
-
+![1556861714918](../../../../%E5%A4%87%E8%AF%BE/Maven/%E7%AC%AC2%E5%A4%A9/01%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/assets/1556861714918.png) 
 
 ##### 操作
 
+- pom.xml
+
+```xml
+
+```
+
+- controller
+
+```xml
+
+```
+
+- resources
+
+![1556874872001](assets/1556874872001.png) 
 
 
-##### 小结
 
-- 
-
-
-
-#### 01复习【理解】
+#### 15web - resources【了解】
 
 ##### 目标
 
-- 
+- 了解web子项目中的各个配置内容
 
 ##### 步骤
 
-
+- 
 
 ##### 操作
 
-
+- 
 
 ##### 小结
 
-- 
+- 在idea中如何使用插件?
 
 
 
-#### 01复习【理解】
+#### 16整合SSM - 启动【理解】
 
 ##### 目标
 
-- 
+- 在聚合项目中使用tomcat插件启动项目
 
 ##### 步骤
 
-
+- 打开maven-day02-main > Plugins > Tomcat7
+- 双击 tomcat7:run
 
 ##### 操作
 
-
+- 访问: http://localhost:8080/ssm/list.do
 
 ##### 小结
 
-- 
+- 在idea中如何使用插件?
+  - 
 
 
+
+
+
+#### 17总结【理解】
+
+- 如何优先使用私服上的资源?
+  - 
+- 整合SSM中哪个项目使用了聚合特性?
+  - 
+- 整合SSM中哪些项目利用了继承特性?
+  - 
+- 为什么web项目中的坐标没有三要素之一version?
+  - 
 
