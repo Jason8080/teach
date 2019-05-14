@@ -124,28 +124,38 @@
 ###### 阻止依赖传递
 
 - 在当前项目中使用optional阻止向下传递
+
   - 默认值false: 表示向下传递, true: 表示不向下传递
-- 案例
-  - 
+
+- 案例: spring-context
+
+  ```xml
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-instrument</artifactId>
+    <version>5.0.2.RELEASE</version>
+    <optional>true</optional>
+  </dependency>
+  ```
 
 
 
 ###### 版本冲突问题
 
+- 项目中如下依赖spring-jcl采用的是什么版本 ?
+
 ```xml
-<!-- A项目依赖 -->
-<dependencies>
-    <dependency>
-        <groupId>test</groupId>
-        <artifactId>B</artifactId>
-        <version>1.0</version>
-	</dependency>
-    <dependency>
-        <groupId>test</groupId>
-        <artifactId>D</artifactId>
-        <version>1.0</version>
-    </dependency>
-</dependencies>
+<!-- 项目依赖 -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>5.0.2.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-beans</artifactId>
+    <version>5.1.7.RELEASE</version>
+</dependency>
 ```
 
 - 短路优先
