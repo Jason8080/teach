@@ -115,38 +115,36 @@
 
 ##### 目标
 
-- 理解依赖的可传递特性
+- 什么是依赖传递
+- 是否所有的依赖都需要传递
 
 ##### 步骤
 
-###### 依赖传递案例
+###### 什么是依赖传递
 
-- 使用Spring框架时只需要依赖spring-context，即可完成spring的IOC容器的使用;
--  
+- 依赖spring-context时最终得到哪些包?
+  -  
 
-###### 依赖传递选项
+###### 如何阻止传递
 
-- 可以使用optional标签控制当前的依赖是否向下传递; 
-- 
+- 使用optional标签可以阻止继续传递 
+  - 
 
 ###### 依赖传递冲突
 
-![1556527769408](assets/1556527769408.png) 
+- 若有相同的依赖如何舍取 ?
 
 ```xml
-<!-- A项目依赖 -->
-<dependencies>
-    <dependency>
-        <groupId>test</groupId>
-        <artifactId>B</artifactId>
-        <version>1.0</version>
-	</dependency>
-    <dependency>
-        <groupId>test</groupId>
-        <artifactId>D</artifactId>
-        <version>1.0</version>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>5.1.7.RELEASE</version>
+</dependency>
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-test</artifactId>
+    <version>5.0.2.RELEASE</version>
+</dependency>
 ```
 
 - 短路优先
@@ -168,6 +166,8 @@
 
 - 依赖传递有层级限制吗?
   - 
+- 什么是版本冲突?
+  - 
 
 
 
@@ -175,7 +175,7 @@
 
 ##### 目标
 
-- 理解Maven项目的继承特性
+- 理解并展示Maven继承的特点
 
 ##### 步骤
 
@@ -190,11 +190,7 @@
 ###### 继承父项目
 
 ```xml
-<parent>
-    <artifactId>maven-day02-parent</artifactId>
-    <groupId>com.itheima</groupId>
-    <version>1.0-SNAPSHOT</version>
-</parent>
+
 ```
 
 ###### 父项目配置
@@ -214,6 +210,8 @@
 ##### 小结
 
 - 继承的作用是什么?
+  - 
+- 如何解除继承关系?
   - 
 
 
