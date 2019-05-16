@@ -285,11 +285,11 @@
 
 ##### 目标
 
-- 掌握私服的各种应用场景
+- 掌握私服的配置和使用
 
 ##### 步骤
 
-###### 私服中的仓库类型
+###### 认识私服的仓库类型
 
 - proxy：
 - hosted： 
@@ -364,9 +364,9 @@
 
 ##### 小结
 
-- settings.xml文件中的mirror标签是什么作用?
+- 如何使用私服?
   - 
-- 第3方jar包只能上传到哪个仓库?
+- 如何上传自己的jar包?
   - 
 
 
@@ -375,8 +375,8 @@
 
 ##### 目标
 
-- 了解插件的概念和用法
-- 了解compiler和tomcat插件的引用方式 ( **坐标** )
+- 了解插件的概念
+- 了解compiler和tomcat插件的作用
 
 ##### 步骤
 
@@ -402,13 +402,31 @@
         <encoding>UTF-8</encoding>
     </configuration>
 </plugin>
+<!-- tomcat7容器插件 -->
+<plugin>
+    <groupId>org.apache.tomcat.maven</groupId>
+    <artifactId>tomcat7-maven-plugin</artifactId>
+    <version>2.2</version>
+    <configuration>
+        <!-- 指定端口 -->
+        <port>8080</port>
+        <!-- 请求路径 -->
+        <path>/</path>
+    </configuration>
+</plugin>
 ```
 
 
 
 ##### 小结
 
-- 中央仓库有插件jar包吗?
+- Maven插件是什么?
+  - 
+- compile插件的作用是什么?
+  - 
+- tomcat7插件的作用是什么?
+
+  - 
 
 
 
