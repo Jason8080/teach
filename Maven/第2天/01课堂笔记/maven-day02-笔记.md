@@ -129,23 +129,12 @@
 
 - 若有相同的依赖如何舍取 ?
 
-```xml
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-context</artifactId>
-    <version>5.1.7.RELEASE</version>
-</dependency>
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-test</artifactId>
-    <version>5.0.2.RELEASE</version>
-</dependency>
-```
+  
 
-- 短路优先
-  -  
-- 解决冲突
-  - 
+  - 短路优先
+    -  
+  - 解决冲突
+    - 
 
 ##### 操作
 
