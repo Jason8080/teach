@@ -83,21 +83,26 @@
 
 ##### 步骤
 
-###### 为什么
+1. 为什么在IDEA上操作Maven
+2. IDEA需要做什么配置
+
+
+
+##### 操作
+
+###### 为什么在IDE上操作Maven
 
 - 手工操作很繁琐, 很难一步完成。
 - 手工操作容易出现失误, 遗忘等..
 
-###### idea配置
+###### IDEA需要做什么配置
 
 - File > Settings > Build, Execution, Deployment > Build Tools > Maven
 - **Maven home directory** : 安装目录
 - **User settings file** : C:\Users\Administrator.m2\settings.xml
 - **Local repository** : 本地仓库路径 
 
-##### 操作
 
-…
 
 ##### 小结
 
@@ -187,31 +192,40 @@
 
 ##### 步骤
 
-###### 创建子项目
-
-- 项目名称: child1
+1. 创建子工程: child1
+2. **继承父工程**: parent
+3. **查看子工程继承的依赖**
+4. **演示变量继承**
 
 
 
 ##### 操作
 
-###### 继承父项目
+###### 继承父工程
 
 ```xml
 
 ```
 
-###### 父项目配置
+###### 查看子工程继承的依赖
+
+
+
+###### 演示变量继承
+
+- 父工程变量配置
 
 ```xml
 
 ```
 
-###### 子项目引用
+- 子工程变量引用
 
 ```xml
 
 ```
+
+
 
 
 
@@ -228,33 +242,55 @@
 
 ##### 目标
 
-- 聚合的作用是什么?
+- 理解聚合的作用
 
-- 怎么聚合?
+- 掌握聚合的使用
 
   
 
 ##### 步骤
 
-###### 创建聚合项目
+1. **没有聚合的情况**
 
-- 项目名称: **maven-day02-agg**regation
+2. **聚合工程的作用**
+
+3. 创建并**使用聚合项目**: maven-day02-agg
+
+   
 
 ##### 操作
 
-###### 编译测试
+###### 没有聚合的情况
 
-- child1工程没有targer文件夹生成 (**没有同步编译**)
+![1558087768915](assets/1558087768915.png) 
 
-###### 聚合其他项目
+   
+
+###### 聚合工程的作用
+
+- 对聚合工程进行 编译 等操作时, 被聚合的工程 **会同步进行该操作**
+
+
+
+###### 创建并使用聚合项目
+
+- 创建聚合工程: maven-day02-agg
+
+- 聚合其他工程
 
 ```xml
 
 ```
 
-###### 编译测试
 
-- child1工程 **有同步编译**
+
+###### 编译测试查看效果
+
+
+
+
+
+
 
 ##### 小结
 
@@ -267,36 +303,48 @@
 
 ##### 目标
 
-- 私服的作用
+- 理解私服的作用
 - 搭建自己的私服
 
 ##### 步骤
+
+1. 中央仓库的缺点
+2. 私服是什么有什么好处
+3. 搭建私服
+
+
+
+##### 操作
 
 ###### 中央仓库的缺点
 
 - 地址: [http://repo1.maven.org/maven2/](http://repo1.maven.org/maven2/) (**下载慢**)
 - 限制: 同ip段的机器反复下载可能会被限制访问 (**黑名单**)
 
-###### 私服的好处
+###### 私服是什么
 
-- 解决访问限制问题
-- 即使不能上网也可以下载jar包
-- 可以上传自己的jar包
+- 私服是远程仓库的1种
+  - 解决访问限制问题
+  - 即使不能上网也可以下载jar包
+  - 可以上传自己的jar包
 
-###### 下载私服文件
+- 下载私服文件
+  - nexus: [官网下载](https://help.sonatype.com/repomanager2/download#Download-OlderOSSversions(notrecommended)) 
+  - 课前资料中已经下载 “ nexus-2.12.0-01-bundle.zip ” 。
+  - 也可以将 “nexus-2.1.2.war”放置在 tomcat 的 webapps 目录下使用。 
 
-- nexus: [官网下载](https://help.sonatype.com/repomanager2/download#Download-OlderOSSversions(notrecommended)) 
-- 课前资料中已经下载 “ nexus-2.12.0-01-bundle.zip ” 。
-- 也可以将 “nexus-2.1.2.war”放置在 tomcat 的 webapps 目录下使用。 
 
-##### 操作
+
+###### 搭建私服
 
 1. 解压“nexus-2.12.0-01-bundle.zip” 
-2. 修改默认端口, 路径为：nexus-2.12.0-01\conf\nexus.properties。
-3. “ nexus-2.12.0-01\bin\jsw\windows-x86-64\ ” 目录下, 双击 console-nexus.bat 为后台启动 nexus；
-4. 双击“install-nexus.bat”则会注册为一个 windows 服务。 
+2. 修改默认端口, 路径为：nexus-2.12.0-01\conf\nexus.properties
+3. “ nexus-2.12.0-01\bin\jsw\windows-x86-64\ ” 目录下, 双击 console-nexus.bat 为后台启动 nexus
+4. 双击“install-nexus.bat”则会注册为一个 windows 服务
 5. 访问: [http://localhost:8081/nexus](http://localhost:8081/nexus)
 6. 默认管理员账户: admin|admin123 
+
+
 
 ##### 小结
 
@@ -313,6 +361,14 @@
 
 ##### 步骤
 
+1. **认识私服的仓库类型**
+2. **在项目中使用私服下载资源**
+3. **上传自己的jar包** (两种方式)
+
+
+
+##### 操作
+
 ###### 认识私服的仓库类型
 
 - proxy：
@@ -320,9 +376,9 @@
 - virtual：
 - group：
 
-##### 操作
+###### 在项目中使用私服下载资源
 
-###### 配置下载私服资源
+- 配置私服
 
 ```xml
 <!-- 远程仓库配置 -->
@@ -338,7 +394,9 @@
 </mirror>
 ```
 
-###### 配置上传私服资源
+
+
+###### 上传自己的jar包
 
 - 项目配置
 
@@ -404,6 +462,13 @@
 
 ##### 步骤
 
+1. 了解插件的概念
+2. compiler和tomcat7插件的用法
+
+
+
+##### 操作
+
 ###### 插件的概念
 
 - 插件是某种功能的maven工具
@@ -412,11 +477,7 @@
 
 - 插件是以 **jar包** 形式存在仓库
 
-
-
-##### 操作
-
-###### 插件的用法
+###### compiler和tomcat7插件的用法
 
 ```xml
 <!-- java 编译插件 -->
