@@ -878,6 +878,15 @@
 </beans>
 ```
 
+- db.properties
+
+```properties
+db.driver=com.mysql.cj.jdbc.Driver
+db.url=jdbc:mysql:///mybatisdb?serverTimezone=UTC&useSSL=false
+db.username=root
+db.password=root
+```
+
 
 
 ##### 小结
