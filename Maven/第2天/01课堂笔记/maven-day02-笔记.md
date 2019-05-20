@@ -139,7 +139,7 @@
 
 ![1558322911976](assets/1558322911976.png) 
 
-- 案例spring-context依赖传递演示
+- 案例activemq-core依赖传递演示
 
 ```xml
 
