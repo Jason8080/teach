@@ -19,23 +19,28 @@ import java.net.SocketException;
 public class Server {
 
     public static void main(String[] args) throws Exception {
-        //① 创建DatagramSocket，指定端口号
+        //1. 创建客户端 并 绑定主机地址
         DatagramSocket socket = new DatagramSocket(Address.loc);
-        //② 创建DatagramPacket
         byte[] bytes = new byte[1024];
+        //2. 创建空的集装箱
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
-        //③ 接受客户端发送的数据信息
+        //3. 接收数据
         socket.receive(packet);
-        //④ 读取数据
+        //4. 读取集装箱中的数据
         String content = new String(bytes, 0, packet.getLength());
+        //5. 打印数据
         System.out.println(content);
 
 
         // ==================   回复  ====================
+        //1. 准备数据
         byte[] by = "服务端: 收到了".getBytes();
-        // 需要知道客户端的端口
+        //2. 创建新的集装箱 并 封装数据 设置 目标地址
         DatagramPacket pack = new DatagramPacket(by, by.length, packet.getAddress(), packet.getPort());
+        //3. 发送集装箱
         socket.send(pack);
 
+        // 关闭资源
+        socket.close();
     }
 }

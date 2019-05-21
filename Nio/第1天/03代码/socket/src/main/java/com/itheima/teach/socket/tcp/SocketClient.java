@@ -19,24 +19,30 @@ import java.net.SocketAddress;
 public class SocketClient {
 
     public static void main(String[] args) throws Exception {
-        //① 创建Socket
+        //1. 创建客户端 Socket
         Socket socket = new Socket(Address.loc.getHostName(), Address.loc.getPort());
-        //② 打开连接到Socket的输入/输出流
+        //2. 打开连接, 获取到输出流
         OutputStream out = socket.getOutputStream();
+        //      转换字符串书写流
         PrintWriter writer = new PrintWriter(out);
+        //      可以使用println("hello")代替
         writer.print("hello\r\n");
+        //      冲刷内存
         writer.flush();
+        //      不再写出数据
         socket.shutdownOutput();
-        //③ 按照协议对Socket进行读/写操作
+        //3. 获取到输入流
         InputStream in = socket.getInputStream();
+        //      转换字符串读取流
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String content;
         while ((content = reader.readLine()) != null){
             SocketAddress remote = socket.getRemoteSocketAddress();
             System.out.println(remote + ": " + content);
         }
+        //      不再读取数据
         socket.shutdownInput();
-        //④ 关闭输入输出流、关闭Socket
+        //4. 关闭资源
         socket.close();
     }
 }

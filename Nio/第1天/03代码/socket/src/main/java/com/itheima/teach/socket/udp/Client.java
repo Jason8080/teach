@@ -18,19 +18,28 @@ import java.net.SocketException;
 public class Client {
 
     public static void main(String[] args) throws Exception {
+        //1. 创建客户端
         DatagramSocket socket = new DatagramSocket();
-        //① 定义发送信息
+        //2. 准备数据
         byte[] bytes = "客户端: 你好".getBytes();
-        //② 创建DatagramPacket，包含将要发送的信息
+        //3. 创建集装箱 并 封装数据
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
+        //4. 设置目标地址
         packet.setSocketAddress(Address.loc);
-        //③ 发送数据
+        //5. 发送集装箱
         socket.send(packet);
 
+
+        //1. 准备新的集装箱
         byte[] by = new byte[1024];
         DatagramPacket pack = new DatagramPacket(by, by.length);
+        //2. 接收数据并封装到集装箱
         socket.receive(pack);
+        //3. 打印数据
         String content = new String(by, 0, pack.getLength());
         System.out.println(content);
+
+        //关闭资源
+        socket.close();
     }
 }
