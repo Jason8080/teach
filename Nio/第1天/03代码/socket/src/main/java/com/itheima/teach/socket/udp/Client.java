@@ -20,7 +20,7 @@ public class Client {
     public static void main(String[] args) throws Exception {
         DatagramSocket socket = new DatagramSocket();
         //① 定义发送信息
-        byte[] bytes = "你好".getBytes();
+        byte[] bytes = "客户端: 你好".getBytes();
         //② 创建DatagramPacket，包含将要发送的信息
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
         packet.setSocketAddress(Address.loc);

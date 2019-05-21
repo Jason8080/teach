@@ -32,7 +32,7 @@ public class Server {
 
 
         // ==================   回复  ====================
-        byte[] by = "收到了".getBytes();
+        byte[] by = "服务端: 收到了".getBytes();
         // 需要知道客户端的端口
         DatagramPacket pack = new DatagramPacket(by, by.length, packet.getAddress(), packet.getPort());
         socket.send(pack);
