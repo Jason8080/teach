@@ -16,6 +16,7 @@ import java.net.SocketAddress;
  * @description : Socket
  * @modified : -
  */
+@SuppressWarnings("ALL")
 public class SocketServer {
 
     public static void main(String[] args) throws Exception {
