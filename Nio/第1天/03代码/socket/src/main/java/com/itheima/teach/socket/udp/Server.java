@@ -33,8 +33,8 @@ public class Server {
             //5. 打印数据
             System.out.println(req);
 
+            // ----------------------------------------------
 
-            // ==================   回复  ====================
             //      获取控制台1行输入
             String content = Console.reader.readLine();
             if("stop".equals(content)){

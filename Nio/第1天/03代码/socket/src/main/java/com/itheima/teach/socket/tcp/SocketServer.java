@@ -30,6 +30,7 @@ public class SocketServer {
         InputStream in = socket.getInputStream();
         //      转换字符串读取流
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        //4. 打印数据
         String content;
         while ((content = reader.readLine()) != null){
             SocketAddress remote = socket.getRemoteSocketAddress();
@@ -37,17 +38,20 @@ public class SocketServer {
         }
         //      不再读取数据
         socket.shutdownInput();
-        //4. 获取输出流
+
+        // ----------------------------------------------
+
+        //1. 获取输出流
         OutputStream out = socket.getOutputStream();
         //      转换字符串书写流
         PrintWriter writer = new PrintWriter(out);
-        //      可以使用println("hello")代替
+        //2. 书写数据
         writer.print("收到了\r\n");
-        //      冲刷内存
+        //3. 冲刷内存
         writer.flush();
         //      不再写出数据
         socket.shutdownOutput();
-        //5. 关闭相关资源
+        //关闭资源
         socket.close();
     }
 }

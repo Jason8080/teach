@@ -27,14 +27,18 @@ public class SocketClient {
         PrintWriter writer = new PrintWriter(out);
         //      可以使用println("hello")代替
         writer.print("hello\r\n");
-        //      冲刷内存
+        //3. 冲刷内存
         writer.flush();
         //      不再写出数据
         socket.shutdownOutput();
-        //3. 获取到输入流
+
+        // ----------------------------------------------
+
+        //1. 获取到输入流
         InputStream in = socket.getInputStream();
         //      转换字符串读取流
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        //2. 打印数据
         String content;
         while ((content = reader.readLine()) != null){
             SocketAddress remote = socket.getRemoteSocketAddress();
@@ -42,7 +46,7 @@ public class SocketClient {
         }
         //      不再读取数据
         socket.shutdownInput();
-        //4. 关闭资源
+        //关闭资源
         socket.close();
     }
 }

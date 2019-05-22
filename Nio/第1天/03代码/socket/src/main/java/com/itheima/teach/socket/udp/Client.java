@@ -37,6 +37,7 @@ public class Client {
             //5. 发送集装箱
             socket.send(packet);
 
+            // ----------------------------------------------
 
             //1. 准备新的集装箱
             byte[] bs = new byte[1024];
