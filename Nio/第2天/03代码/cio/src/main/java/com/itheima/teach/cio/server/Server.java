@@ -31,10 +31,9 @@ public class Server {
         // 接受请求
         server.accept(server, new ServerHandler());
 
-        String content;
         while (true) {
             // 获取用户输入内容
-            content = Console.reader.readLine();
+            String content = Console.reader.readLine();
             // 封装内容
             ByteBuffer buffer = ByteBuffer.wrap(content.getBytes());
             // 获取客户端

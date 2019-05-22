@@ -22,10 +22,9 @@ public class Client {
         // 获取连接
         AsynchronousSocketChannel asc = getAsc();
 
-        String content;
         while (true) {
             // 获取用户输入内容
-            content = Console.reader.readLine();
+            String content = Console.reader.readLine();
             // 封装内容
             ByteBuffer buffer = ByteBuffer.wrap(content.getBytes());
             // 写出内容
