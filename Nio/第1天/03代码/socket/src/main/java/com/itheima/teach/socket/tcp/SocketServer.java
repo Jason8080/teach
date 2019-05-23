@@ -25,9 +25,9 @@ public class SocketServer {
         server.bind(Address.loc);
         //3. 监听客户端请求
         Socket socket = server.accept();
-        //4. 读取数据
+        //4. 书写数据
         new Task.Output(socket).start();
-        //5. 回复数据
+        //5. 读取数据
         new Task.Input(socket).start();
     }
 }
