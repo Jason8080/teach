@@ -1,7 +1,7 @@
 package com.itheima.teach.cio.server;
 
 import com.itheima.teach.cio.common.constant.Address;
-import com.itheima.teach.cio.common.kit.Console;
+import com.itheima.teach.cio.common.constant.Console;
 import com.itheima.teach.cio.common.kit.Writer;
 import com.itheima.teach.cio.common.run.GroupManager;
 import com.itheima.teach.cio.common.bo.Client;

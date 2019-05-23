@@ -1,4 +1,4 @@
-package com.itheima.teach.cio.common.kit;
+package com.itheima.teach.cio.common.constant;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
