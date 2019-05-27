@@ -1,4 +1,4 @@
-package com.itheima.spring.day01.dep.service;
+package com.itheima.dep.service;
 
 /**
  * UserService.

@@ -1,8 +1,8 @@
-package com.itheima.spring.day01.dep.service.impl;
+package com.itheima.dep.service.impl;
 
-import com.itheima.spring.day01.dep.dao.UserDao;
-import com.itheima.spring.day01.dep.dao.impl.UserDaoImpl;
-import com.itheima.spring.day01.dep.service.UserService;
+import com.itheima.dep.dao.impl.UserDaoImpl;
+import com.itheima.dep.service.UserService;
+import com.itheima.dep.dao.UserDao;
 
 /**
  * UserServiceImpl.

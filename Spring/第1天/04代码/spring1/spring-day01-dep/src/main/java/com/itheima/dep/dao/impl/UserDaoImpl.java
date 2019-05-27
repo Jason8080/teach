@@ -1,6 +1,6 @@
-package com.itheima.spring.day01.dep.dao.impl;
+package com.itheima.dep.dao.impl;
 
-import com.itheima.spring.day01.dep.dao.UserDao;
+import com.itheima.dep.dao.UserDao;
 
 /**
  * UserDaoImpl.

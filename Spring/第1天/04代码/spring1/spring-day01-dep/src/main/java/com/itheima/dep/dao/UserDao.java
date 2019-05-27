@@ -1,4 +1,4 @@
-package com.itheima.spring.day01.dep.dao;
+package com.itheima.dep.dao;
 
 /**
  * UserDao.

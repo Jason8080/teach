@@ -1,7 +1,7 @@
-package com.itheima.spring.day01.dep.controller;
+package com.itheima.dep.controller;
 
-import com.itheima.spring.day01.dep.service.UserService;
-import com.itheima.spring.day01.dep.service.impl.UserServiceImpl;
+import com.itheima.dep.service.UserService;
+import com.itheima.dep.service.impl.UserServiceImpl;
 import org.junit.Test;
 
 /**
