@@ -117,7 +117,82 @@
 
 #### 目标
 
-1. 
+1. 了解Spring框架
+2. 了解Spring优点
+
+
+
+#### 了解Spring框架
+
+##### Spring介绍
+
+- Spring是 **分层** 的轻量级开源框架
+- Spring核心是**IOC**(控制反转) 和 **AOP**(面向切面编程)
+- Spring实现了众多优秀框架的整合
+
+##### Spring优点
+
+- IOC解耦
+  - 可以将对象间的依赖关系交由spring管理
+  - 避免硬编码造成的程序间过渡耦合
+- AOP支持
+  - 可以使用切面编程思想对方法进行增强
+- 声明式事务
+  - 可以通过配置或者注解的方式管理事务
+  - 不需要硬编码管理事务
+- 方便测试
+  - 可以通过注解方便的测试Spring程序
+- 方便集成
+  - 其内部提供了对各种优秀框架的直接支持
+- 设计精良
+  - Spring的源码设计精妙、结构清晰值得学习
+
+##### Spring结构
+
+![1559212182908](assets/1557482552440.png)
+
+###### Data Access/Integration
+
+- JDBC: 对各大数据库厂商进行抽象处理
+- ORM: 集成orm框架支持对象关系映射处理
+- OXM: 提供了对 Object/XML映射实现的抽象层
+- JMS: 主要包含了一些制造和消费消息的特性
+- Transactions: 支持编程和生命性的事务管理
+
+
+
+###### Web
+
+- Websocket: 提供了WebSocket和SocketJS的实现
+- Servlet: 利用MVC(model-view-controller)的实现分离代码
+- Web: 提供了基础的面向 Web 的集成特性(如: 文件上传)
+- Portlet: 提供了Portlet环境下的MVC实现
+
+
+
+###### 中间层
+
+- AOP: 提供了符合AOP要求的面向切面的编程实现
+
+- Aspects: 提供了与AspectJ的集成功能
+
+- Instrumentation: 提供了类植入（Instrumentation）的支持和类加载器的实现
+- Messaging: 用于构建基于消息的应用程序
+
+
+
+###### Core Container
+
+- Beans: Bean工厂与bean的装配
+- Core: 依赖注入IoC与DI的最基本实现
+- Content: IOC容器的企业服务扩展
+- SpEl: 用于在运行时查询和操纵对象的表达式
+
+###### Test
+
+- 支持使用 JUnit 和 TestNG 对 Spring 组件进行测试
+
+
 
 
 
