@@ -718,14 +718,6 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          id="WebApp_ID" version="2.5">
-
-  <display-name>ssm</display-name>
-
-    <!--配置spring的配置文件位置(全局参数)-->
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring/applicationContext.xml</param-value>
-    </context-param>
     
     <!--配置spring提供的监听器：ContextLoaderListener,说明：
         1.ContextLoaderListener监听器，监听ServletContext对象的创建和销毁，一旦ServletContet
@@ -737,6 +729,13 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <!--配置spring的配置文件位置(全局参数)-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/applicationContext.xml</param-value>
+    </context-param>
+    
+    
     <!--配置前端控制器（DispatcherServlet）-->
     <servlet>
         <servlet-name>ssm</servlet-name>
@@ -942,7 +941,9 @@
     <!--配置包扫描controller-->
     <context:component-scan base-package="com.itheima.maven.day02.web"/>
 
-    <!--注册: 注解处理映射器和注解处理适配器 -->
+    <!--注册: 注解处理映射器 和 注解处理适配器 以及一些其他额外的支持
+ 		DefaultAnnotationHandlerMapping; AnnotationMethodHandlerAdapter
+	-->
     <mvc:annotation-driven/>
 
     <!--配置视图解析器-->
@@ -964,6 +965,26 @@ db.url=jdbc:mysql:///mybatisdb?serverTimezone=UTC&useSSL=false
 db.username=root
 db.password=root
 ```
+
+##### sqlMapConfig.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--配置别名-->
+    <typeAliases>
+        <!--包扫描方式配置别名-->
+        <package name="com.itheima.domain"/>
+    </typeAliases>
+
+</configuration>
+```
+
+
 
 
 
