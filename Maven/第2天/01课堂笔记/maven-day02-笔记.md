@@ -173,21 +173,29 @@
 
 
 
-#### 什么是继承
+#### 1. 什么是继承
 
 ![1558320682888](assets/1558320682888.png) 
 
-##### 如何去继承
+- 继承是 **消除重复** 的一种手段 (方式/特性)
 
-- child继承父工程
+
+
+#### 2. 如何去继承
+
+- 创建子工程: child
+
+- 在子工程使用parent标签继承父工程
 
 ```xml
 
 ```
 
+- 子工程可以直接获得父工程定义的依赖,变量等..
 
 
-#### 继承的作用
+
+#### 3. 继承的作用
 
 - 继承依赖
   
@@ -208,7 +216,17 @@
 
 - 版本控制
 
-  - 使用dependencyManagement标签在父工程定义版本依赖, 子工程使用时不需要指定版本号
+  - 使用dependencyManagement标签在父工程定义版本依赖
+  
+    ```xml
+    
+    ```
+  
+  - 子工程使用时不需要指定版本号
+  
+    ```xml
+    
+    ```
 
 
 
@@ -231,39 +249,38 @@
 
 
 
-#### 没有聚合的情况
+#### 1. 没有聚合的情况
 
 ![1558937245863](assets/1558937245863.png)  
 
    
 
-#### 聚合工程的作用
+#### 2. 聚合工程的作用
 
 - 对聚合工程进行 编译 等操作时, 被聚合的工程 **会同步进行该操作**
 
 
 
-#### 创建并使用聚合工程
+#### 3. 创建并使用聚合工程
 
 - 创建聚合工程: maven-day02-agg
 
-- 聚合其他工程
+- 聚合其他工程: <modules
 
 ```xml
 
 ```
 
-- 编译测试查看效果
-
-
-
-
-
 
 
 #### 小结
 
+- 没有聚合有什么问题?
+  - 
 - 聚合的作用是什么?
+  - 
+
+- 如何使用聚合?
   - 
 
 
@@ -278,18 +295,18 @@
 
 
 
-#### 中央仓库的缺点
+#### 1. 中央仓库的缺点
 
-- 地址: [http://repo1.maven.org/maven2/](http://repo1.maven.org/maven2/) (**下载慢**)
-- 限制: 同ip段的机器反复下载可能会被限制访问 (**黑名单**)
+- 下载慢: [http://repo1.maven.org/maven2/](http://repo1.maven.org/maven2/) 
+- 访问限制: 重复下载多次jar包会被加入 **黑名单**
 
 ![1558945517758](assets/1558945517758.png) 
 
  
 
-#### 什么是私服
+#### 2. 什么是私服
 
-- 私服是远程仓库的1种
+- 私服的好处 (私服是远程仓库的1种)
   - 解决访问限制问题
   - 即使不能上网也可以下载jar包
   - 可以上传自己的jar包
@@ -299,7 +316,9 @@
   - 课前资料中已经下载 “ nexus-2.12.0-01-bundle.zip ” 。
   - 也可以将 “nexus-2.1.2.war”放置在 tomcat 的 webapps 目录下使用。 
 
-#### 如何搭建私服
+
+
+#### 3. 如何搭建私服
 
 1. 解压“nexus-2.12.0-01-bundle.zip” 
 2. 修改默认端口, 路径为：nexus-2.12.0-01\conf\nexus.properties
@@ -312,7 +331,13 @@
 
 #### 小结
 
-- 为什么要搭建私服?
+- 中央仓库的缺点有哪些?
+  - 
+- 什么是私服?
+  - 
+
+- 搭建私服有哪两种方式?
+  - 
   - 
 
 
@@ -327,14 +352,16 @@
 
 
 
-#### 认识私服的仓库类型
+#### 1. 认识私服的仓库类型
 
-- proxy：
-- hosted： 
-- virtual：
-- group：
+- proxy：代理仓库, 最终jar来源于代理的远程仓库
+- hosted： 宿主仓库, 最终的jar来源于用户上传的
+- virtual：虚拟仓库, 兼容maven1版本的中央仓库
+- group：仓库组, 配置和下载的统一地址
 
-#### 项目中使用私服下载资源
+
+
+#### 2. 项目中使用私服下载资源
 
 - 配置私服
 
@@ -354,11 +381,16 @@
 
 
 
-#### 上传自己的jar包
+#### 3. 上传自己的jar包
 
-##### 自动上传方式
+- 任何人都能往私服中上传jar包吗?
+  - 不能, 需要认证信息 (登陆)
 
-- 项目配置
+
+
+##### 2.1 自动上传方式
+
+- 在pom.xml文件中配置如下
 
 ```xml
 <distributionManagement>
@@ -374,7 +406,7 @@
     </snapshotRepository>
 </distributionManagement>
 ```
-- Maven配置
+- 在settings.xml文件中配置如下
 ```xml
 <servers>
     <!-- 服务器认证信息 -->
@@ -396,7 +428,7 @@
 
 
 
-##### 后台上传方式
+##### 2.2 后台上传方式
 
 1. 进入后台选中3rd party仓库 
 2. 进入-Select GAV Definition Source 
@@ -406,7 +438,9 @@
 
 #### 小结
 
-- 如何使用私服?
+- 仓库类型: proxy代表的是什么?
+  - 
+- 如何用私服下载资源?
   - 
 - 如何上传自己的jar包?
   - 
@@ -422,7 +456,7 @@
 
 
 
-#### 插件的概念
+#### 1. 插件的概念
 
 - 插件是某种功能的maven工具
   - 
@@ -431,32 +465,38 @@
 
 
 
-#### compiler和tomcat7插件的用法
+#### 2. 插件的用法
+
+- 在pom.xml文件中配置如下
 
 ```xml
-<!-- java 编译插件 -->
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <version>3.8.0</version>
-    <configuration>
-        <source>1.8</source>
-        <target>1.8</target>
-        <encoding>UTF-8</encoding>
-    </configuration>
-</plugin>
-<!-- tomcat7容器插件 -->
-<plugin>
-    <groupId>org.apache.tomcat.maven</groupId>
-    <artifactId>tomcat7-maven-plugin</artifactId>
-    <version>2.2</version>
-    <configuration>
-        <!-- 指定端口 -->
-        <port>8080</port>
-        <!-- 请求路径 -->
-        <path>/</path>
-    </configuration>
-</plugin>
+<build>
+    <plugins>
+        <!-- java 编译插件 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.0</version>
+            <configuration>
+                <source>1.8</source>
+                <target>1.8</target>
+                <encoding>UTF-8</encoding>
+            </configuration>
+        </plugin>
+        <!-- tomcat7容器插件 -->
+        <plugin>
+            <groupId>org.apache.tomcat.maven</groupId>
+            <artifactId>tomcat7-maven-plugin</artifactId>
+            <version>2.2</version>
+            <configuration>
+                <!-- 指定端口 -->
+                <port>8080</port>
+                <!-- 请求路径 -->
+                <path>/</path>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 ```
 
 
@@ -483,13 +523,13 @@
 
 
 
-#### 分析旧系统的结构缺点
+#### 1. 分析旧系统的结构缺点
 
 ![1558075239425](assets/1558075239425.png)  
 
 
 
-#### 模块化系统结构分析
+#### 2. 模块化系统结构分析
 
 ![1556861714918](assets/1556861714918.png) 
 
@@ -497,7 +537,7 @@
 
 
 
-#### 创建第1个工程模块
+#### 3. 创建第1个工程模块
 
 - 版本配置
 
@@ -521,10 +561,18 @@
 
 #### 小结
 
-- 新的系统结构运用了maven的那些特性?
+- 以前的系统结构缺点
+
+  - 
+  
+- 模块化系统结构利用了哪些maven特性?
 
   - 
   - 
+  - 
+
+- 父工程的版本控制会将依赖下载吗?
+
   - 
 
   
@@ -605,7 +653,7 @@
 
 ![1556861714918](assets/1556861714918.png) 
 
-#### 创建持久层工程
+#### 1. 创建持久层工程
 
 - pom.xml
 
@@ -634,7 +682,7 @@
 
 ![1556861714918](assets/1556861714918.png) 
 
-#### 创建业务层工程
+#### 1. 创建业务层工程
 
 - pom.xml
 
@@ -994,11 +1042,11 @@ db.password=root
 
 
 
-#### 双击 tomcat7:run
+#### 1. 双击 tomcat7:run
 
-#### 命令 mvn tomcat7:run
+#### 2. 命令 mvn tomcat7:run
 
-#### 访问 
+#### 3. 访问
 
 - 地址: http://localhost:8080/ssm/list.do
 
