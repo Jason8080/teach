@@ -307,19 +307,22 @@
 
 #### 2. 什么是私服
 
-- 私服的好处 (私服是远程仓库的1种)
+- 私服的好处
   - 解决访问限制问题
   - 即使不能上网也可以下载jar包
   - 可以上传自己的jar包
 
-- 下载私服文件
-  - nexus: [官网下载](https://help.sonatype.com/repomanager2/download#Download-OlderOSSversions(notrecommended)) 
-  - 课前资料中已经下载 “ nexus-2.12.0-01-bundle.zip ” 。
-  - 也可以将 “nexus-2.1.2.war”放置在 tomcat 的 webapps 目录下使用。 
+- **私服是远程仓库的1种** (搭建在局域网中) 
 
 
 
 #### 3. 如何搭建私服
+
+- 下载
+  - nexus: [官网下载](https://help.sonatype.com/repomanager2/download#Download-OlderOSSversions(notrecommended)) 
+  - 课前资料中已经下载 “ nexus-2.12.0-01-bundle.zip ” 。
+  - 课前资料中 “nexus-2.1.2.war”可以放置在 tomcat 的 webapps 目录下使用。
+- 安装
 
 1. 解压“nexus-2.12.0-01-bundle.zip” 
 2. 修改默认端口, 路径为：nexus-2.12.0-01\conf\nexus.properties
@@ -337,7 +340,7 @@
 - 什么是私服?
   - 
 
-- 搭建私服有哪两种方式?
+- 启动私服有哪两种方式?
   - 
   - 
 
