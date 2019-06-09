@@ -21,6 +21,7 @@
 #### 2. Maven相关概念
 
 - 仓库
+  
   - 统一存放jar包的 **空间**
   
 - 坐标
@@ -240,14 +241,14 @@
 
 #### 1. 实现聚合的标签
 
-- 在pom文件中将packaging设置为pom类型
+- **更改打包类型**: 在pom文件中将packaging设置为pom类型
 
   ```xml
   <!-- 聚合工程必须是pom类型 -->
   <packaging>pom</packaging>
   ```
 
-- 在pom文件中用module标签聚合其他工程
+- **聚合其他工程**: 在pom文件中用module标签聚合其他工程
 
   ```xml
   <modules>
@@ -307,12 +308,11 @@
 
 #### 2. 什么是私服
 
+- **私服是远程仓库的1种** (搭建在局域网中) 
 - 私服的好处
   - 解决访问限制问题
   - 即使不能上网也可以下载jar包
   - 可以上传自己的jar包
-
-- **私服是远程仓库的1种** (搭建在局域网中) 
 
 
 
@@ -323,13 +323,15 @@
   - 课前资料中已经下载 “ nexus-2.12.0-01-bundle.zip ” 。
   - 课前资料中 “nexus-2.1.2.war”可以放置在 tomcat 的 webapps 目录下使用。
 - 安装
+  - 控制台启动
+    1. 解压“nexus-2.12.0-01-bundle.zip” 
+    2. 修改默认端口, 路径为：nexus-2.12.0-01\conf\nexus.properties
+    3. “ nexus-2.12.0-01\bin\jsw\windows-x86-64\ ” 目录下, 双击 console-nexus.bat 为后台启动 nexus
 
-1. 解压“nexus-2.12.0-01-bundle.zip” 
-2. 修改默认端口, 路径为：nexus-2.12.0-01\conf\nexus.properties
-3. “ nexus-2.12.0-01\bin\jsw\windows-x86-64\ ” 目录下, 双击 console-nexus.bat 为后台启动 nexus
-4. 双击“install-nexus.bat”则会注册为一个 windows 服务
-5. 访问: [http://localhost:8081/nexus](http://localhost:8081/nexus)
-6. 默认管理员账户: admin|admin123 
+  - 服务启动
+    1. 双击“install-nexus.bat”则会注册为一个 windows 服务
+    2. 访问: [http://localhost:8081/nexus](http://localhost:8081/nexus)
+    3. 默认管理员账户: admin|admin123 
 
 
 
@@ -448,7 +450,7 @@
 
 - 仓库类型: proxy代表的是什么?
   - 
-- 如何用私服下载资源?
+- 如何使用私服下载资源?
   - 
 - 如何上传自己的jar包?
   - 
