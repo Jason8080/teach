@@ -539,7 +539,7 @@
 
 
 
-##### 1.2 模块化系统结构分析
+##### 1.2 模块化系统结构
 
 ![1556861714918](assets/1556861714918.png) 
 
@@ -707,10 +707,10 @@
 <packaging>pom</packaging>
 <!--聚合子工程-->
 <modules>
-    <module>../maven-day02-domain</module>
-    <module>../maven-day02-dao</module>
-    <module>../maven-day02-service</module>
-    <module>../maven-day02-web</module>
+    <module>maven-day02-domain</module>
+    <module>maven-day02-dao</module>
+    <module>maven-day02-service</module>
+    <module>maven-day02-web</module>
 </modules>
 ```
 
@@ -759,8 +759,7 @@
 
   - 
   - 
-  - 
-
+  
 - 父工程的版本控制会将依赖下载吗?
 
   - 
@@ -903,17 +902,31 @@
 
 #### 目标
 
-- 学习两种启动方式
+- 启动测试整合项目
 
 
 
-#### 1. 双击 tomcat7:run
+#### 1. 启动测试整合项目
 
-#### 2. 命令 mvn tomcat7:run
+##### 1.1 两种启动方式
 
-#### 3. 访问
+- 双击 tomcat7:run
+
+- 命令 mvn tomcat7:run
+
+##### 1.2 访问
 
 - 地址: http://localhost:8080/ssm/list.do
+
+##### 1.3 易错点提醒
+
+- 持久层查询数据库需要编写 **sql** 语句
+- 业务层需要使用 **@Service** 注解将Bean添加到IOC容器
+- 控制层需要添加 **@RequestMapping** 映射请求路径
+- 启动Spring框架需要在 **web.xml** 中配置监听器
+- 启用SpringMvc需要在 **web.xml** 中配置处理器
+- 页面需要导入 **jstl** 标签库才能使用c标签
+- 页面获取属性值需要实体类提供 **get/set** 方法
 
 
 
