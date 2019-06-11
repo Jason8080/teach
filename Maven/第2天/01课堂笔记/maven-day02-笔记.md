@@ -79,7 +79,7 @@
 
 
 
-### 02特性 - 依赖传递【掌握】
+### 02特性 - 依赖传递【理解】
 
 #### 目标
 
@@ -287,7 +287,73 @@
 
 
 
-### 05远程仓库 - 私服【掌握】
+
+### 05常见插件【了解】
+
+#### 目标
+
+- 了解插件的概念
+- 了解compiler和tomcat7插件的用法
+
+
+
+#### 1. 插件的概念
+
+- 插件是某种功能的maven工具
+  - 
+  - 
+- 插件是以 **jar包** 形式存在仓库
+
+
+
+#### 2. 插件的用法
+
+- 在pom.xml文件中配置如下
+
+```xml
+<build>
+    <plugins>
+        <!-- java 编译插件 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.0</version>
+            <configuration>
+                <source>1.8</source>
+                <target>1.8</target>
+                <encoding>UTF-8</encoding>
+            </configuration>
+        </plugin>
+        <!-- tomcat7容器插件 -->
+        <plugin>
+            <groupId>org.apache.tomcat.maven</groupId>
+            <artifactId>tomcat7-maven-plugin</artifactId>
+            <version>2.2</version>
+            <configuration>
+                <!-- 指定端口 -->
+                <port>8080</port>
+                <!-- 请求路径 -->
+                <path>/</path>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+
+
+#### 小结
+
+- Maven插件是什么?
+  - 
+- compile插件的作用是什么?
+  - 
+- tomcat7插件的作用是什么?
+  - 
+
+
+
+### 06远程仓库 - 私服【了解】
 
 #### 目标
 
@@ -309,7 +375,7 @@
 #### 2. 什么是私服
 
 - **私服是远程仓库的1种** (搭建在局域网中) 
-- 私服的好处
+- 私服的作用 (好处)
   - 解决访问限制问题
   - 即使不能上网也可以下载jar包
   - 可以上传自己的jar包
@@ -323,12 +389,12 @@
   - 课前资料中已经下载 “ nexus-2.12.0-01-bundle.zip ” 。
   - 课前资料中 “nexus-2.1.2.war”可以放置在 tomcat 的 webapps 目录下使用。
 - 安装
-  - 控制台启动
+  - 方式一: 控制台启动
     1. 解压“nexus-2.12.0-01-bundle.zip” 
     2. 修改默认端口, 路径为：nexus-2.12.0-01\conf\nexus.properties
     3. “ nexus-2.12.0-01\bin\jsw\windows-x86-64\ ” 目录下, 双击 console-nexus.bat 为后台启动 nexus
 
-  - 服务启动
+  - 方式二: 服务启动
     1. 双击“install-nexus.bat”则会注册为一个 windows 服务
     2. 访问: [http://localhost:8081/nexus](http://localhost:8081/nexus)
     3. 默认管理员账户: admin|admin123 
@@ -348,12 +414,12 @@
 
 
 
-### 06私服的应用【掌握】
+### 07私服的应用【掌握】
 
 #### 目标
 
-- **认识私服**的仓库类型
-- 在项目中**使用私服**下载资源
+- **认识私服** 仓库类型
+- **使用私服** 下载资源
 - **上传自己的jar包** (两种方式)
 
 
@@ -369,7 +435,7 @@
 
 #### 2. 项目中使用私服下载资源
 
-- 配置私服
+- 在setting.xml文件中配置镜像拦截
 
 ```xml
 <!-- 远程仓库配置 -->
@@ -457,52 +523,228 @@
 
 
 
-### 07常见插件【了解】
+### 08整合SSM - 模块化【理解】
 
 #### 目标
 
-- 了解插件的概念
-- compiler和tomcat7插件的用法
+- **理解模块化系统结构**
 
 
 
-#### 1. 插件的概念
+#### 1. 理解模块化系统结构
 
-- 插件是某种功能的maven工具
+##### 1.1 旧系统结构的缺点
+
+![1558075239425](assets/1558075239425.png)  
+
+
+
+##### 1.2 模块化系统结构分析
+
+![1556861714918](assets/1556861714918.png) 
+
+#### 小结
+
+- 以前的系统结构缺点
+
+  - 
+
+- 模块化系统结构利用了哪些maven特性?
+
   - 
   - 
-- 插件是以 **jar包** 形式存在仓库
+  - 
+
+  
+
+### 09整合SSM - 父工程【理解】
+
+#### 目标
+
+- **创建父工程**: maven-day02-ssm
 
 
 
-#### 2. 插件的用法
+#### 创建父工程
 
-- 在pom.xml文件中配置如下
+- 继承配置
 
 ```xml
+<!--统一管理依赖包版本-->
+<properties>
+    <!--spring 版本-->
+    <spring.version>5.0.2.RELEASE</spring.version>
+    <!-- log4j日志包版本 -->
+    <slf4j.version>1.7.7</slf4j.version>
+    <log4j.version>1.2.17</log4j.version>
+    <!-- jstl标签版本 -->
+    <jstl.version>1.2</jstl.version>
+    <!--servlet版本-->
+    <servlet.version>2.5</servlet.version>
+    <!--jsp版本-->
+    <jsp.version>2.0</jsp.version>
+    <!-- mybatis版本号 -->
+    <mybatis.version>3.4.5</mybatis.version>
+    <!--mysql驱动版本-->
+    <mysql.version>5.1.30</mysql.version>
+    <!-- mybatis-spring整合包版本 -->
+    <mybatis.spring.version>1.3.1</mybatis.spring.version>
+    <!--druid版本-->
+    <druid.version>1.0.29</druid.version>
+    <!-- aspectj版本号 -->
+    <aspectj.version>1.6.12</aspectj.version>
+</properties>
+
+<!--统一管理依赖包-->
+<dependencyManagement>
+    <dependencies>
+        <!--spring依赖包-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- spring web包 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- spring mvc包 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!--spring jdbc包-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!--spring tx包-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!--aspectj包-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
+        <!-- jstl标签类 -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <!--servlet依赖-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--jsp依赖-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- mybatis核心包 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+        <!-- mybatis-spring整合包 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${mybatis.spring.version}</version>
+        </dependency>
+        <!-- mysql数据库依赖 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!--数据库连接池druid-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+        <!-- log4j包 -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+- 聚合配置
+
+```xml
+<!--父工程packaging，必须设置为pom-->
+<packaging>pom</packaging>
+<!--聚合子工程-->
+<modules>
+    <module>../maven-day02-domain</module>
+    <module>../maven-day02-dao</module>
+    <module>../maven-day02-service</module>
+    <module>../maven-day02-web</module>
+</modules>
+```
+
+- 插件配置
+
+```xml
+<!--统一配置java编译插件-->
 <build>
     <plugins>
         <!-- java 编译插件 -->
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.0</version>
+            <version>3.2</version>
             <configuration>
                 <source>1.8</source>
                 <target>1.8</target>
                 <encoding>UTF-8</encoding>
             </configuration>
         </plugin>
-        <!-- tomcat7容器插件 -->
+        <!--配置tomcat插件-->
         <plugin>
             <groupId>org.apache.tomcat.maven</groupId>
             <artifactId>tomcat7-maven-plugin</artifactId>
-            <version>2.2</version>
+            <version>2.1</version>
             <configuration>
-                <!-- 指定端口 -->
+            	<!-- tomcat 的端口号 -->
                 <port>8080</port>
-                <!-- 请求路径 -->
-                <path>/</path>
+                <!-- 访问应用的路径 -->
+                <path>/ssm</path>
+                <!-- URL按UTF-8进行编码，解决中文参数乱码 -->
+                <uriEncoding>UTF-8</uriEncoding>
+                <!-- tomcat名称 -->
+                <server>tomcat7</server>
             </configuration>
         </plugin>
     </plugins>
@@ -513,69 +755,7 @@
 
 #### 小结
 
-- Maven插件是什么?
-  - 
-- compile插件的作用是什么?
-  - 
-- tomcat7插件的作用是什么?
-
-  - 
-
-
-
-### 08整合SSM - 父工程【理解】
-
-#### 目标
-
-- **分析旧系统的结构缺点**
-- **模块化系统结构分析**: 使用所学构建新的项目
-- **创建第1个工程模块**: maven-day02-ssm
-
-
-
-#### 1. 分析旧系统的结构缺点
-
-![1558075239425](assets/1558075239425.png)  
-
-
-
-#### 2. 模块化系统结构分析
-
-![1556861714918](assets/1556861714918.png) 
-
-- 架构图理解测试: **图中哪个模块传递的依赖最多** ?
-
-
-
-#### 3. 创建第1个工程模块
-
-- 版本配置
-
-```xml
-
-```
-
-- 版本控制
-
-```xml
-
-```
-
-- 编译插件
-
-```xml
-
-```
-
-
-
-#### 小结
-
-- 以前的系统结构缺点
-
-  - 
-  
-- 模块化系统结构利用了哪些maven特性?
+- 父工程使用了哪些maven特性?
 
   - 
   - 
@@ -589,7 +769,7 @@
 
 
 
-### 09整合SSM - domain【理解】
+### 10整合SSM - domain【理解】
 
 #### 目标
 
@@ -622,7 +802,7 @@
 
 
 
-### 10整合SSM - dao【理解】
+### 11整合SSM - dao【理解】
 
 #### 目标
 
@@ -651,7 +831,7 @@
 
 
 
-### 11整合SSM - service【理解】
+### 12整合SSM - service【理解】
 
 #### 目标
 
@@ -682,7 +862,7 @@
 
 
 
-### 12整合SSM - web【理解】
+### 13整合SSM - web【理解】
 
 #### 目标
 
@@ -719,7 +899,61 @@
 
 
 
-### 13web - resources【了解】
+### 14整合SSM - 启动【理解】
+
+#### 目标
+
+- 学习两种启动方式
+
+
+
+#### 1. 双击 tomcat7:run
+
+#### 2. 命令 mvn tomcat7:run
+
+#### 3. 访问
+
+- 地址: http://localhost:8080/ssm/list.do
+
+
+
+#### 小结
+
+- 如何选用两种启动方式?
+
+  - 
+
+
+
+
+
+### 15总结【理解】
+
+- 学习了哪些特性?
+  - 
+  - 
+  - 
+
+- 如何部署私服?
+  - 
+  - 
+
+- 如何使用私服下载资源?
+  - 
+- 整合SSM中哪个工程使用了聚合特性?
+  - 
+- 整合SSM中哪些工程利用了继承特性?
+  - 
+- 为什么子工程中的坐标没有版本号?
+  - 
+
+
+
+
+
+
+
+### 16web - resources【了解】
 
 #### 目标
 
@@ -1002,60 +1236,8 @@ db.password=root
 
 
 
-
-
 ##### 小结
 
 - 哪些配置文件需要在web.xml中配置?
-  - 
-
-
-
-### 14整合SSM - 启动【理解】
-
-#### 目标
-
-- 学习两种启动方式
-
-
-
-#### 1. 双击 tomcat7:run
-
-#### 2. 命令 mvn tomcat7:run
-
-#### 3. 访问
-
-- 地址: http://localhost:8080/ssm/list.do
-
-
-
-#### 小结
-
-- 如何选用两种启动方式?
-
-  - 
-
-
-
-
-
-### 15总结【理解】
-
-- 学习了哪些特性?
-  - 
-  - 
-  - 
-
-- 如何部署私服?
-  - 
-  - 
-
-- 如何使用私服下载资源?
-  - 
-- 整合SSM中哪个工程使用了聚合特性?
-  - 
-- 整合SSM中哪些工程利用了继承特性?
-  - 
-- 为什么子工程中的坐标没有版本号?
   - 
 
