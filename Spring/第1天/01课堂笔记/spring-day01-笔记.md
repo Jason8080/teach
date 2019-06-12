@@ -1,25 +1,23 @@
-### 01开发常见的依赖问题【了解】
+### 01开发的分层架构【理解】
 
 #### 目标
 
-- **了解依赖问题**
-
-- **解决依赖问题**
-
+- 理解开发中的 **三层架构**
+- 理解分层架构的作用
 
 
-#### 1. 了解依赖问题
 
-##### 1.1 创建项目
+#### 1. 理解三层架构
 
-- 项目名称: spring-day01-dep
+##### 1.1 分层概念
 
-##### 1.2 分层建设
+- 三层架构(3-tier architecture): **视图层**, **业务层**, **持久层**
 
-![1559290090936](assets/1559290090936.png) 
+![1559290090936](assets/1559290090936.png)
 
-- 代码较多划分多个包
-- 层次分明: 持久层(dao), 业务层(service), 视图层(controller)
+##### 1.2 分层案例
+
+- 创建项目: spring-day01-tier
 
 ###### com.itheima.dao
 
@@ -29,19 +27,7 @@
   
   ```
 
-- impl.UserDaoOracleImpl.java
-
-  ```java
-  
-  ```
-
-- impl.UserDaoMysqlImpl.java
-
-  ```java
-  
-  ```
-
-- model.User.java
+- impl.UserDaoImpl.java
 
   ```java
   
@@ -75,7 +61,58 @@
 
 
 
-##### 1.3 分析问题
+
+
+#### 2. 分层架构的作用
+
+- 项目结构清晰 (提高代码可读性)
+- 便于团队协同开发 (提高开发效率)
+
+
+
+
+
+#### 小结
+
+- 三层架构分为哪三层?
+  - 
+  - 
+  - 
+- 为什么要分层架构呢?
+  - 
+  - 
+
+
+
+### 02常见的依赖问题【理解】
+
+#### 目标
+
+- **了解依赖问题**
+
+- **解决依赖问题**
+
+
+
+#### 1. 了解依赖问题
+
+##### 1.1 实现类丢失
+
+- 实现类无法编译
+
+##### 1.2 切换实现类
+
+- 需要改动Service实现类
+
+- impl.UserDaoOracleImpl.java
+
+```java
+
+```
+
+
+
+##### 1.3 依赖问题
 
 - 代码耦合度过高
   - 依赖丢失无法编译: UserDaoMysqlImpl
@@ -90,9 +127,28 @@
 
 - 将创建UserDaoMysqlImpl对象的过程交给 BeanFactory 实现
 
+```java
+
+```
+
 ##### 2.2 逍遥法外
 
 - 将UserDaoMysqlImpl类的引用放置到虚拟机编译范围之外
+- 就像Class.forName("com.mysql.jdbc.Driver");
+
+###### beans.properties
+
+```properties
+
+```
+
+###### BeanFactory.java
+
+```java
+
+```
+
+
 
 ##### 2.3【扩展】设计模式
 
@@ -113,7 +169,47 @@
 
 
 
-### 02Spring框架概述
+### 03更多的依赖问题【了解】
+
+#### 目标
+
+- 了解更多的依赖问题
+
+
+
+#### 1. 依赖关系问题
+
+- 工厂创建的 **对象**(Service) 中可能还依赖了**其他对象**(Dao)
+- 需要将对象中的依赖赋值 (比如UserServiceImpl中的userDao)
+- 然而Service中还依赖了Dao
+- 所以需要先创建Dao的实现类并赋值给Service
+
+
+
+#### 2. 对象个数问题
+
+- 企业中用户量大每次创建对象非常消耗内存 
+- 企业中用户量很大创建的对象会非常多 (消耗内存)
+
+
+
+#### 3. 创建顺序问题
+
+- 工厂创建的 **对象**(Service) 中可能还依赖了**其他对象**(Dao)
+- 需要**先创建被依赖对象** 才能给对象赋值
+
+
+
+#### 小结
+
+- 还有哪些依赖问题?
+  - 
+  - 
+  - 
+
+
+
+### 04Spring框架概述【了解】
 
 #### 目标
 
@@ -124,6 +220,14 @@
 
 
 #### 1. 了解Spring框架
+
+- 官网: https://spring.io/
+
+- 官网文档地址: https://spring.io/projects/spring-framework#learn
+
+- 依赖下载地址: https://repo.spring.io/libs-release-local/org/springframework/spring/
+
+
 
 ##### 1.1 Spring介绍
 
@@ -228,4 +332,366 @@
   - 
 
 
+
+### 05IOC容器概念【理解】
+
+#### 目标
+
+- 理解IOC是什么
+- IOC有哪些作用
+
+
+
+#### 1. 理解IOC是什么
+
+- IOC(Inversion Of Control): 是将创建对象交给工厂来完成的行为, 也叫 **控制反转**
+
+#### 2. IOC有哪些作用
+
+- **解耦**: 利用控制反转的概念解耦创建对象的过程
+- **容器**: 可以将创建好的对象 **存储** 起来重复使用 (单例模式)
+- **管理**: 可以管理容器中对象间的 **依赖关系**
+- 顺序: 可以按顺序创建对象解决依赖关系问题
+
+
+
+#### 小结
+
+- IOC是什么?
+  - 
+- IOC有什么作用?
+  - 
+
+
+
+### 06IOC入门案例【掌握】
+
+#### 目标
+
+- 了解IOC容器的依赖的jar包
+
+- 掌握创建对象的Bean标签
+- 掌握创建IOC容器的代码
+
+
+
+#### 1. 了解IOC容器的依赖的jar包
+
+- 创建工程: spring-day01-ioc
+- 添加依赖: pom.xml
+
+```xml
+
+```
+
+- 创建对象: com.itheima.ioc.User.java
+
+```java
+
+```
+
+
+
+#### 2. 掌握IOC容器的Bean配置标签
+
+- 配置对象: beans.xml
+
+```xml
+
+```
+
+
+
+#### 2. 掌握创建IOC容器的代码
+
+- 测试代码
+
+```java
+
+```
+
+
+
+
+
+#### 小结
+
+- 使用IOC容器需要添加哪些依赖?
+  - 
+
+- 在配置文件中使用什么标签定义对象?
+  - 
+
+- 如何创建IOC容器?
+  - 
+
+
+
+### 07创建Bean的细节【了解】
+
+#### 目标
+
+- 理解bean标签的各个属性
+- 理解bean的作用范围
+- 创建对象的时间
+- 初始化方法
+- 销毁方法
+
+
+
+#### 1. 理解bean标签的各个属性
+
+| 属性           | 说明                                                         |
+| -------------- | ------------------------------------------------------------ |
+| id             | 对象的引用名称;一定要唯一； 一次只能定义一个引用名称         |
+| name           | 对象的引用名称; 与id区别是：name一次可以定义多个引用名称。   |
+| class          | 类的全限定名称                                               |
+| scope          | 设置bean的作用范围。取值：singleton：单例。默认值prototype：多例request：web项目中，将对象存入request域中【了解】session：web项目中，将对象存入session域中【了解】globalsession：web项目中，应用在集群环境，如果没有集群环境，相当于session【了解】 |
+| init-method    | 指定类中初始化方法的名称，在构造方法执行完毕后立即执行【了解】 |
+| destroy-method | 指定类中销毁方法名称，在销毁spring容器前执行【了解】         |
+| lazy-init      | 设置为true表示延迟创建对象，即在第一次使用对象时候才创建单例的对象，只对单例对象有效。 |
+
+#### 2. 对象的作用范围
+
+- singleton: **单例**, 只创建一个对象 (启动时创建)
+  - lazy-init: **延迟创建**: 第一次使用时创建对象
+-  prototype: **多例**, 每次使用都创建一个新的对象 (使用时创建)
+
+
+
+#### 3. 初始化与销毁对象
+
+- init-method: 在构造方法执行前执行的方法
+- destroy-method: 容器销毁前执行的方法
+
+
+
+#### 小结
+
+- 至少说出3个bean标签的属性?
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+- 单例和多例的区别 ?
+  - 
+  - 
+
+
+
+### 08创建IOC的方式【理解】
+
+#### 目标
+
+- 了解IOC容器创建的方式
+- 系统文件创建方式
+
+- 注解配置创建方式
+
+
+
+#### 1. 了解IOC容器创建的方式
+
+- IOC容器接口结构图
+
+![1560327236910](assets/1560327236910.png) 
+
+##### 1.1 资源文件创建方式
+
+```java
+ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+```
+
+
+
+##### 1.2 系统文件创建方式
+
+```java
+FileSystemXmlApplicationContext context = new FileSystemXmlApplicationContext("E:\\课堂\\Spring\\第1天\\04代码\\spring1\\spring-day01-ioc\\src\\main\\resources\\beans.xml");
+```
+
+
+
+##### 1.3 注解配置创建方式
+
+```java
+@Test
+public void testAnnotation() {
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
+}
+
+@Configuration
+static class Config{
+
+    @Bean("user")
+    public User createUser(){
+        return new User();
+    }
+}
+```
+
+#### 1.4 ~~BeanFactory~~创建方式
+
+```java
+Resource resource = new ClassPathResource("beans.xml");
+XmlBeanFactory context = new XmlBeanFactory(resource);
+```
+
+- 【面试】BeanFactory与ApplicationContext的区别?
+  - BeanFactory是Spring容器的顶层接口, 采用 **延迟创建** 对象的思想 
+  - ApplicationContext是BeanFactory的子接口, 采用 **即时创建** 对象的思想 
+
+
+
+#### 小结
+
+- 创建IOC容器的方式有哪几种?
+
+  - 
+  - 
+
+  - 
+
+
+
+### 09创建对象的方式【理解】
+
+#### 目标
+
+- 构造方法创建 (默认)
+- 静态方法创建
+- ~~动态~~方法创建
+
+
+
+#### 1. 构造方法创建
+
+```xml
+<!-- 调用构造方法创建对象 -->
+<bean id="user" class="com.itheima.ioc.User"/>
+```
+
+#### 2. 静态方法创建
+
+- 静态方法
+
+  ```java
+  package com.itheima.ioc;
+  
+  /**
+   * 提供静态方法
+   * @author : Jason.lee
+   */
+  public class UserFactory {
+      /**
+       * 静态方法创建对象.
+       */
+      public static User create(){
+          System.out.println("静态方法执行了===");
+          return new User();
+      }
+      
+      /**
+       * 动态方法创建对象.
+       */
+      public User get(){
+          System.out.println("动态方法执行了===");
+          return new User();
+      }
+  }
+  ```
+
+```java
+<!-- 调用静态方法创建对象 -->
+<bean id="user6" class="com.itheima.ioc.UserFactory" factory-method="create"/>
+```
+
+
+
+#### 3. ~~动态~~方法创建
+
+```xml
+<!-- 调用动态方法创建对象 -->
+<bean id="userFactory" class="com.itheima.ioc.UserFactory"/>
+<bean id="user7" factory-bean="userFactory" factory-method="get"/>
+```
+
+
+
+#### 小结
+
+- 创建对象的方式有哪几种?
+  - 
+  - 
+  - 
+
+
+
+
+
+### 10依赖注入 - 概念【理解】
+
+#### 目标
+
+- 理解什么是依赖注入
+
+
+
+#### 1. 什么是依赖注入
+
+- 如何在IOC创建对象后给对象赋值?
+- IOC提供了这种赋值功能: 依赖注入( **DI** : Dependency Injection)
+
+![1560332836105](assets/1560332836105.png) 
+
+#### 小结
+
+- 什么是依赖注入 ( **DI** )?
+  - 
+
+
+
+### 11DI - 构造方法【掌握】
+
+#### 目标
+
+- 使用构造方法给对象赋值
+
+
+
+#### 1. 构造方法赋值
+
+- 创建新类: Person.java
+
+```java
+
+```
+
+- 配置beans.xml
+
+```xml
+<!--
+    使用constructor-arg标签利用构造方法赋值
+    value: 值
+ -->
+<bean id="person" class="com.itheima.ioc.Person">
+    <constructor-arg value="1"/>
+    <constructor-arg value="Jason"/>
+</bean>
+```
+
+
+
+#### 小结
+
+- 
+
+
+
+### 13总结
+
+- 
 
