@@ -5,13 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.itheima</groupId>
-    <artifactId>spring1</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>spring4</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <modules>
-        <module>spring-day01-dep</module>
-        <module>spring-day01-ioc</module>
-    </modules>
 
 </project>
