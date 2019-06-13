@@ -654,11 +654,11 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 11DI - 构造方法【掌握】
+### 11DI - 注入方式【掌握】
 
 #### 目标
 
-- 使用构造方法给对象赋值
+- 掌握依赖注入的两种方式
 
 
 
@@ -676,10 +676,119 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 <!--
     使用constructor-arg标签利用构造方法赋值
     value: 值
+    type: 值类型 (与构造方法完全一致)
+    name: 属性名称
+    index: 构造方法参数位下标(可一起使用,但不建议)
  -->
 <bean id="person" class="com.itheima.ioc.Person">
-    <constructor-arg value="1"/>
+    <constructor-arg type="java.lang.String" index="1" name="name" value="Jason"/>
+    <constructor-arg index="0" value="1"/>
+</bean>
+```
+
+#### 2. set方法赋值(常用)
+
+```xml
+<!--
+    使用property标签利用set方法赋值
+    name: 属性名称
+    value: 值
+-->
+<bean id="person2" class="com.itheima.ioc.Person">
+    <property name="id" value="1"/>
+    <property name="name" value="Jason"/>
+</bean>
+```
+
+#### 3. C标签代替构造方法
+
+- 引入C名称空间
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       <!-- c标签命名空间 -->
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+```
+
+- 使用方式
+
+```xml
+<!--
+    使用c标签利用构造方法赋值
+    c:id: 属性名称赋值
+    c:_1: 构造方法参数位下标赋值
+-->
+<bean id="person3" class="com.itheima.ioc.Person" c:id="1" c:_1="Jason"/>
+```
+
+#### 4. P标签代替set方法
+
+- 引入P名称空间
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       <!-- p标签命名空间 -->
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+```
+
+- 使用方式
+
+```xml
+<!--
+    使用c标签利用构造方法赋值
+    p:name: 属性名称赋值
+-->
+<bean id="person4" class="com.itheima.ioc.Person" p:name="Jason" p:id="1"/>
+```
+
+
+
+#### 小结
+
+- 依赖注入有哪几种方式?
+  - 
+  - 
+
+
+
+### 12DI - 注入对象【掌握】
+
+#### 目标
+
+- 掌握注入bean的方式
+
+
+
+#### 1. 注入对象属性
+
+- 配置需要注入的对象
+
+```xml
+<!-- 利用构造方法赋值: new String("Jason") -->
+<bean id="str" class="java.lang.String">
     <constructor-arg value="Jason"/>
+</bean>
+```
+
+- 注入bean对象属性值
+
+```xml
+<!--
+    使用ref对象引用标签注入对象属性值
+    	ref: 表示注入的属性是个已存在的bean对象
+ -->
+<bean id="person5" class="com.itheima.ioc.Person">
+    <property name="id" value="1"/>
+    <property name="name" ref="str"/>
 </bean>
 ```
 
@@ -687,11 +796,96 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 #### 小结
 
-- 
+- 如何注入已存在的对象属性?
+  - 
 
 
 
-### 13总结
+### 13DI - 注入集合【理解】
 
-- 
+#### 目标
+
+- 理解注入集合的方式
+
+
+
+#### 1. 注入集合属性
+
+- 创建Employee.java
+
+```java
+
+```
+
+- 注入集合属性值
+
+```xml
+<!--
+    给对象赋值集合属性的值
+    property: 使用set方法赋值
+        name: 赋值属性名
+           array: 数组类型
+            list: 有序集合
+            set: 无序集合
+            map: 双列集合
+            properties: 键值对属性
+-->
+<bean id="employee" class="com.itheima.ioc.Employee">
+    <property name="array">
+        <array>
+            <value>666</value>
+            <value>777</value>
+        </array>
+    </property>
+    <property name="list">
+        <list>
+            <value>666</value>
+            <value>777</value>
+        </list>
+    </property>
+    <property name="set">
+        <set>
+            <ref bean="str"/>
+        </set>
+    </property>
+    <property name="map">
+        <map>
+            <entry key="name" value-ref="str"/>
+            <entry key="id" value="1"/>
+        </map>
+    </property>
+    <property name="properties">
+        <props>
+            <prop key="name">Jason</prop>
+            <prop key="id">1</prop>
+        </props>
+    </property>
+</bean>
+```
+
+
+
+#### 小结
+
+- 如何注入集合属性?
+  - 
+
+
+
+
+
+### 14总结
+
+- 请你描述对Spring的理解?
+  - 
+- 什么是IOC ?
+  - 
+- 如何创建IOC容器 ?
+  - 
+- 创建对象有哪几种方式?
+  - 
+- IOC通过什么功能做到依赖管理?
+  - 
+- 什么是DI ?
+  - 
 
