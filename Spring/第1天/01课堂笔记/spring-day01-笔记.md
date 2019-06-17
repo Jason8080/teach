@@ -96,50 +96,62 @@
 
 #### 1. 了解依赖问题
 
+- 代码耦合度过高
+
+
+
 ##### 1.1 实现类丢失
 
-- 实现类无法编译
+- 如果编译时丢失UserDaoImp.java文件将无法编译
 
 ##### 1.2 切换实现类
 
-- 需要改动Service实现类
+- 如果数据库换成了Oracle需要改动Service代码切换
 
 - impl.UserDaoOracleImpl.java
 
 ```java
+package com.itheima.spring.dao.impl;
 
+import com.itheima.spring.dao.UserDao;
+
+/**
+ * Oracle用户数据库操作实现类.
+ *
+ * @author : Jason.lee
+ */
+public class UserDaoOracleImpl implements UserDao {
+    @Override
+    public void save() {
+        System.out.println("保存Oracle用户成功");
+    }
+}
 ```
-
-
-
-##### 1.3 依赖问题
-
-- 代码耦合度过高
-  - 依赖丢失无法编译: UserDaoMysqlImpl
-
-  - 切换实现要改代码: new UserDaoOracleImpl();
 
 
 
 #### 2. 解决依赖问题
 
-##### 2.1 祸水东引
+##### 2.1 解决实现类丢失
 
-- 将创建UserDaoMysqlImpl对象的过程交给 BeanFactory 实现
+- 【祸水东引】将创建实现类对象的过程交给 BeanFactory 实现
 
 ```java
 
 ```
 
-##### 2.2 逍遥法外
+##### 2.2 解决实现类切换
 
-- 将UserDaoMysqlImpl类的引用放置到虚拟机编译范围之外
-- 就像Class.forName("com.mysql.jdbc.Driver");
+- 学习Class.forName("com.mysql.jdbc.Driver")
+- 运行时再加载字节码文件
 
 ###### beans.properties
 
 ```properties
-
+# 用户持久层实现类
+UserDao=com.itheima.tier.dao.impl.UserDaoImpl
+# 用户服务层实现类
+UserService=com.itheima.tier.service.impl.UserServiceImpl
 ```
 
 ###### BeanFactory.java
