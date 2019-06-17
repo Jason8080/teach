@@ -236,11 +236,11 @@ UserService=com.itheima.tier.service.impl.UserServiceImpl
 
 
 
-### 03更多的依赖问题【了解】
+### 03分层的其他问题【了解】
 
 #### 目标
 
-- 了解更多的依赖问题
+- 了解分层的其他问题
 
 
 
