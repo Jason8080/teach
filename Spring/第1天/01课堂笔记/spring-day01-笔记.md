@@ -262,7 +262,21 @@ public class UserServiceImpl implements UserService {
 
 
 
-#### 2. 对象个数问题
+#### 2. 创建顺序问题
+
+- 工厂创建的 **对象**(Service) 中可能还依赖了**其他对象**(Dao)
+
+```java
+public class UserServiceImpl implements UserService {
+    // 是先创建id和name还是先创建UserServiceImpl对象?
+    private Integer id = 1;
+    private String name = "OK";
+}
+```
+
+
+
+#### 3. 对象个数问题
 
 - 企业中用户量很大创建的对象会非常多 (消耗内存)
 
@@ -278,20 +292,6 @@ public static Object create(String name){
         e.printStackTrace();
         return null;
     }
-}
-```
-
-
-
-#### 3. 创建顺序问题
-
-- 工厂创建的 **对象**(Service) 中可能还依赖了**其他对象**(Dao)
-
-```java
-public class UserServiceImpl implements UserService {
-    // 是先创建id和name还是先创建UserServiceImpl对象?
-    private Integer id = 1;
-    private String name = "OK";
 }
 ```
 
