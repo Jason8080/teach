@@ -157,8 +157,7 @@ public class BeanFactory {
 ```
 
 - 【彻底解决】实现类丢失问题
-  - 学习Class.forName("com.mysql.jdbc.Driver")
-  - 运行时再加载字节码文件
+  - 学习Class.forName("com.mysql.jdbc.Driver")运行时再加载字节码文件
 
 ```java
 package com.itheima.tier;
