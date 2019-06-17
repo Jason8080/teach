@@ -106,7 +106,7 @@
 
 ##### 1.2 切换实现类
 
-- 如果数据库换成了Oracle需要改动Service代码切换
+- 如果数据库换成了Oracle需要改动Service代码切换 (不想改动java代码)
 
 - impl.UserDaoOracleImpl.java
 
@@ -137,13 +137,69 @@ public class UserDaoOracleImpl implements UserDao {
 - 【祸水东引】将创建实现类对象的过程交给 BeanFactory 实现
 
 ```java
+package com.itheima.spring;
 
+import com.itheima.spring.dao.UserDao;
+import com.itheima.spring.dao.impl.UserDaoImpl;
+
+/**
+ * 创建持久层接口实现类.
+ */
+public class BeanFactory {
+    /**
+     * 祸水东引.
+     * 将创建实现类对象的过程放置到BeanFactory.
+     */
+    public static UserDao create(){
+        return new UserDaoImpl();
+    }
+}
 ```
+
+- 【彻底解决】实现类丢失问题
+  - 学习Class.forName("com.mysql.jdbc.Driver")
+  - 运行时再加载字节码文件
+
+```java
+package com.itheima.spring;
+
+import com.itheima.spring.dao.UserDao;
+import com.itheima.spring.dao.impl.UserDaoImpl;
+
+/**
+ * 创建持久层接口实现类.
+ */
+public class BeanFactory {
+
+    /**
+     * 祸水东引.
+     * 将创建实现类对象的过程放置到BeanFactory.
+     */
+    public static UserDao create(){
+        return new UserDaoImpl();
+    }
+
+    /**
+     * 彻底解决丢失问题.
+     * 编译时指定字节码路径, 运行时再加载字节码.
+     */
+    public static Object create(String name){
+        try {
+            Class<?> aClass = Class.forName(name);
+            return aClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
+```
+
+
 
 ##### 2.2 解决实现类切换
 
-- 学习Class.forName("com.mysql.jdbc.Driver")
-- 运行时再加载字节码文件
+- 改动实现类时不想改动java代码
 
 ###### beans.properties
 
