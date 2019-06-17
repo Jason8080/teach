@@ -253,7 +253,8 @@ public class UserServiceImpl implements UserService {
   	// 对象中有其他依赖需要创建
     UserDao userDao = (UserDao) BeanFactory.create("UserDao");
 
-    // 对象中有其他依赖需要创建
+    // 对象中有其他依赖需要创建 
+    // (不然使用时要么null值要么空异常)
     private Integer id = 1;
     private String name = "OK";
 }
