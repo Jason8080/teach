@@ -632,7 +632,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 10依赖注入 - 概念【理解】
+### 10依赖注入 - 概念【掌握】
 
 #### 目标
 
@@ -654,7 +654,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 11DI - 注入方式【掌握】
+### 11DI - 注入方式【理解】
 
 #### 目标
 
@@ -760,7 +760,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 12DI - 注入对象【掌握】
+### 12DI - 注入对象【理解】
 
 #### 目标
 
