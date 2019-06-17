@@ -111,9 +111,9 @@
 - impl.UserDaoOracleImpl.java
 
 ```java
-package com.itheima.spring.dao.impl;
+package com.itheima.tier.dao.impl;
 
-import com.itheima.spring.dao.UserDao;
+import com.itheima.tier.dao.UserDao;
 
 /**
  * Oracle用户数据库操作实现类.
@@ -137,10 +137,10 @@ public class UserDaoOracleImpl implements UserDao {
 - 【祸水东引】将创建实现类对象的过程交给 BeanFactory 实现
 
 ```java
-package com.itheima.spring;
+package com.itheima.tier;
 
-import com.itheima.spring.dao.UserDao;
-import com.itheima.spring.dao.impl.UserDaoImpl;
+import com.itheima.tier.dao.UserDao;
+import com.itheima.tier.dao.impl.UserDaoImpl;
 
 /**
  * 创建持久层接口实现类.
@@ -161,10 +161,10 @@ public class BeanFactory {
   - 运行时再加载字节码文件
 
 ```java
-package com.itheima.spring;
+package com.itheima.tier;
 
-import com.itheima.spring.dao.UserDao;
-import com.itheima.spring.dao.impl.UserDaoImpl;
+import com.itheima.tier.dao.UserDao;
+import com.itheima.tier.dao.impl.UserDaoImpl;
 
 /**
  * 创建持久层接口实现类.
