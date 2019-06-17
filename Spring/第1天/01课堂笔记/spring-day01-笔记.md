@@ -247,29 +247,58 @@ UserService=com.itheima.tier.service.impl.UserServiceImpl
 #### 1. 依赖关系问题
 
 - 工厂创建的 **对象**(Service) 中可能还依赖了**其他对象**(Dao)
-- 需要将对象中的依赖赋值 (比如UserServiceImpl中的userDao)
-- 然而Service中还依赖了Dao
-- 所以需要先创建Dao的实现类并赋值给Service
+
+```java
+public class UserServiceImpl implements UserService {
+  	// 对象中有其他依赖需要创建
+    UserDao userDao = (UserDao) BeanFactory.create("UserDao");
+
+    // 对象中有其他依赖需要创建
+    private Integer id = 1;
+    private String name = "OK";
+}
+```
 
 
 
 #### 2. 对象个数问题
 
-- 企业中用户量大每次创建对象非常消耗内存 
 - 企业中用户量很大创建的对象会非常多 (消耗内存)
+
+```java
+public static Object create(String name){
+    // clazz = com.itheima.tier.dao.impl.UserDaoImpl
+    String clazz = prop.getProperty(name);
+    try {
+        Class<?> aClass = Class.forName(clazz);
+        // 每次访问都创建新的对象
+        return aClass.newInstance();
+    } catch (Exception e) {
+        e.printStackTrace();
+        return null;
+    }
+}
+```
 
 
 
 #### 3. 创建顺序问题
 
 - 工厂创建的 **对象**(Service) 中可能还依赖了**其他对象**(Dao)
-- 需要**先创建被依赖对象** 才能给对象赋值
+
+```java
+public class UserServiceImpl implements UserService {
+    // 是先创建id和name还是先创建UserServiceImpl对象?
+    private Integer id = 1;
+    private String name = "OK";
+}
+```
 
 
 
 #### 小结
 
-- 还有哪些依赖问题?
+- 分层架构还有哪些问题?
   - 
   - 
   - 
