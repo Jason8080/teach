@@ -528,11 +528,11 @@ public static Object create(String name){
 
 #### 目标
 
-- 理解bean标签的各个属性
-- 理解bean的作用范围
-- 创建对象的时间
-- 初始化方法
-- 销毁方法
+- 了解bean标签的各个属性
+- 了解bean的作用范围
+- 了解创建对象的时间
+- 了解初始化方法
+- 了解销毁方法
 
 
 
@@ -543,7 +543,7 @@ public static Object create(String name){
 | id             | 对象的引用名称;一定要唯一； 一次只能定义一个引用名称         |
 | name           | 对象的引用名称; 与id区别是：name一次可以定义多个引用名称。   |
 | class          | 类的全限定名称                                               |
-| scope          | 设置bean的作用范围。取值：singleton：单例。默认值prototype：多例request：web项目中，将对象存入request域中【了解】session：web项目中，将对象存入session域中【了解】globalsession：web项目中，应用在集群环境，如果没有集群环境，相当于session【了解】 |
+| scope          | 设置bean的作用范围。取值：singleton：单例。默认值prototype：多例 request：web项目中，将对象存入request域中【了解】session：web项目中，将对象存入session域中【了解】globalsession：web项目中，应用在集群环境，如果没有集群环境，相当于session【了解】 |
 | init-method    | 指定类中初始化方法的名称，在构造方法执行完毕后立即执行【了解】 |
 | destroy-method | 指定类中销毁方法名称，在销毁spring容器前执行【了解】         |
 | lazy-init      | 设置为true表示延迟创建对象，即在第一次使用对象时候才创建单例的对象，只对单例对象有效。 |
@@ -558,7 +558,7 @@ public static Object create(String name){
 
 #### 3. 初始化与销毁对象
 
-- init-method: 在构造方法执行前执行的方法
+- init-method: 在构造方法执行后执行的方法
 - destroy-method: 容器销毁前执行的方法
 
 
@@ -567,13 +567,12 @@ public static Object create(String name){
 
 - 至少说出3个bean标签的属性?
   - 
+  
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  
 - 单例和多例的区别 ?
+  
   - 
   - 
 
