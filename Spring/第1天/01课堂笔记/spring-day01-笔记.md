@@ -582,7 +582,7 @@ public static Object create(String name){
 
 #### 目标
 
-- 了解IOC容器创建的方式
+- 了解常用的IOC创建方式
 - 系统文件创建方式
 
 - 注解配置创建方式
@@ -629,6 +629,8 @@ static class Config{
 }
 ```
 
+
+
 #### 1.4 ~~BeanFactory~~创建方式
 
 ```java
@@ -636,7 +638,7 @@ Resource resource = new ClassPathResource("beans.xml");
 XmlBeanFactory context = new XmlBeanFactory(resource);
 ```
 
-- 【面试】BeanFactory与ApplicationContext的区别?
+- 【了解】BeanFactory与ApplicationContext的区别?
   - BeanFactory是Spring容器的顶层接口, 采用 **延迟创建** 对象的思想 
   - ApplicationContext是BeanFactory的子接口, 采用 **即时创建** 对象的思想 
 
@@ -644,7 +646,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 #### 小结
 
-- 创建IOC容器的方式有哪几种?
+- 创建IOC容器的常用方式有哪几种?
 
   - 
   - 
