@@ -894,7 +894,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 #### 小结
 
-- 如何注入已存在的对象属性?
+- ref标签属性的作用是什么?
   - 
 
 
@@ -965,24 +965,27 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 #### 小结
 
-- 如何注入集合属性?
+- 注入了那些集合属性?
   - 
 
 
 
 
 
-### 14总结
+### 总结
 
-- 请你描述对Spring的理解?
+- Spring是什么?
   - 
 - 什么是IOC ?
   - 
 - 如何创建IOC容器 ?
   - 
+  - 
+  - 
 - 创建对象有哪几种方式?
   - 
-- IOC通过什么功能做到依赖管理?
+  - 
+- IOC通过什么功能做到依赖关系管理?
   - 
 - 什么是DI ?
   - 
