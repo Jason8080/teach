@@ -876,7 +876,91 @@
 - pom.xml
 
 ```xml
+<?xml version="1.0" encoding="UTF-8"?>
 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+  <parent> 
+    <artifactId>maven-day02-ssm</artifactId>  
+    <groupId>com.itheima</groupId>  
+    <version>1.0-SNAPSHOT</version> 
+  </parent>  
+  <modelVersion>4.0.0</modelVersion>  
+  <artifactId>maven-day02-web</artifactId>
+    
+  <!-- WEB工程的打包类型是war(不指定默认是jar将无法启动web项目) -->
+  <packaging>war</packaging>
+
+
+  <!--配置依赖-->
+  <dependencies>
+    <!--依赖maven-day01-09ssm-service-->
+    <dependency>
+      <groupId>com.itheima</groupId>
+      <artifactId>maven-day02-service</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <!-- spring web包 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>
+    <!-- spring mvc包 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+    </dependency>
+    <!--spring jdbc包-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+    </dependency>
+    <!--spring tx包-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+    </dependency>
+    <!--aspectj包-->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+    </dependency>
+    <!-- jstl标签类 -->
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+    </dependency>
+    <!--servlet依赖-->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <!--jsp依赖-->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <!-- log4j包 -->
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+    </dependency>
+    <!-- mybatis-spring整合包 -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+    </dependency>
+  </dependencies>
+</project>
 ```
 
 - controller
