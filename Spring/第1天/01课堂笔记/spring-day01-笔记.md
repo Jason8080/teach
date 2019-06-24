@@ -582,14 +582,11 @@ public static Object create(String name){
 
 #### 目标
 
-- 了解常用的IOC创建方式
-- 系统文件创建方式
-
-- 注解配置创建方式
+- 了解创建IOC常用的3种方式
 
 
 
-#### 1. 了解IOC容器创建的方式
+#### 1. 了解创建IOC常用的3种方式
 
 - IOC容器接口结构图
 
@@ -631,7 +628,7 @@ static class Config{
 
 
 
-#### 1.4 ~~BeanFactory~~创建方式
+##### 1.4 ~~BeanFactory~~创建方式
 
 ```java
 Resource resource = new ClassPathResource("beans.xml");
@@ -661,7 +658,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 - 构造方法创建 (默认)
 - 静态方法创建
-- ~~动态~~方法创建
+- 实例方法创建
 
 
 
@@ -709,7 +706,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-#### 3. ~~动态~~方法创建
+#### 3. 实例方法创建
 
 ```xml
 <!-- 调用动态方法创建对象 -->
