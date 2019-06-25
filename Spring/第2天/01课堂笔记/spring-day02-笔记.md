@@ -3,9 +3,9 @@
 #### 目标
 
 - 了解常见的面试题
-- 搭建 IOC 案例工程
 - 什么是IOC ?
 - 什么是AOP ?
+- 搭建Spring项目环境
 
 
 
@@ -85,12 +85,12 @@
 
 #### 目标
 
-- 使用jdbcTemplate操作数据库
+- 注入jdbcTemplate (操作数据库的) 对象
 - 实现CRUD操作(create/retrieve/update/delete)
 
 
 
-#### 1. 使用jdbcTemplate操作数据
+#### 1. 注入jdbcTemplate对象
 
 - AccountDaoImpl.java
 
