@@ -86,12 +86,12 @@
 
 #### 目标
 
-- 注入jdbcTemplate (操作数据库的) 对象
-- 实现CRUD操作(create/retrieve/update/delete)
+- 使用jdbcTemplate实现CRUD操作
+- 使用IOC完成jdbcTemplate注入
 
 
 
-#### 1. 注入jdbcTemplate对象
+#### 1. 实现CRUD操作
 
 - AccountDaoImpl.java
 
@@ -113,7 +113,7 @@
 
 
 
-#### 2. 使用IOC管理对象生命周期
+#### 2. 使用IOC完成注入
 
 - db.properties
 
@@ -151,12 +151,11 @@ db.password=root
 
 #### 目标
 
-- 掌握注解@Component的用法
-- 理解注解及相关配置的作用
+- 使用@Component注解创建对象
 
 
 
-#### 1. 注解@Component的用法
+#### 1. 使用注解创建对象
 
 ##### 1.1 工程名称: spring-day02-anno
 
@@ -186,28 +185,14 @@ db.password=root
 
 
 
-#### 2. 理解注解及相关配置的作用
-
-##### 2.1 注解的作用
-
-- @Component
-  - 创建对象并添加到IOC容器
-  - 需要配合注解扫描配置使用
-
-##### 2.2 标签的作用
-
-- <context:component-scan base-package="com.itheima.anno"/>
-  - 扫描注解位置并解析处理
-  - base-package是扫描的包路径 (支持本包和所有子包)
-
 
 
 #### 小结
 
-- @Component的用法?
-  - 
-  - 
 - @Component的作用?
+  - 
+
+- 使用注解需要写什么配置?
   - 
 
 
