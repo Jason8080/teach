@@ -258,7 +258,7 @@ db.password=root
 
 
 
-#### 2 掌握赋值功能的注解
+#### 2. 掌握赋值功能的注解
 
 - User.java
 
@@ -327,4 +327,110 @@ db.password=root
 
 
 
-### 07
+### 07注解与配置的选择【了解】
+
+#### 目标
+
+- 了解注解和配置的选择
+
+
+
+#### 1. 注解和配置的选择
+
+- 注解的优势: 简单, 可读性高 (找配置到类就相当于找到配置)
+- 配置的优势: 解耦, 非侵入性 (代码与配置分开互不干扰)
+
+|                                   | 配置方式 (常用)                        | 注解方式 (常用)                   |
+| --------------------------------- | -------------------------------------- | --------------------------------- |
+| Bean定义                          | <bean class=""/>                       | @Component                        |
+| Bean名称                          | bean标签的id或name属性                 | @Component的value值               |
+| Bean注入                          | bean标签的子标签<property              | @Autowired(1) + @Qualifier (?)    |
+| Bean生命周期                      | bean标签的init- \| destroy- method属性 | @PostConstruct \| @PreDestroy     |
+| Bean延迟创建                      | bean标签的lazy-init \| scope 属性      | @Lazy \| @Scope                   |
+| <font color='red'>适用场景</font> | 第三方源码类的对象创建 (必用)          | 自定义类的简单应用对象创建 (可用) |
+
+
+
+#### 小结
+
+- 注解和配置如何选择?
+  - 
+- 注解和配置能否混搭使用?
+  - 
+
+
+
+### 08使用注解改造案例【掌握】
+
+#### 目标
+
+- 使用注解改造CRUD案例工程
+
+
+
+#### 1. 改造CRUD案例工程
+
+- 工程名称: spring-day02-ax
+- AccountDaoImpl.java
+
+```java
+
+```
+
+- AccountServiceImpl.java
+
+```java
+
+```
+
+- CrudTests.java
+
+```java
+
+```
+
+
+
+#### 小结
+
+- 为什么accountService名称获取不到bean了?
+  - 
+- 注解与配置是什么关系?
+  - 
+- 改造后的案例是注解开发还是配置开发?
+  - 
+
+
+
+### 09纯注解开发【了解】
+
+#### 目标
+
+- 找到剩余配置的替代注解
+- 掌握纯注解开发的IOC创建方式
+
+
+
+#### 1. 剩余配置的替代注解
+
+- 配置文件的替代注解: @Configuration
+
+- 注解扫描配置的替代注解: @ComponentScan
+
+- 加载配置文件的替代注解: @PropertySource
+
+- 导入配置文件的替代注解: @Import
+
+- 第3方对象创建的替代注解: @Bean
+
+- Config.java
+
+```java
+
+```
+
+
+
+#### 2. 创建纯注解开发的IOC
+
+- 
