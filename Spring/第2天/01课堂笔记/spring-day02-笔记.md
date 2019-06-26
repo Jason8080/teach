@@ -466,6 +466,17 @@ db.password=root
 
 
 
+#### 小结
+
+- @RunWith注解的作用是什么?
+  - 
+- @ContextConfiguration的作用?
+  - 
+
+
+
+
+
 ### 11总结
 
 - 今天的新内容就是19个注解 .
