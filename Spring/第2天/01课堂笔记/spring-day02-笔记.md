@@ -378,11 +378,9 @@ db.password=root
 
 #### 小结
 
-- 为什么accountService名称获取不到bean了?
+- 为什么accountService名称获取不到对象 ?
   - 
-- 注解与配置是什么关系?
-  - 
-- 改造后的案例是注解开发还是配置开发?
+- 改造后的案例是注解开发还是XML配置开发?
   - 
 
 
