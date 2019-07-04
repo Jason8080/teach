@@ -521,15 +521,32 @@ try{
 
 ##### 1.1 改造工程
 
+- 工程名称: spring-day03-anno
+
 ##### 1.2 改造通知
 
+- LogAdvice.java
+
+```java
+
+```
+
 ##### 1.3 改造配置
+
+- advice.xml
+
+```xml
+
+```
 
 
 
 #### 小结
 
-- 
+- 请描述以下注解的作用?
+  - @Aspect: 
+  - @Pointcut: 
+  - @Around: 
 
 
 
