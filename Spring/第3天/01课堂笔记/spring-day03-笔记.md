@@ -204,16 +204,16 @@ public static Object create(java.lang.Class superclass,
 
 
 
-### 05AOP的概念及术语【理解】
+### 05AOP的概念【理解】
 
 #### 目标
 
-- 理解什么是AOP
+- 理解AOP相关的概念
 - 理解AOP相关的术语
 
 
 
-#### 1. 什么是AOP
+#### 1. 相关的概念
 
 ##### 1.1 AOP的概念
 
@@ -255,7 +255,7 @@ public static Object create(java.lang.Class superclass,
 
 - Spring AOP 的原理是什么?
   - 
-- 请描述下列属于的含义:
+- 请描述下列术语的含义:
   - 连接点: 
   - 切入点: 
   - 通知: 
