@@ -267,11 +267,12 @@ public static Object create(java.lang.Class superclass,
 
 #### 目标
 
-- 使用AOP实现自动记录日志的功能
+- 使用AOP自动记录日志
+- 掌握AOP动态代理细节
 
 
 
-#### 1. AOP实现自动记录日志
+#### 1. AOP自动记录日志
 
 ##### 1.1 搭建环境
 
@@ -289,17 +290,23 @@ public static Object create(java.lang.Class superclass,
 
 ```
 
+##### 1.2 日志打印
+
 - LogAdvice.java
 
 ```java
 
 ```
 
+##### 1.3 配置AOP
+
 - applicationContext.xml
 
 ```xml
 
 ```
+
+##### 1.4 单元测试
 
 - XmlTests.java
 
@@ -309,7 +316,19 @@ public static Object create(java.lang.Class superclass,
 
 
 
-##### 1.2 AOP配置
+
+
+#### 2. AOP动态代理细节
+
+##### 2.1 动态代理的类型
+
+- XmlTests.java
+
+```xml
+
+```
+
+##### 2.2 动态代理的配置
 
 - applicationContext.xml
 
@@ -319,23 +338,12 @@ public static Object create(java.lang.Class superclass,
 
 
 
-##### 1.3 单元测试
-
-```java
-
-```
-
-
-
-
-
 #### 小结
 
-- 什么是通知?
+- 自动记录日志的原理是什么?
   - 
-- 记录日志的类用术语怎么说?
-  - 
-- 记录日志的方法用术语怎么说?
+
+- 两种动态代理Spring是如何选择的?
   - 
 
 
