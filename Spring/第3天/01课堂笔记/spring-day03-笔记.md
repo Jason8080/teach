@@ -359,7 +359,7 @@ public static Object create(java.lang.Class superclass,
 
 #### 1. 什么是切入点表达式
 
-- 描述切入点位置的一种语法规则
+- 定位切入点的1种语法规则
 
 
 
