@@ -58,22 +58,45 @@
 
 #### 目标
 
-- 了解事务的概念
+- 了解事务的作用
 - 理解事务的特性
 
 
 
-#### 1. 事务的概念
+#### 1. 事务的作用
+
+- 可以在业务进行中保证最终的数据安全
 
 
 
 #### 2. 事务的特性
 
+- 事务的四大特性也叫事务的 **ACID原则**
+
+##### 2.1 原子性（Atomicity）
+
+- 
+
+##### 2.2 一致性（Consistency）
+
+- 
+
+##### 2.3 隔离性（Isolation）
+
+- 
+
+##### 2.4 持久性（Durability）
+
+- 
+
 
 
 #### 小结
 
-- 
+- 事务的作用是什么?
+  - 
+- 事务的ACID原则分别是什么?
+  - 
 
 
 
@@ -88,15 +111,42 @@
 
 #### 1. 什么是声明式事务
 
+- 通过 **面向切面编程思想** 来实现事务管理的1种方式
+
 
 
 #### 2. Spring事务相关API
 
+##### 2.1 TransactionDefinition
 
+- 
+
+
+
+![1562575584950](assets/1562575584950.png) 
+
+##### 2.2 TransactionStatus
+
+- 
+
+
+
+![1562575940075](assets/1562575940075.png) 
+
+##### 2.3 PlatformTransactionManager
+
+- 
+
+
+
+![1562574934801](assets/1562574934801.png) 
 
 #### 小结
 
-- 
+- 什么是声明式事务?
+  - 
+- 事务管理接口中有哪些方法?
+  - 
 
 
 
@@ -112,27 +162,33 @@
 
 ##### 1.1 ISOLATION_DEFAULT
 
-
+- 
 
 ##### 1.2 ISOLATION_READ_UNCOMMITTED
 
-
+- 
 
 ##### 1.3 ISOLATION_READ_COMMITTED
 
-
+- 
 
 ##### 1.4 ISOLATION_REPEATABLE_READ
 
-
+- 
 
 ##### 1.5 ISOLATION_SERIALIZABLE
+
+- 
 
 
 
 #### 小结
 
-- 
+- 什么是脏读?
+
+  - 
+- 什么是幻读?
+  - 
 
 
 
@@ -146,39 +202,48 @@
 
 #### 1. 事务的传播行为
 
+- 传播行为可以理解为当前方法对外部事务环境的要求
+
 ##### 1.1 REQUIRED
 
-
+- 必需: 
 
 ##### 1.2 SUPPORTS
 
-
+- 支持: 
 
 ##### 1.3 MANDATORY
 
-
+- **强制**: 
 
 ##### 1.4 REQUIRES_NEW
 
-
+- 独立:
 
 ##### 1.5 NOT_SUPPORTED
 
-
+- 不支持: 
 
 ##### 1.6 NEVER
 
-
+- **决不**: 
 
 ##### 1.7 NESTED
 
-
+- <font color='red'>嵌套</font>:  
 
 
 
 #### 小结
 
-- 
+- 哪些传播行为环境不满足要求会抛出异常?
+  - 
+- SUPPORTS与NOT_SUPPORTS的区别?
+  - SUPPORTS:
+  - NOT_SUPPORTS: 
+- 哪些传播行为不满足要求会抛出异常?
+  - MANDATORY: 
+  - NEVER:
 
 
 
