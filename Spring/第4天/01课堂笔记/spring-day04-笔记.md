@@ -347,23 +347,40 @@
 
 ##### 1.1 改造环境
 
-
+- 工程名称: spring-day04-anno
 
 ##### 1.2 注解代码
 
+- com.itheima.xml.service.impl.AccountServiceImpl.java
 
+```java
+
+```
 
 ##### 1.3 配置支持
 
+- applicationContext.xml
 
+```xml
+
+```
 
 ##### 1.4 单元测试
+
+- AnnoTests.java
+
+```java
+
+```
 
 
 
 #### 小结
 
-- 
+- @Transactional注解的作用是什么?
+  - 
+- `<tx:annotation-driven/>`的作用是什么?
+  - 
 
 
 
@@ -403,7 +420,8 @@
 
 #### 小结
 
-- 
+- @EnableTransactionManagement注解的作用?
+  - 
 
 
 
@@ -418,31 +436,49 @@
 
 #### 1. 编程式事务概念
 
-
+- 通过 **编码** 来实现事务管理的1种方式
 
 #### 2.编程式事务案例
 
 ##### 2.1 环境改造
 
-
+- 工程名称: spring-day04-code
 
 ##### 2.2 业务改造
+
+- com.itheima.xml.service.impl.AccountServiceImpl.java
+
+```java
+
+```
 
 
 
 ##### 2.3 配置支持
 
+- applicationContext.xml
+
+```xml
+<!-- 配置事务管理模板对象 -->
+
+```
+
 
 
 ##### 2.4 单元测试
 
+- XmlTests.java
 
+```java
+
+```
 
 
 
 #### 小结
 
-- 
+- 编程式事务有什么好处?
+  - 
 
 
 
@@ -488,7 +524,6 @@
   - ISOLATION_READ_COMMITTED: 
   - ISOLATION_REPEATABLE_READ:
   - ISOLATION_SERIALIZABLE: 
-
 - 请说出以下传播行为的含义
   - REQUIRED:
   - SUPPORTS:
