@@ -259,23 +259,79 @@
 
 ##### 1.1 搭建环境
 
+- 工程名称: spring-day04-xml
+- 添加依赖: pom.xml
 
+```xml
+<!-- Spring IOC 依赖 -->
+
+<!-- aspectJ 切面编程 依赖 -->
+
+<!-- Spring 事务 依赖 -->
+
+<!-- Spring  Jdbc 依赖 -->
+
+<!-- Druid 连接池 依赖 -->
+
+<!-- Mysql 依赖 -->
+
+<!-- Spring 测试 依赖 -->
+
+<!-- Junit 单元测试 依赖 -->
+```
 
 ##### 1.2 业务代码
+
+- 实体类: com.itheima.xml.domain.Account.java
+
+```java
+
+```
+
+- 持久类: com.itheima.xml.dao.impl.AccountDaoImpl.java
+
+```java
+
+```
+
+- 业务类: com.itheima.xml.service.impl.AccountServiceImpl.java
+
+```java
+
+```
 
 
 
 ##### 1.3 事务配置
 
+- db.properties
+
+```properties
+
+```
+
+- applicationContext.xml
+
+```xml
+
+```
+
 
 
 ##### 1.4 单元测试
+
+- XmlTests.java
+
+```java
+
+```
 
 
 
 #### 小结
 
-- 
+- 声明式事务有什么好处?
+  - 
 
 
 
