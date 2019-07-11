@@ -168,17 +168,51 @@
 
 - 
 
+| 时间 | 事务A                                                     | 事务B                                                        |
+| ---- | --------------------------------------------------------- | ------------------------------------------------------------ |
+| 1    | 开启事务                                                  |                                                              |
+| 2    |                                                           | 开启事务                                                     |
+| 3    | // 原来是小明<br/>update user set name="小白" where id=1; |                                                              |
+| 5    |                                                           | <font color='red'>// 结果是小白</font><br/>select name from user where id=1; |
+| 6    | 回滚事务                                                  |                                                              |
+
 ##### 1.3 ISOLATION_READ_COMMITTED
 
 - 
+
+| 时间 | 事务A                                                     | 事务B                                                        |
+| ---- | --------------------------------------------------------- | ------------------------------------------------------------ |
+| 1    | 开启事务                                                  |                                                              |
+| 2    |                                                           | 开启事务                                                     |
+| 3    |                                                           | // 结果是小明<br/>select name from user where id=1;          |
+| 5    | // 原来是小明<br/>update user set name="小白" where id=1; |                                                              |
+| 6    | 提交事务                                                  |                                                              |
+| 7    |                                                           | <font color='red'>// 结果不一样</font><br/>select name from user where id=1; |
 
 ##### 1.4 ISOLATION_REPEATABLE_READ
 
 - 
 
+| 时间 | 事务A                                                   | 事务B                                                        |
+| ---- | ------------------------------------------------------- | ------------------------------------------------------------ |
+| 1    |                                                         | 开启事务                                                     |
+| 2    | 开启事务                                                |                                                              |
+| 3    | // 结果是小明<br/>select name from user where id=1;     | // 结果是小明<br/>select name from user where id=1;          |
+| 5    | // 不能修改<br/>update user set name="小白" where id=1; | <font color='red'>// 结果是一样</font><br/>select name from user where id=1; |
+| 6    |                                                         | 提交事务                                                     |
+| 7    | // 可以修改<br/>update user set name="小白" where id=1; |                                                              |
+
 ##### 1.5 ISOLATION_SERIALIZABLE
 
 - 
+
+| 时间 | 事务A    | 事务B                                                   |
+| ---- | -------- | ------------------------------------------------------- |
+| 1    |          | 开启事务                                                |
+| 2    |          | // 结果是小明<br/>select name from user where id=1;     |
+| 3    |          | // 可以修改<br/>update user set name="小白" where id=1; |
+| 5    |          | 提交事务                                                |
+| 6    | 开启事务 |                                                         |
 
 
 
