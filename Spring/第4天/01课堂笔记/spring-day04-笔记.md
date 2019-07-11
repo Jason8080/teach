@@ -590,6 +590,10 @@ db.password=root
 - 请描述以下注解的作用?
   - @EnableTransactionManagement:
   - @Transactional: 
+- Spring的优点有哪些?
+  - 
+  - 
+  - 
 
 
 
