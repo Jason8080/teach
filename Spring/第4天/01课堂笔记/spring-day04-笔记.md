@@ -408,7 +408,7 @@ db.password=root
 
 ##### 1.4 单元测试
 
-- AnnoTests.java
+- XmlTests.java
 
 ```java
 
@@ -419,8 +419,6 @@ db.password=root
 #### 小结
 
 - @Transactional注解的作用是什么?
-  - 
-- `<tx:annotation-driven/>`的作用是什么?
   - 
 
 
@@ -487,7 +485,7 @@ db.password=root
 
 ##### 2.2 业务改造
 
-- com.itheima.xml.service.impl.AccountServiceImpl.java
+- com.itheima.xml.service.impl.AccountServiceImpl
 
 ```java
 
@@ -549,7 +547,8 @@ db.password=root
 
 #### 小结
 
-- 
+- 如何选择两种事务管理?
+  - 
 
 
 
