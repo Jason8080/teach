@@ -1191,7 +1191,7 @@
         <property name="password" value="${db.password}"/>
     </bean>
 
-    <!--让spring框架接管SqlSessionFactory对象-->
+    <!--启动Mybatis创建SqlSession工厂并加入到IOC容器中-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--注入数据源对象DataSource-->
         <property name="dataSource" ref="dataSource"/>
@@ -1200,7 +1200,7 @@
         <property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml"/>
      </bean>
 
-    <!--配置mapper扫描器，相当于实现sqlMapConfig.xml中的mappers-->
+    <!--自动扫描Mapper接口生成代理并添加到IOC容器中-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--配置要扫描的包-->
         <property name="basePackage" value="com.itheima.maven.day02.dao"/>
