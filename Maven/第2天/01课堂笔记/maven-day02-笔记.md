@@ -288,72 +288,7 @@
 
 
 
-### 05常见插件【了解】
-
-#### 目标
-
-- 了解插件的概念
-- 了解compiler和tomcat7插件的用法
-
-
-
-#### 1. 插件的概念
-
-- 插件是某种功能的maven工具
-  - 
-  - 
-- 插件是以 **jar包** 形式存在仓库
-
-
-
-#### 2. 插件的用法
-
-- 在pom.xml文件中配置如下
-
-```xml
-<build>
-    <plugins>
-        <!-- java 编译插件 -->
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.0</version>
-            <configuration>
-                <source>1.8</source>
-                <target>1.8</target>
-                <encoding>UTF-8</encoding>
-            </configuration>
-        </plugin>
-        <!-- tomcat7容器插件 -->
-        <plugin>
-            <groupId>org.apache.tomcat.maven</groupId>
-            <artifactId>tomcat7-maven-plugin</artifactId>
-            <version>2.2</version>
-            <configuration>
-                <!-- 指定端口 -->
-                <port>8080</port>
-                <!-- 请求路径 -->
-                <path>/</path>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
-```
-
-
-
-#### 小结
-
-- Maven插件是什么?
-  - 
-- compile插件的作用是什么?
-  - 
-- tomcat7插件的作用是什么?
-  - 
-
-
-
-### 06远程仓库 - 私服【了解】
+### 05远程仓库 - 私服【了解】
 
 #### 目标
 
@@ -417,7 +352,7 @@
 
 
 
-### 07私服的应用【掌握】
+### 06私服的使用【掌握】
 
 #### 目标
 
@@ -443,13 +378,13 @@
 ```xml
 <!-- 远程仓库配置 -->
 <mirror>
-    <!-- ID -->
+    <!-- ID(唯一) -->
     <id>nexus</id>
-    <!-- 名称: 私服 -->
+    <!-- 名称 -->
     <name>nexus</name>
-    <!-- 下载地址 -->
+    <!-- 远程仓库的地址 -->
     <url>http://127.0.0.1:8081/nexus/content/groups/public/</url>
-    <!-- 拦截请求 -->
+    <!-- 拦截指定仓库的请求 -->
     <mirrorOf>central</mirrorOf>
 </mirror>
 ```
@@ -459,7 +394,29 @@
 #### 3. 上传自己的jar包
 
 - 任何人都能往私服中上传jar包吗?
-  - 不能, 需要认证信息 (登陆)
+  - 不能, 需要在settings.xml中配置认证信息 (登陆)
+  
+
+```xml
+<servers>
+    <!-- 服务器认证信息 -->
+    <server>
+        <!-- ID应与POM中对应(唯一) -->
+        <id>releases</id>
+        <username>admin</username>
+        <password>admin123</password>
+    </server>
+    <server>
+        <id>snapshots</id>
+        <username>deployment</username>
+        <password>deployment123</password>
+    </server>
+</servers>
+```
+
+- 部署策略检查: **发布版默认不允许上传**
+
+![1563242274686](assets/1563242274686.png) 
 
 
 
@@ -468,12 +425,15 @@
 - 在pom.xml文件中配置如下
 
 ```xml
+<!-- 远程仓库的上传配置 -->
 <distributionManagement>
+    <!-- 发布仓库配置 -->
     <repository>
         <id>releases</id>
         <name>Internal Releases</name>
         <url>http://localhost:8081/nexus/content/repositories/releases/</url>
     </repository>
+    <!-- 快照仓库配置 (版本号带-SNAPSHOT都是快照版,会上传到快照仓库) -->
     <snapshotRepository>
         <id>snapshots</id>
         <name>Internal Snapshots</name>
@@ -526,7 +486,7 @@
 
 
 
-### 08整合SSM - 模块化【理解】
+### 07整合SSM - 模块化【理解】
 
 #### 目标
 
@@ -540,7 +500,7 @@
 
 ![1558075239425](assets/1558075239425.png)  
 
-
+<font color='red'>缺点</font>: 结构不清晰, 阅读性不高, 不方便管理 (是**全量部署**, 增量部署更好)
 
 ##### 1.2 模块化系统结构
 
@@ -548,7 +508,7 @@
 
 #### 小结
 
-- 以前的系统结构缺点
+- 模块化构建系统的好处?
 
   - 
 
@@ -560,7 +520,7 @@
 
   
 
-### 09整合SSM - 父工程【理解】
+### 08整合SSM - 父工程【理解】
 
 #### 目标
 
@@ -771,7 +731,7 @@
 
 
 
-### 10整合SSM - domain【理解】
+### 09整合SSM - domain【理解】
 
 #### 目标
 
@@ -804,7 +764,7 @@
 
 
 
-### 11整合SSM - dao【理解】
+### 10整合SSM - dao【理解】
 
 #### 目标
 
@@ -833,7 +793,7 @@
 
 
 
-### 12整合SSM - service【理解】
+### 11整合SSM - service【理解】
 
 #### 目标
 
@@ -864,7 +824,7 @@
 
 
 
-### 13整合SSM - web【理解】
+### 12整合SSM - web【理解】
 
 #### 目标
 
@@ -985,7 +945,7 @@
 
 
 
-### 14整合SSM - 启动【理解】
+### 13整合SSM - 启动【理解】
 
 #### 目标
 
@@ -1021,7 +981,7 @@
 - 解压目录不要有空格和中文
 - 安装或启动时建议右键以管理员身份执行
 - 私服配置镜像拦截时mirrorOf是仓库的ID值 (重复将只有第一个生效)
-- 上传发布版jar包时需要更改发布仓库支持上传
+- 上传发布版jar包时需要更改发布仓库支持上传 (详见私服的使用)
 
 
 
@@ -1035,22 +995,22 @@
 
 
 
-### 15总结【理解】
+### 14总结【理解】
 
 - 学习了哪些特性?
   - 
   - 
   - 
-
 - 如何部署私服?
   - 
   - 
-
-- 如何使用私服下载资源?
+- 如何配置私服 (远程仓库)?
   - 
-- 整合SSM中哪个工程使用了聚合特性?
+- 模块化构建系统的好处?
   - 
-- 整合SSM中哪些工程利用了继承特性?
+- 模块化结构中哪个模块使用了聚合特性?
+  - 
+- 模块化结构中哪个模块?
   - 
 - 为什么子工程中的坐标没有版本号?
   - 
@@ -1059,9 +1019,7 @@
 
 
 
-
-
-### 16web - resources【了解】
+### 15web - resources【了解】
 
 #### 目标
 
