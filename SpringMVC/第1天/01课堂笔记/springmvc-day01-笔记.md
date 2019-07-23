@@ -93,7 +93,7 @@
 
 #### 1. SpringMVC环境搭建
 
-- 工程名称: mvc-day01-case
+- 工程名称: mvc-day01-demo
 - WEB工程: 添加web支持或者使用插件转换
 - 添加依赖: pom.xml
 
@@ -121,7 +121,7 @@
 <!-- 3. 配置SpringMVC视图解析器 -->
 ```
 
-- com.itheima.case.HelloController
+- com.itheima.demo.HelloController
 
 ```java
 
@@ -721,7 +721,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 #### 1. 注解的作用
 
 - <font color='green'>映射与限制请求</font>
-- com.itheima.case.RequestMappingController
+- com.itheima.demo.RequestMappingController
 
 ##### 1.1 映射请求地址
 
@@ -766,7 +766,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 默认支持的参数类型
 
-- com.itheima.case.ParamController
+- com.itheima.demo.ParamController
 
 ```java
 
@@ -796,7 +796,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 基本类型的参数绑定
 
-- com.itheima.case.ParamController
+- com.itheima.demo.ParamController
 
 ```java
 
@@ -865,7 +865,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 自定义参数转换器
 
-- com.itheima.case.DateConverter
+- com.itheima.demo.DateConverter
 
 ```java
 
