@@ -813,9 +813,33 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 对象类型的参数绑定
 
+- com.itheima.demo.Account
+
+```java
+
+```
+
+- com.itheima.demo.ParamController
+
+```java
+
+```
+
 
 
 #### 2. 嵌套类型的参数绑定
+
+- com.itheima.demo.Account
+
+```java
+
+```
+
+- com.itheima.demo.User
+
+```java
+
+```
 
 
 
