@@ -756,36 +756,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 
 
-### 08参数绑定-默认支持【了解】
-
-#### 目标
-
-- 了解默认支持的参数类型
-
-
-
-#### 1. 默认支持的参数类型
-
-- com.itheima.demo.ParamController
-
-```java
-
-```
-
-
-
-#### 小结
-
-- 支持哪些常用的ServletAPI?
-  - 
-- Model参数的作用是什么?
-  - 
-
-
-
-
-
-### 09参数绑定-基本类型【理解】
+### 08参数绑定-基本类型【理解】
 
 #### 目标
 
@@ -831,7 +802,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 
 
-### 10参数绑定-对象类型【掌握】
+### 09参数绑定-对象类型【掌握】
 
 #### 目标
 
@@ -851,6 +822,33 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 #### 小结
 
 - 使用对象接收参数的好处?
+  - 
+
+
+
+### 10参数绑定-默认支持【了解】
+
+#### 目标
+
+- 了解默认支持的参数类型
+
+
+
+#### 1. 默认支持的参数类型
+
+- com.itheima.demo.ParamController
+
+```java
+
+```
+
+
+
+#### 小结
+
+- 支持哪些常用的ServletAPI?
+  - 
+- Model参数的作用是什么?
   - 
 
 
