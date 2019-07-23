@@ -776,9 +776,9 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 小结
 
-- 直接获得ServletAPI对象有什么好处?
+- 支持哪些常用的ServletAPI?
   - 
-- Model的作用是什么?
+- Model参数的作用是什么?
   - 
 
 
