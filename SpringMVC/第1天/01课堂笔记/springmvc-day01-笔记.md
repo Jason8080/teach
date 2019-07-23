@@ -973,24 +973,24 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 ### 13总结
 
-- 什么是SpringMVC?
+1. 什么是SpringMVC?
   - 
-- 入门案例中的处理器是哪个类?
+2. 入门案例中的处理器是哪个类?
   - 
-- SpringMVC的三大组件是哪些?
-  - 
-  - 
-  - 
-- `<mvc:annotation-driven/>`的作用?
-  - 
-- SpringMVC的入口类是哪个?
-  - 
-- @RequestMapping的作用?
-  - 
-- 至少说出3个默认支持的参数类型?
+3. SpringMVC的三大组件是哪些?
   - 
   - 
   - 
-- 请求头相关的注解有哪些?
+4. `<mvc:annotation-driven/>`的作用?
+  - 
+5. SpringMVC的入口类是哪个?
+  - 
+6. @RequestMapping的作用?
+  - 
+7. 至少说出3个默认支持的参数类型?
+  - 
+  - 
+  - 
+8. 请求头相关的注解有哪些?
   - 
 
