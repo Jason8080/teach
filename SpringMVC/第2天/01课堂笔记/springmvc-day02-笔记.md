@@ -8,6 +8,54 @@
 
 #### 1. 搭建案例环境
 
+##### 1.1 环境搭建
+
+- 工程名称: mvc-day02-controller
+- 添加WEB: 转换为WEB工程
+- 添加依赖: pom.xml
+
+```xml
+
+```
+
+
+
+##### 1.2 配置组件
+
+- web.xml
+
+```xml
+
+```
+
+- springMVC.xml
+
+```xml
+
+```
+
+- com.itheima.controller.ParamController
+
+```java
+
+```
+
+
+
+##### 1.3 单元测试
+
+- pages/success.jsp
+
+```jsp
+
+```
+
+- index.jsp
+
+```jsp
+
+```
+
 
 
 #### 小结
@@ -33,7 +81,17 @@
 
 #### 1. 数组类型参数的绑定
 
+- com.itheima.controller.ParamController
 
+```java
+
+```
+
+- index.jsp
+
+```jsp
+
+```
 
 
 
@@ -55,11 +113,35 @@
 
 #### 1. 直接绑定的集合
 
+- com.itheima.controller.ParamController
+
+```java
+// 注意: SpringMVC不支持直接绑定集合
+
+```
+
+- index.jsp
+
+```jsp
+<!-- 根据@RequestParam特点,参数名需要一致 -->
+
+```
+
 
 
 #### 2. 嵌套绑定的集合
 
+- com.itheima.controller.ParamController
 
+```java
+
+```
+
+- index.jsp
+
+```jsp
+
+```
 
 
 
@@ -82,13 +164,27 @@
 
 ##### 1.1 转发
 
+- com.itheima.controller.ReturnController
 
+```java
+
+```
 
 ##### 1.2 重定向
 
+- com.itheima.controller.ReturnController
 
+```java
+
+```
 
 ##### 1.3 响应数据
+
+- com.itheima.controller.ReturnController
+
+```java
+
+```
 
 
 
@@ -111,19 +207,34 @@
 
 ##### 1.1 转发
 
+- com.itheima.controller.ReturnController
 
+```java
+
+```
 
 ##### 1.2 重定向
 
+- com.itheima.controller.ReturnController
 
+```java
+
+```
 
 ##### 1.3 响应数据
+
+- com.itheima.controller.ReturnController
+
+```java
+// 需要配合Model使用
+
+```
 
 
 
 #### 小结
 
-- 使用forward:的好处?
+- 使用forward:的作用?
   - 
 
 
@@ -137,6 +248,12 @@
 
 
 #### 1. 返回值ModelAndView的用法
+
+- com.itheima.controller.ReturnController
+
+```java
+
+```
 
 
 
@@ -157,7 +274,30 @@
 
 #### 1. json格式的数据交互
 
+- 添加依赖: pom.xml
 
+```xml
+<!-- SpringMVC默认采用jackson进行json数据处理 -->
+
+```
+
+- com.itheima.controller.JsonController
+
+```java
+
+```
+
+- index.jsp
+
+```jsp
+
+```
+
+- Function commit
+
+```js
+
+```
 
 
 
@@ -181,9 +321,26 @@
 
 #### 1. RESTful介绍
 
+##### 1.1 基本概诉
 
+- REST全称是Representational State Transfer，REST本身并没有创造新的技术、组件或服务。
+- REST指的是约束条件和原则，如果一个架构符合REST的约束条件和原则，就称它为RESTful架构。
+
+##### 1.2 风格对比
+
+|             | 增        | 删                | 查             | 改                |
+| ----------- | --------- | ----------------- | -------------- | ----------------- |
+| 传统        | /user/add | /user/delete?id=1 | /user/get?id=1 | /user/update?id=1 |
+| **RESTful** | /user     | /user/1           | /user/1        | /user/1           |
 
 #### 2. RESTful参数
+
+- com.itheima.controller.RestController
+
+```java
+// 使用@PathVariable映射URL中的参数
+
+```
 
 
 
@@ -205,6 +362,26 @@
 
 #### 1. RESTful的方法支持
 
+- web.xml
+
+```xml
+<!-- 浏览器不支持GET/POST之外的HTTP方法, 需要配置SpringMVC支持 -->
+
+<!-- SpringMVC使用HiddenHttpMethodFilter将隐藏域解析为提交方法 -->
+```
+
+- com.itheima.controller.RestController
+
+```java
+
+```
+
+- index.jsp
+
+```jsp
+
+```
+
 
 
 #### 小结
@@ -224,6 +401,25 @@
 
 #### 1. 传统的文件上传
 
+- 添加依赖: pom.xml
+
+```xml
+<!-- 基于commons-fileupload组件完成文件解析 -->
+
+```
+
+- com.itheima.controller.UploadController
+
+```java
+// 1. 指定上传目录
+
+// 2. 创建组件工具
+
+// 3. 解析请求数据
+
+// 4. 处理数据(包括普通字段和文件字段)
+```
+
 
 
 #### 小结
@@ -242,6 +438,19 @@
 
 
 #### 1. SpringMVC上传文件
+
+- springMVC.xml
+
+```xml
+<!-- 注册多元(文件)解析器: CommonsMultipartResolver --> 
+
+```
+
+- com.itheima.controller.UploadController
+
+```java
+
+```
 
 
 
