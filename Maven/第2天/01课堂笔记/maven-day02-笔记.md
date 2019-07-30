@@ -334,8 +334,9 @@
 
   - 方式二: 服务启动
     1. 双击“install-nexus.bat”则会注册为一个 windows 服务
-    2. 访问: [http://localhost:8081/nexus](http://localhost:8081/nexus)
-    3. 默认管理员账户: admin|admin123 
+    2. 打开服务列表右键启动服务(可设置开机启动)
+    3. 访问: [http://localhost:8081/nexus](http://localhost:8081/nexus)
+    4. 默认管理员账户: admin|admin123 
 
 
 
@@ -396,23 +397,6 @@
 - 任何人都能往私服中上传jar包吗?
   - 不能, 需要在settings.xml中配置认证信息 (登陆)
   
-
-```xml
-<servers>
-    <!-- 服务器认证信息 -->
-    <server>
-        <!-- ID应与POM中对应(唯一) -->
-        <id>releases</id>
-        <username>admin</username>
-        <password>admin123</password>
-    </server>
-    <server>
-        <id>snapshots</id>
-        <username>deployment</username>
-        <password>deployment123</password>
-    </server>
-</servers>
-```
 
 - 部署策略检查: **发布版默认不允许上传**
 
