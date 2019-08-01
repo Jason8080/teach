@@ -117,7 +117,7 @@
 
 ##### 1.2 切换实现类
 
-- 希望使用Oracle数据库
+- 希望使用Oracle的实现类, 要改动代码重新编译
 
 - com.itheima.tier.dao.impl.UserDaoOracleImpl
 
@@ -146,6 +146,7 @@ public class UserDaoOracleImpl implements UserDao {
 ##### 2.1 解决实现类丢失
 
 - 【祸水东引】将创建实现类对象的过程交给 BeanFactory 实现
+- com.itheima.tier.BeanFactory
 
 ```java
 package com.itheima.tier;
@@ -168,50 +169,20 @@ public class BeanFactory {
 ```
 
 - 【彻底解决】实现类丢失问题
-  - 学习Class.forName("com.mysql.jdbc.Driver")运行时再加载字节码文件
+
+> ​	学习Class.forName("com.mysql.jdbc.Driver")运行时再加载字节码文件
 
 ```java
-package com.itheima.tier;
 
-import com.itheima.tier.dao.UserDao;
-import com.itheima.tier.dao.impl.UserDaoImpl;
-
-/**
- * 创建持久层接口实现类.
- */
-public class BeanFactory {
-
-    /**
-     * 祸水东引.
-     * 将创建实现类对象的过程放置到BeanFactory.
-     */
-    public static UserDao create(){
-        return new UserDaoImpl();
-    }
-
-    /**
-     * 彻底解决丢失问题.
-     * 编译时指定字节码路径, 运行时再加载字节码.
-     */
-    public static Object create(String name){
-        try {
-            Class<?> aClass = Class.forName(name);
-            return aClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-}
 ```
 
 
 
 ##### 2.2 解决实现类切换
 
-- 改动实现类时不想改动java代码
+- 希望切换实现类时不用改动Java代码
 
-###### beans.properties
+1. beans.properties
 
 ```properties
 # 用户持久层实现类
@@ -220,7 +191,7 @@ UserDao=com.itheima.tier.dao.impl.UserDaoImpl
 UserService=com.itheima.tier.service.impl.UserServiceImpl
 ```
 
-###### BeanFactory.java
+2. com.itheima.tier.BeanFactory
 
 ```java
 
@@ -230,7 +201,7 @@ UserService=com.itheima.tier.service.impl.UserServiceImpl
 
 ##### 2.3【扩展】设计模式
 
-- 以上解决问题的方法极受欢迎, 称之为 **工厂设计模式**
+- 以上解决问题的方法应用广泛, 称之为 **工厂设计模式**
 - 作用
   - 创建对象
   - 降低耦合
