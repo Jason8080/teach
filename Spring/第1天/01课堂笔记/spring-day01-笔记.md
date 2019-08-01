@@ -21,13 +21,13 @@
 
 ###### com.itheima.dao
 
-- UserDao.java
+- com.itheima.tier.dao.UserDao
 
   ```java
   
   ```
 
-- impl.UserDaoImpl.java
+- com.itheima.tier.dao.impl.UserDaoImpl
 
   ```java
   
@@ -37,13 +37,13 @@
 
 ###### com.itheima.service
 
-- UserService.java
+- com.itheima.tier.service.UserService
 
   ```java
   
   ```
 
-- UserServiceImpl.java
+- com.itheima.tier.service.impl.UserServiceImp
 
   ```java
   
@@ -53,7 +53,7 @@
 
 ###### com.itheima.controller
 
-- UserController.java
+- com.itheima.tier.controller.UserController
 
   ```java
   
@@ -66,9 +66,18 @@
 #### 2. 分层架构的作用
 
 - 项目结构清晰 (提高代码可读性)
+
+  |-- tier
+
+  |---- **controller** // 处理页面信息
+
+  |---- **service** // 处理业务逻辑
+
+  |---- **dao** // 处理数据
+
 - 便于团队协同开发 (提高开发效率)
 
-
+  > ​	职责分明后, 三个层的代码可以同步进行开发
 
 
 
@@ -102,13 +111,15 @@
 
 ##### 1.1 实现类丢失
 
-- 如果编译时丢失UserDaoImp.java文件将无法编译
+- 如果编译时丢失UserDaoImpl.java文件将无法编译
+
+![1564640574099](assets/1564640574099.png) 
 
 ##### 1.2 切换实现类
 
-- 如果数据库换成了Oracle需要改动Service代码切换 (不想改动java代码)
+- 希望使用Oracle数据库
 
-- impl.UserDaoOracleImpl.java
+- com.itheima.tier.dao.impl.UserDaoOracleImpl
 
 ```java
 package com.itheima.tier.dao.impl;
@@ -229,7 +240,7 @@ UserService=com.itheima.tier.service.impl.UserServiceImpl
 
 #### 小结
 
-- 发现了什么依赖问题?
+- 分层架构有什么依赖问题?
   - 
 - 创建对象 **代码耦合度过高** 如何解决?
   - 
