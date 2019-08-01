@@ -93,13 +93,12 @@
 
 
 
-### 02常见的依赖问题【理解】
+### 02常见的依赖问题【了解】
 
 #### 目标
 
 - **了解依赖问题**
 
-- **解决依赖问题**
 
 
 
@@ -139,11 +138,24 @@ public class UserDaoOracleImpl implements UserDao {
 }
 ```
 
+#### 小结
+
+- 分层架构有哪些依赖问题?
+  - 
+  - 
 
 
-#### 2. 解决依赖问题
 
-##### 2.1 解决实现类丢失
+### 03解决依赖问题【理解】
+
+#### 目标
+
+- 解决实现类丢失问题
+- 解决实现类切换问题
+
+
+
+#### 1. 解决实现类丢失
 
 - 【祸水东引】将创建实现类对象的过程交给 BeanFactory 实现
 - com.itheima.tier.BeanFactory
@@ -178,7 +190,7 @@ public class BeanFactory {
 
 
 
-##### 2.2 解决实现类切换
+#### 2. 解决实现类切换
 
 - 希望切换实现类时不用改动Java代码
 
@@ -218,7 +230,7 @@ UserService=com.itheima.tier.service.impl.UserServiceImpl
 
 
 
-### 03分层的其他问题【了解】
+### 04分层的其他问题【了解】
 
 #### 目标
 
@@ -288,7 +300,7 @@ public static Object create(String name){
 
 
 
-### 04Spring框架概述【了解】
+### 05Spring框架概述【了解】
 
 #### 目标
 
@@ -412,7 +424,7 @@ public static Object create(String name){
 
 
 
-### 05IOC容器概念【理解】
+### 06IOC容器概念【理解】
 
 #### 目标
 
@@ -443,7 +455,7 @@ public static Object create(String name){
 
 
 
-### 06IOC入门案例【掌握】
+### 07IOC入门案例【掌握】
 
 #### 目标
 
@@ -506,7 +518,7 @@ public static Object create(String name){
 
 
 
-### 07创建Bean的细节【了解】
+### 08创建Bean的细节【了解】
 
 #### 目标
 
@@ -560,7 +572,7 @@ public static Object create(String name){
 
 
 
-### 08创建IOC的方式【理解】
+### 09创建IOC的方式【理解】
 
 #### 目标
 
@@ -634,7 +646,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 09创建对象的方式【理解】
+### 10创建对象的方式【理解】
 
 #### 目标
 
@@ -709,7 +721,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 10依赖注入 - 概念【掌握】
+### 11依赖注入 - 概念【掌握】
 
 #### 目标
 
@@ -731,7 +743,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 11DI - 注入方式【理解】
+### 12DI - 注入方式【理解】
 
 #### 目标
 
@@ -837,7 +849,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 12DI - 注入对象【理解】
+### 13DI - 注入对象【理解】
 
 #### 目标
 
@@ -878,7 +890,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 13DI - 注入集合【理解】
+### 14DI - 注入集合【理解】
 
 #### 目标
 
@@ -951,7 +963,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 总结
+### 15总结
 
 - Spring是什么?
   - 
