@@ -240,39 +240,17 @@ UserService=com.itheima.tier.service.impl.UserServiceImpl
 
 #### 1. 依赖关系问题
 
-- 工厂创建的 **对象**(Service) 中可能还依赖了**其他对象**(Dao)
-
-```java
-public class UserServiceImpl implements UserService {
-  	// 对象中有其他依赖需要创建
-    UserDao userDao = (UserDao) BeanFactory.create("UserDao");
-
-    // 对象中有其他依赖需要创建 
-    // (不然使用时要么null值要么空异常)
-    private Integer id = 1;
-    private String name = "OK";
-}
-```
+![1564713528158](assets/1564713528158.png) 
 
 
 
 #### 2. 创建顺序问题
 
-- 工厂创建的 **对象**(Service) 中可能还依赖了**其他对象**(Dao)
-
-```java
-public class UserServiceImpl implements UserService {
-    // 是先创建id和name还是先创建UserServiceImpl对象?
-    private Integer id = 1;
-    private String name = "OK";
-}
-```
-
-
+![1564716026508](assets/1564716026508.png) 
 
 #### 3. 对象个数问题
 
-- 企业中用户量很大创建的对象会非常多 (消耗内存)
+- 每次请求都创建新的对象 (消耗内存)
 
 ```java
 public static Object create(String name){
