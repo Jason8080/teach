@@ -288,7 +288,7 @@ public static Object create(String name){
 
 
 
-#### 1. 了解Spring框架
+#### 1. Spring框架
 
 - 官网: https://spring.io/
 
