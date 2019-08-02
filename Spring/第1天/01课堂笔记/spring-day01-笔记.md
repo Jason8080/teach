@@ -283,12 +283,14 @@ public static Object create(String name){
 #### 目标
 
 - 了解Spring框架
-
+- 了解Spring结构
 - 了解Spring优点
 
 
 
 #### 1. Spring框架
+
+##### 1.1 官网
 
 - 官网: https://spring.io/
 
@@ -298,7 +300,7 @@ public static Object create(String name){
 
 
 
-##### 1.1 Spring介绍
+##### 1.2 介绍
 
 - Spring是 **分层** 的轻量级开源框架 (重点)
 - Spring核心是**IOC**(控制反转) 和 **AOP**(面向切面编程)
@@ -306,7 +308,9 @@ public static Object create(String name){
 
 
 
-##### 1.2 Spring结构
+#### 2. Spring结构
+
+- Spring框架采用分层架构，根据不同的功能被划分成了多个模块
 
 ![1559212182908](assets/1557482552440.png)
 
@@ -353,31 +357,31 @@ public static Object create(String name){
 
 
 
-#### 2. Spring优点
+#### 3. Spring优点
 
-##### 2.1 IOC解耦
+##### 3.1 IOC解耦
 
 - 可以将对象间的依赖关系交由spring管理
 - 避免硬编码造成的程序间过渡耦合
 
-##### 2.2 支持AOP
+##### 3.2 支持AOP
 
 - 可以使用切面编程思想对方法进行增强
 
-##### 2.3 支持声明式事务
+##### 3.3 支持声明式事务
 
 - 可以通过配置或者注解的方式管理事务
 - 不需要硬编码管理事务
 
-##### 2.4 方便测试
+##### 3.4 方便测试
 
 - 可以通过注解方便的测试Spring程序
 
-##### 2.5 方便集成
+##### 3.5 方便集成
 
 - 其内部提供了对各种优秀框架的直接支持
 
-##### 2.6 使用简单
+##### 3.6 使用简单
 
 - Spring对很多难用的API做了简单的封装
 
@@ -391,14 +395,14 @@ public static Object create(String name){
 
 - Spring是什么?
 
-  - 
+  - 是一个分层的轻量级开源框架
 
   
 
 - 至少说出3个Spring的优点
-  - 
-  - 
-  - 
+  - IOC解耦
+  - 支持AOP
+  - 支持声明式事务
 
 
 
