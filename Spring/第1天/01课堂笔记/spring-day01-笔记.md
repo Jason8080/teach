@@ -559,6 +559,14 @@ public static Object create(String name){
 - singleton: **单例**, 只创建一个对象 (启动时创建)
   - lazy-init: **延迟创建**: 第一次使用时创建对象
 
+- com.itheima.xml.User
+
+```java
+// 提供构造方法: 判断对象创建的时间
+```
+
+- beans.xml
+
 ```xml
 
 ```
@@ -566,7 +574,7 @@ public static Object create(String name){
 - XmlTests
 
 ```java
-
+// 多次获取同一个对象: 观察是否是单例模式
 ```
 
 
@@ -574,6 +582,7 @@ public static Object create(String name){
 ##### 2.2 多例
 
 -  prototype: **多例**, 每次使用都创建一个新的对象 (使用时创建)
+-  beans.xml
 
 ```xml
 
@@ -585,6 +594,7 @@ public static Object create(String name){
 
 - init-method: 在构造方法执行后执行的方法
 - destroy-method: 容器销毁前执行的方法
+- 
 
 ```xml
 
