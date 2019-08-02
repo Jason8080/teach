@@ -515,15 +515,6 @@ public static Object create(String name){
 
 #### 1. bean标签的属性
 
-- 工程名称: spring-day01-xml
-- 添加依赖: pom.xml
-
-```xml
-<!-- 1.Spring IOC依赖 -->
-
-<!-- 2.Junit 依赖 -->
-```
-
 | 属性           | 说明                                                         |
 | -------------- | ------------------------------------------------------------ |
 | id             | 对象的引用名称;一定要唯一； 一次只能定义一个引用名称         |
@@ -534,15 +525,24 @@ public static Object create(String name){
 | lazy-init      | 设置为true表示在第一次使用对象的时候才创建，只对单例对象有效。 |
 | scope          | 设置bean的作用范围, 取值：<br/>singleton：单例, 默认值; <br/>prototype：多例 <br/>request：web项目中，将对象存入request域中【了解】<br/>session：web项目中，将对象存入session域中【了解】<br/>globalsession：web项目中，将对象应用于集群环境，没有集群相当于session【了解】 |
 
-- beans.xml
+- 工程名称: spring-day01-xml
+- 添加依赖: pom.xml
 
 ```xml
+<!-- 1.Spring IOC依赖 -->
 
+<!-- 2.Junit 依赖 -->
 ```
 
 - com.itheima.xml.User
 
 ```java
+
+```
+
+- beans.xml
+
+```xml
 
 ```
 
@@ -559,7 +559,6 @@ public static Object create(String name){
 - 至少说出3个bean标签的属性?
   - 
   
-
 - Bean默认在什么时候创建的?
   - 
 
