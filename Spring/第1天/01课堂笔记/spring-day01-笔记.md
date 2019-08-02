@@ -505,15 +505,11 @@ public static Object create(String name){
 
 
 
-### 08创建Bean的细节【了解】
+### 08Bean-标签属性【了解】
 
 #### 目标
 
-- 了解bean的各个属性
-- 了解bean的作用范围
-- 了解创建对象的时间
-- 了解初始化方法
-- 了解销毁方法
+- 了解bean标签的属性
 
 
 
@@ -528,42 +524,15 @@ public static Object create(String name){
 <!-- 2.Junit 依赖 -->
 ```
 
-- com.itheima.xml.User
-
-```java
-
-```
-
 | 属性           | 说明                                                         |
 | -------------- | ------------------------------------------------------------ |
 | id             | 对象的引用名称;一定要唯一； 一次只能定义一个引用名称         |
 | name           | 对象的引用名称; 与id区别是：name一次可以定义多个引用名称。   |
 | class          | 类的全限定名称                                               |
-| scope          | 设置bean的作用范围, 取值：<br/>singleton：单例, 默认值; <br/>prototype：多例 <br/>request：web项目中，将对象存入request域中【了解】<br/>session：web项目中，将对象存入session域中【了解】<br/>globalsession：web项目中，将对象应用于集群环境，没有集群相当于session【了解】 |
 | init-method    | 指定类中初始化方法的名称，在构造方法执行完毕后立即执行【了解】 |
 | destroy-method | 指定类中销毁方法名称，在销毁spring容器前执行【了解】         |
 | lazy-init      | 设置为true表示在第一次使用对象的时候才创建，只对单例对象有效。 |
-
-- XmlTests
-
-```java
-
-```
-
-
-
-#### 2. 对象的作用范围
-
-##### 2.1 单例
-
-- singleton: **单例**, 只创建一个对象 (启动时创建)
-  - lazy-init: **延迟创建**: 第一次使用时创建对象
-
-- com.itheima.xml.User
-
-```java
-// 提供构造方法: 判断对象创建的时间
-```
+| scope          | 设置bean的作用范围, 取值：<br/>singleton：单例, 默认值; <br/>prototype：多例 <br/>request：web项目中，将对象存入request域中【了解】<br/>session：web项目中，将对象存入session域中【了解】<br/>globalsession：web项目中，将对象应用于集群环境，没有集群相当于session【了解】 |
 
 - beans.xml
 
@@ -571,36 +540,13 @@ public static Object create(String name){
 
 ```
 
-- XmlTests
+- com.itheima.xml.User
 
 ```java
-// 多次获取同一个对象: 观察是否是单例模式
-```
-
-
-
-##### 2.2 多例
-
--  prototype: **多例**, 每次使用都创建一个新的对象 (使用时创建)
--  beans.xml
-
-```xml
 
 ```
 
-
-
-#### 3. 初始化与销毁对象
-
-- init-method: 在构造方法执行后执行的方法
-- destroy-method: 容器销毁前执行的方法
-- 
-
-```xml
-
-```
-
-- com.itheima.xml.User
+- XmlTests
 
 ```java
 
@@ -613,17 +559,44 @@ public static Object create(String name){
 - 至少说出3个bean标签的属性?
   - 
   
-  - 
-  - 
-  
-- 单例和多例的区别 ?
-  
-  - 
+
+- Bean默认在什么时候创建的?
   - 
 
 
 
-### 09创建IOC的方式【理解】
+### 09Bean-作用范围【理解】
+
+#### 目标
+
+- 理解Bean的作用范围
+
+
+
+#### 1. Bean的作用范围
+
+- beans.xml
+
+```xml
+
+```
+
+- XmlTests
+
+```java
+// 多次获取对象: 观察对象是否相同
+```
+
+
+
+#### 小结
+
+- 单例与多例的区别?
+  - 
+
+
+
+### 10创建IOC的方式【理解】
 
 #### 目标
 
@@ -697,7 +670,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 10创建对象的方式【理解】
+### 11创建对象的方式【理解】
 
 #### 目标
 
@@ -772,7 +745,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 11依赖注入 - 概念【掌握】
+### 12依赖注入 - 概念【掌握】
 
 #### 目标
 
@@ -794,7 +767,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 12DI - 注入方式【理解】
+### 13DI - 注入方式【理解】
 
 #### 目标
 
@@ -900,7 +873,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 13DI - 注入对象【理解】
+### 14DI - 注入对象【理解】
 
 #### 目标
 
@@ -941,7 +914,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 14DI - 注入集合【理解】
+### 15DI - 注入集合【理解】
 
 #### 目标
 
@@ -1014,7 +987,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 15总结
+### 16总结
 
 - Spring是什么?
   - 
