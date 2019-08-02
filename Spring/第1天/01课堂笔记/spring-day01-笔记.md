@@ -453,7 +453,7 @@ public static Object create(String name){
 
 
 
-#### 1. 了解IOC容器的依赖的jar包
+#### 1. IOC容器依赖的jar包
 
 - 创建工程: spring-day01-ioc
 - 添加依赖: pom.xml
@@ -462,17 +462,17 @@ public static Object create(String name){
 
 ```
 
-- 创建对象: com.itheima.ioc.User.java
+
+
+#### 2. IOC容器的Bean标签
+
+- com.itheima.ioc.User
 
 ```java
 
 ```
 
-
-
-#### 2. 掌握IOC容器的Bean配置标签
-
-- 配置对象: beans.xml
+- 定义对象: beans.xml
 
 ```xml
 
@@ -480,9 +480,9 @@ public static Object create(String name){
 
 
 
-#### 2. 掌握创建IOC容器的代码
+#### 2. IOC容器的创建案例
 
-- 测试代码
+- IocTests
 
 ```java
 
