@@ -234,7 +234,7 @@ UserService=com.itheima.tier.service.impl.UserServiceImpl
 
 #### 目标
 
-- 了解分层的其他问题
+- 了解分层架构的其他问题
 
 
 
