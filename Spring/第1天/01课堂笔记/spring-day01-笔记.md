@@ -455,7 +455,7 @@ public static Object create(String name){
 
 #### 1. IOC容器依赖的jar包
 
-- 创建工程: spring-day01-ioc
+- 工程名称: spring-day01-ioc
 - 添加依赖: pom.xml
 
 ```xml
@@ -480,7 +480,7 @@ public static Object create(String name){
 
 
 
-#### 2. IOC容器的创建案例
+#### 3. IOC容器的创建案例
 
 - IocTests
 
@@ -509,7 +509,7 @@ public static Object create(String name){
 
 #### 目标
 
-- 了解bean标签的各个属性
+- 了解bean的各个属性
 - 了解bean的作用范围
 - 了解创建对象的时间
 - 了解初始化方法
@@ -517,23 +517,59 @@ public static Object create(String name){
 
 
 
-#### 1. 理解bean标签的各个属性
+#### 1. bean标签的属性
 
 | 属性           | 说明                                                         |
 | -------------- | ------------------------------------------------------------ |
 | id             | 对象的引用名称;一定要唯一； 一次只能定义一个引用名称         |
 | name           | 对象的引用名称; 与id区别是：name一次可以定义多个引用名称。   |
 | class          | 类的全限定名称                                               |
-| scope          | 设置bean的作用范围。取值：singleton：单例。默认值prototype：多例 request：web项目中，将对象存入request域中【了解】session：web项目中，将对象存入session域中【了解】globalsession：web项目中，应用在集群环境，如果没有集群环境，相当于session【了解】 |
+| scope          | 设置bean的作用范围, 取值：<br/>singleton：单例, 默认值; <br/>prototype：多例 <br/>request：web项目中，将对象存入request域中【了解】<br/>session：web项目中，将对象存入session域中【了解】<br/>globalsession：web项目中，将对象应用于集群环境，没有集群，相当于session【了解】 |
 | init-method    | 指定类中初始化方法的名称，在构造方法执行完毕后立即执行【了解】 |
 | destroy-method | 指定类中销毁方法名称，在销毁spring容器前执行【了解】         |
-| lazy-init      | 设置为true表示延迟创建对象，即在第一次使用对象时候才创建单例的对象，只对单例对象有效。 |
+| lazy-init      | 设置为true表示在第一次使用对象的时候才创建，只对单例对象有效。 |
 
 #### 2. 对象的作用范围
 
+- 工程名称: spring-day01-xml
+- 添加依赖: pom.xml
+
+```xml
+<!-- 1.Spring IOC依赖 -->
+
+<!-- 2.Junit 依赖 -->
+```
+
+- com.itheima.xml.User
+
+```java
+
+```
+
+##### 2.1 单例
+
 - singleton: **单例**, 只创建一个对象 (启动时创建)
   - lazy-init: **延迟创建**: 第一次使用时创建对象
+
+```xml
+
+```
+
+- XmlTests
+
+```java
+
+```
+
+
+
+##### 2.2 多例
+
 -  prototype: **多例**, 每次使用都创建一个新的对象 (使用时创建)
+
+```xml
+
+```
 
 
 
@@ -541,6 +577,16 @@ public static Object create(String name){
 
 - init-method: 在构造方法执行后执行的方法
 - destroy-method: 容器销毁前执行的方法
+
+```xml
+
+```
+
+- com.itheima.xml.User
+
+```java
+
+```
 
 
 
