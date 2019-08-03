@@ -688,33 +688,35 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 #### 2. 静态方法创建
 
-- 静态方法
+- com.itheima.xml.UserFactory
 
-  ```java
-  package com.itheima.ioc;
-  
-  /**
-   * 提供静态方法
-   * @author : Jason.lee
-   */
-  public class UserFactory {
-      /**
-       * 静态方法创建对象.
-       */
-      public static User create(){
-          System.out.println("静态方法执行了===");
-          return new User();
-      }
-      
-      /**
-       * 动态方法创建对象.
-       */
-      public User get(){
-          System.out.println("动态方法执行了===");
-          return new User();
-      }
-  }
-  ```
+```java
+package com.itheima.ioc;
+
+/**
+ * 提供静态方法
+ * @author : Jason.lee
+ */
+public class UserFactory {
+    /**
+     * 静态方法创建对象.
+     */
+    public static User create(){
+        System.out.println("静态方法执行了===");
+        return new User();
+    }
+    
+    /**
+     * 动态方法创建对象.
+     */
+    public User get(){
+        System.out.println("动态方法执行了===");
+        return new User();
+    }
+}
+```
+
+- beans.xml
 
 ```java
 <!-- 调用静态方法创建对象 -->
@@ -776,13 +778,13 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 #### 1. 构造方法赋值
 
-- 创建新类: Person.java
+- com.itheima.xml.Person
 
 ```java
 
 ```
 
-- 配置beans.xml
+- beans.xml
 
 ```xml
 <!--
@@ -923,13 +925,13 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 #### 1. 注入集合属性
 
-- 创建Employee.java
+- com.itheima.xml.Employee
 
 ```java
 
 ```
 
-- 注入集合属性值
+- beans.xml (注入集合属性值)
 
 ```xml
 <!--
@@ -997,6 +999,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
   - 
   - 
 - 创建对象有哪几种方式?
+  - 
   - 
   - 
 - IOC通过什么功能做到依赖关系管理?
