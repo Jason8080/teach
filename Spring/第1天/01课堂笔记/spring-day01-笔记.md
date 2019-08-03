@@ -603,7 +603,7 @@ public static Object create(String name){
 
 
 
-#### 1. 了解创建IOC常用的3种方式
+#### 1. 创建IOC常用的3种方式
 
 - IOC容器接口结构图
 
