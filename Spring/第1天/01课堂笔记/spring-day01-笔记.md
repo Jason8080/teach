@@ -673,13 +673,25 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 #### 目标
 
-- 构造方法创建 (默认)
-- 静态方法创建
-- 实例方法创建
+- **构造方法创建** (默认:  调用构造方法)
+- **静态方法创建** (调用工具类静态方法)
+- **实例方法创建** (调用对象的实例方法)
 
 
 
 #### 1. 构造方法创建
+
+- com.itheima.xml.UserFactory
+
+```java
+// 1. 提供构造方法
+
+// 2. 提供静态方法
+
+// 3. 提供实例方法
+```
+
+- beans.xml
 
 ```xml
 <!-- 调用构造方法创建对象 -->
@@ -687,34 +699,6 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 ```
 
 #### 2. 静态方法创建
-
-- com.itheima.xml.UserFactory
-
-```java
-package com.itheima.ioc;
-
-/**
- * 提供静态方法
- * @author : Jason.lee
- */
-public class UserFactory {
-    /**
-     * 静态方法创建对象.
-     */
-    public static User create(){
-        System.out.println("静态方法执行了===");
-        return new User();
-    }
-    
-    /**
-     * 动态方法创建对象.
-     */
-    public User get(){
-        System.out.println("动态方法执行了===");
-        return new User();
-    }
-}
-```
 
 - beans.xml
 
@@ -726,6 +710,8 @@ public class UserFactory {
 
 
 #### 3. 实例方法创建
+
+- beans.xml
 
 ```xml
 <!-- 调用动态方法创建对象 -->
@@ -787,31 +773,13 @@ public class UserFactory {
 - beans.xml
 
 ```xml
-<!--
-    使用constructor-arg标签利用构造方法赋值
-    value: 值
-    type: 值类型 (与构造方法完全一致)
-    name: 属性名称
-    index: 构造方法参数位下标(可一起使用,但不建议)
- -->
-<bean id="person" class="com.itheima.ioc.Person">
-    <constructor-arg type="java.lang.String" index="1" name="name" value="Jason"/>
-    <constructor-arg index="0" value="1"/>
-</bean>
+
 ```
 
 #### 2. set方法赋值(常用)
 
 ```xml
-<!--
-    使用property标签利用set方法赋值
-    name: 属性名称
-    value: 值
--->
-<bean id="person2" class="com.itheima.ioc.Person">
-    <property name="id" value="1"/>
-    <property name="name" value="Jason"/>
-</bean>
+
 ```
 
 #### 3. C标签代替构造方法
@@ -831,12 +799,7 @@ public class UserFactory {
 - 使用方式
 
 ```xml
-<!--
-    使用c标签利用构造方法赋值
-    c:id: 属性名称赋值
-    c:_1: 构造方法参数位下标赋值
--->
-<bean id="person3" class="com.itheima.ioc.Person" c:id="1" c:_1="Jason"/>
+
 ```
 
 #### 4. P标签代替set方法
@@ -857,11 +820,7 @@ public class UserFactory {
 - 使用方式
 
 ```xml
-<!--
-    使用c标签利用构造方法赋值
-    p:name: 属性名称赋值
--->
-<bean id="person4" class="com.itheima.ioc.Person" p:name="Jason" p:id="1"/>
+
 ```
 
 
@@ -887,23 +846,13 @@ public class UserFactory {
 - 配置需要注入的对象
 
 ```xml
-<!-- 利用构造方法赋值: new String("Jason") -->
-<bean id="str" class="java.lang.String">
-    <constructor-arg value="Jason"/>
-</bean>
+
 ```
 
 - 注入bean对象属性值
 
 ```xml
-<!--
-    使用ref对象引用标签注入对象属性值
-    	ref: 表示注入的属性是个已存在的bean对象
- -->
-<bean id="person5" class="com.itheima.ioc.Person">
-    <property name="id" value="1"/>
-    <property name="name" ref="str"/>
-</bean>
+
 ```
 
 
@@ -931,50 +880,10 @@ public class UserFactory {
 
 ```
 
-- beans.xml (注入集合属性值)
+- beans.xml
 
 ```xml
-<!--
-    给对象赋值集合属性的值
-    property: 使用set方法赋值
-        name: 赋值属性名
-           array: 数组类型
-            list: 有序集合
-            set: 无序集合
-            map: 双列集合
-            properties: 键值对属性
--->
-<bean id="employee" class="com.itheima.ioc.Employee">
-    <property name="array">
-        <array>
-            <value>666</value>
-            <value>777</value>
-        </array>
-    </property>
-    <property name="list">
-        <list>
-            <value>666</value>
-            <value>777</value>
-        </list>
-    </property>
-    <property name="set">
-        <set>
-            <ref bean="str"/>
-        </set>
-    </property>
-    <property name="map">
-        <map>
-            <entry key="name" value-ref="str"/>
-            <entry key="id" value="1"/>
-        </map>
-    </property>
-    <property name="properties">
-        <props>
-            <prop key="name">Jason</prop>
-            <prop key="id">1</prop>
-        </props>
-    </property>
-</bean>
+
 ```
 
 
