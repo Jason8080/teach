@@ -88,13 +88,13 @@
 
 #### 1. 实现CRUD操作
 
-- com.itheima.crud.AccountDaoImpl
+- com.itheima.crud.dao.impl.AccountDaoImpl
 
 ```java
 
 ```
 
-- com.itheima.crud.AccountServiceImpl
+- com.itheima.crud.service.impl.AccountServiceImpl
 
 ```java
 
@@ -351,13 +351,13 @@ db.password=root
 #### 1. 改造CRUD案例工程
 
 - 工程名称: spring-day02-ax
-- com.itheima.crud.AccountDaoImpl
+- com.itheima.crud.dao.impl.AccountDaoImpl
 
 ```java
 
 ```
 
-- com.itheima.crud.AccountServiceImpl
+- com.itheima.crud.service.impl.AccountServiceImpl
 
 ```java
 
