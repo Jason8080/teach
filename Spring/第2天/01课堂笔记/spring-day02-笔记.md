@@ -88,19 +88,19 @@
 
 #### 1. 实现CRUD操作
 
-- AccountDaoImpl.java
+- com.itheima.crud.AccountDaoImpl
 
 ```java
 
 ```
 
-- AccountServiceImpl.java
+- com.itheima.crud.AccountServiceImpl
 
 ```java
 
 ```
 
-- CrudTests.java
+- CrudTests
 
 ```java
 
@@ -152,27 +152,27 @@ db.password=root
 
 #### 1. 使用注解创建对象
 
-##### 1.1 工程名称: spring-day02-anno
+- 工程名称: spring-day02-anno
 
-##### 1.2 pom.xml
+- 添加依赖: pom.xml
 
 ```xml
 
 ```
 
-##### 1.3 Account.java
+- com.itheima.anno.Account.java
 
 ```java
 
 ```
 
-##### 1.4 applicationContext.xml
+- applicationContext.xml
 
 ```xml
 
 ```
 
-##### 1.5 单元测试: AnnoTests.java
+- AnnoTests
 
 ```java
 
@@ -203,7 +203,7 @@ db.password=root
 #### 1. 创建对象的其他注解
 
 - 为了在3层架构中识别不同层的对象延伸了3个注解
-- Account.java
+- com.itheima.anno.Account
 
 ```java
 
@@ -235,13 +235,13 @@ db.password=root
 
 #### 2. 使用依赖注入的注解
 
-- User.java
+- com.itheima.anno.User
 
 ```java
 
 ```
 
-- 单元测试: testDi
+- AnnoTests
 
 ```java
 
@@ -279,13 +279,13 @@ db.password=root
 
 #### 2. 了解相关注解
 
-- Account.java
+- com.itheima.anno.Account
 
 ```java
 
 ```
 
-- 单元测试: testCycle
+- AnnoTests
 
 ```java
 
@@ -351,19 +351,19 @@ db.password=root
 #### 1. 改造CRUD案例工程
 
 - 工程名称: spring-day02-ax
-- AccountDaoImpl.java
+- com.itheima.crud.AccountDaoImpl
 
 ```java
 
 ```
 
-- AccountServiceImpl.java
+- com.itheima.crud.AccountServiceImpl
 
 ```java
 
 ```
 
-- CrudTests.java
+- CrudTests
 
 ```java
 
@@ -401,7 +401,7 @@ db.password=root
 
 - 第3方对象创建的替代注解: @Bean
 
-- Config.java
+- com.itheima.crud.Config
 
 ```java
 
@@ -411,7 +411,7 @@ db.password=root
 
 #### 2. 创建纯注解开发的IOC
 
-- AnnoTests.java
+- AnnoTests
 
 ```java
 
@@ -421,12 +421,12 @@ db.password=root
 
 #### 小结
 
-- 请说出纯注解开发的5个重要注解的作用?
-  - 
-  - 
-  - 
-  - 
-  - 
+- 请说出以下注解的作用?
+  - @Configuration: 
+  - @ComponentScan: 
+  - @PropertySource:
+  - @Import: 
+  - @Bean:
 
 
 
@@ -453,7 +453,7 @@ db.password=root
 
 ```
 
-- SpringTests.java
+- SpringTests
 
 ```java
 
