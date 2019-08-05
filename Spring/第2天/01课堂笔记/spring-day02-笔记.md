@@ -77,12 +77,11 @@
 
 
 
-### 02实现CRUD操作【理解】
+### 02实现CRUD - 代码【理解】
 
 #### 目标
 
 - 使用jdbcTemplate实现CRUD操作
-- 使用IOC完成jdbcTemplate注入
 
 
 
@@ -108,7 +107,33 @@
 
 
 
-#### 2. 使用IOC完成注入
+#### 小结
+
+- 为什么要提供set方法?
+  - 
+
+
+
+### 03实现CRUD - 配置【理解】
+
+#### 目标
+
+- 实现IOC依赖注入
+- 加载外部配置文件
+
+
+
+#### 1. 实现IOC依赖注入
+
+- applicationContext.xml
+
+```xml
+
+```
+
+
+
+#### 2. 加载外部配置文件
 
 - db.properties
 
@@ -122,8 +147,6 @@ db.url=jdbc:mysql:///mybatisdb?serverTimezone=UTC&useSSL=false&allowPublicKeyRet
 db.username=root
 db.password=root
 ```
-
-
 
 - applicationContext.xml
 
@@ -142,7 +165,7 @@ db.password=root
 
 
 
-### 03基于注解创建对象【掌握】
+### 04基于注解创建对象【掌握】
 
 #### 目标
 
@@ -192,7 +215,7 @@ db.password=root
 
 
 
-### 04创建对象的注解【掌握】
+### 05创建对象的注解【掌握】
 
 #### 目标
 
@@ -218,7 +241,7 @@ db.password=root
 
 
 
-### 05依赖注入的注解【掌握】
+### 06依赖注入的注解【掌握】
 
 #### 目标
 
@@ -261,7 +284,7 @@ db.password=root
 
 
 
-### 06生命周期的注解【了解】
+### 07生命周期的注解【了解】
 
 #### 目标
 
@@ -303,7 +326,7 @@ db.password=root
 
 
 
-### 07注解与配置的关系【了解】
+### 08注解与配置的关系【了解】
 
 #### 目标
 
@@ -340,7 +363,7 @@ db.password=root
 
 
 
-### 08使用注解改造案例【掌握】
+### 09使用注解改造案例【掌握】
 
 #### 目标
 
@@ -380,7 +403,7 @@ db.password=root
 
 
 
-### 09纯注解开发【了解】
+### 10纯注解开发【了解】
 
 #### 目标
 
@@ -430,7 +453,7 @@ db.password=root
 
 
 
-### 10整合Junit框架【了解】
+### 11整合Junit框架【了解】
 
 #### 目标
 
@@ -472,7 +495,7 @@ db.password=root
 
 
 
-### 11总结
+### 12总结
 
 - 今天的新内容就是19个注解 .
 - 请描述下列19个注解的作用 ?
