@@ -109,7 +109,7 @@
 
 #### 小结
 
-- 为什么要提供set方法?
+- 为什么要给jdbcTemplate提供set方法?
   - 
 
 
@@ -151,7 +151,11 @@ db.password=root
 - applicationContext.xml
 
 ```xml
-
+<!--
+	context:property-placeholder: 加载指定的资源文件
+		location: 本地资源文件路径
+-->
+<context:property-placeholder location="classpath:db.properties"/>
 ```
 
 
@@ -160,7 +164,7 @@ db.password=root
 
 - jdbcTemplate是通过什么方法注入的?
   - 
-- 配置文件中的bean是什么时候创建的?
+- Spring主配置文件中`${}`符号的作用?
   - 
 
 
