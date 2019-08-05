@@ -12,8 +12,8 @@
 ##### 1.1 说出对Spring的理解
 
 - Spring是一个分层的轻量级开源框架
-- 核心思想是IOC 和 AOP 支持声明式事务
-- 是一个扩展性很强的开放型框架 (对很多优秀框架有直接的支持, 整合其他框架非常方便)
+- 核心思想是IOC 和 AOP 并且支持声明式事务
+- 是一个扩展性很好的开放型框架 (对很多优秀框架有直接的支持, 整合其他框架非常方便)
 
 ##### 1.2 什么是IOC
 
@@ -21,19 +21,18 @@
 - 控制反转指的是将创建对象的行为转交给IOC的工厂完成
 - IOC的好处包括解耦, 支持单例模式, 支持依赖注入等
 
-##### 1.3 什么是AOP
+##### 1.3 什么是DI
 
-- AOP(Aspect Oriented Programming)是面向切面编程的简写
-- 面向切面编程是一种非侵入性编程的手段
-- 是指将业务需求抽象成切面在不改动目标对象的基础上对方法(系统)进行增强
+- DI(Dependency Injection)是依赖注入的简写
+- 依赖注入是IOC给对象赋值的一项功能 (从而达到依赖关系管理)
 
 
 
 #### 2. 搭建Spring项目环境
 
-##### 2.1 工程名称: spring-day02-crud
+- 工程名称: spring-day03-crud
 
-##### 2.2 添加依赖: pom.xml
+- 添加依赖: pom.xml
 
 ```xml
 <!-- 1. Spring IOC依赖 -->
@@ -47,23 +46,19 @@
 <!-- 5. junit单元测试依赖 -->
 ```
 
-##### 2.3 创建: Account.java
+- com.itheima.crud.Account
 
 ```java
 
 ```
 
-
-
-##### 2.4 配置: applicationContext.xml
+- applicationContext.xml
 
 ```xml
 
 ```
 
-
-
-##### 2.5 测试: CrudTests.java
+- CrudTests.java
 
 ```java
 
@@ -77,7 +72,7 @@
   - 
 - IOC是什么?
   - 
-- AOP是什么?
+- DI是什么?
   - 
 
 
