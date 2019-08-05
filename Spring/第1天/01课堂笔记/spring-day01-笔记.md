@@ -210,7 +210,7 @@ UserService=com.itheima.tier.service.impl.UserServiceImpl
 
 
 
-##### 2.3【扩展】设计模式
+#### 3. [扩展] 工厂模式
 
 - 以上解决代码耦合度过高的方案应用广泛, 称之为 **工厂设计模式**
 - 工厂设计模式的作用: 
