@@ -187,7 +187,7 @@ db.password=root
 
 ```
 
-- com.itheima.anno.Account.java
+- com.itheima.anno.Account
 
 ```java
 
