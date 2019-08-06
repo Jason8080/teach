@@ -119,25 +119,19 @@
 
 ##### 2.1 TransactionDefinition
 
-- 
-
-
+- 事务信息接口: 定义了事务的隔离级别、传播行为、超时时间、是否只读等。
 
 ![1562575584950](assets/1562575584950.png) 
 
 ##### 2.2 TransactionStatus
 
-- 
-
-
+- 事务状态接口: 定义了Spring内部的事务状态规范
 
 ![1562575940075](assets/1562575940075.png) 
 
 ##### 2.3 PlatformTransactionManager
 
-- 
-
-
+- 事务管理接口: 定义了提交事务、获取事务、回滚事务的方法。 
 
 ![1562574934801](assets/1562574934801.png) 
 
@@ -293,79 +287,79 @@
 
 ##### 1.1 搭建环境
 
-- 工程名称: spring-day04-xml
-- 添加依赖: pom.xml
+1. 工程名称: spring-day04-xml
+2. 添加依赖: pom.xml
 
-```xml
-<!-- Spring IOC 依赖 -->
-
-<!-- aspectJ 切面编程 依赖 -->
-
-<!-- Spring 事务 依赖 -->
-
-<!-- Spring  Jdbc 依赖 -->
-
-<!-- Druid 连接池 依赖 -->
-
-<!-- Mysql 依赖 -->
-
-<!-- Spring 测试 依赖 -->
-
-<!-- Junit 单元测试 依赖 -->
-```
+    ```xml
+    <!-- Spring IOC 依赖 -->
+    
+    <!-- aspectJ 切面编程 依赖 -->
+    
+    <!-- Spring 事务 依赖 -->
+    
+    <!-- Spring  Jdbc 依赖 -->
+    
+    <!-- Druid 连接池 依赖 -->
+    
+    <!-- Mysql 依赖 -->
+    
+    <!-- Spring 测试 依赖 -->
+    
+    <!-- Junit 单元测试 依赖 -->
+    ```
 
 ##### 1.2 业务代码
 
-- 实体类: com.itheima.xml.domain.Account
+1. 实体类: com.itheima.xml.domain.Account
 
-```java
+    ```java
+    
+    ```
 
-```
+2. 持久类: com.itheima.xml.dao.impl.AccountDaoImpl
 
-- 持久类: com.itheima.xml.dao.impl.AccountDaoImpl
+    ```java
+    
+    ```
 
-```java
+3. 业务类: com.itheima.xml.service.impl.AccountServiceImpl
 
-```
-
-- 业务类: com.itheima.xml.service.impl.AccountServiceImpl
-
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
 ##### 1.3 事务配置
 
-- db.properties
+1. 添加配置文件: db.properties
 
-```properties
-db.driver=com.mysql.cj.jdbc.Driver
-# 针对Mysql 8.x数据库的参数
-#   serverTimezone: 指定时区(UTC)
-#   useSSL: 指定是否使用加密安全连接(false)
-#   allowPublicKeyRetrieval: 是否允许检索公钥(true)
-db.url=jdbc:mysql:///mybatisdb?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
-db.username=root
-db.password=root
-```
+    ```properties
+    db.driver=com.mysql.cj.jdbc.Driver
+    # 针对Mysql 8.x数据库的参数
+    #   serverTimezone: 指定时区(UTC)
+    #   useSSL: 指定是否使用加密安全连接(false)
+    #   allowPublicKeyRetrieval: 是否允许检索公钥(true)
+    db.url=jdbc:mysql:///mybatisdb?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    db.username=root
+    db.password=root
+    ```
 
-- applicationContext.xml
+2. 配置事务管理: applicationContext.xml
 
-```xml
-
-```
+    ```xml
+    
+    ```
 
 
 
 ##### 1.4 单元测试
 
-- XmlTests.java
+1. 单元测试: XmlTests.java
 
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
@@ -388,11 +382,11 @@ db.password=root
 
 ##### 1.1 改造环境
 
-- 工程名称: spring-day04-anno
+1. 工程名称: spring-day04-anno
 
 ##### 1.2 注解代码
 
-- com.itheima.xml.service.impl.AccountServiceImpl.java
+1. 使用注解: com.itheima.xml.service.impl.AccountServiceImpl
 
 ```java
 
@@ -400,7 +394,7 @@ db.password=root
 
 ##### 1.3 配置支持
 
-- applicationContext.xml
+1. 添加配置: applicationContext.xml
 
 ```xml
 
@@ -408,7 +402,7 @@ db.password=root
 
 ##### 1.4 单元测试
 
-- XmlTests.java
+1. 单元测试: XmlTests.java
 
 ```java
 
@@ -435,25 +429,25 @@ db.password=root
 
 ##### 1.1 配置类
 
-- SpringConfig.java
+1. 创建配置类: SpringConfig.java
 
-```java
+    ```java
+    
+    ```
 
-```
+2. 创建数据库配置类: JdbcConfig.java
 
-- JdbcConfig.java
-
-```java
-
-```
+    ```java
+    
+    ```
 
 ##### 1.2 单元测试
 
-- AnnoTests.java
+1. 单元测试: AnnoTests
 
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
@@ -494,36 +488,36 @@ db.password=root
 
 ##### 2.1 环境改造
 
-- 工程名称: spring-day04-code
+1. 工程名称: spring-day04-code
 
 ##### 2.2 业务改造
 
-- com.itheima.xml.service.impl.AccountServiceImpl
+1. 事务编码: com.itheima.xml.service.impl.AccountServiceImpl
 
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
 ##### 2.3 配置支持
 
-- applicationContext.xml
+1. 添加配置: applicationContext.xml
 
-```xml
-<!-- 配置事务管理模板对象 -->
-
-```
+    ```xml
+    <!-- 配置事务管理模板对象 -->
+    
+    ```
 
 
 
 ##### 2.4 单元测试
 
-- XmlTests.java
+1. 单元测试: XmlTests
 
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
