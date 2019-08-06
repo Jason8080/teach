@@ -17,55 +17,47 @@
 
 ##### 1.2 分层案例
 
-- 创建项目: spring-day01-tier
+1. 创建项目: spring-day01-tier
 
-###### com.itheima.dao
+2. 创建持久层: com.itheima.dao
+   - com.itheima.tier.dao.UserDao
 
-- com.itheima.tier.dao.UserDao
+     ```java
+     
+     ```
 
-  ```java
-  
-  ```
+   - com.itheima.tier.dao.impl.UserDaoImpl
 
-- com.itheima.tier.dao.impl.UserDaoImpl
+   ```java
+   
+   ```
 
-  ```java
-  
-  ```
+   
 
-  
+3. 创建业务层: com.itheima.service
+   - com.itheima.tier.service.UserService
 
-###### com.itheima.service
+     ```java
+     
+     ```
 
-- com.itheima.tier.service.UserService
+   - com.itheima.tier.service.impl.UserServiceImp
 
-  ```java
-  
-  ```
+   ```java
+   
+   ```
 
-- com.itheima.tier.service.impl.UserServiceImp
+4. 创建视图层: com.itheima.tier.controller.UserController
 
-  ```java
-  
-  ```
-
-
-
-###### com.itheima.controller
-
-- com.itheima.tier.controller.UserController
-
-  ```java
-  
-  ```
-
-
+   ```java
+   
+   ```
 
 
 
 #### 2. 分层架构的作用
 
-- 项目结构清晰 (提高代码可读性)
+1. 项目结构清晰 (提高代码可读性)
 
   |-- tier
 
@@ -75,7 +67,7 @@
 
   |---- **dao** // 处理数据
 
-- 便于团队协同开发 (提高开发效率)
+2. 便于团队协同开发 (提高开发效率)
 
   > ​	职责分明后, 三个层的代码可以同步进行开发
 
@@ -117,29 +109,33 @@
 
 - 希望使用Oracle的实现类, 要改动代码重新编译
 
-- com.itheima.tier.dao.impl.UserDaoOracleImpl
+1. 创建实现类: com.itheima.tier.dao.impl.UserDaoOracleImpl
 
-```java
-package com.itheima.tier.dao.impl;
+    ```java
+    package com.itheima.tier.dao.impl;
 
-import com.itheima.tier.dao.UserDao;
+    import com.itheima.tier.dao.UserDao;
 
-/**
- * Oracle用户数据库操作实现类.
- *
- * @author : Jason.lee
- */
-public class UserDaoOracleImpl implements UserDao {
-    @Override
-    public void save() {
-        System.out.println("保存Oracle用户成功");
+    /**
+     * Oracle用户数据库操作实现类.
+     *
+     * @author : Jason.lee
+     */
+    public class UserDaoOracleImpl implements UserDao {
+        @Override
+        public void save() {
+            System.out.println("保存Oracle用户成功");
+        }
     }
-}
-```
+    ```
+    
+2. 需要改动代码: ~~com.itheima.tier.service.impl.UserServiceImp~~
+
+
 
 #### 小结
 
-- 分层架构有哪些依赖问题?
+- 分层架构有哪些依赖问题 (都属于代码耦合度问题)?
   - 
   - 
 
@@ -156,57 +152,58 @@ public class UserDaoOracleImpl implements UserDao {
 
 #### 1. 解决实现类丢失
 
-- 【祸水东引】将创建实现类对象的过程交给 BeanFactory 实现
-- com.itheima.tier.BeanFactory
+1. 【祸水东引】使UserService正常
 
-```java
-package com.itheima.tier;
+    - com.itheima.tier.BeanFactory
 
-import com.itheima.tier.dao.UserDao;
-import com.itheima.tier.dao.impl.UserDaoImpl;
+    ```java
+    package com.itheima.tier;
 
-/**
- * 创建持久层接口实现类.
- */
-public class BeanFactory {
+    import com.itheima.tier.dao.UserDao;
+    import com.itheima.tier.dao.impl.UserDaoImpl;
+
     /**
-     * 祸水东引.
-     * 将创建实现类对象的过程放置到BeanFactory.
+     * 创建持久层接口实现类.
      */
-    public static UserDao create(){
-        return new UserDaoImpl();
+    public class BeanFactory {
+        /**
+         * 祸水东引.
+         * 将创建实现类对象的过程放置到BeanFactory.
+         */
+        public static UserDao create(){
+            return new UserDaoImpl();
+        }
     }
-}
-```
+    ```
 
-- 【彻底解决】实现类丢失问题
+1. 【彻底解决】使项目编译正常
 
-> ​	学习Class.forName("com.mysql.jdbc.Driver")运行时再加载字节码文件
+    > 学习Class.forName("com.mysql.jdbc.Driver")运行时再加载字节码文件
 
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
 #### 2. 解决实现类切换
 
-- 希望切换实现类时不用改动Java代码
+- 【一劳永逸】希望切换实现类不用重新编译
 
-1. beans.properties
+1. 添加配置: beans.properties
 
-```properties
-# 用户持久层实现类
-UserDao=com.itheima.tier.dao.impl.UserDaoImpl
-# 用户服务层实现类
-UserService=com.itheima.tier.service.impl.UserServiceImpl
-```
+    ```properties
+    # 用户持久层实现类
+    UserDao=com.itheima.tier.dao.impl.UserDaoImpl
+    # 用户服务层实现类
+    UserService=com.itheima.tier.service.impl.UserServiceImpl
+    ```
 
-2. com.itheima.tier.BeanFactory
+2. 添加支持: com.itheima.tier.BeanFactory
 
-```java
+    ```java
 
-```
+    ```
 
 
 
@@ -214,9 +211,9 @@ UserService=com.itheima.tier.service.impl.UserServiceImpl
 
 - 以上解决代码耦合度过高的方案应用广泛, 称之为 **工厂设计模式**
 - 工厂设计模式的作用: 
-  - 创建对象
-  - 降低耦合
-  - 消除重复
+  1. 创建对象
+  2. 降低耦合
+  3. 消除重复
 
 
 
@@ -251,20 +248,20 @@ UserService=com.itheima.tier.service.impl.UserServiceImpl
 
 - 每次请求都创建新的对象 (消耗内存)
 
-```java
-public static Object create(String name){
-    // clazz = com.itheima.tier.dao.impl.UserDaoImpl
-    String clazz = prop.getProperty(name);
-    try {
-        Class<?> aClass = Class.forName(clazz);
-        // 每次访问都创建新的对象
-        return aClass.newInstance();
-    } catch (Exception e) {
-        e.printStackTrace();
-        return null;
+    ```java
+    public static Object create(String name){
+        // clazz = com.itheima.tier.dao.impl.UserDaoImpl
+        String clazz = prop.getProperty(name);
+        try {
+            Class<?> aClass = Class.forName(clazz);
+            // 每次访问都创建新的对象
+            return aClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
-}
-```
+    ```
 
 
 
@@ -422,13 +419,13 @@ public static Object create(String name){
 
 #### 2. IOC的作用
 
-- **解耦**: 利用IOC的工厂模式解耦创建对象的过程
+1. **解耦**: 利用IOC的工厂模式解耦创建对象的过程
   - 解决代码耦合度过高问题
-- **存储对象**: 可以将创建好的对象 **存储** 起来重复使用 
+2. **存储对象**: 可以将创建好的对象 **存储** 起来重复使用 
   - 解决对象个数问题
-- **管理依赖关系**: 可以将依赖对象注入需要的对象当中
+3. **管理依赖关系**: 可以将依赖对象注入需要的对象当中
   - 解决依赖关系问题
-- **管理对象创建顺序**: 可以根据依赖关系先后创建对象
+4. **管理对象创建顺序**: 可以根据依赖关系先后创建对象
   - 解决创建顺序问题
 
 
@@ -455,38 +452,38 @@ public static Object create(String name){
 
 #### 1. IOC容器依赖的jar包
 
-- 工程名称: spring-day01-ioc
-- 添加依赖: pom.xml
+1. 工程名称: spring-day01-ioc
+2. 添加依赖: pom.xml
 
-```xml
+    ```xml
 
-```
+    ```
 
 
 
 #### 2. IOC容器的Bean标签
 
-- com.itheima.ioc.User
+1. 创建实体: com.itheima.ioc.User
 
-```java
+    ```java
+    
+    ```
 
-```
+2. 定义对象: beans.xml
 
-- 定义对象: beans.xml
-
-```xml
-
-```
+    ```xml
+    
+    ```
 
 
 
 #### 3. IOC容器的创建案例
 
-- IocTests
+1. 单元测试: IocTests
 
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
@@ -525,32 +522,32 @@ public static Object create(String name){
 | lazy-init      | 设置为true表示在第一次使用对象的时候才创建，只对单例对象有效。 |
 | scope          | 设置bean的作用范围, 取值：<br/>singleton：单例, 默认值; <br/>prototype：多例 <br/>request：web项目中，将对象存入request域中【了解】<br/>session：web项目中，将对象存入session域中【了解】<br/>globalsession：web项目中，将对象应用于集群环境，没有集群相当于session【了解】 |
 
-- 工程名称: spring-day01-xml
-- 添加依赖: pom.xml
+1. 工程名称: spring-day01-xml
+2. 添加依赖: pom.xml
 
-```xml
-<!-- 1.Spring IOC依赖 -->
+    ```xml
+    <!-- 1.Spring IOC依赖 -->
+    
+    <!-- 2.Junit 依赖 -->
+    ```
 
-<!-- 2.Junit 依赖 -->
-```
+3. 提供方法: com.itheima.xml.User
 
-- com.itheima.xml.User
+    ```java
+    
+    ```
 
-```java
+4. 属性配置: beans.xml
 
-```
+    ```xml
+    
+    ```
 
-- beans.xml
+5. 单元测试: XmlTests
 
-```xml
-
-```
-
-- XmlTests
-
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
@@ -574,17 +571,17 @@ public static Object create(String name){
 
 #### 1. Bean的作用范围
 
-- beans.xml
+1. 配置范围: beans.xml
 
-```xml
+    ```xml
+    
+    ```
 
-```
+2. 单元测试: XmlTests
 
-- XmlTests
-
-```java
-// 多次获取对象: 观察对象是否相同
-```
+    ```java
+    // 多次获取对象: 观察对象是否相同
+    ```
 
 
 
@@ -681,43 +678,47 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 #### 1. 构造方法创建
 
-- com.itheima.xml.UserFactory
+1. 构造方法: com.itheima.ioc.User
 
-```java
-// 1. 提供构造方法
+    ```java
+    
+    ```
+    
+2. 添加配置: beans.xml
 
-// 2. 提供静态方法
-
-// 3. 提供实例方法
-```
-
-- beans.xml
-
-```xml
-<!-- 调用构造方法创建对象 -->
-<bean id="user" class="com.itheima.ioc.User"/>
-```
+    ```xml
+    <!-- 调用构造方法创建对象 -->
+    <bean id="user" class="com.itheima.ioc.User"/>
+    ```
 
 #### 2. 静态方法创建
 
-- beans.xml
+1. 添加静态方法: com.itheima.ioc.UserFactory
 
-```java
-<!-- 调用静态方法创建对象 -->
-<bean id="user6" class="com.itheima.ioc.UserFactory" factory-method="create"/>
-```
+    ```java
+    // 1. 提供静态方法
+    
+    // 2. 提供实例方法
+    ```
+    
+2. 配置静态方法: beans.xml
+
+    ```java
+    <!-- 调用静态方法创建对象 -->
+    <bean id="user6" class="com.itheima.ioc.UserFactory" factory-method="create"/>
+    ```
 
 
 
 #### 3. 实例方法创建
 
-- beans.xml
+1. 配置实例和方法: beans.xml
 
-```xml
-<!-- 调用动态方法创建对象 -->
-<bean id="userFactory" class="com.itheima.ioc.UserFactory"/>
-<bean id="user7" factory-bean="userFactory" factory-method="get"/>
-```
+    ```xml
+    <!-- 调用动态方法创建对象 -->
+    <bean id="userFactory" class="com.itheima.ioc.UserFactory"/>
+    <bean id="user7" factory-bean="userFactory" factory-method="get"/>
+    ```
 
 
 
@@ -764,17 +765,17 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 #### 1. 构造方法赋值
 
-- com.itheima.xml.Person
+1. 创建实体: com.itheima.xml.Person
 
-```java
+    ```java
+    
+    ```
 
-```
+2. 配置注入: beans.xml
 
-- beans.xml
-
-```xml
-
-```
+    ```xml
+    
+    ```
 
 #### 2. set方法赋值(常用)
 
@@ -784,44 +785,44 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 #### 3. C标签代替构造方法
 
-- 引入C名称空间
+1. 引入C名称空间
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       <!-- c标签命名空间 -->
-       xmlns:c="http://www.springframework.org/schema/c"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
-```
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans xmlns="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           <!-- c标签命名空间 -->
+           xmlns:c="http://www.springframework.org/schema/c"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+    ```
 
-- 使用方式
+2. 使用c标签
 
-```xml
-
-```
+    ```xml
+    
+    ```
 
 #### 4. P标签代替set方法
 
-- 引入P名称空间
+1. 引入P名称空间
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:c="http://www.springframework.org/schema/c"
-       <!-- p标签命名空间 -->
-       xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
-```
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans xmlns="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:c="http://www.springframework.org/schema/c"
+           <!-- p标签命名空间 -->
+           xmlns:p="http://www.springframework.org/schema/p"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+    ```
 
-- 使用方式
+2. 使用p标签
 
-```xml
-
-```
+    ```xml
+    
+    ```
 
 
 
@@ -843,17 +844,17 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 #### 1. 注入对象属性
 
-- 配置需要注入的对象
+1. 配置需要注入的对象
 
-```xml
+    ```xml
+    
+    ```
 
-```
+2. 注入bean对象属性值
 
-- 注入bean对象属性值
-
-```xml
-
-```
+    ```xml
+    
+    ```
 
 
 
@@ -874,17 +875,17 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 #### 1. 注入集合属性
 
-- com.itheima.xml.Employee
+1. 创建实体: com.itheima.xml.Employee
 
-```java
+    ```java
+    
+    ```
 
-```
+2. 演示注入: beans.xml
 
-- beans.xml
-
-```xml
-
-```
+    ```xml
+    
+    ```
 
 
 
