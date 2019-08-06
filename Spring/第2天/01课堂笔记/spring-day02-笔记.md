@@ -257,7 +257,7 @@
 
 #### 1. 了解依赖注入的前提
 
-- 将对象加入到IOC容器中
+- 需要将对象交由IOC容器管理
 
 
 
@@ -266,10 +266,25 @@
 1. 创建实体: com.itheima.anno.User
 
     ```java
+    // 1. 使用@Autowired修饰username: 演示注入username对象
     
+    // 2. 使用@Qualifier修饰username: 演示注入指定名称的对象
+    
+    // 3. 使用@Resource修饰address: 代替@Autowired+@Qualifier
+    
+    // 4. 使用@Value修饰sex: 注入基本数据类型参数值
     ```
 
-2. 单元测试: AnnoTests
+2. 配置对象: applicationContext.xml
+
+    ```xml
+    <!-- 配置username对象 -->
+    <bean id="username" class="java.lang.String">
+        <constructor-arg index="0" value="Jason"/>
+    </bean>
+    ```
+    
+3. 单元测试: AnnoTests
 
     ```java
     
