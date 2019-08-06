@@ -63,40 +63,40 @@
 
 ##### 2.1 搭建环境
 
-- 工程名称: spring-day03-proxy
-- pom.xml
+1. 工程名称: spring-day03-proxy
+2. 添加依赖: pom.xml
 
-```xml
+    ```xml
+    
+    ```
 
-```
+3. 定义接口: com.itheima.proxy.Star
 
-- Star.java
+    ```xml
+    
+    ```
 
-```xml
+4. 创建目标对象实体: com.itheima.proxy.LiuStar
 
-```
+    ```java
+    
+    ```
 
-- 目标对象: LiuStar.java
+5. 创建代理对象实体: com.itheima.proxy.LiuStarProxy
 
-```java
-
-```
-
-- 代理对象: LiuStarProxy.java
-
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
 ##### 2.2 创建代理
 
-- LiuStarProxyTests.java
+1. 创建代理对象: LiuStarProxyTests.java
 
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
@@ -131,20 +131,20 @@
 
 #### 2. jdk动态代理案例
 
-- Proxy: 官网API
+1. 官网API (Proxy
 
-```java
-public static Object newProxyInstance(ClassLoader loader,
-                                      Class<?>[] interfaces,
-                                      InvocationHandler h)
-                               throws IllegalArgumentException
-```
+    ```java
+    public static Object newProxyInstance(ClassLoader loader,
+                                          Class<?>[] interfaces,
+                                          InvocationHandler h)
+                                   throws IllegalArgumentException
+    ```
 
-- LiuStarProxyTests.java
+2. 创建代理对象: LiuStarProxyTests.java
 
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
@@ -168,19 +168,19 @@ public static Object newProxyInstance(ClassLoader loader,
 
 #### 1. cglib动态代理的案例
 
-- Enhancer: 官网API
+1. 官网API (Enhancer)
 
-```java
-public static Object create(java.lang.Class superclass,
-                                      java.lang.Class[] interfaces,
-                                      Callback[] callbacks)
-```
+    ```java
+    public static Object create(java.lang.Class superclass,
+                                          java.lang.Class[] interfaces,
+                                          Callback[] callbacks)
+    ```
 
-- LiuStarProxyTests.java
+2. 创建代理对象: LiuStarProxyTests.java
 
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
@@ -276,43 +276,43 @@ public static Object create(java.lang.Class superclass,
 
 ##### 1.1 搭建环境
 
-- 工程名称: spring-day03-xml
+1. 工程名称: spring-day03-xml
 
-- 添加依赖: pom.xml
+2. 添加依赖: pom.xml
 
-```xml
+    ```xml
+    
+    ```
 
-```
+3. 业务处理: com.itheima.xml.impl.AccountServiceImpl
 
-- AccountServiceImpl.java
-
-```java
-
-```
+    ```java
+    
+    ```
 
 ##### 1.2 日志打印
 
-- LogAdvice.java
+1. 实现日志打印： ccom.itheima.xml.advice.LogAdvice
 
-```java
-
-```
+    ```java
+    
+    ```
 
 ##### 1.3 配置AOP
 
-- applicationContext.xml
+1. 添加配置: applicationContext.xml
 
-```xml
-
-```
+    ```xml
+    
+    ```
 
 ##### 1.4 单元测试
 
-- XmlTests.java
+1. 单元测试: XmlTests
 
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
@@ -322,19 +322,25 @@ public static Object create(java.lang.Class superclass,
 
 ##### 2.1 动态代理的类型
 
-- XmlTests.java
+1. 打印代理对象字节码: XmlTests
 
-```xml
+    ```xml
+    
+    ```
 
-```
+2. 实现类实现接口: com.itheima.xml.AccountService
+
+    ```java
+    // 1. 再次打印代理对象字节码: 观察代理类型的变化
+    ```
 
 ##### 2.2 动态代理的配置
 
-- applicationContext.xml
+- 指定代理类型: applicationContext.xml
 
-```xml
+    ```xml
 
-```
+    ```
 
 
 
@@ -375,27 +381,27 @@ public static Object create(java.lang.Class superclass,
 
 ##### 2.1 bean
 
-- pointcut.xml
+1. pointcut.xml
 
-```
-
-```
+    ```xml
+    
+    ```
 
 ##### 2.2 within
 
-- pointcut.xml
+1. pointcut.xml
 
-```xml
-
-```
+    ```xml
+    
+    ```
 
 ##### 2.3 execution
 
-- pointcut.xml
+1. pointcut.xml
 
-```xml
-
-```
+    ```xml
+    
+    ```
 
 `execution(modififiers-pattern? ret-type-pattern declaring-type-pattern?name-pattern(param-pattern) throws-pattern?) `
 
@@ -434,33 +440,33 @@ public static Object create(java.lang.Class superclass,
 
 - SpringAOP的通知类型有以下4种: 
 
-```java
-try{
-    [前置通知]
-    // 执行目标对象方法..
-    targer.method(..);
-    [后置通知]
-} catch (Exception e){
-    [异常通知]
-} finally {
-    [最终通知]
-}
-```
+    ```java
+    try{
+        [前置通知]
+        // 执行目标对象方法..
+        targer.method(..);
+        [后置通知]
+    } catch (Exception e){
+        [异常通知]
+    } finally {
+        [最终通知]
+    }
+    ```
 
 #### 2. 四种通知的配置
 
-- **通知类型**: 前置通知、后置通知、异常通知、最终通知
-- LogAdvice.java
+1. 通知类型分类: 前置通知、后置通知、异常通知、最终通知
+2. 提供通知方法: com.itheima.xml.advice.LogAdvice
 
-```java
+    ```java
+    
+    ```
 
-```
+3. 配置通知类型advice.xml
 
-- advice.xml
-
-```xml
-
-```
+    ```xml
+    
+    ```
 
 
 
@@ -482,19 +488,19 @@ try{
 
 #### 1. 环绕通知
 
-- advice.xml
+1. com.itheima.xml.advice.LogAdvice
 
-```xml
+    ```java
 
-```
+    ```
 
-- LogAdvice.java
+1. advice.xml
 
-```java
+   ```xml
+   
+   ```
 
-```
-
-
+   
 
 #### 小结
 
@@ -519,19 +525,19 @@ try{
 
 ##### 1.2 改造通知
 
-- LogAdvice.java
+- com.itheima.xml.advice.LogAdvice
 
-```java
+    ```java
 
-```
+    ```
 
 ##### 1.3 改造配置
 
 - advice.xml
 
-```xml
+    ```xml
 
-```
+    ```
 
 
 
