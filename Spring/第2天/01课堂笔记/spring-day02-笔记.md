@@ -30,39 +30,39 @@
 
 #### 2. 搭建Spring项目环境
 
-- 工程名称: spring-day03-crud
+1. 工程名称: spring-day03-crud
 
-- 添加依赖: pom.xml
+2. 添加依赖: pom.xml
 
-```xml
-<!-- 1. Spring IOC依赖 -->
+   ```xml
+   <!-- 1. Spring IOC依赖 -->
+   
+   <!-- 2. Spring jdbc依赖 -->
+   
+   <!-- 3. druid连接池依赖 -->
+   
+   <!-- 4. mysql驱动依赖 -->
+   
+   <!-- 5. junit单元测试依赖 -->
+   ```
 
-<!-- 2. Spring jdbc依赖 -->
+3. 创建实体: com.itheima.crud.Account
 
-<!-- 3. druid连接池依赖 -->
+   ```java
+   
+   ```
 
-<!-- 4. mysql驱动依赖 -->
+4. 添加配置: applicationContext.xml
 
-<!-- 5. junit单元测试依赖 -->
-```
+   ```xml
+   
+   ```
 
-- com.itheima.crud.Account
+5. 单元测试: CrudTests.java
 
-```java
-
-```
-
-- applicationContext.xml
-
-```xml
-
-```
-
-- CrudTests.java
-
-```java
-
-```
+   ```java
+   
+   ```
 
 
 
@@ -87,23 +87,23 @@
 
 #### 1. 实现CRUD操作
 
-- com.itheima.crud.dao.impl.AccountDaoImpl
+1. 实现持久层: com.itheima.crud.dao.impl.AccountDaoImpl
 
-```java
+    ```java
+    
+    ```
 
-```
+2. 实现业务层: com.itheima.crud.service.impl.AccountServiceImpl
 
-- com.itheima.crud.service.impl.AccountServiceImpl
+    ```java
+    
+    ```
 
-```java
+3. 模拟视图层: CrudTests
 
-```
-
-- CrudTests
-
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
@@ -125,38 +125,38 @@
 
 #### 1. 实现IOC依赖注入
 
-- applicationContext.xml
+1. 添加配置: applicationContext.xml
 
-```xml
-
-```
+    ```xml
+    
+    ```
 
 
 
 #### 2. 加载外部配置文件
 
-- db.properties
+1. 添加配置文件: db.properties
 
-```properties
-db.driver=com.mysql.cj.jdbc.Driver
-# 针对Mysql 8.x数据库的参数
-#   serverTimezone: 指定时区(UTC)
-#   useSSL: 指定是否使用加密安全连接(false)
-#   allowPublicKeyRetrieval: 是否允许检索公钥(true)
-db.url=jdbc:mysql:///mybatisdb?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
-db.username=root
-db.password=root
-```
+    ```properties
+    db.driver=com.mysql.cj.jdbc.Driver
+    # 针对Mysql 8.x数据库的参数
+    #   serverTimezone: 指定时区(UTC)
+    #   useSSL: 指定是否使用加密安全连接(false)
+    #   allowPublicKeyRetrieval: 是否允许检索公钥(true)
+    db.url=jdbc:mysql:///mybatisdb?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    db.username=root
+    db.password=root
+    ```
 
-- applicationContext.xml
+2. 加载外部文件: applicationContext.xml
 
-```xml
-<!--
-	context:property-placeholder: 加载指定的资源文件
-		location: 本地资源文件路径
--->
-<context:property-placeholder location="classpath:db.properties"/>
-```
+    ```xml
+    <!--
+        context:property-placeholder: 加载指定的资源文件
+            location: 本地资源文件路径
+    -->
+    <context:property-placeholder location="classpath:db.properties"/>
+    ```
 
 
 
@@ -179,31 +179,31 @@ db.password=root
 
 #### 1. 使用注解创建对象
 
-- 工程名称: spring-day02-anno
+1. 工程名称: spring-day02-anno
 
-- 添加依赖: pom.xml
+2. 添加依赖: pom.xml
 
-```xml
+    ```xml
+    
+    ```
 
-```
+3. 创建实体: com.itheima.anno.Account
 
-- com.itheima.anno.Account
+    ```java
+    
+    ```
 
-```java
+4. 添加配置: applicationContext.xml
 
-```
+    ```xml
+    
+    ```
 
-- applicationContext.xml
+5. 单元测试: AnnoTests
 
-```xml
-
-```
-
-- AnnoTests
-
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
@@ -230,17 +230,18 @@ db.password=root
 #### 1. 创建对象的其他注解
 
 - 为了在3层架构中识别不同层的对象延伸了3个注解
-- com.itheima.anno.Account
 
-```java
+1. 注解演示: com.itheima.anno.Account
 
-```
+    ```java
+
+    ```
 
 
 
 #### 小结
 
-- 在三层架构中延伸出了哪3个注解?
+- 在3层架构中延伸出了哪3个注解?
   - 
 
 
@@ -262,17 +263,17 @@ db.password=root
 
 #### 2. 使用依赖注入的注解
 
-- com.itheima.anno.User
+1. 创建实体: com.itheima.anno.User
 
-```java
+    ```java
+    
+    ```
 
-```
+2. 单元测试: AnnoTests
 
-- AnnoTests
-
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
@@ -306,17 +307,17 @@ db.password=root
 
 #### 2. 了解相关注解
 
-- com.itheima.anno.Account
+1. 注解演示: com.itheima.anno.Account
 
-```java
+    ```java
+    
+    ```
 
-```
+2. 单元测试: AnnoTests
 
-- AnnoTests
-
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
@@ -377,24 +378,24 @@ db.password=root
 
 #### 1. 改造CRUD案例工程
 
-- 工程名称: spring-day02-ax
-- com.itheima.crud.dao.impl.AccountDaoImpl
+1. 工程名称: spring-day02-ax
+2. 改在持久层: com.itheima.crud.dao.impl.AccountDaoImpl
 
-```java
+    ```java
+    
+    ```
 
-```
+3. 改造业务层: com.itheima.crud.service.impl.AccountServiceImpl
 
-- com.itheima.crud.service.impl.AccountServiceImpl
+    ```java
+    
+    ```
 
-```java
+4. 模拟视图层: CrudTests
 
-```
-
-- CrudTests
-
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
@@ -419,32 +420,28 @@ db.password=root
 #### 1. 剩余配置的替代注解
 
 - 配置文件的替代注解: @Configuration
-
 - 注解扫描配置的替代注解: @ComponentScan
-
 - 加载配置文件的替代注解: @PropertySource
-
 - 导入配置文件的替代注解: @Import
-
 - 第3方对象创建的替代注解: @Bean
 
-- com.itheima.crud.Config
+1. com.itheima.crud.Config
 
-```java
-
-```
+   ```java
+   
+   ```
 
 
 
 #### 2. 创建纯注解开发的IOC
 
-- AnnoTests
+1. 创建注解实现的容器: AnnoTests
 
-```java
+   ```java
+   
+   ```
 
-```
-
-
+   
 
 #### 小结
 
@@ -474,17 +471,17 @@ db.password=root
 
 #### 2. Spring测试框架的使用
 
-- pom.xml
+1. 添加依赖: pom.xml
 
-```xml
+    ```xml
+    
+    ```
 
-```
+2. 单元测试: SpringTests
 
-- SpringTests
-
-```java
-
-```
+    ```java
+    
+    ```
 
 
 
