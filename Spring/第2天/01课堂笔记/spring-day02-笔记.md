@@ -393,8 +393,9 @@
 
 #### 1. 改造CRUD案例工程
 
-1. 工程名称: spring-day02-ax
-2. 改在持久层: com.itheima.crud.dao.impl.AccountDaoImpl
+1. 复制工程: spring-day02-ax
+
+2. 改造持久层: com.itheima.crud.dao.impl.AccountDaoImpl
 
     ```java
     
@@ -406,7 +407,13 @@
     
     ```
 
-4. 模拟视图层: CrudTests
+4. 添加注解扫描: applicationContext.xml
+
+    ```xml
+    
+    ```
+    
+5. 模拟视图层: CrudTests
 
     ```java
     
