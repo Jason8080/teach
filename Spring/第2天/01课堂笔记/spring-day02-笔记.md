@@ -279,9 +279,6 @@
 
     ```xml
     <!-- 配置username对象 -->
-    <bean id="username" class="java.lang.String">
-        <constructor-arg index="0" value="Jason"/>
-    </bean>
     ```
     
 3. 单元测试: AnnoTests
