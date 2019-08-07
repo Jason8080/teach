@@ -345,7 +345,11 @@
 - 指定代理类型: applicationContext.xml
 
     ```xml
-
+<!-- 
+    	<aop:config: 配置AOP
+    		proxy-target-class: 配置是否强制使用cglib动态代理
+    -->
+    <aop:config proxy-target-class="true">
     ```
 
 
