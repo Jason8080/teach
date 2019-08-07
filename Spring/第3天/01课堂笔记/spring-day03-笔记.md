@@ -61,41 +61,42 @@
 
 #### 2. 静态代理的案例
 
-##### 2.1 搭建环境
-
 1. 工程名称: spring-day03-proxy
+
 2. 添加依赖: pom.xml
 
     ```xml
     
     ```
 
-3. 定义接口: com.itheima.proxy.Star
-
-    ```xml
-    
-    ```
-
-4. 创建目标对象实体: com.itheima.proxy.LiuStar
+3. 定义明星接口: com.itheima.proxy.Star
 
     ```java
     
     ```
 
-5. 创建代理对象实体: com.itheima.proxy.LiuStarProxy
+4. 创建目标类: com.itheima.proxy.LiuStar
 
     ```java
     
     ```
 
-
-
-##### 2.2 创建代理
-
-1. 创建代理对象: LiuStarProxyTests.java
+5. 创建代理类: com.itheima.proxy.LiuStarProxy
 
     ```java
     
+    ```
+    
+6. 创建代理对象: LiuStarProxyTests.java
+
+    ```java
+    // 静态代理的特点
+    
+    // 1. 静态代理需要实现与目标对象相同的接口
+    
+    // 2. 静态代理需要在内部维护1个目标对象
+    
+    // 3. 静态代理对象是在编码时创建的
     ```
 
 
@@ -131,13 +132,17 @@
 
 #### 2. jdk动态代理案例
 
-1. 官网API (Proxy
+1. 官网API (Proxy)
 
     ```java
-    public static Object newProxyInstance(ClassLoader loader,
-                                          Class<?>[] interfaces,
-                                          InvocationHandler h)
-                                   throws IllegalArgumentException
+    public static Object newProxyInstance(
+       						// 1. 类加载器
+                            ClassLoader loader,
+        					// 2. 代理对象需要实现的接口数组
+                            Class<?>[] interfaces,
+        					// 3. 代理对象方法调用时的处理器
+                            InvocationHandler h
+    ) throws IllegalArgumentException
     ```
 
 2. 创建代理对象: LiuStarProxyTests.java
@@ -171,9 +176,14 @@
 1. 官网API (Enhancer)
 
     ```java
-    public static Object create(java.lang.Class superclass,
-                                          java.lang.Class[] interfaces,
-                                          Callback[] callbacks)
+    public static Object create(
+        					// 1. 代理对象需要继承的类
+                            java.lang.Class superclass,
+    						// 2. 代理对象需要实现的接口
+                            java.lang.Class[] interfaces,
+    						// 3. 代理对象方法调用时的处理器 InvocationHandler
+                            Callback[] callbacks
+    )
     ```
 
 2. 创建代理对象: LiuStarProxyTests.java
