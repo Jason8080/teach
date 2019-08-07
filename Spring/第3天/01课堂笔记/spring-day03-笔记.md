@@ -291,7 +291,11 @@
 2. 添加依赖: pom.xml
 
     ```xml
+    <!-- 1. 添加Spring IOC和AOP依赖 -->
     
+    <!-- 2. 添加AspectJ(第三方框架: 支持AOP切入点表达式语法)依赖 -->
+    
+    <!-- 3. 添加SpringTest依赖 -->
     ```
 
 3. 业务处理: com.itheima.xml.impl.AccountServiceImpl
