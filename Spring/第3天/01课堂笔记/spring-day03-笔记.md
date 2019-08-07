@@ -233,7 +233,7 @@
 
 ##### 1.2 AOP的作用
 
-- 在不修改目标对象的情况下对业务进行 **增强**
+- 在不修改目标对象的情况下对业务进行 **增强 **(其他处理)
 
 ##### 1.3 AOP的原理
 
@@ -286,8 +286,6 @@
 
 #### 1. AOP自动记录日志
 
-##### 1.1 搭建环境
-
 1. 工程名称: spring-day03-xml
 
 2. 添加依赖: pom.xml
@@ -301,32 +299,24 @@
     ```java
     
     ```
-
-##### 1.2 日志打印
-
-1. 实现日志打印： ccom.itheima.xml.advice.LogAdvice
+    
+4. 记录日志: com.itheima.xml.advice.LogAdvice
 
     ```java
     
     ```
 
-##### 1.3 配置AOP
-
-1. 添加配置: applicationContext.xml
+5. 配置AOP: applicationContext.xml
 
     ```xml
     
     ```
 
-##### 1.4 单元测试
-
-1. 单元测试: XmlTests
+6. 单元测试: XmlTests
 
     ```java
     
     ```
-
-
 
 
 
