@@ -114,6 +114,7 @@
 #### 1. 什么是声明式事务
 
 - 通过 **面向切面编程思想** 来实现的事务管理方式
+- Spring声明式事务的简写: TX
 
 ![1565248277054](assets/1565248277054.png) 
 
@@ -427,7 +428,7 @@
 
 
 
-### 08纯注解改造案例【理解】
+### 08TX - 纯注解案例【理解】
 
 #### 目标
 
@@ -534,50 +535,19 @@
 
 
 
-### 10两种方式的区别【了解】
+### 10总结
 
-#### 目标
-
-- 两种事务管理方式的区别?
-
-
-
-#### 1. 两种事务管理方式的区别
-
-##### 1.1 应用场景
-
-- 
-
-##### 1.2 应用市场
-
-- 
-
-##### 1.3 应用难度
-
-- 
-
-
-
-#### 小结
-
-- 如何选择两种事务管理?
-  - 
-
-
-
-### 11总结
-
-- 什么是ACID原则?
+1. 什么是ACID原则?
   - Atomicity:
   - Consistency: 
   - Isolation: 
   - Durability:
-- 以下隔离级别分别解决了什么问题?
+2. 以下隔离级别分别解决了什么问题?
   - ISOLATION_READ_UNCOMMITTED:
   - ISOLATION_READ_COMMITTED: 
   - ISOLATION_REPEATABLE_READ:
   - ISOLATION_SERIALIZABLE: 
-- 请说出以下传播行为的含义
+3. 请说出以下传播行为的含义
   - REQUIRED:
   - SUPPORTS:
   - MANDATORY:
@@ -585,12 +555,12 @@
   - NOT_SUPPORTED:
   - NEVER:
   - NESTED:
-- 声明式事务的好处有哪些?
+4. 声明式事务的好处有哪些?
   - 
-- 请描述以下注解的作用?
+5. 请描述以下注解的作用?
   - @EnableTransactionManagement:
   - @Transactional: 
-- Spring的优点有哪些?
+6. Spring的优点有哪些?
   - 
   - 
   - 
