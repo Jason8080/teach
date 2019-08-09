@@ -437,27 +437,23 @@
 
 #### 1. 使用注解代替所有配置
 
-##### 1.1 配置类
+1. 创建配置类: com.itheima.xml.config.SpringConfig
 
-1. 创建配置类: SpringConfig.java
+   ```java
+   
+   ```
 
-    ```java
-    
-    ```
-
-2. 创建数据库配置类: JdbcConfig.java
+2. 创建数据库配置类: com.itheima.xml.config.JdbcConfig
 
     ```java
     
     ```
 
-##### 1.2 单元测试
+3. 单元测试: AnnoTests
 
-1. 单元测试: AnnoTests
-
-    ```java
-    
-    ```
+   ```java
+   
+   ```
 
 
 
