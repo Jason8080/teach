@@ -398,33 +398,25 @@
 
 #### 1. 使用注解改造案例
 
-##### 1.1 改造环境
-
 1. 工程名称: spring-day04-anno
 
-##### 1.2 注解代码
+2. 使用注解: com.itheima.xml.service.impl.AccountServiceImpl
 
-1. 使用注解: com.itheima.xml.service.impl.AccountServiceImpl
+   ```java
+   
+   ```
 
-```java
+3. 添加配置: applicationContext.xml
 
-```
+   ```xml
+   
+   ```
 
-##### 1.3 配置支持
+4. 单元测试: XmlTests.java
 
-1. 添加配置: applicationContext.xml
-
-```xml
-
-```
-
-##### 1.4 单元测试
-
-1. 单元测试: XmlTests.java
-
-```java
-
-```
+   ```java
+   
+   ```
 
 
 
