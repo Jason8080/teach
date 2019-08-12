@@ -901,20 +901,20 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 ### 16总结
 
-- Spring是什么?
+1. Spring是什么?
   - 
-- 什么是IOC ?
+2. 什么是IOC ?
   - 
-- 如何创建IOC容器 ?
-  - 
-  - 
-  - 
-- 创建对象有哪几种方式?
+3. 如何创建IOC容器 ?
   - 
   - 
   - 
-- IOC通过什么功能做到依赖关系管理?
+4. 创建对象有哪几种方式?
   - 
-- 什么是DI ?
+  - 
+  - 
+5. IOC通过什么功能做到依赖关系管理?
+  - 
+6. 什么是DI ?
   - 
 
