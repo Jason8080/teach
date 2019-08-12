@@ -316,7 +316,7 @@
 - ORM: 集成orm框架支持对象关系映射处理
 - OXM: 提供了对 Object/XML映射实现的抽象层
 - JMS: 主要包含了一些制造和消费消息的特性
-- Transactions: 支持编程和生命性的事务管理
+- Transactions: 支持编程和声明式事务管理
 
 
 
