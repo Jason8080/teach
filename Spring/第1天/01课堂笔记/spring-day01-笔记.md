@@ -512,6 +512,34 @@
 
 #### 1. bean标签的属性
 
+1. 工程名称: spring-day01-xml
+
+2. 添加依赖: pom.xml
+
+   ```xml
+   <!-- 1.Spring IOC依赖 -->
+   
+   <!-- 2.Junit 依赖 -->
+   ```
+
+3. 提供方法: com.itheima.xml.User
+
+   ```java
+   
+   ```
+
+4. 属性配置: beans.xml
+
+   ```xml
+   
+   ```
+
+5. 单元测试: XmlTests
+
+   ```java
+   
+   ```
+
 | 属性           | 说明                                                         |
 | -------------- | ------------------------------------------------------------ |
 | id             | 对象的引用名称;一定要唯一； 一次只能定义一个引用名称         |
@@ -521,33 +549,6 @@
 | destroy-method | 指定类中销毁方法名称，在销毁spring容器前执行【了解】         |
 | lazy-init      | 设置为true表示在第一次使用对象的时候才创建，只对单例对象有效。 |
 | scope          | 设置bean的作用范围, 取值：<br/>singleton：单例, 默认值; <br/>prototype：多例 <br/>request：web项目中，将对象存入request域中【了解】<br/>session：web项目中，将对象存入session域中【了解】<br/>globalsession：web项目中，将对象应用于集群环境，没有集群相当于session【了解】 |
-
-1. 工程名称: spring-day01-xml
-2. 添加依赖: pom.xml
-
-    ```xml
-    <!-- 1.Spring IOC依赖 -->
-    
-    <!-- 2.Junit 依赖 -->
-    ```
-
-3. 提供方法: com.itheima.xml.User
-
-    ```java
-    
-    ```
-
-4. 属性配置: beans.xml
-
-    ```xml
-    
-    ```
-
-5. 单元测试: XmlTests
-
-    ```java
-    
-    ```
 
 
 
