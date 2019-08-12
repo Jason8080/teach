@@ -41,7 +41,7 @@
      
      ```
 
-   - com.itheima.tier.service.impl.UserServiceImp
+   - com.itheima.tier.service.impl.UserServiceImpl
 
    ```java
    
