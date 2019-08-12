@@ -202,7 +202,13 @@
 2. 添加支持: com.itheima.tier.BeanFactory
 
     ```java
-
+// 1. 创建Properties工具
+    
+    // 2. 加载properties文件
+    
+    // 3. 获取对象全限定类名
+    
+    // 4. 创建对象
     ```
 
 
