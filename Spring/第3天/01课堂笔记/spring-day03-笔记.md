@@ -87,7 +87,7 @@
     
     ```
     
-6. 创建代理对象: LiuStarProxyTests.java
+6. 单元测试: LiuStarProxyTests.java
 
     ```java
     // 静态代理的特点
