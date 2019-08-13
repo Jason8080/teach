@@ -452,7 +452,13 @@
 - 导入配置文件的替代注解: @Import
 - 第3方对象创建的替代注解: @Bean
 
-1. com.itheima.crud.Config
+1. com.itheima.crud.SpringConfig
+
+   ```java
+   
+   ```
+   
+2. com.itheima.crud.JdbcConfig
 
    ```java
    
