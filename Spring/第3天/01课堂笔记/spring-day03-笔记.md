@@ -473,7 +473,7 @@
     
     ```
 
-3. 配置通知类型advice.xml
+3. 配置通知类型: advice.xml
 
     ```xml
     
