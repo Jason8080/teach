@@ -28,7 +28,7 @@
 
 ##### 1.3 什么是切面?
 
-- 切面是由切入点和通知组成
+- 切面是由切入点和通知的组成关系
 
 - 切入点是需要进行增强的方法
 - 通知是需要增加的内容和增加时机(前后异常始终)
@@ -38,19 +38,19 @@
 #### 小结
 
 - 请说出以下指示符的作用?
-  - bean: 精确到容器中的对象下所有的方法作为切入点
-  - within: 精确到项目中包下的类下所有的方法作为切入点
-  - execution: 精确到方法形参的方法作为切入点
+  - bean: 
+  - within: 
+  - execution: 
 - 请说出一下注解的作用?
-  - @Aspect: 修饰类为切面类
-  - @Pointcut: 修饰方法为切入点变量
-  - @Before: 修饰方法为前置通知方法
-  - @AfterReturning: 修饰方法为后置通知方法
-  - @AfterThrowing: 修饰方法为异常通知方法
-  - @After: 修饰方法为最终通知方法
+  - @Aspect: 
+  - @Pointcut: 
+  - @Before: 
+  - @AfterReturning: 
+  - @AfterThrowing: 
+  - @After: 
 - Spring的优点有哪些?
-  - IOC解耦、AOP支持.. 等
-  - Spring的声明式事务
+  - 
+  - 
 
 
 
