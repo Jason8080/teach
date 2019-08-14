@@ -30,7 +30,7 @@
 
 #### 2. 搭建Spring项目环境
 
-1. 工程名称: spring-day03-crud
+1. 工程名称: spring-day02-crud
 
 2. 添加依赖: pom.xml
 
