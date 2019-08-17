@@ -30,7 +30,7 @@
 
 #### 2. 搭建Spring项目环境
 
-1. 工程名称: spring-day02-crud
+1. 工程名称: 01_spring_day02_crud
 
 2. 添加依赖: pom.xml
 
@@ -187,7 +187,7 @@
 
 #### 1. 使用注解创建对象
 
-1. 工程名称: spring-day02-anno
+1. 工程名称: 02_spring_day02_anno
 
 2. 添加依赖: pom.xml
 
@@ -398,7 +398,7 @@
 
 #### 1. 改造CRUD案例工程
 
-1. 复制工程: spring-day02-ax
+1. 复制工程: 03_spring_day02_ax
 
 2. 改造持久层: com.itheima.crud.dao.impl.AccountDaoImpl
 
