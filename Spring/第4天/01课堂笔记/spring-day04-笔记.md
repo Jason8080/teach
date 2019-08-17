@@ -306,7 +306,7 @@
 
 ##### 1.1 搭建环境
 
-1. 工程名称: 01_spring_day04_xml
+1. 工程名称: spring04_xml_01
 2. 添加依赖: pom.xml
 
     ```xml
@@ -399,7 +399,7 @@
 
 #### 1. 使用注解改造案例
 
-1. 工程名称: 02_spring_day04_anno
+1. 工程名称: spring04_anno_02
 
 2. 使用注解: com.itheima.xml.service.impl.AccountServiceImpl
 
@@ -495,7 +495,7 @@
 
 ##### 2.1 环境改造
 
-1. 工程名称: 03_spring_day04_code
+1. 工程名称: spring04_code_03
 
 ##### 2.2 业务改造
 
