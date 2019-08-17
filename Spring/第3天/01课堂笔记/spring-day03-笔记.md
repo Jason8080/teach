@@ -228,9 +228,10 @@
 
 #### 1. 相关的概念
 
-##### 1.1 AOP的概念
+##### 1.1 AOP是什么
 
-- AOP (Aspect Oriented Programming) 即面向切面编程思想
+- 面向切面编程: AOP (Aspect Oriented Programming) 的简写
+- 面向切面编程: 是一种代码设计思想
 
 ##### 1.2 AOP的作用
 
