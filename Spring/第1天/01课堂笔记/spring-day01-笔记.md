@@ -17,7 +17,7 @@
 
 ##### 1.2 分层案例
 
-1. 创建项目: spring-day01-tier
+1. 创建项目: 01_spring_day01_tier
 
 2. 创建持久层: com.itheima.dao
    - com.itheima.tier.dao.UserDao
@@ -458,7 +458,7 @@
 
 #### 1. IOC容器依赖的jar包
 
-1. 工程名称: spring-day01-ioc
+1. 工程名称: 02_spring_day01_ioc
 2. 添加依赖: pom.xml
 
     ```xml
@@ -518,7 +518,7 @@
 
 #### 1. bean标签的属性
 
-1. 工程名称: spring-day01-xml
+1. 工程名称: 03_spring_day01_xml
 
 2. 添加依赖: pom.xml
 
