@@ -61,7 +61,7 @@
 
 #### 2. 静态代理的案例
 
-1. 工程名称: spring-day03-proxy
+1. 工程名称: 01_spring_day03_proxy
 
 2. 添加依赖: pom.xml
 
@@ -287,7 +287,7 @@
 
 #### 1. AOP自动记录日志
 
-1. 工程名称: spring-day03-xml
+1. 工程名称: 02_spring_day03_xml
 
 2. 添加依赖: pom.xml
 
@@ -532,7 +532,7 @@
 
 ##### 1.1 改造工程
 
-- 工程名称: spring-day03-anno
+- 工程名称: 03_spring_day03_anno
 
 ##### 1.2 改造通知
 
