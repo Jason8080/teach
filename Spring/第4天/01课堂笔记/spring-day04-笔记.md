@@ -359,12 +359,12 @@
 1. 添加配置文件: db.properties
 
     ```properties
-    db.driver=com.mysql.cj.jdbc.Driver
+    db.driver=com.mysql.jdbc.Driver
     # 针对Mysql 8.x数据库的参数
     #   serverTimezone: 指定时区(UTC)
     #   useSSL: 指定是否使用加密安全连接(false)
     #   allowPublicKeyRetrieval: 是否允许检索公钥(true)
-    db.url=jdbc:mysql:///mybatisdb?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    db.url=jdbc:mysql:///mybatisdb?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
     db.username=root
     db.password=root
     ```
