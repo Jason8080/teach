@@ -11,7 +11,8 @@
     <title>JSP</title>
 </head>
 <body>
-欢迎光临: <span id="port"></span> !
+欢迎光临: ${empty user?"<a href='/'>去登录</a>":user} !<br/>
+<span id="port"></span>
 </body>
 <script>
     let xmlHttp = new XMLHttpRequest();

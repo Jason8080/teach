@@ -5,7 +5,13 @@
     <title>HTML</title>
 </head>
 <body>
-欢迎光临: <span id="port"></span> !
+欢迎光临: 未登录 !<br/>
+<span id="port"></span>
+<form action="login.do" method="post">
+    <input type="text" name="name" value="admin">
+    <input type="password" name="pass" value="admin">
+    <input type="submit" value="登陆"/>
+</form>
 </body>
 <script>
     let xmlHttp = new XMLHttpRequest();
