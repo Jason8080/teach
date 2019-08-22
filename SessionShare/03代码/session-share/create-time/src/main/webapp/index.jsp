@@ -11,16 +11,17 @@
     <title>JSP</title>
 </head>
 <body>
-欢迎光临
-<script>
-    document.writeln(location.port);
-    document.writeln("<br/>");
-    <%
-        Cookie[] cookies = request.getCookies();
-        for (Cookie c : cookies){
-            response.getWriter().println(c.getName() + ": " + c.getValue() + "<br/>");
-        }
-    %>
-</script>!
+欢迎光临: <span id="port"></span> !
 </body>
+<script>
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "http://localhost/hello.html", true);
+    xmlHttp.send();
+    xmlHttp.onreadystatechange = function () {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            let pe = document.getElementById("port");
+            pe.innerHTML = xmlHttp.responseText;
+        }
+    }
+</script>
 </html>

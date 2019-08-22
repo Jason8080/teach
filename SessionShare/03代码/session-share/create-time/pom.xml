@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
-  <parent> 
-    <artifactId>session-share</artifactId>  
-    <groupId>com.itheima.teach</groupId>  
-    <version>1.0-SNAPSHOT</version> 
-  </parent>  
-  <modelVersion>4.0.0</modelVersion>  
-  <artifactId>create-time</artifactId>  
-  <packaging>war</packaging>
-  <dependencies> 
-    <!--
-                论证Session生成时间:
-                    1. 容器启动时(JSP环境)
-                    2. 第1次使用时
-            -->  
-    <dependency> 
-      <groupId>javax.servlet</groupId>  
-      <artifactId>servlet-api</artifactId>  
-      <version>2.5</version>  
-      <scope>provided</scope> 
-    </dependency> 
-  </dependencies> 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>session-share</artifactId>
+        <groupId>com.itheima.teach</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <artifactId>create-time</artifactId>
+
+
+    <packaging>war</packaging>
+
+
+    <dependencies>
+        <!--
+                    论证Session生成时间:
+                        1. 容器启动时(JSP环境)
+                        2. 第1次使用时
+                -->
+        <!--<dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>servlet-api</artifactId>
+          <version>2.5</version>
+          <scope>provided</scope>
+        </dependency> -->
+    </dependencies>
 </project>

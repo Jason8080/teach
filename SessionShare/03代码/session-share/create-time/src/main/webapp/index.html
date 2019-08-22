@@ -5,14 +5,18 @@
     <title>HTML</title>
 </head>
 <body>
-欢迎光临
-<script>
-    document.writeln(location.port);
-    document.writeln("<br/>");
-    let cookies = document.cookie;
-    for (let i = 0; i < cookies.length; i++) {
-        document.writeln(cookies[i]);
-    }
-</script>!
+欢迎光临: <span id="port"></span> !
 </body>
+<script>
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "http://localhost/hello.html", true);
+    xmlHttp.send();
+    xmlHttp.onreadystatechange = function () {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            let pe = document.getElementById("port");
+            pe.innerHTML = xmlHttp.responseText;
+        }
+    }
+
+</script>
 </html>

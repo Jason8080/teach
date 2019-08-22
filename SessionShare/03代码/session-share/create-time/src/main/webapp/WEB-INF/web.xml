@@ -12,7 +12,7 @@
 	<!-- 采用Servlet处理请求  -->
 	<servlet-mapping>
 		<servlet-name>use</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
 
