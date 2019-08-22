@@ -22,11 +22,16 @@
                         1. 容器启动时(JSP环境)
                         2. 第1次使用时
                 -->
-        <!--<dependency>
+        <dependency>
           <groupId>javax.servlet</groupId>
           <artifactId>servlet-api</artifactId>
           <version>2.5</version>
           <scope>provided</scope>
-        </dependency> -->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>catalina</artifactId>
+            <version>6.0.53</version>
+        </dependency>
     </dependencies>
 </project>
