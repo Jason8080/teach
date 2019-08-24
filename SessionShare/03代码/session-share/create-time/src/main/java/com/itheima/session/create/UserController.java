@@ -37,16 +37,28 @@ public class UserController {
         return "forward:index.html";
     }
 
+
+    /**
+     * 访问Jsp页面
+     */
+    @RequestMapping("jsp")
+    public String jsp(HttpServletRequest request) {
+        return "index";
+    }
+
+
+
+
     /**
      * 访问JSP页面
      *  并登陆
      */
-    @RequestMapping("jsp")
-    public String jsp(HttpServletRequest request) {
+    @RequestMapping("login")
+    public String login(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String user = request.getParameter("user");
-        session.setAttribute("user", user);
-        return "index";
+        String name = request.getParameter("name");
+        session.setAttribute("user", name);
+        return "redirect:jsp.do";
     }
 
     /**
