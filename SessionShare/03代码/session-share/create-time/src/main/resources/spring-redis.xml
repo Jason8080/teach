@@ -17,13 +17,11 @@
         <property name="port" value="${redis.port}"/>
         <property name="password" value="${redis.password}"/>
     </bean>
-
     <!-- 将session放入redis -->
     <bean id="redisHttpSessionConfiguration"
           class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
         <property name="maxInactiveIntervalInSeconds" value="1800"/>
     </bean>
-
     <!-- redis缓存配置 -->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxIdle" value="300"/>
