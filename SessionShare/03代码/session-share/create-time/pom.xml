@@ -23,15 +23,16 @@
                         2. 第1次使用时
                 -->
         <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-          <version>2.5</version>
-          <scope>provided</scope>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>catalina</artifactId>
             <version>6.0.53</version>
+            <scope>provided</scope>
         </dependency>
 
         <!--
