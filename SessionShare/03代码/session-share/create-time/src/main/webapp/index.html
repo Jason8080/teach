@@ -6,7 +6,7 @@
 </head>
 <body>
 欢迎光临: 未登录 !<br/>
-<span id="port"></span>
+服务器: <span id="port"></span>
 <form action="login.do" method="post">
     <input type="text" name="name" value="admin">
     <input type="password" name="pass" value="admin">
@@ -14,8 +14,9 @@
 </form>
 </body>
 <script>
+    let host = document.location.host;
     let xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", "http://localhost/getPort.do", true);
+    xmlHttp.open("GET", "http://" + host + "/getPort.do", true);
     xmlHttp.send();
     xmlHttp.onreadystatechange = function () {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {

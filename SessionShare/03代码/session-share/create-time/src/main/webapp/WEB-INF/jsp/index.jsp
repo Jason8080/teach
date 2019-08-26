@@ -12,11 +12,12 @@
 </head>
 <body>
 欢迎光临: ${empty user?"<a href='/'>去登录</a>":user} !<br/>
-<span id="port"></span>
+服务器: <span id="port"></span>
 </body>
 <script>
+    let host = document.location.host;
     let xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", "http://localhost/getPort.do", true);
+    xmlHttp.open("GET", "http://" + host + "/getPort.do", true);
     xmlHttp.send();
     xmlHttp.onreadystatechange = function () {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
