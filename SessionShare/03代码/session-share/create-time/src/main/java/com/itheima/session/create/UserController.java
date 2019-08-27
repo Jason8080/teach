@@ -68,7 +68,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("getPort")
-    public void jsp(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void getPort(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int port = request.getLocalPort();
         String sessionId = request.getRequestedSessionId();
         response.getWriter().write(port + ": " + sessionId);
