@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>create-time</module>
+        <module>demo</module>
     </modules>
 
 </project>
