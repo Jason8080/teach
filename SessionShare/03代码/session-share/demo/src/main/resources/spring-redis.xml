@@ -11,27 +11,27 @@
     <context:property-placeholder location="classpath:redis.properties"/>
 
 
-    <!-- Spring-redis连接池管理工厂 -->
+    <!-- Spring-Redis 基本配置(包含对Session的重构和存储)  -->
+    <bean id="redisHttpSessionConfiguration"
+          class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+        <property name="maxInactiveIntervalInSeconds" value="1800"/>
+    </bean>
+    <!-- Spring-Redis 工厂模式  -->
     <bean class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <property name="hostName" value="${redis.host}"/>
         <property name="port" value="${redis.port}"/>
         <property name="password" value="${redis.password}"/>
     </bean>
-    <!-- 将session放入redis -->
-    <bean id="redisHttpSessionConfiguration"
-          class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
-        <property name="maxInactiveIntervalInSeconds" value="1800"/>
-    </bean>
-    <!-- redis缓存配置 -->
-    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxIdle" value="300"/>
-        <property name="maxTotal" value="60000"/>
-        <property name="testOnBorrow" value="true"/>
-    </bean>
-    <!--连接池-->
+    <!-- Redis 连接池对象 -->
     <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
         <constructor-arg index="0" ref="jedisPoolConfig"/>
         <constructor-arg index="1" value="${redis.host}" type="java.lang.String"/>
         <constructor-arg index="2" value="${redis.port}" type="int"/>
+    </bean>
+    <!-- Redis 连接池配置 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="300"/>
+        <property name="maxTotal" value="60000"/>
+        <property name="testOnBorrow" value="true"/>
     </bean>
 </beans>
