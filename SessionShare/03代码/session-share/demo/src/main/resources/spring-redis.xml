@@ -11,12 +11,12 @@
     <context:property-placeholder location="classpath:redis.properties"/>
 
 
-    <!-- Spring-Redis 基本配置(包含对Session的重构和存储)  -->
+    <!-- Spring-Redis 会话管理 (放到redis)  -->
     <bean id="redisHttpSessionConfiguration"
           class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
         <property name="maxInactiveIntervalInSeconds" value="1800"/>
     </bean>
-    <!-- Spring-Redis 工厂模式  -->
+    <!-- Spring-Redis 连接工厂 (创建redis连接)  -->
     <bean class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <property name="hostName" value="${redis.host}"/>
         <property name="port" value="${redis.port}"/>
