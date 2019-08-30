@@ -17,7 +17,7 @@
 <script>
     let host = document.location.host;
     let xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", "http://" + host + "/getPort.do", true);
+    xmlHttp.open("GET", "http://" + host + "/getPort", true);
     xmlHttp.send();
     xmlHttp.onreadystatechange = function () {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {

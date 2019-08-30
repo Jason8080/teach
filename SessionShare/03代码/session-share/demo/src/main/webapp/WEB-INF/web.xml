@@ -41,7 +41,7 @@
     <!-- 采用Servlet处理请求  -->
     <servlet-mapping>
         <servlet-name>dispatcherServlet</servlet-name>
-        <url-pattern>*.do</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>

@@ -58,7 +58,7 @@ public class UserController {
         HttpSession session = request.getSession();
         String name = request.getParameter("name");
         session.setAttribute("user", name);
-        return "redirect:jsp.do";
+        return "redirect:jsp";
     }
 
     /**
