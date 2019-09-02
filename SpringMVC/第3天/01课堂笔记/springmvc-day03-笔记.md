@@ -9,11 +9,77 @@
 
 #### 1. 搭建项目环境
 
+1. 工程名称: mvc03_ex_01
+
+2. 添加依赖: pom.xml
+
+   ```xml
+   <!-- 1. 设置打包类型 -->
+   
+   <!-- 2. 添加依赖 -->
+       <!-- SpringMVC 依赖 --> 
+       <!-- Servlet 依赖 -->
+       <!-- Jsp 依赖 -->
+       <!-- Jstl 依赖 -->
+   ```
+
+3. 配置项目: web.xml
+
+   ```xml
+   <!-- 1. 配置资源路径【/】 -->
+   
+   <!-- 2. 配置前端控制器 -->
+   ```
+
+4. 添加配置: springMVC.xml
+
+   ```xml
+   <!-- 1. 扫描Spring组件注解【com.itheima.ex】 -->
+   
+   <!-- 2. 注册三大组件 -->
+   ```
+
+5. com.itheima.ex.controller.UserController
+
+   ```java
+   
+   ```
+
+6. WEB-INF/jsp/
+
+   - success.jsp
+
+     ```jsp
+     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+     <html>
+     <head>
+         <title>OK</title>
+     </head>
+     <body>
+         操作成功 !
+     </body>
+     </html>
+     ```
+
+   - error.jsp
+
+     ```jsp
+     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+     <html>
+     <head>
+         <title>Fail</title>
+     </head>
+     <body>
+         操作失败 !${msg}
+     </body>
+     </html>
+     ```
+
 
 
 #### 2. 代码调用关系
 
-
+![1567403737180](assets/1567403737180.png) 
 
 
 
@@ -36,7 +102,59 @@
 
 #### 1. 异常处理方案
 
+##### 1.1 代码处理
 
+```java
+@RequestMapping("list")
+public String list(Model model) {
+    try {
+        int i = 1 / 0;
+        // service.method();
+    } catch (Exception e) {
+        model.addAttribute("msg", e.getMessage());
+        return "error";
+    }
+    return "success";
+}
+```
+
+##### 1.2 过滤器处理
+
+- com.itheima.ex.filter.ExceptionFilter
+
+  ```java
+  @Override
+  public void doFilter(ServletRequest request,
+                       ServletResponse response,
+                       FilterChain chain) throws ServletException, IOException {
+      try {
+          // 放行: 交给下一个过滤器或者Servlet处理
+          chain.doFilter(request, response);
+      } catch (Exception e) {
+          RequestDispatcher rd = request
+              .getRequestDispatcher("/WEB-INF/jsp/error.jsp");
+          request.setAttribute("msg", e.getMessage());
+          rd.forward(request, response);
+      }
+  }
+  ```
+
+- web.xml
+
+  ```xml
+  <filter>
+      <filter-name>ex</filter-name>
+      <filter-class>com.itheima.ex.filter.ExceptionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+      <filter-name>ex</filter-name>
+      <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  ```
+
+##### 1.3 框架处理
+
+- 欲知后事如何, 请看下节分解 !
 
 
 
@@ -51,13 +169,62 @@
 
 #### 目标
 
-- 掌握SpringMVC的统一异常处理
+- SpringMVC的异常源码分析
+- SpringMVC的统一异常处理
 
 
 
-#### 1. 统一异常处理
+#### 1. 框架处理分析
 
+- 【源码】org.springframework.web.servlet.DispatcherServlet
 
+  ```java
+  private void processDispatchResult(HttpServletRequest request, HttpServletResponse response, @Nullable HandlerExecutionChain mappedHandler, @Nullable ModelAndView mv, @Nullable Exception exception) throws Exception {
+      boolean errorView = false;
+      if (exception != null) {
+          if (exception instanceof ModelAndViewDefiningException) {
+              this.logger.debug("ModelAndViewDefiningException encountered", exception);
+              mv = ((ModelAndViewDefiningException)exception).getModelAndView();
+          } else {
+              Object handler = mappedHandler != null ? mappedHandler.getHandler() : null;
+              // 异常处理方法【执行出现异常将获取异常解析器处理异常】
+              mv = this.processHandlerException(request, response, handler, exception);
+              errorView = mv != null;
+          }
+      }
+  
+      if (mv != null && !mv.wasCleared()) {
+          this.render(mv, request, response);
+          if (errorView) {
+              WebUtils.clearErrorRequestAttributes(request);
+          }
+      } else if (this.logger.isTraceEnabled()) {
+          this.logger.trace("No view rendering, null ModelAndView returned.");
+      }
+  
+      if (!WebAsyncUtils.getAsyncManager(request).isConcurrentHandlingStarted()) {
+          if (mappedHandler != null) {
+              mappedHandler.triggerAfterCompletion(request, response, (Exception)null);
+          }
+  
+      }
+  }
+  ```
+
+- 【源码】org.springframework.web.servlet.HandlerExceptionResolver
+
+  ```java
+  @Nullable
+  ModelAndView resolveException(HttpServletRequest var1, HttpServletResponse var2, @Nullable Object var3, Exception var4);
+  ```
+
+#### 2. 统一异常处理
+
+- com.itheima.ex.ExceptionHandler
+
+  ```java
+  
+  ```
 
 
 
@@ -79,9 +246,36 @@
 
 #### 1.  SpringMVC拦截器
 
+##### 1.1 什么是拦截器
+
+- 
+
+##### 1.2 拦截器的作用
+
+- 
+
+##### 1.3 自定义拦截器
+
+1. 定义拦截器
+
+   ```java
+   
+   ```
+
+2. 配置拦截器
+
+   ```xml
+   
+   ```
+
 
 
 #### 2. 拦截器与过滤器
+
+| 组件名称 | 组件来源       | 应用范围              |
+| -------- | -------------- | --------------------- |
+| 拦截器   | SpringMVC      | Controller方法        |
+| 过滤器   | Servlet2.3规范 | 所有WEB资源 ( **/** ) |
 
 
 
@@ -92,28 +286,7 @@
 
 
 
-### 05拦截器的案例【掌握】
-
-#### 目标
-
-- 编写并配置拦截器
-
-
-
-#### 1.  编写并配置拦截器
-
-
-
-
-
-#### 小结
-
-- 定义多个拦截器都会生效吗?
-  - 
-
-
-
-### 06SSM - 框架整合【掌握】
+### 05SSM - 框架整合【掌握】
 
 #### 目标
 
@@ -124,11 +297,29 @@
 
 #### 1. 整合SMM框架
 
+- 为什么要整合?
 
+  >  
 
-
+  - 
+  - 
+  - 
 
 #### 2. 整合步骤分析
+
+- 在3层架构中, 哪些对象需要创建?
+  - 
+- 在3层架构中, 哪层需要Spring框架?
+  - 
+
+1. 使Spring环境正常运行
+2. 使SpringMVC正常运行
+3. 使Spring+SpringMVC共同运行
+   - 
+4. 使Mybatis正常运行
+5. 使SSM共同运行
+   - 
+6. 整体测试
 
 
 
@@ -143,6 +334,72 @@
 
 
 
+### 06SSM - 环境准备【理解】
+
+#### 目标
+
+- 准备数据环境
+- 准备项目环境
+
+
+
+#### 1. 准备数据环境
+
+1. 数据库: mybatisdb
+
+2. 表名称: account
+
+   ```sql
+   DROP TABLE IF EXISTS `account`;
+   CREATE TABLE `account` (
+     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+     `uid` int(11) DEFAULT '1' COMMENT '用户编号',
+     `money` decimal(10,2) DEFAULT '0.00' COMMENT '余额',
+     PRIMARY KEY (`id`)
+   ) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
+   
+   -- ----------------------------
+   -- Records of account
+   -- ----------------------------
+   INSERT INTO `account` VALUES ('1', '1', '10.00');
+   INSERT INTO `account` VALUES ('2', '10', '0.00');
+   INSERT INTO `account` VALUES ('3', '24', '99.00');
+   ```
+
+#### 2. 准备项目环境
+
+1. 工程名称: mvc03_ssm_02
+
+2. 添加依赖: pom.xml
+
+   ```xml
+   <!-- 1. 添加Spring依赖 -->
+   <!-- 2. 添加SpringMVC依赖 -->
+   <!-- 4. 添加Mybatis依赖 -->
+   <!-- 5. 添加测试依赖 -->
+   <!-- 6. 添加日志依赖 -->
+   <!-- 7. 添加页面依赖 -->
+   ```
+
+3. 实体类: com.itheima.ssm.domain.Account
+
+   ```java
+   
+   ```
+
+4. 数据库配置: db.properties
+
+5. 日志配置: log4j.properties
+
+
+
+#### 小结
+
+- 非必需的依赖有哪些?
+  - 
+
+
+
 ### 07SSM - Spring【理解】
 
 #### 目标
@@ -153,13 +410,31 @@
 
 #### 1. 搭建Spring独立环境
 
+1. 业务类: com.itheima.ssm.service.AccountService
 
+   ```java
+   
+   ```
+
+2. applicationContext.xml
+
+   ```xml
+   <!-- 1. Spring组件注解扫描 -->
+   <!-- 2. 开启事务注解扫描 -->
+   <!-- 3. 注册事务管理器【包括数据源】 -->
+   ```
+
+3. 单元测试: SsmTests
+
+   ```java
+   
+   ```
+
+   
 
 #### 小结
 
-- 其他依赖会影响Spring吗?
-  - 
-- 为什么使用Spring框架?
+- 如何手动创建IOC容器?
   - 
 
 
@@ -174,13 +449,49 @@
 
 #### 1. 搭建SpringMVC环境
 
+1. 升级工程: war
 
+2. 控制器: com.itheima.ssm.controller.AccountController
+
+   ```java
+   
+   ```
+
+3. springMVC.xml
+
+   ```xml
+   <!-- 1. Spring组件注解扫描 -->
+   <!-- 2. 注册三大组件 -->
+   ```
+
+4. web.xml
+
+   ```xml
+   <!-- 1. 配置资源处理路径 -->
+   <!-- 2. 配置处理器(前端控制器) -->
+   ```
+
+5. 添加页面
+
+   - WEB-INF/jsp/accoun/list.jsp
+
+     ```jsp
+     
+     ```
+
+   - WEB-INF/jsp/accoun/add.jsp
+
+     ```jsp
+     
+     ```
+
+6. 单元测试: http://localhost:8080/list
 
 
 
 #### 小结
 
-- 为什么使用SpringMVC框架?
+- @RequestMapping中的path可以重复吗?
   - 
 
 
@@ -195,7 +506,23 @@
 
 #### 1. 整合SS框架
 
+​	![1567420138244](assets/1567420138244.png) 
 
+1. 启动父容器 (将SpringMVC容器作为子容器)
+
+   - SpringMVC中的Controller需要注入SpringIOC容器中的业务对象
+
+   ```xml
+   
+   ```
+
+2. 从父容器中注入对象: com.itheima.ssm.controller.AccountController
+
+   ```java
+   
+   ```
+
+   
 
 
 
@@ -219,7 +546,32 @@
 
 #### 1. 搭建Mybatis环境
 
+1. 持久类: com.itheima.ssm.dao.AccountDao
 
+   ```java
+   
+   ```
+
+2. sqlMapConfig.xml
+
+   ```xml
+   <!-- 1. 引入数据库配置文件 -->
+   
+   <!-- 2. 配置Mybatis环境 -->
+   
+   <!-- 3. 配置Mybatis映射器 -->
+   ```
+
+3. 单元测试: SsmTests
+
+   ```java
+   // 1. 加载配置文件
+   // 2. 创建SqlSessionFactory
+   // 3. 打开SqlSession
+   // 4. 获取映射器代理对象
+   // 5. 操作数据库
+   // 6. 提交事务
+   ```
 
 
 
@@ -241,6 +593,30 @@
 
 #### 1. 整合SM框架
 
+> ​	启动Mybatis框架只需要做做两件事
+>
+> 1. 创建SqlSessionFactory
+> 2. 创建映射器动态代理对象
+
+1. applicationContext.xml: 创建SqlSessionFactory
+
+   ```xml
+   <!-- 1. 注入数据源 -->
+   <!-- 2. 赋值configLocation: classpath:sqlMapConfig.xml -->
+   ```
+
+2. applicationContext.xml: 创建映射器动态代理对象
+
+   ```xml
+   
+   ```
+
+3. 从容器中注入映射器: com.itheima.ssm.service.AccountService
+
+   ```java
+   
+   ```
+
 
 
 #### 小结
@@ -260,13 +636,24 @@
 
 #### 1. 项目改造
 
+1. WEB-INF/jsp/accoun/list.jsp
 
+   ```jsp
+   
+   ```
+
+2. WEB-INF/jsp/accoun/add.jsp
+
+   ```jsp
+   
+   ```
 
 
 
 #### 小结
 
-- 整合SSM额外引入了哪些jar包?
+- mybatis-spring依赖的作用?
+  
   - 
 
 
