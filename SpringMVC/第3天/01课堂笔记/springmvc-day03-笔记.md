@@ -232,10 +232,12 @@ public String list(Model model) {
 
 - 定义多个异常处理类都会生效吗?
   - 
+- SpringMVC异常处理的底层原理?
+  - 
 
 
 
-### 04拦截器的概念【理解】
+### 04自定义拦截器【理解】
 
 #### 目标
 
@@ -246,7 +248,7 @@ public String list(Model model) {
 
 #### 1.  SpringMVC拦截器
 
-##### 1.1 什么是拦截器
+##### 1.1 拦截什么资源
 
 - 
 
@@ -256,13 +258,13 @@ public String list(Model model) {
 
 ##### 1.3 自定义拦截器
 
-1. 定义拦截器
+1. com.itheima.ex.interceptor.CustomInterceptor
 
    ```java
    
    ```
 
-2. 配置拦截器
+2. springMVC.xml
 
    ```xml
    
