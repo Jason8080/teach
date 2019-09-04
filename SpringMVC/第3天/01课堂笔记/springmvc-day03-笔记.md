@@ -437,7 +437,7 @@ public String list(Model model) {
 
 #### 小结
 
-- 如何手动创建IOC容器?
+- @RunWith的作用是什么?
   - 
 
 
@@ -479,13 +479,31 @@ public String list(Model model) {
    - WEB-INF/jsp/accoun/list.jsp
 
      ```jsp
-     
+     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+     <html>
+     <head>
+         <title>账户列表</title>
+     </head>
+     <body>
+         <h3>账户列表</h3>
+         ${list}
+     </body>
+     </html>
      ```
 
    - WEB-INF/jsp/accoun/add.jsp
 
      ```jsp
-     
+     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+     <html>
+     <head>
+         <title>账户注册</title>
+     </head>
+     <body>
+         <h3>账户注册</h3>
+         ...
+     </body>
+     </html>
      ```
 
 6. 单元测试: http://localhost:8080/list
@@ -494,7 +512,7 @@ public String list(Model model) {
 
 #### 小结
 
-- @RequestMapping中的path可以重复吗?
+- MVC容器是谁启动的?
   - 
 
 
@@ -511,15 +529,13 @@ public String list(Model model) {
 
 ​	![1567420138244](assets/1567420138244.png) 
 
-1. 启动父容器 (将SpringMVC容器作为子容器)
-
-   - SpringMVC中的Controller需要注入SpringIOC容器中的业务对象
+1. 启动 **IOC** 容器: web.xml
 
    ```xml
-   
-   ```
 
-2. 从父容器中注入对象: com.itheima.ssm.controller.AccountController
+   ```
+   
+2. 注入业务对象: com.itheima.ssm.controller.AccountController
 
    ```java
    
