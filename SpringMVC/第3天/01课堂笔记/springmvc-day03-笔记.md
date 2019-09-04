@@ -585,11 +585,12 @@ public String list(Model model) {
 
    ```java
    // 1. 加载配置文件
-   // 2. 创建SqlSessionFactory
-   // 3. 打开SqlSession
-   // 4. 获取映射器代理对象
+   // 2. 创建会话工厂对象
+   // 3. 创建会话对象
+   // 4. 创建映射器代理对象
    // 5. 操作数据库
    // 6. 提交事务
+   // 7. 关闭资源
    ```
 
 
@@ -612,19 +613,19 @@ public String list(Model model) {
 
 #### 1. 整合SM框架
 
-> ​	启动Mybatis框架只需要做做两件事
+> ​	启动Mybatis框架只需要做两件事
 >
-> 1. 创建SqlSessionFactory
-> 2. 创建映射器动态代理对象
+> 1. 创建会话工厂
+> 2. 创建代理对象
 
-1. applicationContext.xml: 创建SqlSessionFactory
+1. applicationContext.xml: 创建会话工厂
 
    ```xml
    <!-- 1. 注入数据源 -->
    <!-- 2. 赋值configLocation: classpath:sqlMapConfig.xml -->
    ```
 
-2. applicationContext.xml: 创建映射器动态代理对象
+2. applicationContext.xml: 创建代理对象
 
    ```xml
    
@@ -640,7 +641,7 @@ public String list(Model model) {
 
 #### 小结
 
-- 整合后Mybatis是如何启动的?
+- Mybatis是谁启动的?
   - 
 
 
