@@ -628,10 +628,10 @@ public String list(Model model) {
 2. applicationContext.xml: 创建代理对象
 
    ```xml
-   
+   <!-- 1. 根据指定包下的接口创建动态代理对象 (映射器对象: 创建之后会放到IOC容器中) -->
    ```
 
-3. 从容器中注入映射器: com.itheima.ssm.service.AccountService
+3. 注入持久对象: com.itheima.ssm.service.AccountService
 
    ```java
    
