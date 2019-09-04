@@ -550,7 +550,7 @@ public String list(Model model) {
 - ContextLoaderListener的作用?
   - 
 
-- Spring与SpringMVC的启动顺序?
+- 父子容器启动的顺序是怎样的?
   - 
 
 
