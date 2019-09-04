@@ -292,20 +292,20 @@ public String list(Model model) {
 
 #### 目标
 
-- 整合SSM框架
+- 了解整合目的
 - 整合步骤分析
 
 
 
-#### 1. 整合SMM框架
+#### 1. 了解整合目的
 
 - 为什么要整合?
 
-  >  
+  >  在3层架构项目中, 各层都需要响应的解决方案, 所以SSM需要配合使用。
 
-  - 
-  - 
-  - 
+  - Spring: 
+  - SpringMVC: 
+  - Myabtis: 
 
 #### 2. 整合步骤分析
 
@@ -320,6 +320,7 @@ public String list(Model model) {
    - 
 4. 使Mybatis正常运行
 5. 使SSM共同运行
+   - 
    - 
 6. 整体测试
 
