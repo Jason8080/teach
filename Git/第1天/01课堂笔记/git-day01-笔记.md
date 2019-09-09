@@ -12,7 +12,7 @@
 
 ##### 1.1 SVN
 
-​	Apache Subversion 通常被缩写成 SVN，是一个开放源代码的 **版本控制系统**，Subversion 在 2000 年由 CollabNet Inc 开发，现在发展成为 Apache 软件基金会的一个项目，同样是一个丰富的开发者和用户社区的一部分。
+​	Apache Subversion 通常被缩写成 SVN，是一个开放源代码的 **集中式版本控制系统**，Subversion 在 2000 年由 CollabNet Inc 开发，现在发展成为 Apache 软件基金会的一个项目，同样是一个丰富的开发者和用户社区的一部分。
 
 ##### 1.2 作用
 
@@ -48,13 +48,31 @@
 
 #### 1.  历史
 
+- 林纳斯·托瓦兹（Linus Torvalds）: Linux之父, Linux开源的作者
 
+- 1991－2002年, 源代码的管理大部分时间花在了提交和归档等繁琐的事物上
+
+- 2002年, 代码库之大让 Linus 很难继续通过手工方式管理了，启用BitKeeper来管理和维护代码
+
+- 2005年的时候, 开发 BitKeeper 的商业公司同 Linux 内核开源社区的合作关系结束
+- 2005年, Git在Linux长达两周的研发中诞生, 即刻便用于Linux代码管理, 从此Git成为主流
 
 #### 2. 特点
 
-
+- **速度快**
+- 设计简单 
+- 分支管理
+- **分布式** 
+- 超大规模项目 （Linux）
 
 #### 3. 工作流程
+
+1. git clone: 
+2. git checkout: 
+3. vim file: 
+4. git add.
+5. git commit: 
+6. git push
 
 
 
@@ -78,11 +96,24 @@
 
 ##### 1.1 下载
 
+- 官网地址: https://git-scm.com/downloads
+- 本地位置: 02课前资料/windows/Git-2.14.1/Git-2.22.0-64-bit.exe
 
+![1567667367372](assets/1567667367372.png)
 
 ##### 1.2 安装
 
+- 详见文档: 02课前资料/windows/Git-2.14.1/Windows系统安装Git 2.14.1.docx
 
+- 安装注意: 
+
+  - 选择环境时需要选择windows命令行中使用Git
+
+    ![1568016904747](assets/1568016904747.png) 
+
+  - 选择远程传输需要选择使用OpenSSL
+
+    ![1568017059561](assets/1568017059561.png) 
 
 
 
@@ -90,11 +121,14 @@
 
 ##### 1.1 下载
 
-
+- 官网地址: https://git-scm.com/download/gui/windows
+- 本地位置: 02课前资料/windows/TortoiseGit-2.5.0.0/TortoiseGit-2.5.0.0-64bit.msi
+- 工具汉化: 02课前资料/windows/TortoiseGit-2.5.0.0/TortoiseGit-LanguagePack-2.5.0.0-64bit-zh_CN.msi
 
 ##### 1.2 安装
 
-
+- 详见文档: 02课前资料/windows/TortoiseGit-2.5.0.0/Windows系统安装TortoiseGit 2.5.0.0.docx
+- 工具汉化: 02课前资料/windows/TortoiseGit-2.5.0.0/Windows系统安装TortoiseGit-LanguagePack..docx
 
 
 
@@ -111,20 +145,23 @@
 
 #### 目标
 
-- 理解Git的使用环境
+- 准备Git的使用环境
 - 理解Git的系统结构
 
 
 
 #### 1. 使用环境
 
-
+- 前提: 在文件夹下使用
+  1. 创建文件夹: `mkdir directory`
+  2. 打开Git Bash
+  3. 进入文件夹: `cd directory`
 
 
 
 #### 2. 系统结构
 
-
+![1567755550916](assets/1567755550916.png) 
 
 #### 小结
 
@@ -135,34 +172,9 @@
 
 
 
-### 05Git - 指令分类【理解】
-
-#### 目标
-
-- 理解指令的分类
 
 
-
-#### 1. 指令分类
-
-- 本地: 对本地的版本库操作
-
-- 远程: 对远程的版本库操作
-
-- 分支: 管理版本库的分支
-
-
-
-#### 小结
-
-- 远程仓库的作用是什么?
-  - 
-
-
-
-
-
-### 06Git - 本地指令【理解】
+### 05Git - 本地指令【理解】
 
 #### 目标
 
@@ -172,7 +184,60 @@
 
 #### 1. 本地指令的使用
 
+##### git init
 
+- 作用: 
+
+- .git文件夹
+  - 
+
+
+
+##### git status
+
+- 作用: 
+
+- 添加a.txt文件
+  - 
+
+
+
+##### git add
+
+- 作用: 
+- 执行git status
+  - 
+
+
+
+##### vim .gitignore
+
+- 作用: 
+- 执行git status
+  - 
+
+
+
+##### git commit
+
+- 作用: 
+- 执行git status
+  - 
+
+
+
+##### git log
+
+- 作用: 
+- 
+
+
+
+##### git reset --hard
+
+- 作用:
+- 执行vim a.txt
+  - 
 
 
 
@@ -188,7 +253,7 @@
 
 
 
-### 07Git - 远程仓库【理解】
+### 06Git - 远程仓库【理解】
 
 #### 目标
 
@@ -199,9 +264,35 @@
 
 #### 1. 常见的远程仓库
 
+##### 1.1 GitHub
 
+> ​	GitHub是一个面向开源及私有软件项目的托管平台，因为只支持git 作为唯一的版本库格式进行托管，故名GitHub(https://github.com/)。
+>
+> ​	GitHub于2008年4月10日正式上线，除了Git代码仓库托管及基本的 Web管理界面以外，还提供了订阅、讨论组、文本渲染、在线文件编辑器、协作图谱（报表）、代码片段分享（Gist）等功能。目前，其注册用户已经超过350万，托管版本数量也是非常之多，其中不乏知名开源项目 [Ruby](https://baike.baidu.com/item/Ruby/11419) on Rails、[jQuery](https://baike.baidu.com/item/jQuery/5385065)、[python](https://baike.baidu.com/item/python/407313) 等。
+>
+> ​	2018年6月4日，微软宣布，通过75亿美元的股票交易收购代码托管平台GitHub。
+
+##### 1.2 码云
+
+> ​	Gitee是开源中国（https://www.oschina.net/）开发的一款基于git的代码托管平台，能够用码云实现代码托管、项目管理、协作开发，目前是国内最大的代码系统，gitee和github的作用和性质是类似的，但是相比于github而言，gitee有两个显著的优势：一是速度快，二是支持免费的私密项目。
+>
+> ​	码云平台帮助文档http://git.mydoc.io/，账户注册地址: https://gitee.com/signup 。
+
+##### 1.3 GitLab
+
+> ​	GitLab是一个用于仓库管理系统的开源项目, 使用Git作为代码管理工具, 在此基础上搭建起来的web服务。
+>
+> ​	GitLab是由GitLabInc.开发，使用MIT许可证的基于网络的Git仓库管理工具，且具有wiki和issue跟踪功能。使用Git作为代码管理工具，并在此基础上搭建起来的web服务。
+>
+> ​	GitLab由乌克兰程序员DmitriyZaporozhets和ValerySizov开发，它使用Ruby语言写成。后来，一些部分用Go语言重写。截止2018年5月，该公司约有290名团队成员，以及2000多名开源贡献者。GitLab被IBM，Sony，JülichResearchCenter，NASA，Alibaba，Invincea，O’ReillyMedia，Leibniz-Rechenzentrum(LRZ)，CERN，SpaceX等组织使用。
 
 #### 2. 远程仓库 - 码云
+
+1. 注册登录: https://gitee.com/signup
+2. 创建仓库: https://gitee.com/projects/new
+3. 仓库地址: https://gitee.com/gm_lee/teachGit.git
+
+
 
 
 
@@ -214,7 +305,7 @@
 
 
 
-### 08Git - 远程指令【理解】
+### 07Git - 远程指令【理解】
 
 #### 目标
 
@@ -235,7 +326,7 @@
 
 
 
-### 09Git - 版本冲突【理解】
+### 08Git - 版本冲突【理解】
 
 #### 目标
 
@@ -261,7 +352,7 @@
 
 
 
-### 10Git - 分支指令【理解】
+### 09Git - 分支指令【理解】
 
 #### 目标
 
@@ -285,7 +376,7 @@
 
 
 
-### 11Git - Idea操作【掌握】
+### 10Git - Idea操作【掌握】
 
 #### 目标
 
@@ -306,7 +397,7 @@
 
 
 
-### 12总结
+### 11总结
 
 1. Git与Svn的区别?
    - 
@@ -338,20 +429,15 @@
 
 
 
-### 13Git - GitLab【了解】
+### 12Git - GitLab【了解】
 
 #### 目标
 
-- 了解GitLab的概念
 - 搭建GitLab服务器
 
 
 
-#### 1. GitLab的概念
-
-
-
-#### 2. 搭建GitLab
+#### 1. 搭建GitLab服务器
 
 
 
