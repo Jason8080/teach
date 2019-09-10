@@ -609,13 +609,85 @@
 
 #### 1. 搭建GitLab服务器
 
+1. 下载安装包到 `/opt/` 目录 (**10分钟**)
 
+   - 浏览器下载: `https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-ce-12.1.4-ce.0.el7.x86_64.rpm/download.rpm`  
+   - 使用本地文件: 02课前资料/gitlab/gitlab-ce-12.1.4-ce.0.el7.x86_64.rpm
+   - linux下载: `wget --content-disposition https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-ce-12.1.4-ce.0.el7.x86_64.rpm/download.rpm` 
+
+2. 准备GitLab安装环境 (**10分钟**)
+
+   ```shell
+   sudo rpm -ivh /opt/gitlab-ce-12.1.4-ce.0.el7.x86_64.rpm
+   sudo yum install -y curl policycoreutils-python openssh-server cronie
+   sudo lokkit -s http -s ssh
+   sudo yum install postfix
+   sudo service postfix start
+   sudo chkconfig postfix on
+   curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash
+   sudo EXTERNAL_URL="http://gitlab.example.com" yum -y install gitlab-ce
+   ```
+
+3. reboot ( **重启** )
+
+4. 初始化GitLab与启动 (**10分钟**)
+
+   ```shell
+   # 启动服务
+   gitlab-ctl reconfigure
+   # 启动所有gitlab组件
+   gitlab-ctl start
+   # 停止服务
+   gitlab-ctl stop
+   ```
 
 
 
 #### 小结
 
-- - 
+- 安装过程中需要联网吗?
+  - 
+
+
+
+### 13Git - Gitblit【了解】
+
+#### 目标
+
+- 搭建Gitblit服务器
+
+
+
+#### 1. 搭建Gitblit服务器
+
+1. 下载压缩包: 02课前资料/gitblit/gitblit-1.8.0.zip
+
+2. 解压
+
+3. 修改F:\software\gitblit-1.8.0\data\defaults.properties
+
+   ```properties
+   server.httpPort = 10101
+   ```
+
+4. 打开命令行: 执行 `gitblit.cmd`
+
+5. 访问: http://localhost:10101/ 或  https://localhost:8443/
+
+   ![1568109699975](assets/1568109699975.png) 
+
+   
+
+   
+
+#### 小结
+
+- Https默认端口是什么?
+  - 
+
+
+
+
 
 
 
