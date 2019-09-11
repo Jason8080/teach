@@ -613,6 +613,8 @@
 
 #### 1. 搭建GitLab服务器
 
+- 官网下载: https://packages.gitlab.com/gitlab/gitlab-ce/
+
 1. 下载安装包到 `/opt/` 目录 (**10分钟**)
 
    - 浏览器下载: `https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-ce-12.1.4-ce.0.el7.x86_64.rpm/download.rpm`  
@@ -665,6 +667,8 @@
 
 
 #### 1. 搭建Gitblit服务器
+
+- 官网下载: http://www.gitblit.com/
 
 1. 下载压缩包: 02课前资料/gitblit/gitblit-1.8.0.zip
 
