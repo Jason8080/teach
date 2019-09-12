@@ -164,17 +164,23 @@
    
    ```
 
-5. 导入映射: userMapper.xml
+5. 添加映射: com.itheima.case.UserMapper
+
+   ```java
+   
+   ```
+
+6. 导入映射: userMapper.xml
 
    ```xml
    
    ```
 
-6. 演示查询: MyabtisTests ([官网](http://www.mybatis.org/mybatis-3/zh/getting-started.html))
+7. 演示查询: MyabtisTests ([官网](http://www.mybatis.org/mybatis-3/zh/getting-started.html))
 
    ```java
-   // 1. 创建会话: 加载主配置文件 (Resources)
-   // 2. 执行映射器操作 (sqlSession)
+   // 1. 创建会话
+   // 2. 执行操作
    // 3. 处理结果
    ```
 
@@ -253,23 +259,13 @@
    <!-- Junit单元测试依赖 -->
    ```
 
-3. 导入配置: sqlMapConfig.xml
+3. 文件拷贝: **使用Myabtis的配置** (不使用Myabtis)
 
-   ```xml
-   
-   ```
+   - sqlMapConfig.xml
+   - com.itheima.custom.User
 
-4. 导入实体: com.itheima.custom.User
-
-   ```java
-   
-   ```
-
-5. 导入映射: userMapper.xml
-
-   ```xml
-   
-   ```
+   - com.itheima.case.UserMapper
+   - userMapper.xml
 
 
 
@@ -471,7 +467,7 @@ throws IllegalArgumentException;
    ```java
    // 1. 创建会话
    // 2. 执行操作
-   // 3. 关闭资源
+   // 3. 处理结果
    ```
 
 
