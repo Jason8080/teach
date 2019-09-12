@@ -6,7 +6,6 @@
 
 - 了解Mybatis框架特点
 - 搭建Mybatis案例环境
-- 复习Myabtis环境搭建
 
 ###### 
 
