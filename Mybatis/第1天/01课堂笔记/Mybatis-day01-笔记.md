@@ -357,10 +357,10 @@
    
    ```
    
-2. 创建数据源: com.itheima.custom.core.Configuration.createDataSource()
+2. 创建数据源: com.itheima.custom.core.Configuration.createComboPooledDataSource
 
    ```java
-   
+   // 创建数据源: ComboPooledDataSource
    ```
 
 3. 单元测试: CustomTests
