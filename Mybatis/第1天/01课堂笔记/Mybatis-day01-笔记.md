@@ -310,21 +310,7 @@
    
    ```
 
-#### 2. 加载配置文件
 
-1. sqlMapConfig.xml
-
-   ```java
-   
-   ```
-
-2. userMapper.xml
-
-   ```java
-   
-   ```
-
-   
 
 #### 3. 封装执行工具
 
@@ -346,7 +332,7 @@
 #### 小结
 
 - 反射私有变量要注意什么?
-- 
+  - 
 
 - 可以不提供SqlSessionFactory类吗?
   - 
@@ -365,7 +351,19 @@
 
 #### 1. 加载主配置文件
 
-1. com.itheima.custom.core.Configuration.loadMybatisXML
+1. 解析文件: com.itheima.custom.core.Configuration.loadMybatisXML
+
+   ```java
+   
+   ```
+   
+2. 创建数据源: com.itheima.custom.core.Configuration.createDataSource()
+
+   ```java
+   
+   ```
+
+3. 单元测试: CustomTests
 
    ```java
    
@@ -375,7 +373,7 @@
 
 #### 小结
 
-- 封装后如何加载主配置文件?
+- 封装后主配置文件在什么时候加载?
 
   - 
 
@@ -391,7 +389,13 @@
 
 #### 1. 加载映射文件
 
-1. com.itheima.custom.core.Configuration.loadMapperXml
+1. 解析文件: com.itheima.custom.core.Configuration.loadMapperXml
+
+   ```java
+   
+   ```
+
+2. 单元测试: CustomTests
 
    ```java
    
@@ -401,7 +405,7 @@
 
 #### 小结
 
-- 映射文件的封装对象是什么时候创建的?
+- 为什么使用Map存储Mapper对象?
   - 
 
 
