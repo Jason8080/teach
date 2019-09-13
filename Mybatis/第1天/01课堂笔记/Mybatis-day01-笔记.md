@@ -278,7 +278,7 @@
 
 
 
-### 07自造框架 - 代码封装【理解】
+### 07自造框架 - 对象封装【理解】
 
 #### 目的
 
@@ -304,7 +304,7 @@
    
    ```
 
-3. com.itheima.custom.core.SqlSession - **提供生成实例对象的方法**
+3. com.itheima.custom.core.SqlSession - **提供getMapper()方法**
 
    ```java
    
@@ -395,7 +395,7 @@
    
    ```
 
-2. 单元测试: CustomTests
+2. 单元测试: CustomTests.testConfig
 
    ```java
    
@@ -436,13 +436,21 @@ throws IllegalArgumentException;
 
 #### 2. 创建映射器
 
-1. com.itheima.custom.core.SqlSession
+1. 创建代理: com.itheima.custom.core.SqlSession
+
+   ```java
+   
+   ```
+
+2. 单元测试: CustomTests.testDynamic
 
    ```java
    
    ```
 
    
+
+
 
 #### 小结
 
@@ -464,7 +472,7 @@ throws IllegalArgumentException;
 
 #### 1. 自造框架的使用案例
 
-1. CustomTests
+1. CustomTests.testCustom
 
    ```java
    // 1. 创建会话
@@ -477,7 +485,7 @@ throws IllegalArgumentException;
 #### 小结
 
 - 使用自造框架案例的步骤?
-- 
+  - 
 
 
 
