@@ -143,7 +143,7 @@
 
 #### 1. 使用Mybatis查询用户
 
-1. 工程名称: mybatis01_case_02
+1. 工程名称: mybatis01_demo_02
 
 2. 添加依赖: pom.xml
 
@@ -158,13 +158,13 @@
    
    ```
 
-4. 创建实体: com.itheima.case.User
+4. 创建实体: com.itheima.demo.User
 
    ```java
    
    ```
 
-5. 添加映射: com.itheima.case.UserMapper
+5. 添加映射: com.itheima.demo.UserMapper
 
    ```java
    
@@ -176,7 +176,7 @@
    
    ```
 
-7. 演示查询: MyabtisTests ([官网](http://www.mybatis.org/mybatis-3/zh/getting-started.html))
+7. 演示查询: MybatisTests ([官网](http://www.mybatis.org/mybatis-3/zh/getting-started.html))
 
    ```java
    // 1. 创建会话
