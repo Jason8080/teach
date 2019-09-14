@@ -39,7 +39,7 @@
    
    ```
 
-5. 添加映射: com.itheima.case.UserMapper
+5. 添加映射: com.itheima.crud.UserMapper
 
    ```java
    
