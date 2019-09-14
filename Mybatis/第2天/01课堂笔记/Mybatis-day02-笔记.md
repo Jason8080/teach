@@ -337,39 +337,15 @@
 
 #### 2. 传统方式开发
 
-1. 工程名称: mybatis02_impl_02
+1. 改造工程: mybatis02_impl_02
 
-2. 添加依赖: pom.xml
-
-   ```xml
-   
-   ```
-
-3. 导入配置: sqlMapConfig.xml
-
-   ```xml
-   
-   ```
-
-4. 创建实体: com.itheima.impl.User
+6. 提供实现: com.itheima.crud.UserDaoImpl
 
    ```java
    
    ```
 
-5. 导入映射: com.itheima.impl.UserDao
-
-   ```java
-   
-   ```
-
-6. 提供实现: com.itheima.impl.UserDaoImpl
-
-   ```java
-   
-   ```
-
-7. 映射配置: userDao.xml
+7. 映射配置: userMapper.xml
 
    ```xml
    
@@ -387,8 +363,9 @@
 
 - 传统与代理的区别是什么?
 
-  - 
-
+  - 代理:
+- 传统: 
+  
   
   
   
