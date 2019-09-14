@@ -273,27 +273,34 @@
 
 #### 1. 映射订单实体
 
-1. 添加映射: com.itheima.crud.OrderMapper
+1. 创建实体: com.itheima.crud.Order
 
    ```java
    
    ```
 
-2. 映射配置: orderMapper.xml
+2. 添加映射: com.itheima.crud.OrderMapper
+
+   ```java
+   
+   ```
+
+3. 映射配置: orderMapper.xml
 
    ```xml
    
    ```
 
-3. 单元测试: OrderTests
+4. 单元测试: OrderTests
 
    ```java
    
    ```
 
-4. 分析问题: 部分字段查询是空
+5. 分析问题: 部分字段查询是空
 
-   - 
+   - 原因: 
+   - 解决: 
 
 
 
