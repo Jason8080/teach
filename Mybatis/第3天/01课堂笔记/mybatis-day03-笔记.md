@@ -402,7 +402,7 @@
 
    ``SELECT o.*, u.id uid, u.* from orders o left join `user` u on o.user_id = u.id``
 
-   - 第1种方案: 在Order类中添加User类的字段 
+   - 第1种方案: 在Order类中添加User类的字段 ( **封装查询** )
    - 第2种方案: 在Order类中引用user对象 ( **一次性查询** )
    - 第3种方案: 在Order类中引用user对象 ( **分批查询 **)
 
@@ -422,6 +422,10 @@
 
 #### 小结
 
+- 关联查询的方案有哪些?
+  - 
+  - 
+  - 
 - 标签association的作用?
   - 
 
