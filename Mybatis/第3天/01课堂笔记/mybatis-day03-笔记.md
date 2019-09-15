@@ -392,10 +392,10 @@
    
    ```
 
-3. 查询订单: com.itheima.dyn.OrderMapper
+3. 查询订单: com.itheima.dyn.OrderMapper.findO2O
 
    ```java
-   // 删除多余操作
+   // 清空操作
    ```
 
 4. 映射配置: orderMapper.xml
@@ -409,16 +409,16 @@
    - 第3种方案: 在Order类中引用user对象 ( **分批查询 **) 
 
      ```xml
-     <-- 删除多余操作 -->
+     <-- 清空操作 -->
      ```
 
      - 用户映射配置: userMapper.xml
 
      ```xml
-     <-- 删除多余操作 -->
+     <-- 清空操作 -->
      ```
 
-5. 单元测试: ManyTests
+5. 单元测试: ManyTests.testO2O
 
    ```java
    
@@ -451,13 +451,19 @@
 
 #### 1. 一对多关联查询
 
-1. 改造用户: com.itheima.dyn.User
+1. 改造实体: com.itheima.dyn.User
 
    ```java
    
    ```
 
-2. 改造映射: userMapper.xml
+2. 查询用户: com.itheima.dyn.UserMapper.findO2M
+
+   ```java
+   
+   ```
+
+3. 改造映射: userMapper.xml
 
    ```xml
    
@@ -471,7 +477,7 @@
      
      ```
 
-3. 单元测试: ManyTests
+4. 单元测试: ManyTests.testO2M
 
    ```java
    
@@ -515,7 +521,7 @@
    
    ```
 
-4. 关联查询: com.itheima.dyn.UserMapper
+4. 关联查询: com.itheima.dyn.UserMapper.findM2M
 
    ```java
    
@@ -529,7 +535,7 @@
    
    ```
 
-6. 单元测试: ManyTests
+6. 单元测试: ManyTests.M2M
 
    ```java
    
@@ -567,7 +573,7 @@
 3. 订单映射: com.itheima.dyn.OrderMapper
 
    ```java
-   
+   // @Results({}): 相当于映射文件中<ResultMap>标签
    ```
 
 4. 用户映射: com.itheima.dyn.UserMapper
@@ -576,7 +582,7 @@
    
    ```
 
-5. 单元测试: AnnoTests
+5. 单元测试: ManyTests
 
    ```java
    
