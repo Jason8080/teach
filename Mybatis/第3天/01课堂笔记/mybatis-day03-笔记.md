@@ -562,13 +562,13 @@
    
    ```
 
-2. 改造映射: com.itheima.dyn.UserMapper
+2. 用户映射: com.itheima.dyn.UserMapper
 
    ```java
    
    ```
 
-3. 改造映射: com.itheima.dyn.OrderMapper
+3. 订单映射: com.itheima.dyn.OrderMapper
 
    ```java
    
