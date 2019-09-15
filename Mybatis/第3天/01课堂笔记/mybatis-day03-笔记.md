@@ -523,6 +523,8 @@
 
 5. 映射配置: userMapper.xml
 
+   `select * from user_role ur INNER JOIN user u ON u.id = ur.user_id INNER JOIN role r ON r.role_id = ur.role_id`
+
    ```xml
    
    ```
@@ -537,7 +539,7 @@
 
 #### 小结
 
-- 多对多与1对多有什么不同?
+- 多对多与1对多是什么关系?
   - 
 
 
