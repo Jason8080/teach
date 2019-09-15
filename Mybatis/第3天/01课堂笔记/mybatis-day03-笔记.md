@@ -2,30 +2,67 @@
 
 #### 目标
 
-- 了解Mybatis特点
-- 改造传统开发环境
+- 搭建传统开发环境
 
 
 
-#### 1. 框架特点
+#### 2. 搭建环境
 
-1. 开源的
-2. 持久层的
-3. 支持定制化SQL ( **动态SQL** )
+1. 工程工程: mybatis02_pool_01
 
+2. 添加依赖: pom.xml
 
+   ```xml
+   <!-- 1.mybatis -->
+   <!-- 2.mysql -->
+   <!-- 3.log4j -->
+   <!-- 4.junit -->
+   ```
 
-#### 2. 改造环境
+3. 添加配置: sqlMapConfig.xml
 
-1. 改造工程: mybatis02_pool_01
-
-2. 日志配置: log4j.properties
-
-   ```properties
+   ```xml
    
    ```
 
-3. 环境测试: ImplTests
+4. 创建实体: com.itheima.pool.User
+
+   ```java
+   
+   ```
+
+5. 添加映射: com.itheima.pool.UserMapper
+
+   ```java
+   
+   ```
+
+6. 提供实现: com.itheima.pool.UserMapperImpl
+
+   ```java
+   
+   ```
+
+7. 映射配置: userMapper.xml
+
+   ```xml
+   
+   ```
+
+8. 日志配置: log4j.properties
+
+   ```properties
+   # 日志级别, 输出位置 
+   log4j.rootLogger=DEBUG, stdout
+   # 控制台处理器
+   log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+   # 格式化处理器
+   log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+   # 格式化转换器
+   log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
+   ```
+
+9. 环境测试: ImplTests
 
    ```java
    
