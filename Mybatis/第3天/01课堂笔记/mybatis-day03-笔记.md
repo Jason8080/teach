@@ -382,11 +382,9 @@
 
 
 
-
-
 #### 1. 一对一关联查询
 
-1. 改造工程: mybatis03_multi_03
+1. 改造工程: mybatis03_many_03
 
 2. 创建实体: com.itheima.dyn.Order
 
@@ -402,9 +400,25 @@
 
 4. 映射配置: orderMapper.xml
 
-   ```xml
-   
-   ```
+   ``SELECT o.*, u.id uid, u.* from orders o left join `user` u on o.user_id = u.id``
+
+   - 第1种方案: 在Order类中添加User类的字段
+
+     ```xml
+     
+     ```
+
+   - 第2种方案: 在Order类中引用user对象 (一次性查询)
+
+     ```xml
+     
+     ```
+
+   - 第3种方案: 在Order类中引用user对象 (分批查询)
+
+     ```xml
+     
+     ```
 
 5. 单元测试: ManyTests
 
@@ -418,14 +432,8 @@
 
 #### 小结
 
-- 1对1关联可以使用resultType实现吗?
+- 标签association的作用?
   - 
-- ResultMap如何配置关联对象?
-  - 
-
-
-
-
 
 
 
