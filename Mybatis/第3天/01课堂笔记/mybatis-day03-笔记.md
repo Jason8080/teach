@@ -17,7 +17,7 @@
 
 #### 2. 搭建环境
 
-1. 工程工程: mybatis02_pool_01
+1. 工程名称: mybatis02_pool_01
 
 2. 添加依赖: pom.xml
 
