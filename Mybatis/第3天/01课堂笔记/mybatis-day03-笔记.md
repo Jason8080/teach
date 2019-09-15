@@ -395,7 +395,7 @@
 3. 查询订单: com.itheima.dyn.OrderMapper
 
    ```java
-   
+   // 删除多余操作
    ```
 
 4. 映射配置: orderMapper.xml
@@ -409,13 +409,13 @@
    - 第3种方案: 在Order类中引用user对象 ( **分批查询 **) 
 
      ```xml
-     
+     <-- 删除多余操作 -->
      ```
 
      - 用户映射配置: userMapper.xml
 
      ```xml
-     
+     <-- 删除多余操作 -->
      ```
 
 5. 单元测试: ManyTests
