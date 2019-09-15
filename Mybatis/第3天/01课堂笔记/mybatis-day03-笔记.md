@@ -24,8 +24,9 @@
    ```xml
    <!-- 1.mybatis -->
    <!-- 2.mysql -->
-   <!-- 3.log4j -->
-   <!-- 4.junit -->
+   <!-- 3.c3p0 (mchange) -->
+   <!-- 4.log4j -->
+   <!-- 5.junit -->
    ```
 
 3. 添加配置: sqlMapConfig.xml
@@ -83,6 +84,7 @@
 
 - 传统开发与代理开发的区别?
   - 
+  - 
 
 
 
@@ -90,54 +92,46 @@
 
 #### 目标
 
-- 配置内部连接池
-- 配置外部连接池
+- 使用内部连接池
+- 使用外部连接池
 
 
 
 
 
-#### 1. 配置内部连接池
+#### 1. 使用内部连接池
 
-1. 内部连接池配置: sqlMapConfig.xml
+1. 配置: sqlMapConfig.xml
 
    ```xml
-   
+   <!-- 1. 配置POOLED: 使用内部连接池  -->
+   <!-- 2. 配置UNPOOLED: 不使用连接池 -->
    ```
 
-2. 单元测试: ImplTests
+2. 观察: com.itheima.pool.UserMapperImpl
 
    ```java
-   
+   // 1. 打印会话对象: 观察内存地址变化
+   // 多次执行发生变化: 没有连接池
+   // 多次执行没有变化: 有用连接池
    ```
 
-3. 无连接池配置: sqlMapConfig.xml
 
-   ```xml
-   
-   ```
 
-   
-
-#### 2. 配置外部连接池
+#### 2. 使用外部连接池
 
 1. 创建连接池: com.itheima.impl.C3p0DataSourceFactory
 
    ```java
-   
+   // 创建ComboPooledDataSource连接池
    ```
 
 2. 配置外部连接池: sqlMapConfig.xml
 
    ```xml
-   <!-- 注意名称: driverClass,jdbcUrl -->
+   <!-- 注意名称: driverClass,jdbcUrl,user -->
    ```
 
-3. 单元测试: ImplTests
-
-   ```java
-   
-   ```
 
 
 
