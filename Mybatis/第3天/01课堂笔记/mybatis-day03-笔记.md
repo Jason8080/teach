@@ -178,14 +178,14 @@
 
 5. 查询用户: com.itheima.dyn.UserMapper
 
-   ```jva
-   
+   ```java
+   // 根据username and sex 查询用户集合
    ```
 
 6. 映射配置: userMapper.xml
 
    ```xml
-   
+   <!-- 使用arg0 arg1取值 -->
    ```
 
 7. 环境测试: DynTests
@@ -198,7 +198,7 @@
 
 #### 小结
 
-- 查询参数中的空值会影响查询结果吗?
+- 参数传`null`会影响查询结果吗?
   - 
 
 
