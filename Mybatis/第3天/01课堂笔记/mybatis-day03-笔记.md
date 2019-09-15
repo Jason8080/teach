@@ -556,15 +556,11 @@
 
 #### 1. 注解实现
 
-1. 改造配置: sqlMapConfig.xml
+1. 改造工程: mybatis01_anno_04
+
+2. 改造配置: sqlMapConfig.xml
 
    ```xml
-   
-   ```
-
-2. 用户映射: com.itheima.dyn.UserMapper
-
-   ```java
    
    ```
 
@@ -574,7 +570,13 @@
    
    ```
 
-4. 单元测试: ManyTests
+4. 用户映射: com.itheima.dyn.UserMapper
+
+   ```java
+   
+   ```
+
+5. 单元测试: AnnoTests
 
    ```java
    
@@ -585,7 +587,7 @@
 #### 小结
 
 - @Results的作用?
-- 
+  - 
 - @Many的作用?
   - 
 
