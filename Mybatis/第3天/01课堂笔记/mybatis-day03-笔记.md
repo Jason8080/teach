@@ -580,9 +580,47 @@
 
 
 
+### 12关联查询 - 延迟加载【理解】
+
+#### 目标
+
+- 理解延迟加载
+- 实现延迟加载
 
 
-### 12关联查询 - 注解方式【理解】
+
+#### 1. 理解延迟加载
+
+![1568604360459](assets/1568604360459.png) 
+
+#### 2. 实现延迟加载
+
+1. 映射配置: userMapper.xml
+
+   ```xml
+   
+   ```
+   
+2. 单元测试: LazyTests
+
+   ```java
+   
+   ```
+
+   
+
+
+#### 小结
+
+- 延迟加载的数据在什么时候加载?
+
+  - 
+
+  
+  
+  
+
+### 13关联查询 - 注解方式【理解】
 
 #### 目标
 
@@ -592,27 +630,25 @@
 
 #### 1. 注解实现
 
-1. 改造工程: mybatis01_anno_04
-
-2. 改造配置: sqlMapConfig.xml
+1. 改造配置: sqlMapConfig.xml
 
    ```xml
    
    ```
 
-3. 订单映射: com.itheima.dyn.OrderMapper
+2. 订单映射: com.itheima.dyn.OrderMapper
 
    ```java
    // @Results({}): 相当于映射文件中<ResultMap>标签
    ```
 
-4. 用户映射: com.itheima.dyn.UserMapper
+3. 用户映射: com.itheima.dyn.UserMapper
 
    ```java
    
    ```
 
-5. 单元测试: ManyTests
+4. 单元测试: ManyTests
 
    ```java
    
@@ -628,52 +664,6 @@
   - 
 
 
-
-### 13关联查询 - 延迟加载【理解】
-
-#### 目标
-
-- 注解实现延迟加载
-- 配置实现延迟加载
-
-
-
-#### 1. 注解实现延迟加载
-
-1. 改造映射: com.itheima.dyn.OrderMapper
-
-   ```java
-   
-   ```
-
-2. 单元测试: LazyTests
-
-   ```java
-   
-   ```
-
-
-
-#### 2. 配置实现延迟加载
-
-1. 映射配置: userMapper.xml
-
-   ```xml
-   
-   ```
-
-
-
-
-#### 小结
-
-- 延迟加载的数据在什么时候加载?
-
-  - 
-
-  
-  
-  
 
 ### 14总结
 
