@@ -412,10 +412,12 @@
      <-- 清空操作 -->
      ```
 
-     - 用户映射配置: userMapper.xml
+     - 查询用户数据: userMapper.xml
 
      ```xml
-     <-- 清空操作 -->
+     <select id="findById" resultType="com.itheima.dyn.User">
+         select * from user id = #{id}
+     </select>
      ```
 
 5. 单元测试: ManyTests.testO2O
@@ -469,12 +471,19 @@
    
    ```
 
-   - 订单映射配置: orderMapper.xml
-
-     ``select id oid, o.*  from orders  o where  o.user_id = #{id}``
+   - 查询订单数据: orderMapper.xml
 
      ```xml
+   <resultMap id="ByOrder" type="com.itheima.dyn.Order">
+         <id column="id" property="id"/>
+         <result column="user_id" property="userId"/>
+         <result column="createtime" property="createTime"/>
+         <result column="note" property="note"/>
+     </resultMap>
      
+     <select id="findByUserId" resultMap="ByOrder">
+         select id uid, o.*  from orders  o where  o.user_id = #{id}
+     </select>
      ```
 
 4. 单元测试: ManyTests.testO2M
@@ -529,11 +538,25 @@
 
 5. 映射配置: userMapper.xml
 
-   `select * from user_role ur INNER JOIN user u ON u.id = ur.user_id INNER JOIN role r ON r.role_id = ur.role_id`
-
    ```xml
    
    ```
+
+   - 查询角色数据: roleMapper.xml ( **可以放置userMapper.xml中** )
+
+     ```xml
+     <resultMap id="ByRole" type="com.itheima.dyn.Role">
+         <id column="role_id" property="roleId"/>
+         <result column="role_name" property="roleName"/>
+         <result column="role_detail" property="roleDetail"/>
+     </resultMap>
+     
+     <select id="findByUserId" resultMap="ByRole">
+         select r.* from user_role ur left join role r on  ur.role_id = r.role_id where ur.user_id = #{id}
+     </select>
+     ```
+
+     
 
 6. 单元测试: ManyTests.M2M
 
