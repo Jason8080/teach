@@ -170,7 +170,7 @@
          * 祸水东引.
          * 将创建实现类对象的过程放置到BeanFactory.
          */
-        public static UserDao create(){
+        public static UserDao getBean(){
             return new UserDaoImpl();
         }
     }
@@ -255,17 +255,18 @@
 - 每次请求都创建新的对象 (消耗内存)
 
     ```java
-    public static Object create(String name){
-        // clazz = com.itheima.tier.dao.impl.UserDaoImpl
-        String clazz = prop.getProperty(name);
+    public static Object getBean(String name){
         try {
-            Class<?> aClass = Class.forName(clazz);
-            // 每次访问都创建新的对象
-            return aClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            Properties props = new Properties();
+    		props.load(BeanFactory.class.getClassLoader()
+               				.getResourceAsStream("beans.properties"))
+            String clazz = props.getProperty(name);
+            // 创建对象 (每次使用都创建新的对象)
+            return create2(clazz);
+        } catch (IOException e) {
+            System.out.println("文件读取失败");
         }
+        return null;
     }
     ```
 
