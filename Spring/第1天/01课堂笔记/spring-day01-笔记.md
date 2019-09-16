@@ -262,7 +262,7 @@
                				.getResourceAsStream("beans.properties"))
             String clazz = props.getProperty(name);
             // 创建对象 (每次使用都创建新的对象)
-            return create2(clazz);
+            return getBean2(clazz);
         } catch (IOException e) {
             System.out.println("文件读取失败");
         }
