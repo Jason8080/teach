@@ -400,7 +400,7 @@
 
 4. 映射配置: orderMapper.xml
 
-   ``SELECT o.*, u.id uid, u.* from orders o left join `user` u on o.user_id = u.id``
+   `SELECT o.*, u.id uid, u.* from orders o left join `user` u on o.user_id = u.id`
 
    - 第1种方案: 在Order类中添加User类的字段 ( **封装查询** )
 
@@ -415,7 +415,14 @@
      - 查询用户数据: userMapper.xml
 
      ```xml
-     <select id="findById" resultType="com.itheima.dyn.User">
+     <resultMap id="ByUser" type="com.itheima.dyn.User">
+         <id column="id" property="id"/>
+         <result column="username" property="username"/>
+         <result column="birthday" property="birthday"/>
+         <result column="sex" property="sex"/>
+         <result column="address" property="address"/>
+     </resultMap>
+     <select id="findById" resultMap="ByUser">
          select * from user id = #{id}
      </select>
      ```
