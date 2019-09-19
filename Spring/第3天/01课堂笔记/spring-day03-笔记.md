@@ -60,7 +60,8 @@
 2. 添加依赖: pom.xml
 
     ```xml
-    
+    <!-- 添加Spring依赖 (Cglib备用) -->
+    <!-- 添加Junit依赖 -->
     ```
 
 3. 定义明星接口: com.itheima.proxy.Star
@@ -169,7 +170,18 @@
 
 #### 1. cglib动态代理的案例
 
-1. 官网API (Enhancer)
+1. 添加依赖: pom.xml
+
+    ```xml
+    <!-- 添加Cglib实现 (Spring已整合) -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>5.0.2.RELEASE</version>
+    </dependency>
+    ```
+    
+2. 官网API (Enhancer)
 
     ```java
     public static Object create(
@@ -182,7 +194,7 @@
     )
     ```
 
-2. 单元测试: LiuStarProxyTests.java
+3. 单元测试: LiuStarProxyTests.java
 
     ```java
     
