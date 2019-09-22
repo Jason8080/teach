@@ -263,7 +263,7 @@
    - sqlMapConfig.xml
    - com.itheima.custom.User
 
-   - com.itheima.case.UserMapper
+   - com.itheima.custom.UserMapper
    - userMapper.xml
 
 
