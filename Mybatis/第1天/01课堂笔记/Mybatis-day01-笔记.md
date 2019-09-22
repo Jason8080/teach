@@ -261,9 +261,9 @@
 3. 文件拷贝: **使用Myabtis的配置** (不使用Myabtis)
 
    - sqlMapConfig.xml
-   - com.itheima.custom.User
+   - com.itheima.demo.User
 
-   - com.itheima.custom.UserMapper
+   - com.itheima.demo.UserMapper
    - userMapper.xml
 
 
@@ -277,7 +277,7 @@
 
 
 
-### 07自造框架 - 对象封装【理解】
+### 07自造框架 - 代码封装【理解】
 
 #### 目的
 
@@ -289,7 +289,7 @@
 
 #### 1. 封装配置文件
 
-1. com.itheima.custom.core.Configuration - **sqlMapConfig.xml**
+1. com.itheima.demo.core.Configuration - **sqlMapConfig.xml**
 
    ```java
    // 1. 提供方法: 加载主配置文件
@@ -297,13 +297,7 @@
    // 2. 提供方法: 创建连接池对象
    ```
 
-2. com.itheima.custom.core.Mapper - **userMapper.xml**
-
-   ```java
-   
-   ```
-
-3. com.itheima.custom.core.SqlSession - **提供getMapper()方法**
+2. com.itheima.demo.core.Mapper - **userMapper.xml**
 
    ```java
    
@@ -311,16 +305,16 @@
 
 
 
-#### 3. 封装执行工具
 
-1. com.itheima.custom.kit.Execute
+#### 2. 封装会话工具
+
+1. com.itheima.demo.core.SqlSession - **提供getMapper()方法**
 
    ```java
-   // 1. public static <T> List<T> selectList(Connection con, Mapper mapper);
-   // 2. private static List handler(rs, resultType)
+   
    ```
-
-2. com.itheima.custom.kit.SqlSessionFactory
+   
+2. com.itheima.demo.kit.SqlSessionFactory - **提供获取会话连接的方法**
 
    ```java
    
@@ -330,9 +324,8 @@
 
 #### 小结
 
-- 反射私有变量要注意什么?
+- 封装后框架配置文件什么时候加载?
   - 
-
 - 可以不提供SqlSessionFactory类吗?
   - 
 
@@ -340,7 +333,7 @@
 
 
 
-### 08自造框架 - 加载主配置文件【理解】
+### 08自造框架 - 加载配置文件【理解】
 
 #### 目标
 
@@ -350,13 +343,13 @@
 
 #### 1. 加载主配置文件
 
-1. 解析文件: com.itheima.custom.core.Configuration.loadMybatisXML
+1. 解析文件: com.itheima.demo.core.Configuration
 
    ```java
    
    ```
    
-2. 创建数据源: com.itheima.custom.core.Configuration.createComboPooledDataSource
+2. 创建数据源: com.itheima.demo.core.Configuration
 
    ```java
    // 创建数据源: ComboPooledDataSource
@@ -388,13 +381,13 @@
 
 #### 1. 加载映射文件
 
-1. 解析文件: com.itheima.custom.core.Configuration.loadMapperXml
+1. 解析文件: com.itheima.demo.core.Configuration
 
    ```java
    
    ```
 
-2. 单元测试: CustomTests.testConfig
+2. 单元测试: CustomTests
 
    ```java
    
@@ -409,7 +402,7 @@
 
 
 
-### 10自造框架 - 动态代理【理解】
+### 10自造框架 - 创建代理对象【理解】
 
 #### 目标
 
@@ -435,13 +428,13 @@ throws IllegalArgumentException;
 
 #### 2. 创建映射器
 
-1. 创建代理: com.itheima.custom.core.SqlSession
+1. 创建代理: com.itheima.demo.core.SqlSession
 
    ```java
    
    ```
 
-2. 单元测试: CustomTests.testDynamic
+2. 单元测试: CustomTests
 
    ```java
    
@@ -453,25 +446,40 @@ throws IllegalArgumentException;
 
 #### 小结
 
-- 创建映射器使用了什么技术?
+- 映射器的创建使用了什么技术?
 
   - 
 
-  
 
 
-
-### 11自造框架 - 框架测试【理解】
+### 11自造框架 - 实现查询功能【理解】
 
 #### 目标
 
-- 编写自造框架的使用案例
+- 编写数据库操作工具
+- 使用自定义框架查询
 
 
 
-#### 1. 自造框架的使用案例
+#### 1. 编写数据库操作工具
 
-1. CustomTests.testCustom
+1. com.itheima.demo.kit.Execute.selectList
+
+   ```java
+   
+   ```
+
+2. com.itheima.demo.kit.Execute.resultType
+
+   ```java
+   
+   ```
+
+   
+
+#### 1. 使用自定义框架查询
+
+1. CustomTests
 
    ```java
    // 1. 创建会话
@@ -483,6 +491,8 @@ throws IllegalArgumentException;
 
 #### 小结
 
+- 反射私有变量需要做什么?
+  - 
 - 使用自造框架案例的步骤?
   - 
 
