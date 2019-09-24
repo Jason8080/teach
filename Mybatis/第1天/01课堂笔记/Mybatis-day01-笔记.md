@@ -404,12 +404,12 @@
 
 #### 目标
 
-- 了解jdk动态代理工具的使用
-- 使用jdk动态代理创建映射器
+- 了解动态代理的API
+- 使用动态代理创建对象
 
 
 
-#### 1. 工具的使用
+#### 1. 动态代理的API
 
 - 官网API: Proxy
 
@@ -424,7 +424,7 @@ public static Object newProxyInstance(
 throws IllegalArgumentException;
 ```
 
-#### 2. 创建映射器
+#### 2. 动态代理的使用
 
 1. 创建代理: com.itheima.demo.core.SqlSession
 
