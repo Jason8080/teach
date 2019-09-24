@@ -131,7 +131,18 @@
 
 - 存储点: 用于设置事务回滚的位置
 
+```java
+// 创建存储点
+Object savepoint = TransactionAspectSupport.currentTransactionStatus().createSavepoint();
+// 执行数据库操作
+userService.save();
+// 回滚到存储点
+TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoint);
+```
+
 ![1566116589347](assets/1566116589347.png) 
+
+
 
 ##### 2.3 TransactionDefinition
 
@@ -269,18 +280,6 @@
 ##### 1.7 NESTED
 
 - <font color='red'>嵌套</font>:  
-
-------
-
-- 【扩展】容易混淆的传播行为
-
-![1565254993695](assets/1565254993695.png) 
-
-| 传播行为              | 场景一               | 场景二                 | 结论                                    |
-| --------------------- | -------------------- | ---------------------- | --------------------------------------- |
-| REQUIRED (**需要**)   | 方法A回滚, 方法B回滚 | 方法A回滚, 方法B回滚   | AB属于同一个事务                        |
-| REQUIRES_NEW (**新**) | 方法A回滚, 方法回滚  | 方法A回滚, 方法B回滚   | A事务包含B事务<br/>B事务运行时挂起A事务 |
-| NEVER (**嵌套**)      | 方法A回滚, 方法B回滚 | 方法A不回滚, 方法B回滚 | A优先级大于B<br/>B异常不影响外部事务    |
 
 
 
