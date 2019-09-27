@@ -721,7 +721,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 注解的作用
 
-- <font color='green'>映射与限制请求</font>
+- 映射与限制请求
 - com.itheima.demo.RequestMappingController
 
 ##### 1.1 映射请求地址
