@@ -721,8 +721,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 注解的作用
 
-- 映射与限制请求
-- com.itheima.demo.RequestMappingController
+- 映射与限制请求: com.itheima.demo.RequestMappingController
 
 ##### 1.1 映射请求地址
 
@@ -768,13 +767,13 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 基本类型的参数绑定
 
-- com.itheima.demo.ParamController
+- 接收基本类型: com.itheima.demo.ParamController
 
 ```java
 
 ```
 
-- pages/commit.jsp
+- 演示提交中文: index.jsp
 
 ```jsp
 
@@ -814,13 +813,13 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 对象类型的参数绑定
 
-- com.itheima.demo.Account
+- 创建实体: com.itheima.demo.Account
 
 ```java
 
 ```
 
-- com.itheima.demo.ParamController
+- 接收对象: com.itheima.demo.ParamController
 
 ```java
 
@@ -830,13 +829,13 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 2. 嵌套类型的参数绑定
 
-- com.itheima.demo.Account
+- 创建实体: com.itheima.demo.User
 
 ```java
 
 ```
 
-- com.itheima.demo.User
+- 嵌套实体: com.itheima.demo.Account
 
 ```java
 
@@ -888,13 +887,13 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 自定义参数转换器
 
-- com.itheima.demo.DateConverter
+- 定义转换器: com.itheima.demo.DateConverter
 
 ```java
 
 ```
 
-- springMVC.xml
+- 配置转换器: springMVC.xml
 
 ```xml
 
