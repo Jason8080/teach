@@ -93,7 +93,7 @@
 
 #### 1. SpringMVC环境搭建
 
-- 工程名称: mvc-day01-demo
+- 工程名称: mvc01_demo_01
 - WEB工程: 添加web支持或者使用插件转换
 - 添加依赖: pom.xml
 
@@ -137,7 +137,7 @@
 
 #### 小结
 
-- 如何创建SpringMVC的处理器?
+- 如何创建SpringMVC的控制器?
   - 
 - hello方法的返回值代表什么?
   - 
