@@ -392,67 +392,12 @@
 2. 创建实体: com.itheima.dyn.Order
 
    ```java
-   package com.itheima.dyn;
-   
-   import java.util.Date;
-   
-   /**
-    * 订单实体.
-    *
-    * @author : Jason.lee
-    * @version : 1.0
-    */
-   public class Order {
-   
-       private Integer id;
-       /**
-        * 驼峰命名法
-        */
-       private Integer userId;
-       private String number;
-       /**
-        * 驼峰命名法
-        */
-       private Date createTime;
-       private String note;
-   
-       @Override
-       public String toString() {
-           return "Order{" +
-                   "id=" + id +
-                   ", userId=" + userId +
-                   ", number='" + number + '\'' +
-                   ", createTime=" + createTime +
-                   ", note='" + note + '\'' +
-                   '}';
-       }
-   }
    
    ```
 
-3. 查询订单: com.itheima.dyn.OrderMapper.findO2O
+3. 查询订单: com.itheima.dyn.OrderMapper
 
    ```java
-   package com.itheima.dyn;
-   
-   import java.util.List;
-   
-   /**
-    * 订单操作类.
-    *
-    * @author : Jason.lee
-    * @version : 1.0
-    */
-   public interface OrderMapper {
-   
-   
-       /**
-        * 查找1对1数据.
-        *
-        * @return the list
-        */
-       List<Order> findO2O();
-   }
    
    ```
 
@@ -485,7 +430,7 @@
      </select>
      ```
 
-5. 单元测试: ManyTests.testO2O
+5. 单元测试: ManyTests
 
    ```java
    
@@ -524,7 +469,7 @@
    
    ```
 
-2. 查询用户: com.itheima.dyn.UserMapper.findO2M
+2. 查询用户: com.itheima.dyn.UserMapper
 
    ```java
    
@@ -551,7 +496,7 @@
      </select>
      ```
 
-4. 单元测试: ManyTests.testO2M
+4. 单元测试: ManyTests
 
    ```java
    
@@ -595,7 +540,7 @@
    
    ```
 
-4. 关联查询: com.itheima.dyn.UserMapper.findM2M
+4. 关联查询: com.itheima.dyn.UserMapper
 
    ```java
    
@@ -623,7 +568,7 @@
 
      
 
-6. 单元测试: ManyTests.M2M
+6. 单元测试: ManyTests
 
    ```java
    
