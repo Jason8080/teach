@@ -161,7 +161,10 @@
 2. 添加依赖: pom.xml
 
    ```xml
-   
+   <!-- 1.mybatis -->
+   <!-- 2.mysql -->
+   <!-- 3.log4j -->
+   <!-- 4.junit -->
    ```
 
 3. 导入配置: sqlMapConfig.xml
@@ -389,13 +392,68 @@
 2. 创建实体: com.itheima.dyn.Order
 
    ```java
+   package com.itheima.dyn;
+   
+   import java.util.Date;
+   
+   /**
+    * 订单实体.
+    *
+    * @author : Jason.lee
+    * @version : 1.0
+    */
+   public class Order {
+   
+       private Integer id;
+       /**
+        * 驼峰命名法
+        */
+       private Integer userId;
+       private String number;
+       /**
+        * 驼峰命名法
+        */
+       private Date createTime;
+       private String note;
+   
+       @Override
+       public String toString() {
+           return "Order{" +
+                   "id=" + id +
+                   ", userId=" + userId +
+                   ", number='" + number + '\'' +
+                   ", createTime=" + createTime +
+                   ", note='" + note + '\'' +
+                   '}';
+       }
+   }
    
    ```
 
 3. 查询订单: com.itheima.dyn.OrderMapper.findO2O
 
    ```java
-   // 清空操作
+   package com.itheima.dyn;
+   
+   import java.util.List;
+   
+   /**
+    * 订单操作类.
+    *
+    * @author : Jason.lee
+    * @version : 1.0
+    */
+   public interface OrderMapper {
+   
+   
+       /**
+        * 查找1对1数据.
+        *
+        * @return the list
+        */
+       List<Order> findO2O();
+   }
+   
    ```
 
 4. 映射配置: orderMapper.xml
