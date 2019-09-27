@@ -10,7 +10,7 @@
 
 ##### 1.1 环境搭建
 
-- 工程名称: mvc-day02-controller
+- 工程名称: mvc02_controller_01
 - 添加WEB: 转换为WEB工程
 - 添加依赖: pom.xml
 
@@ -22,19 +22,19 @@
 
 ##### 1.2 配置组件
 
-- web.xml
+- 前端控制器: web.xml
 
 ```xml
 
 ```
 
-- springMVC.xml
+- 三大组件: springMVC.xml
 
 ```xml
 
 ```
 
-- com.itheima.controller.ParamController
+- 后端控制器: com.itheima.controller.ParamController
 
 ```java
 
@@ -81,13 +81,13 @@
 
 #### 1. 数组类型参数的绑定
 
-- com.itheima.controller.ParamController
+- 接收数组: com.itheima.controller.ParamController
 
 ```java
 
 ```
 
-- index.jsp
+- 提交数组: index.jsp
 
 ```jsp
 
@@ -113,14 +113,14 @@
 
 #### 1. 直接绑定的集合
 
-- com.itheima.controller.ParamController
+- 接收集合: com.itheima.controller.ParamController
 
 ```java
 // 注意: SpringMVC不支持直接绑定集合
 
 ```
 
-- index.jsp
+- 提交集合: index.jsp
 
 ```jsp
 <!-- 根据@RequestParam特点,参数名需要一致 -->
@@ -131,13 +131,13 @@
 
 #### 2. 嵌套绑定的集合
 
-- com.itheima.controller.ParamController
+- 嵌套参数: com.itheima.controller.ParamController
 
 ```java
 
 ```
 
-- index.jsp
+- 提交参数: index.jsp
 
 ```jsp
 
@@ -442,7 +442,7 @@
 - springMVC.xml
 
 ```xml
-<!-- 注册多元(文件)解析器: CommonsMultipartResolver --> 
+<!-- 注册多媒体(文件)解析器: CommonsMultipartResolver --> 
 
 ```
 
