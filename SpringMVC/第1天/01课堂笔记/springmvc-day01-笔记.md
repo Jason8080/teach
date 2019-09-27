@@ -53,7 +53,7 @@
 
 #### 1. SpringMVC概念
 
-- SpringMVC是为web应用的一个Java平台的开源框架
+- SpringMVC是web应用的一个Java平台的开源框架
 - SpringMVC是Spring基于MVC设计模式实现的轻量级框架
 
 #### 2. SpringMVC优点
