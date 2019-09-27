@@ -786,7 +786,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 - web.xml
 
 ```xml
-
+<!-- 配置CharacterEncodingFilter(SpringMVC字符集过滤器: 乱码解决方案) -->
 ```
 
 
