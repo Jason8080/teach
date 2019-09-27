@@ -915,7 +915,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 - 自定义的转换器需要实现什么接口?
   - 
-- 自定义的转换器需要做哪些配置?
+- 自定义的转换器需要做什么配置?
   - 
 
 
