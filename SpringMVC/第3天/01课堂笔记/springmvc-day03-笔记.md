@@ -120,7 +120,7 @@ public String list(Model model) {
 
 ##### 1.2 过滤器处理
 
-- com.itheima.ex.filter.ExceptionFilter
+- 创建过滤器: com.itheima.ex.filter.ExceptionFilter
 
   ```java
   @Override
@@ -139,7 +139,7 @@ public String list(Model model) {
   }
   ```
 
-- web.xml
+- 配置过滤器: web.xml
 
   ```xml
   <filter>
@@ -220,7 +220,7 @@ public String list(Model model) {
 
 #### 2. 统一异常处理
 
-- com.itheima.ex.ExceptionHandler
+- 创建异常处理器: com.itheima.ex.ExceptionHandler
 
   ```java
   
@@ -258,13 +258,13 @@ public String list(Model model) {
 
 ##### 1.3 自定义拦截器
 
-1. com.itheima.ex.interceptor.CustomInterceptor
+1. 创建拦截器: com.itheima.ex.interceptor.CustomInterceptor
 
    ```java
    
    ```
 
-2. springMVC.xml
+2. 配置拦截器: springMVC.xml
 
    ```xml
    
