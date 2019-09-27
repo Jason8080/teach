@@ -896,7 +896,17 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 - 配置转换器: springMVC.xml
 
 ```xml
+<!-- 1. 指定转换服务 -->
+<mvc:annotation-driven conversion-service="conversionServiceFactoryBean" />
 
+<!-- 2. 注册转换工厂 -->
+<bean id="conversionServiceFactoryBean" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+	<property name="converters">
+        <set>
+            <bean class="com.itheima.demo.DateConverter"/>
+        </set>
+    </property>
+</bean>
 ```
 
 
