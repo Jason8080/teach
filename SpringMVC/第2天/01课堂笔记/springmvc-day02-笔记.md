@@ -462,13 +462,13 @@ function jsonCommit() {
 - com.itheima.controller.UploadController
 
     ```java
-    // 1. 指定上传目录
+    // 1. 获取上传目录
 
-    // 2. 创建组件工具
+    // 2. 创建文件上传服务
 
-    // 3. 解析请求数据
+    // 3. 解析请求
 
-    // 4. 处理数据(包括普通字段和文件字段)
+    // 4. 遍历参数字段
     ```
 
 
