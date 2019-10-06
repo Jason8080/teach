@@ -83,15 +83,15 @@
 
 - 接收数组: com.itheima.controller.ParamController
 
-```java
+    ```java
 
-```
+    ```
 
 - 提交数组: index.jsp
 
-```jsp
+    ```jsp
 
-```
+    ```
 
 
 
@@ -115,17 +115,17 @@
 
 - 接收集合: com.itheima.controller.ParamController
 
-```java
-// 注意: SpringMVC不支持直接绑定集合
+    ```java
+    // 注意: SpringMVC不支持直接绑定集合
 
-```
+    ```
 
 - 提交集合: index.jsp
 
-```jsp
-<!-- 根据@RequestParam特点,参数名需要一致 -->
+    ```jsp
+    <!-- 根据@RequestParam特点,参数名需要一致 -->
 
-```
+    ```
 
 
 
@@ -172,25 +172,25 @@
 
 - com.itheima.controller.ReturnController
 
-```java
+    ```java
 
-```
+    ```
 
 ##### 1.2 重定向
 
 - com.itheima.controller.ReturnController
 
-```java
+    ```java
 
-```
+    ```
 
 ##### 1.3 响应数据
 
 - com.itheima.controller.ReturnController
 
-```java
+    ```java
 
-```
+    ```
 
 
 
@@ -215,26 +215,26 @@
 
 - com.itheima.controller.ReturnController
 
-```java
+    ```java
 
-```
+    ```
 
 ##### 1.2 重定向
 
 - com.itheima.controller.ReturnController
 
-```java
+    ```java
 
-```
+    ```
 
 ##### 1.3 响应数据
 
 - com.itheima.controller.ReturnController
 
-```java
-// 需要配合Model使用
+    ```java
+    // 需要配合Model使用
 
-```
+    ```
 
 
 
@@ -257,9 +257,9 @@
 
 - com.itheima.controller.ReturnController
 
-```java
+    ```java
 
-```
+    ```
 
 
 
@@ -282,28 +282,28 @@
 
 - 添加依赖: pom.xml
 
-```xml
-<!-- SpringMVC默认采用jackson进行json数据处理 -->
+    ```xml
+    <!-- SpringMVC默认采用jackson进行json数据处理 -->
 
-```
+    ```
 
 - com.itheima.controller.JsonController
 
-```java
+    ```java
 
-```
+    ```
 
 - index.jsp
 
-```jsp
+    ```jsp
 
-```
+    ```
 
 - Function commit
 
-```js
+    ```js
 
-```
+    ```
 
 
 
@@ -343,10 +343,10 @@
 
 - com.itheima.controller.RestController
 
-```java
-// 使用@PathVariable映射URL中的参数
+    ```java
+    // 使用@PathVariable映射URL中的参数
 
-```
+    ```
 
 
 
@@ -370,23 +370,23 @@
 
 - web.xml
 
-```xml
-<!-- 浏览器不支持GET/POST之外的HTTP方法, 需要配置SpringMVC支持 -->
+    ```xml
+    <!-- 浏览器不支持GET/POST之外的HTTP方法, 需要配置SpringMVC支持 -->
 
-<!-- SpringMVC使用HiddenHttpMethodFilter将隐藏域解析为提交方法 -->
-```
+    <!-- SpringMVC使用HiddenHttpMethodFilter将隐藏域解析为提交方法 -->
+    ```
 
 - com.itheima.controller.RestController
 
-```java
+    ```java
 
-```
+    ```
 
 - index.jsp
 
-```jsp
+    ```jsp
 
-```
+    ```
 
 
 
@@ -409,22 +409,22 @@
 
 - 添加依赖: pom.xml
 
-```xml
-<!-- 基于commons-fileupload组件完成文件解析 -->
+    ```xml
+    <!-- 基于commons-fileupload组件完成文件解析 -->
 
-```
+    ```
 
 - com.itheima.controller.UploadController
 
-```java
-// 1. 指定上传目录
+    ```java
+    // 1. 指定上传目录
 
-// 2. 创建组件工具
+    // 2. 创建组件工具
 
-// 3. 解析请求数据
+    // 3. 解析请求数据
 
-// 4. 处理数据(包括普通字段和文件字段)
-```
+    // 4. 处理数据(包括普通字段和文件字段)
+    ```
 
 
 
@@ -447,16 +447,16 @@
 
 - springMVC.xml
 
-```xml
-<!-- 注册多媒体(文件)解析器: CommonsMultipartResolver --> 
+    ```xml
+    <!-- 注册多媒体(文件)解析器: CommonsMultipartResolver --> 
 
-```
+    ```
 
 - com.itheima.controller.UploadController
 
-```java
+    ```java
 
-```
+    ```
 
 
 
