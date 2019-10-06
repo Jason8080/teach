@@ -459,17 +459,27 @@ function jsonCommit() {
 
     ```
 
+- 前端页面: pages/index.jsp
+
+    ```jsp
+    
+```
+    
 - com.itheima.controller.UploadController
 
     ```java
     // 1. 获取上传目录
 
-    // 2. 创建文件上传服务
+    // 2. 创建Servlet文件上传工具
 
     // 3. 解析请求
 
     // 4. 遍历参数字段
+    
+    // 5. 响应资源
     ```
+
+
 
 
 
