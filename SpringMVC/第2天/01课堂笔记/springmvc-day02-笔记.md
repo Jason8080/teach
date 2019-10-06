@@ -510,7 +510,9 @@ function jsonCommit() {
 - com.itheima.controller.UploadController
 
     ```java
-
+// 1. 获取上传目录
+    
+    // 2. 转移到( 磁盘文件 )
     ```
 
 
