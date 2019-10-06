@@ -380,7 +380,7 @@
 - com.itheima.controller.RestController
 
     ```java
-
+// 注意: 浏览器不支持的方法只能返回Json数据
     ```
 
 - index.jsp
