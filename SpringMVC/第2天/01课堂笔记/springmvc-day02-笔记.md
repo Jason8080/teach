@@ -317,14 +317,43 @@
 - Function commit
 
     ```js
-
+function jsonCommit() {
+        // 1. 创建异步请求对象
+        let req = new XMLHttpRequest();
+        // 2. 打开请求
+        req.open("POST", "find", true);
+        // 3. 设置请求的数据类型(必须)
+        req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        // 4. 异步读取响应
+        req.onreadystatechange = function () {
+            // 2.1 判断响应状态
+            if (req.readyState == 4 || req.status == 200) {
+                let data = req.responseText;
+                document.getElementById("jsonRes").innerHTML = data;
+            }
+        };
+        // 5. 封装数据
+        let es =
+            document.getElementById("jsonForm").getElementsByTagName("input");
+        let json = {};
+        for (let i = 0; i <= es.length; i++) {
+            if (es[i] != undefined) {
+                let name = es[i].name;
+                let value = es[i].value;
+                json[name] = value;
+            }
+        }
+        // 6. 发送数据
+        let body = JSON.stringify(json);
+        req.send(body);
+    }
     ```
 
 
 
 #### 小结
 
-- 使用jackson转换对象需要添加什么注解?
+- 如何使用对象接收json数据?
   - 
 - 响应对象如何转换成json数据?
   - 
