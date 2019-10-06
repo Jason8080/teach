@@ -133,17 +133,23 @@
 
 - 嵌套参数: com.itheima.controller.ParamController
 
-```java
+  ```java
+  
+  ```
 
-```
+- 嵌套对象: com.itheima.controller.Account
+
+  ```java
+  
+  ```
 
 - 提交参数: index.jsp
 
-```jsp
+  ```jsp
+  
+  ```
 
-```
-
-
+  
 
 #### 小结
 
