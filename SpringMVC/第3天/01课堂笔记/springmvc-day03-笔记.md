@@ -314,11 +314,11 @@ public String list(Model model) {
 - 在3层架构中, 哪层需要Spring框架?
   - 
 
-1. 使Spring环境正常运行
-2. 使SpringMVC正常运行
+1. 使Spring环境能够独立运行
+2. 使SpringMVC能够独立运行
 3. 使Spring+SpringMVC共同运行
    - 
-4. 使Mybatis正常运行
+4. 使Mybatis能够独立运行
 5. 使SSM共同运行
    - 
    - 
