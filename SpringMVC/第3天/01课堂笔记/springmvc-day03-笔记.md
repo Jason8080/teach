@@ -376,12 +376,12 @@ public String list(Model model) {
 2. 添加依赖: pom.xml
 
    ```xml
-   <!-- 1. 添加Spring依赖 -->
-   <!-- 2. 添加SpringMVC依赖 -->
-   <!-- 4. 添加Mybatis依赖 -->
-   <!-- 5. 添加测试依赖 -->
-   <!-- 6. 添加日志依赖 -->
-   <!-- 7. 添加页面依赖 -->
+   <!-- 1. 添加Spring 依赖 -->
+   <!-- 2. 添加SpringMVC 依赖 -->
+   <!-- 3. 添加Mybatis 依赖 -->
+   <!-- 4. 添加单元测试 依赖 -->
+   <!-- 5. 添加日志打印 依赖 -->
+   <!-- 6. 添加Servlet相关 依赖 -->
    ```
 
 3. 实体类: com.itheima.ssm.domain.Account
