@@ -132,7 +132,7 @@ public String list(Model model) {
           chain.doFilter(request, response);
       } catch (Exception e) {
           RequestDispatcher rd = request
-              .getRequestDispatcher("/WEB-INF/jsp/error.jsp");
+              .getRequestDispatcher("/pages/error.jsp");
           request.setAttribute("msg", e.getMessage());
           rd.forward(request, response);
       }
