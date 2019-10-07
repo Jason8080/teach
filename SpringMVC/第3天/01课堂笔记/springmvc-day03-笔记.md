@@ -492,7 +492,7 @@ public String list(Model model) {
      </html>
      ```
 
-   - pages//accoun/add.jsp
+   - pages/accoun/add.jsp
 
      ```jsp
      <%@ page contentType="text/html;charset=UTF-8" language="java" %>
