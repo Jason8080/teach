@@ -301,7 +301,7 @@ public String list(Model model) {
 
 - 为什么要整合?
 
-  >  在3层架构项目中, 各层都需要响应的解决方案, 所以SSM需要配合使用。
+  >  在3层架构项目中, 各层都需要相应的解决方案, 所以SSM需要配合使用。
 
   - Spring: 
   - SpringMVC: 
