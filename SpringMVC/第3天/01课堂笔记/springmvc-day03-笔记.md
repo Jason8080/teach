@@ -455,24 +455,24 @@ public String list(Model model) {
 
 1. 升级工程: war
 
-2. 控制器: com.itheima.ssm.controller.AccountController
+2. 配置前端控制器: web.xml
 
-   ```java
-   
+   ```xml
+   <!-- 1. 配置资源处理路径 -->
+   <!-- 2. 配置处理器(前端控制器) -->
    ```
 
-3. springMVC.xml
+3. 添加配置: springMVC.xml
 
    ```xml
    <!-- 1. Spring组件注解扫描 -->
    <!-- 2. 注册三大组件 -->
    ```
 
-4. web.xml
+4. 控制器: com.itheima.ssm.controller.AccountController
 
-   ```xml
-   <!-- 1. 配置资源处理路径 -->
-   <!-- 2. 配置处理器(前端控制器) -->
+   ```java
+   
    ```
 
 5. 添加页面
