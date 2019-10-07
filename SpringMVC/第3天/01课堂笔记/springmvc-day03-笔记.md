@@ -619,14 +619,14 @@ public String list(Model model) {
 > 1. 创建会话工厂
 > 2. 创建代理对象
 
-1. applicationContext.xml: 创建会话工厂
+1. applicationContext.xml: 创建会话工厂 (SqlSessionFactoryBean)
 
    ```xml
    <!-- 1. 注入数据源 -->
    <!-- 2. 赋值configLocation: classpath:sqlMapConfig.xml -->
    ```
 
-2. applicationContext.xml: 创建代理对象
+2. applicationContext.xml: 创建代理对象 (MapperScannerConfigurer)
 
    ```xml
    <!-- 1. 根据指定包下的接口创建动态代理对象 (映射器对象: 创建之后会放到IOC容器中) -->
