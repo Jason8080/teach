@@ -131,13 +131,13 @@
 
 #### 2. 嵌套绑定的集合
 
-- 嵌套参数: com.itheima.controller.ParamController
+- 嵌套对象: com.itheima.controller.Account
 
   ```java
   
   ```
 
-- 嵌套对象: com.itheima.controller.Account
+- 嵌套参数: com.itheima.controller.ParamController
 
   ```java
   
@@ -463,6 +463,7 @@ function jsonCommit() {
 
     ```jsp
     
+    ```
 ```
     
 - com.itheima.controller.UploadController
@@ -477,7 +478,7 @@ function jsonCommit() {
     // 4. 遍历参数字段
     
     // 5. 响应资源
-    ```
+```
 
 
 
