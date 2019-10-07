@@ -477,7 +477,7 @@ public String list(Model model) {
 
 5. 添加页面
 
-   - pages/accoun/list.jsp
+   - pages/account/list.jsp
 
      ```jsp
      <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -492,7 +492,7 @@ public String list(Model model) {
      </html>
      ```
 
-   - pages/accoun/add.jsp
+   - pages/account/add.jsp
 
      ```jsp
      <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -657,13 +657,13 @@ public String list(Model model) {
 
 #### 1. 项目改造
 
-1. pages/accoun/list.jsp
+1. pages/account/list.jsp
 
    ```jsp
    
    ```
 
-2. pages/accoun/add.jsp
+2. pages/account/add.jsp
 
    ```jsp
    
