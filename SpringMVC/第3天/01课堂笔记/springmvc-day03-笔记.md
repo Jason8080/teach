@@ -45,7 +45,7 @@
    
    ```
 
-6. WEB-INF/jsp/
+6. 添加页面: pages/
 
    - success.jsp
 
