@@ -321,7 +321,7 @@ function jsonCommit() {
         // 1. 创建异步请求对象
         let req = new XMLHttpRequest();
         // 2. 打开请求
-        req.open("POST", "find", true);
+        req.open("POST", "json", true);
         // 3. 设置请求的数据类型(必须)
         req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         // 4. 异步读取响应
