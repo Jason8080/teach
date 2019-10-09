@@ -317,11 +317,8 @@ public String list(Model model) {
 1. 使Spring环境能够独立运行
 2. 使SpringMVC能够独立运行
 3. 使Spring+SpringMVC共同运行
-   - 
 4. 使Mybatis能够独立运行
 5. 使SSM共同运行
-   - 
-   - 
 6. 整体测试
 
 
@@ -566,7 +563,7 @@ public String list(Model model) {
 
 #### 1. 搭建Mybatis环境
 
-1. 持久类: com.itheima.ssm.dao.AccountDao
+1. 持久类: com.itheima.ssm.dao.AccountMapper
 
    ```java
    
@@ -586,12 +583,9 @@ public String list(Model model) {
 
    ```java
    // 1. 加载配置文件
-   // 2. 创建会话工厂对象
-   // 3. 创建会话对象
-   // 4. 创建映射器代理对象
-   // 5. 操作数据库
-   // 6. 提交事务
-   // 7. 关闭资源
+   // 2. 创建会话工厂
+   // 3. 创建代理对象
+   // 4. 操作数据库
    ```
 
 
@@ -616,20 +610,21 @@ public String list(Model model) {
 
 > ​	启动Mybatis框架只需要做两件事
 >
-> 1. 创建会话工厂
+> 1. 创建会话工厂 
 > 2. 创建代理对象
 
-1. applicationContext.xml: 创建会话工厂 (SqlSessionFactoryBean)
+1. 创建会话工厂: applicationContext.xml
 
    ```xml
-   <!-- 1. 注入数据源 -->
-   <!-- 2. 赋值configLocation: classpath:sqlMapConfig.xml -->
+   <!-- 1. 注入 数据源 -->
+   <!-- 2. 注入 主配置文件 -->
+   <!-- 3. 注入 映射配置文件 -->
    ```
 
-2. applicationContext.xml: 创建代理对象 (MapperScannerConfigurer)
+2. 创建代理对象: applicationContext.xml
 
    ```xml
-   <!-- 1. 根据指定包下的接口创建动态代理对象 (映射器对象: 创建之后会放到IOC容器中) -->
+   
    ```
 
 3. 注入持久对象: com.itheima.ssm.service.AccountService
