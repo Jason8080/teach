@@ -99,7 +99,7 @@
 
 #### 1. AOP自动记录日志
 
-1. 工程名称: spring03_aop_02
+1. 工程名称: spring03_aop_01
 
 2. 添加依赖: pom.xml
 
@@ -344,7 +344,7 @@
 
 ##### 1.1 改造工程
 
-- 工程名称: spring03_anno_03
+- 工程名称: spring03_anno_02
 
 ##### 1.2 改造通知
 
@@ -630,7 +630,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 ##### 1.1 搭建环境
 
-1. 工程名称: spring04_xml_01
+1. 工程名称: spring03_xml_03
 
 2. 添加依赖: pom.xml
 
@@ -738,7 +738,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 #### 1. 使用注解改造案例
 
-1. 工程名称: spring04_anno_02
+1. 工程名称: spring03_anno_04
 
 2. 使用注解: com.itheima.xml.service.impl.AccountServiceImpl
 
@@ -834,7 +834,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 ##### 2.1 环境改造
 
-1. 工程名称: spring04_code_03
+1. 工程名称: spring03_code_05
 
 ##### 2.2 业务改造
 

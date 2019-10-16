@@ -18,7 +18,7 @@
 
 
 
-#### 2. 搭建Spring项目环境
+#### 2. 搭建 Spring 项目环境
 
 1. 工程名称: spring02_jdbc_01
 
@@ -29,11 +29,11 @@
    
    <!-- 2. Spring jdbc依赖 -->
    
-   <!-- 3. druid连接池依赖 -->
+   <!-- 3. Mysql 依赖 -->
    
-   <!-- 4. mysql驱动依赖 -->
+   <!-- 4. Junit 依赖 -->
    
-   <!-- 5. junit单元测试依赖 -->
+   <!-- 5. Log4j 依赖 -->
    ```
 
 3. 创建实体: com.itheima.jdbc.Account
@@ -48,7 +48,20 @@
    
    ```
 
-5. 环境测试: JdbcTests.java
+5. 日志配置: log4.properties
+
+   ```properties
+   # 日志级别, 输出位置
+   log4j.rootLogger=DEBUG, stdout
+   # 控制台输出器
+   log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+   # 布局处理器
+   log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+   # 格式转换器
+   log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
+   ```
+   
+6. 环境测试: JdbcTests.java
 
    ```java
    
@@ -63,11 +76,106 @@
 - 创建对象的注解有哪些?
   - 
 
+### 02使用Spring-jdbc【掌握】
+
+#### 目标
+
+- 了解Spring-jdbc概念
+- 编写JdbcTemplate案例
+
+
+
+#### 1. Spring-jdbc概念
+
+
+
+#### 2. JdbcTemplate案例
 
 
 
 
-### 02实现CRUD - 代码【理解】
+
+#### 小结
+
+- JdbcTemplate是什么?
+  - 
+- 案例中如何注入数据源?
+  - 
+
+
+
+
+
+### 03使用IOC管理Jdbc【了解】
+
+#### 目标
+
+- 使用IOC管理Spring-jdbc
+
+
+
+#### 1. 使用IOC管理
+
+
+
+
+
+#### 小结
+
+- IOC中jdbcTemplate在什么时候创建?
+  - 
+- RowMapper的作用是什么?
+  - 
+
+
+
+### 04结果集映射器【理解】
+
+#### 目标
+
+- 对象的结果集映射器
+- 自定义结果集映射器
+
+
+
+#### 1. 对象的结果集映射器
+
+- 类名: org.springframework.jdbc.core.BeanPropertyRowMapper
+- 接口: org.springframework.jdbc.core.RowMapper
+- 作用: 
+
+
+
+#### 2.自定义结果集映射器
+
+1. 外部类: com.itheima.jdbc.AccountRowMapper
+
+   ```java
+   
+   ```
+
+2. 测试类: JdbcTests
+
+   ```java
+   
+   ```
+
+3. 内部类: JdbcTests
+
+   ```java
+   
+   ```
+
+
+
+#### 小结
+
+- 自定义结果集映射器的好处是什么?
+  - 
+
+
+
+### 02完整CRUD - 代码【理解】
 
 #### 目标
 
@@ -120,7 +228,7 @@
 
 
 
-### 03实现CRUD - 配置【掌握】
+### 03完整CRUD - 配置【掌握】
 
 #### 目标
 
@@ -340,7 +448,7 @@
 
 #### 2. 静态代理的案例
 
-1. 工程名称: spring03_proxy_01
+1. 工程名称: spring02_proxy_04
 
 2. 添加依赖: pom.xml
 

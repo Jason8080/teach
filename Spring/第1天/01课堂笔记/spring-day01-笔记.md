@@ -918,7 +918,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 #### 1. 使用注解创建对象
 
-1. 工程名称: spring02_anno_02
+1. 工程名称: spring01_anno_04
 
 2. 添加依赖: pom.xml
 
