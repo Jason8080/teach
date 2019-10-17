@@ -922,61 +922,218 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 
 
-### 12请求参数相关注解【了解】
+### 12高级绑定-数组【了解】
 
 #### 目标
 
-- 了解@RequestParam作用
-- 了解@RequestBody作用
-- 了解@RequestHeader作用
-- 了解@CookieValue作用
+- 了解数组类型参数的绑定
 
 
 
-#### 1. @RequestParam
+#### 1. 数组类型参数的绑定
 
-- com.itheima.web.AnnoController
+- 接收数组: com.itheima.controller.ParamController
 
-```java
+  ```java
+  
+  ```
 
-```
+- 提交数组: index.jsp
 
-
-
-#### 2. @RequestBody
-
-- com.itheima.web.AnnoController
-
-```java
-
-```
-
-
-
-#### 3. @RequestHeader
-
-- com.itheima.web.AnnoController
-
-```java
-
-```
-
-
-
-#### 4. @CookieValue
-
-- com.itheima.web.AnnoController
-
-```java
-
-```
+  ```jsp
+  
+  ```
 
 
 
 #### 小结
 
-- 请求头参数相关的注解有哪些?
+- 在页面中如何表现为数组?
   - 
+
+
+
+### 13高级绑定-集合【了解】
+
+#### 目标
+
+- 了解直接绑定的集合
+- 了解嵌套绑定的集合
+
+
+
+#### 1. 直接绑定的集合
+
+- 接收集合: com.itheima.controller.ParamController
+
+  ```java
+  // 注意: SpringMVC不支持直接绑定集合
+  
+  ```
+
+- 提交集合: index.jsp
+
+  ```jsp
+  <!-- 根据@RequestParam特点,参数名需要一致 -->
+  
+  ```
+
+
+
+#### 2. 嵌套绑定的集合
+
+- 嵌套对象: com.itheima.controller.Account
+
+  ```java
+  
+  ```
+
+- 嵌套参数: com.itheima.controller.ParamController
+
+  ```java
+  
+  ```
+
+- 提交参数: index.jsp
+
+  ```jsp
+  
+  ```
+
+  
+
+#### 小结
+
+- 直接绑定集合参数需要做什么?
+  - 
+- 嵌套集合如何传参给指定属性?
+  - 
+- 可否将接收到的参数返回给前端？
+  - 
+
+
+
+### 14返回值-void【理解】
+
+#### 目标
+
+- 理解返回值void的意义
+- 理解返回值void的用法
+
+
+
+#### 1. 返回值void的意义
+
+- SpringMVC不响应任何内容
+
+- 添加依赖: pom.xml
+
+  ```xml
+  <!-- 使用原生的Servlet响应资源 -->
+  ```
+
+
+
+#### 2. 返回值void的用法
+
+##### 1.1 转发
+
+- com.itheima.controller.ReturnController
+
+  ```java
+  
+  ```
+
+##### 1.2 重定向
+
+- com.itheima.controller.ReturnController
+
+  ```java
+  
+  ```
+
+##### 1.3 响应数据
+
+- com.itheima.controller.ReturnController
+
+  ```java
+  
+  ```
+
+
+
+#### 小结
+
+- 为什么可以不返回视图呢?
+  - 
+
+
+
+### 15返回值-string【掌握】
+
+#### 目标
+
+- 理解返回值string的用法
+
+
+
+#### 1. 返回值string的用法
+
+##### 1.1 转发
+
+- com.itheima.controller.ReturnController
+
+  ```java
+  
+  ```
+
+##### 1.2 重定向
+
+- com.itheima.controller.ReturnController
+
+  ```java
+  
+  ```
+
+##### 1.3 响应数据
+
+- com.itheima.controller.ReturnController
+
+  ```java
+  // 需要配合Model使用
+  
+  ```
+
+
+
+#### 小结
+
+- 使用forward:的作用?
+  - 
+
+
+
+### 16返回值-MV【理解】
+
+#### 目标
+
+- 理解返回值ModelAndView的用法
+
+
+
+#### 1. 返回值ModelAndView的用法
+
+- com.itheima.controller.ReturnController
+
+  ```java
+  
+  ```
+
+
+
+#### 小结
+
+- 返回值mv与string的区别?
   - 
 
 
@@ -984,23 +1141,43 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 ### 13总结
 
 1. 什么是SpringMVC?
-  - 
+   - 
 2. 入门案例中的处理器是哪个类?
-  - 
+   - 
 3. SpringMVC的三大组件是哪些?
-  - 
-  - 
-  - 
+   - 
+   - 
+   - 
+
 4. `<mvc:annotation-driven/>`的作用?
-  - 
+
+   - 
+
 5. SpringMVC的入口类是哪个?
-  - 
+
+   - 
+
 6. @RequestMapping的作用?
-  - 
+
+   - 
+
 7. 至少说出3个默认支持的参数类型?
-  - 
-  - 
-  - 
-8. 请求头相关的注解有哪些?
-  - 
+
+   - 
+
+   - 
+
+   - 
+
+8. SpringMVC支持哪些参数绑定?
+
+   - 
+   - 
+   - 
+
+9. Controller返回值有哪些类型?
+
+   - 
+   - 
+   - 
 

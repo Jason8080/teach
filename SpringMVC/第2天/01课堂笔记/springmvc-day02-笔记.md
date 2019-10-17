@@ -10,51 +10,53 @@
 
 ##### 1.1 环境搭建
 
-- 工程名称: mvc02_controller_01
-- 添加WEB: 转换为WEB工程
-- 添加依赖: pom.xml
+1. 工程名称: mvc02_json_01
 
-```xml
+2. 添加WEB: 转换为WEB工程
 
-```
+3. 添加依赖: pom.xml
+
+   ```xml
+   
+   ```
 
 
 
 ##### 1.2 配置组件
 
-- 前端控制器: web.xml
+1. 前端控制器: web.xml
 
-```xml
+   ```xml
+   
+   ```
 
-```
+2. 三大组件: springMVC.xml
 
-- 三大组件: springMVC.xml
+   ```xml
+   
+   ```
 
-```xml
+3. 后端控制器: com.itheima.controller.ParamController
 
-```
-
-- 后端控制器: com.itheima.controller.ParamController
-
-```java
-
-```
+   ```java
+   
+   ```
 
 
 
 ##### 1.3 单元测试
 
-- pages/success.jsp
+1. pages/success.jsp
 
-```jsp
+   ```jsp
+   
+   ```
 
-```
+2. index.jsp
 
-- index.jsp
-
-```jsp
-
-```
+   ```jsp
+   
+   ```
 
 
 
@@ -71,221 +73,7 @@
 
 
 
-### 02高级绑定-数组【了解】
-
-#### 目标
-
-- 了解数组类型参数的绑定
-
-
-
-#### 1. 数组类型参数的绑定
-
-- 接收数组: com.itheima.controller.ParamController
-
-    ```java
-
-    ```
-
-- 提交数组: index.jsp
-
-    ```jsp
-
-    ```
-
-
-
-#### 小结
-
-- 在页面中如何表现为数组?
-  - 
-
-
-
-### 03高级绑定-集合【了解】
-
-#### 目标
-
-- 了解直接绑定的集合
-- 了解嵌套绑定的集合
-
-
-
-#### 1. 直接绑定的集合
-
-- 接收集合: com.itheima.controller.ParamController
-
-    ```java
-    // 注意: SpringMVC不支持直接绑定集合
-
-    ```
-
-- 提交集合: index.jsp
-
-    ```jsp
-    <!-- 根据@RequestParam特点,参数名需要一致 -->
-
-    ```
-
-
-
-#### 2. 嵌套绑定的集合
-
-- 嵌套对象: com.itheima.controller.Account
-
-  ```java
-  
-  ```
-
-- 嵌套参数: com.itheima.controller.ParamController
-
-  ```java
-  
-  ```
-
-- 提交参数: index.jsp
-
-  ```jsp
-  
-  ```
-
-  
-
-#### 小结
-
-- 直接绑定集合参数需要做什么?
-  - 
-- 嵌套集合如何传参给指定属性?
-  - 
-
-
-
-### 04返回值-void【理解】
-
-#### 目标
-
-- 理解返回值void的意义
-- 理解返回值void的用法
-
-
-
-#### 1. 返回值void的意义
-
-- SpringMVC不响应任何内容
-
-- 添加依赖: pom.xml
-
-  ```xml
-  <!-- 使用原生的Servlet响应资源 -->
-  ```
-
-
-
-#### 2. 返回值void的用法
-
-##### 1.1 转发
-
-- com.itheima.controller.ReturnController
-
-    ```java
-
-    ```
-
-##### 1.2 重定向
-
-- com.itheima.controller.ReturnController
-
-    ```java
-
-    ```
-
-##### 1.3 响应数据
-
-- com.itheima.controller.ReturnController
-
-    ```java
-
-    ```
-
-
-
-#### 小结
-
-- 为什么可以不返回视图呢?
-  - 
-
-
-
-### 05返回值-string【掌握】
-
-#### 目标
-
-- 理解返回值string的用法
-
-
-
-#### 1. 返回值string的用法
-
-##### 1.1 转发
-
-- com.itheima.controller.ReturnController
-
-    ```java
-
-    ```
-
-##### 1.2 重定向
-
-- com.itheima.controller.ReturnController
-
-    ```java
-
-    ```
-
-##### 1.3 响应数据
-
-- com.itheima.controller.ReturnController
-
-    ```java
-    // 需要配合Model使用
-
-    ```
-
-
-
-#### 小结
-
-- 使用forward:的作用?
-  - 
-
-
-
-### 06返回值-MV【理解】
-
-#### 目标
-
-- 理解返回值ModelAndView的用法
-
-
-
-#### 1. 返回值ModelAndView的用法
-
-- com.itheima.controller.ReturnController
-
-    ```java
-
-    ```
-
-
-
-#### 小结
-
-- 返回值mv与string的区别?
-  - 
-
-
-
-### 07数据交互-json【掌握】
+### 02数据交互-json【掌握】
 
 #### 目标
 
@@ -295,29 +83,29 @@
 
 #### 1. json格式的数据交互
 
-- 添加依赖: pom.xml
+1. 添加依赖: pom.xml
 
     ```xml
     <!-- SpringMVC默认采用jackson进行json数据处理 -->
-
+    
     ```
 
-- com.itheima.controller.JsonController
+2. com.itheima.controller.JsonController
 
     ```java
-
+    
     ```
 
-- index.jsp
+3. index.jsp
 
     ```jsp
-
+    
     ```
 
-- Function commit
+4. Function commit
 
     ```js
-function jsonCommit() {
+    function jsonCommit() {
         // 1. 创建异步请求对象
         let req = new XMLHttpRequest();
         // 2. 打开请求
@@ -360,7 +148,7 @@ function jsonCommit() {
 
 
 
-### 08RESTful风格【了解】
+### 03RESTful风格【了解】
 
 #### 目标
 
@@ -403,7 +191,7 @@ function jsonCommit() {
 
 
 
-### 09RESTful支持【了解】
+### 04RESTful支持【了解】
 
 #### 目标
 
@@ -413,24 +201,24 @@ function jsonCommit() {
 
 #### 1. RESTful的方法支持
 
-- web.xml
+1. web.xml
 
     ```xml
     <!-- 浏览器不支持GET/POST之外的HTTP方法, 需要配置SpringMVC支持 -->
-
+    
     <!-- SpringMVC使用HiddenHttpMethodFilter将隐藏域解析为提交方法 -->
     ```
 
-- com.itheima.controller.RestController
+2. com.itheima.controller.RestController
 
     ```java
-// 注意: 浏览器不支持的方法只能返回Json数据
+    // 注意: 浏览器不支持的方法只能返回Json数据
     ```
 
-- index.jsp
+3. index.jsp
 
     ```jsp
-
+    
     ```
 
 
@@ -442,7 +230,7 @@ function jsonCommit() {
 
 
 
-### 10文件上传-传统【了解】
+### 05文件上传-传统【了解】
 
 #### 目标
 
@@ -452,35 +240,32 @@ function jsonCommit() {
 
 #### 1. 传统的文件上传
 
-- 添加依赖: pom.xml
+1. 添加依赖: pom.xml
 
     ```xml
     <!-- 基于commons-fileupload组件完成文件解析 -->
-
+    
     ```
 
-- 前端页面: pages/index.jsp
+2. 前端页面: pages/index.jsp
 
     ```jsp
     
     ```
-```
-    
-- com.itheima.controller.UploadController
+
+3. com.itheima.controller.UploadController
 
     ```java
     // 1. 获取上传目录
-
+    
     // 2. 创建Servlet文件上传工具
-
+    
     // 3. 解析请求
-
+    
     // 4. 遍历参数字段
     
     // 5. 响应资源
-```
-
-
+    ```
 
 
 
@@ -491,7 +276,7 @@ function jsonCommit() {
 
 
 
-### 11SpringMVC上传【了解】
+### 05SpringMVC上传【了解】
 
 #### 目标
 
@@ -501,17 +286,17 @@ function jsonCommit() {
 
 #### 1. SpringMVC上传文件
 
-- springMVC.xml
+1. springMVC.xml
 
     ```xml
     <!-- 注册多媒体(文件)解析器: CommonsMultipartResolver --> 
-
+    
     ```
 
-- com.itheima.controller.UploadController
+2. com.itheima.controller.UploadController
 
     ```java
-// 1. 获取上传目录
+    // 1. 获取上传目录
     
     // 2. 转移到( 磁盘文件 )
     ```
@@ -525,21 +310,286 @@ function jsonCommit() {
 
 
 
-### 12总结
+### 07异常处理方案【理解】
 
-- SpringMVC支持哪些参数绑定?
+#### 目标
+
+- 分析3层架构中代码的调用关系
+- 分析3层架构中异常的处理方案
+
+
+
+#### 1. 代码调用关系
+
+##### 1.1  三层架构案例
+
+1. 工程名称: mvc02_ex_02
+
+2. 升级工程: 转换为WEB工程
+
+3. 添加依赖: pom.xml
+
+   ```xml
+   <!-- 1. 设置打包类型 -->
+   
+   <!-- 2. 添加依赖 -->
+       <!-- SpringMVC 依赖 --> 
+       <!-- Servlet 依赖 -->
+       <!-- Jsp 依赖 -->
+       <!-- Jstl 依赖 -->
+   ```
+
+4. 配置项目: web.xml
+
+   ```xml
+   <!-- 1. 配置资源路径【/】 -->
+   
+   <!-- 2. 配置前端控制器 -->
+   ```
+
+5. 添加配置: springMVC.xml
+
+   ```xml
+   <!-- 1. 扫描Spring组件注解【com.itheima.ex】 -->
+   
+   <!-- 2. 注册三大组件 -->
+   ```
+
+6. com.itheima.ex.controller.UserController
+
+   ```java
+   
+   ```
+
+7. 添加页面: pages/
+
+   - success.jsp
+
+     ```jsp
+     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+     <html>
+     <head>
+         <title>OK</title>
+     </head>
+     <body>
+         操作成功 !
+     </body>
+     </html>
+     ```
+
+   - error.jsp
+
+     ```jsp
+     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+     <html>
+     <head>
+         <title>Fail</title>
+     </head>
+     <body>
+         操作失败 !${msg}
+     </body>
+     </html>
+     ```
+
+##### 1.2 代码调用关系
+
+![1567403737180](assets/1567403737180.png)
+
+
+
+#### 2. 异常处理方案
+
+##### 2.1 代码处理
+
+```java
+@RequestMapping("list")
+public String list(Model model) {
+    try {
+        int i = 1 / 0;
+        // service.method();
+    } catch (Exception e) {
+        model.addAttribute("msg", e.getMessage());
+        return "error";
+    }
+    return "success";
+}
+```
+
+##### 2.2 过滤器处理
+
+1. 创建过滤器: com.itheima.ex.filter.ExceptionFilter
+
+  ```java
+  @Override
+  public void doFilter(ServletRequest request,
+                       ServletResponse response,
+                       FilterChain chain) throws ServletException, IOException {
+      try {
+          // 放行: 交给下一个过滤器或者Servlet处理
+          chain.doFilter(request, response);
+      } catch (Exception e) {
+          RequestDispatcher rd = request
+              .getRequestDispatcher("/pages/error.jsp");
+          request.setAttribute("msg", e.getMessage());
+          rd.forward(request, response);
+      }
+  }
+  ```
+
+2. 配置过滤器: web.xml
+
+  ```xml
+  <filter>
+      <filter-name>ex</filter-name>
+      <filter-class>com.itheima.ex.filter.ExceptionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+      <filter-name>ex</filter-name>
+      <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  ```
+
+##### 1.3 框架处理
+
+- 欲知框架如何, 请看下回分解 !
+
+
+
+#### 小结
+
+- 3层架构中的代码调用关系？
   - 
+- 代码捕捉方式有什么缺点?
   - 
+
+
+
+### 08统一异常处理【掌握】
+
+#### 目标
+
+- SpringMVC的异常源码分析
+- SpringMVC的统一异常处理
+
+
+
+#### 1. 框架处理分析
+
+- 【源码】org.springframework.web.servlet.DispatcherServlet
+
+  ```java
+  private void processDispatchResult(HttpServletRequest request, HttpServletResponse response, @Nullable HandlerExecutionChain mappedHandler, @Nullable ModelAndView mv, @Nullable Exception exception) throws Exception {
+      boolean errorView = false;
+      if (exception != null) {
+          if (exception instanceof ModelAndViewDefiningException) {
+              this.logger.debug("ModelAndViewDefiningException encountered", exception);
+              mv = ((ModelAndViewDefiningException)exception).getModelAndView();
+          } else {
+              Object handler = mappedHandler != null ? mappedHandler.getHandler() : null;
+              // 异常处理方法【执行出现异常将获取异常解析器处理异常】
+              mv = this.processHandlerException(request, response, handler, exception);
+              errorView = mv != null;
+          }
+      }
+  
+      if (mv != null && !mv.wasCleared()) {
+          this.render(mv, request, response);
+          if (errorView) {
+              WebUtils.clearErrorRequestAttributes(request);
+          }
+      } else if (this.logger.isTraceEnabled()) {
+          this.logger.trace("No view rendering, null ModelAndView returned.");
+      }
+  
+      if (!WebAsyncUtils.getAsyncManager(request).isConcurrentHandlingStarted()) {
+          if (mappedHandler != null) {
+              mappedHandler.triggerAfterCompletion(request, response, (Exception)null);
+          }
+  
+      }
+  }
+  ```
+
+- 【源码】org.springframework.web.servlet.HandlerExceptionResolver
+
+  ```java
+  @Nullable
+  ModelAndView resolveException(HttpServletRequest var1, HttpServletResponse var2, @Nullable Object var3, Exception var4);
+  ```
+
+#### 2. 统一异常处理
+
+- 创建异常处理器: com.itheima.ex.ExceptionHandler
+
+  ```java
+  
+  ```
+
+
+
+#### 小结
+
+- 定义多个异常处理类都会生效吗?
   - 
-- Controller返回值有哪些类型?
+- SpringMVC异常处理的底层原理?
   - 
+
+
+
+### 09自定义拦截器【理解】
+
+#### 目标
+
+- 自定义SpringMVC拦截器
+- 拦截器与过滤器的区别
+
+
+
+#### 1.  自定义拦截器
+
+1. 创建拦截器: com.itheima.ex.interceptor.CustomInterceptor
+
+   ```java
+   
+   ```
+
+2. 配置拦截器: springMVC.xml
+
+   ```xml
+   
+   ```
+
+
+
+#### 2. 拦截器与过滤器
+
+| 组件名称 | 组件来源       | 应用范围              |
+| -------- | -------------- | --------------------- |
+| 拦截器   | SpringMVC      | Controller方法        |
+| 过滤器   | Servlet2.3规范 | 所有WEB资源 ( **/** ) |
+
+
+
+#### 小结
+
+- 拦截器与过滤器的区别?
   - 
-  - 
-- @RequestBody的作用?
-  - 
-- @ResponseBody的作用?
-  - 
-- @PathVariable的作用?
-  - 
-- 为什么配置multipartResolver?
-  - 
+
+
+
+### 10总结
+
+1. 使用Json交互需要什么依赖?
+   - 
+2. @RequestBody的作用?
+   - 
+3. @ResponseBody的作用?
+   - 
+4. @PathVariable的作用?
+   - 
+5. 为什么配置multipartResolver?
+   - 
+6. 如何对SSM项目做统一异常处理?
+   - 
+7. 过滤器与拦截器的区别是什么?
+   - 
