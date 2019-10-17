@@ -73,8 +73,10 @@
 
 - 注解与配置的关系是什么?
   - 
-- 创建对象的注解有哪些?
+- Spring是3层架构的哪些层?
   - 
+
+
 
 ### 02使用Spring-jdbc【掌握】
 
@@ -87,11 +89,36 @@
 
 #### 1. Spring-jdbc概念
 
+-  SpringJDBC **封装了基础的 JDBC 操作**，让我们不用去关心 获取驱动、建立连接、关闭连接等非业务操作，让我们更加专注于业务的实现。 
+-  SpringJDBC 采用的是 **模板设计模式**, 将 JDBC 封装在 **JdbcTemplate** 模板中, 使操作更简单。
+
 
 
 #### 2. JdbcTemplate案例
 
+1. 需求: ==查询所有账户==
 
+2. 数据: account.sql
+
+   ```sql
+   DROP TABLE IF EXISTS `account`;
+   CREATE TABLE `account` (
+     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+     `uid` int(11) DEFAULT '1' COMMENT '用户编号',
+     `money` decimal(10,2) DEFAULT '0.00' COMMENT '余额',
+     PRIMARY KEY (`id`)
+   ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+   
+   INSERT INTO `account` VALUES ('1', '1', '10.00');
+   INSERT INTO `account` VALUES ('2', '10', '0.00');
+   INSERT INTO `account` VALUES ('3', '24', '99.00');
+   ```
+
+3. 测试: JdbcTests
+
+   ```javva
+   
+   ```
 
 
 
@@ -116,7 +143,17 @@
 
 #### 1. 使用IOC管理
 
+1. 添加配置: applicationContext.xml
 
+   ```xml
+   
+   ```
+
+2. 单元测试: JdbcTests
+
+   ```java
+   
+   ```
 
 
 
@@ -175,7 +212,7 @@
 
 
 
-### 02完整CRUD - 代码【理解】
+### 05完整CRUD - 代码【理解】
 
 #### 目标
 
@@ -228,7 +265,7 @@
 
 
 
-### 03完整CRUD - 配置【掌握】
+### 06完整CRUD - 配置【掌握】
 
 #### 目标
 
@@ -290,7 +327,7 @@
 
 
 
-### 09使用注解改造案例【掌握】
+### 07使用注解改造案例【掌握】
 
 #### 目标
 
@@ -335,7 +372,7 @@
 
 
 
-### 10纯注解开发【了解】
+### 08纯注解开发【了解】
 
 #### 目标
 
@@ -387,7 +424,7 @@
 
 
 
-### 11整合Junit框架【了解】
+### 09整合Junit框架【了解】
 
 #### 目标
 
@@ -429,7 +466,7 @@
 
 
 
-### 02代理模式【了解】
+### 10代理模式【了解】
 
 #### 目标
 
@@ -501,7 +538,7 @@
 
 
 
-### 03动态代理-jdk【理解】
+### 11动态代理-jdk【理解】
 
 #### 目标
 
@@ -552,7 +589,7 @@
 
 
 
-### 04动态代理-cglib【理解】
+### 12动态代理-cglib【理解】
 
 #### 目标
 
@@ -622,7 +659,7 @@
 
 
 
-### 12总结
+### 13总结
 
 1. 纯注解开发涉及哪些注解?
    - 
