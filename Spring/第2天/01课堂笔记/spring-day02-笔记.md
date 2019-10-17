@@ -137,7 +137,7 @@
 
 #### 目标
 
-- 使用IOC管理Spring-jdbc
+- 使用IOC管理jdbcTemplate
 
 
 
@@ -161,7 +161,7 @@
 
 - IOC中jdbcTemplate在什么时候创建?
   - 
-- RowMapper的作用是什么?
+- BeanPropertyRowMapper的作用是什么?
   - 
 
 
@@ -216,8 +216,8 @@
 
 #### 目标
 
-- 创建CRUD环境
-- 添加CRUD操作
+- 创建JdbcTemplate环境
+- 创建3层架构的CRUD代码
 
 
 
@@ -314,6 +314,12 @@
     
     <!-- 4. 创建业务层对象 -->
     ```
+    
+2. 单元测试: CrudTests
+
+    ```java
+    
+    ```
 
 
 
@@ -337,7 +343,7 @@
 
 #### 1. 改造CRUD案例工程
 
-1. 复制工程: spring02_ax_03
+1. 改造工程: spring02_ax_03
 
 2. 改造持久层: com.itheima.crud.dao.impl.AccountDaoImpl
 
