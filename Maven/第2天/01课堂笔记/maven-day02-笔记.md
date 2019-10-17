@@ -48,7 +48,7 @@
 
 #### 3. Maven的使用
 
-- 项目演示: maven-day02-parent
+- 项目演示: maven02_parent_01
 - 使用案例: 在pom文件中添加如下配置
 
 ```xml
@@ -174,21 +174,23 @@
 
 #### 2. 如何去继承
 
-- 在子工程使用parent标签继承父工程
+1. 子工程名: child
 
-```xml
+2. 实现继承: 在子工程使用parent标签继承父工程
 
-```
+   ```xml
+   
+   ```
 
 
 
 #### 3. 继承的作用
 
-- 继承依赖
-  
+1. 继承依赖
+
   - 父工程的依赖会传递给子工程
-  
-- 继承变量
+
+2. 继承变量
   - 父工程变量配置
 
     ```xml
@@ -201,21 +203,21 @@
     
     ```
 
-- 版本控制
+3. 版本控制
 
   - 使用dependencyManagement标签在父工程定义版本依赖
-  
-    ```xml
-    
-    ```
-  
-  - 子工程使用时不需要指定版本号
-  
+
     ```xml
     
     ```
 
-- 效果如下
+  - 子工程使用时不需要指定版本号
+
+    ```xml
+    
+    ```
+
+4. 效果如下
 
 ![1559979823587](assets/1559979823587.png) 
 
@@ -248,7 +250,7 @@
 
 #### 2. 如何去聚合
 
-- 创建聚合工程: maven-day02-agg
+- 创建聚合工程: maven02_agg_02
 
 - **更改打包类型**: 在pom文件中将packaging设置为pom类型
 
@@ -522,7 +524,7 @@
 
 #### 目标
 
-- **创建父工程**: maven-day02-ssm
+- **创建父工程**: maven02_ssm_03
 
 ![1556861714918](assets/1556861714918.png) 
 
@@ -733,7 +735,7 @@
 
 #### 目标
 
-- 创建maven-day02-domain实体类子工程
+- 创建实体类子工程: maven02_domain_01
 
 ![1556861714918](assets/1556861714918.png) 
 
@@ -766,7 +768,7 @@
 
 #### 目标
 
-- 创建maven-day02-dao持久层子工程
+- 创建持久层子工程: maven02_dao_02
 
 ![1556861714918](assets/1556861714918.png) 
 
@@ -795,7 +797,7 @@
 
 #### 目标
 
-- 创建maven-day02-service业务层子工程
+- 创建业务层子工程: maven02_service_03
 
 ![1556861714918](assets/1556861714918.png) 
 
@@ -826,7 +828,7 @@
 
 #### 目标
 
-- 创建maven-day02-web控制层子工程
+- 创建控制层子工程: maven02_web_04
 
 
 
@@ -846,7 +848,7 @@
     <version>1.0-SNAPSHOT</version> 
   </parent>  
   <modelVersion>4.0.0</modelVersion>  
-  <artifactId>maven-day02-web</artifactId>
+  <artifactId>maven02_web_04</artifactId>
     
   <!-- WEB工程的打包类型是war(不指定默认是jar将无法启动web项目) -->
   <packaging>war</packaging>
