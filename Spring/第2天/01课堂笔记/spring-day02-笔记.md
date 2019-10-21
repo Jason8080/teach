@@ -238,13 +238,21 @@
    
    <!-- 5. junit单元测试依赖 -->
    ```
+   
+3. 创建实体: com.itheima.domain.Account
+
+   ```java
+   
+   ```
+
+   
 
 #### 2. 添加CRUD操作
 
 1. 实现持久层: com.itheima.crud.dao.impl.AccountDaoImpl
 
     ```java
-    
+    // 使用BeanPropertyRowMapper封装结果集完成CRUD
     ```
 
 2. 实现业务层: com.itheima.crud.service.impl.AccountServiceImpl
@@ -667,19 +675,25 @@
 
 ### 13总结
 
-1. 纯注解开发涉及哪些注解?
+1. jdbcTemplate如何注入数据源1
+   - 
+2. 可以使用外部数据源吗?
+   - 
+3. RowMapper的作用?
+   - 
+4. 纯注解开发涉及哪些注解?
    - 
    - 
    - 
    - 
    - 
-2. Spring-test涉及哪些注解?
+5. Spring-test涉及哪些注解?
    - 
    - 
-3. 什么是代理模式?
+6. 什么是代理模式?
    - 
-4. 静态代理和动态代理的区别?
+7. 静态代理和动态代理的区别?
    - 
-5. 两种动态代理的区别?
+8. 两种动态代理的区别?
    - 
 
