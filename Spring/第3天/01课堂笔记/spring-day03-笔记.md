@@ -147,7 +147,7 @@
 6. 单元测试: XmlTests
 
     ```java
-    
+    // 查看: AccountServiceImpl的字节码类型 (是代理对象)
     ```
 
 
@@ -156,17 +156,25 @@
 
 ##### 2.1 动态代理的类型
 
-1. 打印代理对象字节码: XmlTests
+1. 定义业务接口: com.itheima.xml.AccountService
 
     ```java
     
     ```
 
-2. 实现类实现接口: com.itheima.xml.AccountService
+2. 实现业务接口: com.itheima.xml.impl.AccountServiceImpl
 
     ```java
-    // 1. 再次打印代理对象字节码: 观察代理类型的变化
+    
     ```
+    
+3. 单元测试: XmlTests
+
+    ```java
+    // 报错: 必须使用接口接收代理对象
+    ```
+
+    
 
 ##### 2.2 动态代理的配置
 
