@@ -176,9 +176,9 @@
 
     
 
-##### 2.2 动态代理的配置
+##### 2.2 固定使用Cglib
 
-- 指定代理类型: applicationContext.xml
+- applicationContext.xml
 
     ```xml
 <!-- 
