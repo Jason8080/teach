@@ -227,9 +227,15 @@
 
 ##### 2.1 bean
 
-1. pointcut.xml
+1. 演示: pointcut.xml
 
     ```xml
+    
+    ```
+    
+2. 测试: XmlTests
+
+    ```java
     
     ```
 
@@ -302,6 +308,7 @@
 #### 2. 四种通知的配置
 
 1. 通知类型分类: 前置通知、后置通知、异常通知、最终通知
+
 2. 提供通知方法: com.itheima.xml.advice.LogAdvice
 
     ```java
@@ -313,8 +320,14 @@
     ```xml
     
     ```
+    
+4. 测试通知类型: XmlTests
 
+    ```java
+    
+    ```
 
+    
 
 #### 小结
 
