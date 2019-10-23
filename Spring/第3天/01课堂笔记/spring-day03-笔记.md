@@ -774,21 +774,27 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 #### 1. 使用注解改造案例
 
-1. 工程名称: spring03_anno_04
+1. 改造工程: spring03_anno_04
 
-2. 使用注解: com.itheima.xml.service.impl.AccountServiceImpl
+2. 使用注解: com.itheima.xml.dao.impl.AccountDaoImpl
 
    ```java
    
    ```
 
-3. 添加配置: applicationContext.xml
+3. 使用注解: com.itheima.xml.service.impl.AccountServiceImpl
+
+   ```java
+   
+   ```
+
+4. 添加配置: applicationContext.xml
 
    ```xml
    
    ```
 
-4. 单元测试: XmlTests.java
+5. 单元测试: XmlTests.java
 
    ```java
    
@@ -874,7 +880,19 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 ##### 2.2 业务改造
 
-1. 事务编码: com.itheima.xml.service.impl.AccountServiceImpl
+1. 实体类: com.itheima.xml.domain.Account
+
+   ```java
+   
+   ```
+   
+2. 持久层: com.itheima.xml.dao.impl.AccountDaoImpl
+
+   ```java
+   
+   ```
+
+3. 事务编码: com.itheima.xml.service.impl.AccountServiceImpl
 
    ```java
    
