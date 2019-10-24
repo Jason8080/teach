@@ -721,31 +721,41 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 注解的作用
 
-- 映射与限制请求: com.itheima.demo.RequestMappingController
+- 映射与限制请求
 
 ##### 1.1 映射请求地址
 
-```java
+1. 控制器: com.itheima.demo.RequestMappingController
 
-```
+   ```java
+   
+   ```
 
 
 
 ##### 1.2 限制请求方法
 
-```java
+1. 控制器: com.itheima.demo.RequestMappingController
 
-```
+   ```java
+   
+   ```
+
+2. 页面演示: index.jsp
+
+   ```jsp
+   
+   ```
 
 
 
 ##### 1.3 根路径映射限制
 
-```java
+1. 控制器: com.itheima.demo.RequestMappingController
 
-```
-
-
+   ```java
+   
+   ```
 
 
 
@@ -767,17 +777,17 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 基本类型的参数绑定
 
-- 接收基本类型: com.itheima.demo.ParamController
+1. 接收基本类型: com.itheima.demo.ParamController
 
-```java
+   ```java
+   
+   ```
 
-```
+2. 演示提交中文: index.jsp
 
-- 演示提交中文: index.jsp
-
-```jsp
-
-```
+   ```jsp
+   
+   ```
 
 
 
@@ -785,11 +795,11 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 - web.xml
 
-```xml
-<!-- 配置CharacterEncodingFilter(SpringMVC字符集过滤器: 乱码解决方案) -->
-```
+  ```xml
+  <!-- 配置CharacterEncodingFilter(SpringMVC字符集过滤器: 乱码解决方案) -->
+  ```
 
-
+  
 
 #### 小结
 
@@ -829,13 +839,13 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 2. 嵌套类型的参数绑定
 
-- 创建实体: com.itheima.demo.User
+- 创建实体: com.itheima.demo.domain.User
 
 ```java
 
 ```
 
-- 嵌套实体: com.itheima.demo.Account
+- 嵌套实体: com.itheima.demo.domain.Account
 
 ```java
 
@@ -862,9 +872,9 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 - com.itheima.demo.ParamController
 
-```java
-
-```
+  ```java
+  
+  ```
 
 
 
@@ -887,13 +897,13 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 自定义参数转换器
 
-- 定义转换器: com.itheima.demo.DateConverter
+1. 定义转换器: com.itheima.demo.DateConverter
 
-```java
+   ```java
+   
+   ```
 
-```
-
-- 配置转换器: springMVC.xml
+2. 配置转换器: springMVC.xml
 
 ```xml
 <!-- 1. 指定转换服务 -->
@@ -932,13 +942,13 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 数组类型参数的绑定
 
-- 接收数组: com.itheima.controller.ParamController
+1. 接收数组: com.itheima.demo.ParamController
 
   ```java
   
   ```
 
-- 提交数组: index.jsp
+2. 提交数组: index.jsp
 
   ```jsp
   
@@ -964,14 +974,14 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 直接绑定的集合
 
-- 接收集合: com.itheima.controller.ParamController
+1. 接收集合: com.itheima.demo.ParamController
 
   ```java
   // 注意: SpringMVC不支持直接绑定集合
   
   ```
 
-- 提交集合: index.jsp
+2. 提交集合: index.jsp
 
   ```jsp
   <!-- 根据@RequestParam特点,参数名需要一致 -->
@@ -982,19 +992,19 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 2. 嵌套绑定的集合
 
-- 嵌套对象: com.itheima.controller.Account
+1. 嵌套对象: com.itheima.demo.domain.Account
 
   ```java
   
   ```
 
-- 嵌套参数: com.itheima.controller.ParamController
+2. 嵌套参数: com.itheima.demo.ParamController
 
   ```java
   
   ```
 
-- 提交参数: index.jsp
+3. 提交参数: index.jsp
 
   ```jsp
   
@@ -1026,11 +1036,6 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 - SpringMVC不响应任何内容
 
-- 添加依赖: pom.xml
-
-  ```xml
-  <!-- 使用原生的Servlet响应资源 -->
-  ```
 
 
 
@@ -1038,7 +1043,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 ##### 1.1 转发
 
-- com.itheima.controller.ReturnController
+- com.itheima.demo.ReturnController
 
   ```java
   
@@ -1046,7 +1051,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 ##### 1.2 重定向
 
-- com.itheima.controller.ReturnController
+- com.itheima.demo.ReturnController
 
   ```java
   
@@ -1054,7 +1059,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 ##### 1.3 响应数据
 
-- com.itheima.controller.ReturnController
+- com.itheima.demo.ReturnController
 
   ```java
   
@@ -1081,7 +1086,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 ##### 1.1 转发
 
-- com.itheima.controller.ReturnController
+- com.itheima.demo.ReturnController
 
   ```java
   
@@ -1089,7 +1094,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 ##### 1.2 重定向
 
-- com.itheima.controller.ReturnController
+- com.itheima.demo.ReturnController
 
   ```java
   
@@ -1097,7 +1102,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 ##### 1.3 响应数据
 
-- com.itheima.controller.ReturnController
+- com.itheima.demo.ReturnController
 
   ```java
   // 需要配合Model使用
@@ -1123,7 +1128,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 返回值ModelAndView的用法
 
-- com.itheima.controller.ReturnController
+- com.itheima.demo.ReturnController
 
   ```java
   
@@ -1138,7 +1143,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 
 
-### 13总结
+### 17总结
 
 1. 什么是SpringMVC?
    - 
