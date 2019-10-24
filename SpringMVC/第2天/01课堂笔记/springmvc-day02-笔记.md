@@ -36,7 +36,7 @@
    
    ```
 
-3. 后端控制器: com.itheima.controller.ParamController
+3. 后端控制器: com.itheima.json.ParamController
 
    ```java
    
@@ -90,7 +90,7 @@
     
     ```
 
-2. com.itheima.controller.JsonController
+2. com.itheima.json.JsonController
 
     ```java
     
@@ -173,7 +173,7 @@
 
 #### 2. RESTful参数
 
-- com.itheima.controller.RestController
+- com.itheima.json.RestController
 
     ```java
     // 使用@PathVariable映射URL中的参数
@@ -209,7 +209,7 @@
     <!-- SpringMVC使用HiddenHttpMethodFilter将隐藏域解析为提交方法 -->
     ```
 
-2. com.itheima.controller.RestController
+2. com.itheima.json.RestController
 
     ```java
     // 注意: 浏览器不支持的方法只能返回Json数据
@@ -253,7 +253,7 @@
     
     ```
 
-3. com.itheima.controller.UploadController
+3. com.itheima.json.UploadController
 
     ```java
     // 1. 获取上传目录
@@ -293,7 +293,7 @@
     
     ```
 
-2. com.itheima.controller.UploadController
+2. com.itheima.json.UploadController
 
     ```java
     // 1. 获取上传目录
@@ -355,7 +355,7 @@
    <!-- 2. 注册三大组件 -->
    ```
 
-6. com.itheima.ex.controller.UserController
+6. com.itheima.ex.UserController
 
    ```java
    
