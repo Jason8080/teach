@@ -942,7 +942,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 数组类型参数的绑定
 
-1. 接收数组: com.itheima.demo.ParamController
+1. 接收数组: com.itheima.demo.Param2Controller
 
   ```java
   
@@ -974,7 +974,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 直接绑定的集合
 
-1. 接收集合: com.itheima.demo.ParamController
+1. 接收集合: com.itheima.demo.Param2Controller
 
   ```java
   // 注意: SpringMVC不支持直接绑定集合
@@ -998,7 +998,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
   
   ```
 
-2. 嵌套参数: com.itheima.demo.ParamController
+2. 嵌套参数: com.itheima.demo.Param2Controller
 
   ```java
   
