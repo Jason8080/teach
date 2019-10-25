@@ -36,7 +36,7 @@
    
    ```
 
-3. 后端控制器: com.itheima.json.ParamController
+3. 后端控制器: com.itheima.json.JsonController
 
    ```java
    
@@ -90,51 +90,60 @@
     
     ```
 
-2. com.itheima.json.JsonController
+2. 创建实体: com.itheima.json.Account
 
     ```java
     
     ```
 
-3. index.jsp
+3. 使用注解: com.itheima.json.JsonController
 
-    ```jsp
+    ```java
     
     ```
 
-4. Function commit
+4. 页面请求: index.jsp
 
-    ```js
-    function jsonCommit() {
-        // 1. 创建异步请求对象
-        let req = new XMLHttpRequest();
-        // 2. 打开请求
-        req.open("POST", "json", true);
-        // 3. 设置请求的数据类型(必须)
-        req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        // 4. 异步读取响应
-        req.onreadystatechange = function () {
-            // 2.1 判断响应状态
-            if (req.readyState == 4 || req.status == 200) {
-                let data = req.responseText;
-                document.getElementById("jsonRes").innerHTML = data;
+    ```html
+    <h3>演示: json数据交互</h3>
+    <form id="jsonForm">
+        <input type="text" name="id" value="1" />
+        <input type="text" name="uid" value="2" />
+        <button type="button" onclick="jsonCommit()">提交</button>
+        <div id="jsonRes"></div>
+    </form>
+    <script>
+    	function jsonCommit() {
+            // 1. 创建异步请求对象
+            var req = new XMLHttpRequest();
+            // 2. 打开请求
+            req.open("POST", "json", true);
+            // 3. 设置请求的数据类型(必须)
+            req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            // 4. 异步读取响应
+            req.onreadystatechange = function () {
+                // 2.1 判断响应状态
+                if (req.readyState == 4 || req.status == 200) {
+                    var data = req.responseText;
+                    document.getElementById("jsonRes").innerHTML = data;
+                }
+            };
+            // 5. 封装数据
+            var es =
+                document.getElementById("jsonForm").getElementsByTagName("input");
+            var json = {};
+            for (var i = 0; i <= es.length; i++) {
+                if (es[i] != undefined) {
+                    var name = es[i].name;
+                    var value = es[i].value;
+                    json[name] = value;
+                }
             }
-        };
-        // 5. 封装数据
-        let es =
-            document.getElementById("jsonForm").getElementsByTagName("input");
-        let json = {};
-        for (let i = 0; i <= es.length; i++) {
-            if (es[i] != undefined) {
-                let name = es[i].name;
-                let value = es[i].value;
-                json[name] = value;
-            }
+            // 6. 发送数据
+            var body = JSON.stringify(json);
+            req.send(body);
         }
-        // 6. 发送数据
-        let body = JSON.stringify(json);
-        req.send(body);
-    }
+    </script>
     ```
 
 
@@ -204,11 +213,9 @@
 1. web.xml
 
     ```xml
-    <!-- 浏览器不支持GET/POST之外的HTTP方法, 需要配置SpringMVC支持 -->
-    
-    <!-- SpringMVC使用HiddenHttpMethodFilter将隐藏域解析为提交方法 -->
+    <!-- 配置HiddenHttpMethodFilter支持 -->
     ```
-
+    
 2. com.itheima.json.RestController
 
     ```java
@@ -290,9 +297,8 @@
 
     ```xml
     <!-- 注册多媒体(文件)解析器: CommonsMultipartResolver --> 
-    
     ```
-
+    
 2. com.itheima.json.UploadController
 
     ```java
@@ -314,90 +320,52 @@
 
 #### 目标
 
-- 分析3层架构中代码的调用关系
-- 分析3层架构中异常的处理方案
+- 理解3层架构的代码调用关系
+- 分析3层架构的异常处理方案
 
 
 
 #### 1. 代码调用关系
 
-##### 1.1  三层架构案例
+![1567403737180](assets/1567403737180.png)
 
-1. 工程名称: mvc02_ex_02
+#### 2. 异常处理方案
 
-2. 升级工程: 转换为WEB工程
-
-3. 添加依赖: pom.xml
-
-   ```xml
-   <!-- 1. 设置打包类型 -->
-   
-   <!-- 2. 添加依赖 -->
-       <!-- SpringMVC 依赖 --> 
-       <!-- Servlet 依赖 -->
-       <!-- Jsp 依赖 -->
-       <!-- Jstl 依赖 -->
-   ```
-
-4. 配置项目: web.xml
-
-   ```xml
-   <!-- 1. 配置资源路径【/】 -->
-   
-   <!-- 2. 配置前端控制器 -->
-   ```
-
-5. 添加配置: springMVC.xml
-
-   ```xml
-   <!-- 1. 扫描Spring组件注解【com.itheima.ex】 -->
-   
-   <!-- 2. 注册三大组件 -->
-   ```
-
-6. com.itheima.ex.UserController
+1. 模拟视图层异常: com.itheima.ex.ExceptionController
 
    ```java
    
    ```
 
-7. 添加页面: pages/
+2. 提供成功页面: pages/success.jsp
 
-   - success.jsp
+   ```jsp
+   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+   <html>
+   <head>
+       <title>OK</title>
+   </head>
+   <body>
+       操作成功 !
+   </body>
+   </html>
+   ```
 
-     ```jsp
-     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-     <html>
-     <head>
-         <title>OK</title>
-     </head>
-     <body>
-         操作成功 !
-     </body>
-     </html>
-     ```
+3. 提供错误页面: pages/error.jsp
 
-   - error.jsp
+   ```jsp
+   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+   <html>
+   <head>
+       <title>Fail</title>
+   </head>
+   <body>
+       操作失败 !${msg}
+   </body>
+   </html>
+   ```
 
-     ```jsp
-     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-     <html>
-     <head>
-         <title>Fail</title>
-     </head>
-     <body>
-         操作失败 !${msg}
-     </body>
-     </html>
-     ```
-
-##### 1.2 代码调用关系
-
-![1567403737180](assets/1567403737180.png)
-
-
-
-#### 2. 异常处理方案
+   
 
 ##### 2.1 代码处理
 
