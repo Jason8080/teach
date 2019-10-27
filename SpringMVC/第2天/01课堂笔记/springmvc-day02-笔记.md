@@ -254,7 +254,7 @@
     
     ```
 
-2. 前端页面: pages/index.jsp
+2. 前端页面: index.jsp
 
     ```jsp
     
