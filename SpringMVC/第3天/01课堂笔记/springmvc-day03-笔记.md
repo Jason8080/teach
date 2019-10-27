@@ -409,15 +409,37 @@
 
 ### 10总结
 
-3. 什么是SSM ?
+1. 什么是SSM ?
+
    - 
-4. 整合Spring+SpringMVC需要额外添加依赖吗?
+
+2. 整合Spring+SpringMVC需要额外添加依赖吗?
+
    - 
-5. 整合Spring+Mybatis需要额外添加依赖吗?
+
+3. 整合Spring+Mybatis需要额外添加依赖吗?
+
    - 
-6. SpringMVC的三大组件有哪些?
+
+4. SpringMVC是谁启动的?
+
+   - 
+
+5. Spring是谁启动的?
+
+   - 
+
+6. Mybatis是谁启动的?
+
+   - 
+
+7. SpringMVC的三大组件有哪些?
+
+   - 
+
    - 
    - 
+
+8. SpringMVC的工作原理?
+
    - 
-7. SpringMVC的工作原理?
-   1. 
