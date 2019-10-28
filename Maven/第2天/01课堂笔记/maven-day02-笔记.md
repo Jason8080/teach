@@ -670,10 +670,10 @@
 <packaging>pom</packaging>
 <!--聚合子工程-->
 <modules>
-    <module>maven-day02-domain</module>
-    <module>maven-day02-dao</module>
-    <module>maven-day02-service</module>
-    <module>maven-day02-web</module>
+    <module>maven02_domain_01</module>
+    <module>maven02_dao_02</module>
+    <module>maven02_service_03</module>
+    <module>maven02_web_04</module>
 </modules>
 ```
 
@@ -843,7 +843,7 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
   <parent> 
-    <artifactId>maven-day02-ssm</artifactId>  
+    <artifactId>maven02_ssm_03</artifactId>  
     <groupId>com.itheima</groupId>  
     <version>1.0-SNAPSHOT</version> 
   </parent>  
@@ -859,7 +859,7 @@
     <!--依赖maven-day01-09ssm-service-->
     <dependency>
       <groupId>com.itheima</groupId>
-      <artifactId>maven-day02-service</artifactId>
+      <artifactId>maven02_service_03</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <!-- spring web包 -->
@@ -1278,7 +1278,7 @@
 #### db.properties
 
 ```properties
-db.driver=com.mysql.cj.jdbc.Driver
+db.driver=com.mysql.jdbc.Driver
 db.url=jdbc:mysql:///mybatisdb?serverTimezone=UTC&useSSL=false
 db.username=root
 db.password=root
