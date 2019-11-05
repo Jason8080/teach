@@ -874,25 +874,11 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 #### 2.编程式事务案例
 
-##### 2.1 环境改造
+##### 2.1 改造代码
 
-1. 工程名称: spring03_code_05
+1. 改造工程: spring03_code_05
 
-##### 2.2 业务改造
-
-1. 实体类: com.itheima.xml.domain.Account
-
-   ```java
-   
-   ```
-   
-2. 持久层: com.itheima.xml.dao.impl.AccountDaoImpl
-
-   ```java
-   
-   ```
-
-3. 事务编码: com.itheima.xml.service.impl.AccountServiceImpl
+2. 事务编码: com.itheima.xml.service.impl.AccountServiceImpl
 
    ```java
    
@@ -900,7 +886,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 
 
-##### 2.3 配置支持
+##### 2.2 添加配置
 
 1. 添加配置: applicationContext.xml
 
@@ -911,7 +897,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 
 
-##### 2.4 单元测试
+##### 2.3 单元测试
 
 1. 单元测试: XmlTests
 
@@ -938,17 +924,16 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 2. 动态代理JDK和CGLIB的区别?
 
-   - 
-   - 
+   - jdk: 
+   - cglib: 
 
 3. Spring AOP的底层是什么?
 
    - 
 
-   - 
-
 4. 切面和切入点以及通知是什么?
 
+   - 
    - 
    - 
 
