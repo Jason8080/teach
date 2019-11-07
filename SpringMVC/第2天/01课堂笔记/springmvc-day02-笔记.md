@@ -90,7 +90,7 @@
     
     ```
 
-2. 创建实体: com.itheima.json.Account
+2. 创建实体: com.itheima.json.domain.Account
 
     ```java
     
@@ -331,7 +331,7 @@
 
 #### 2. 异常处理方案
 
-1. 模拟视图层异常: com.itheima.ex.ExceptionController
+1. 模拟视图层异常: com.itheima.json.ExceptionController
 
    ```java
    
@@ -385,7 +385,7 @@ public String list(Model model) {
 
 ##### 2.2 过滤器处理
 
-1. 创建过滤器: com.itheima.ex.filter.ExceptionFilter
+1. 创建过滤器: com.itheima.json.filter.ExceptionFilter
 
   ```java
   @Override
@@ -487,7 +487,7 @@ public String list(Model model) {
 
 #### 2. 统一异常处理
 
-- 创建异常处理器: com.itheima.ex.ExceptionHandler
+- 创建异常处理器: com.itheima.json.ex.ExceptionHandler
 
   ```java
   
@@ -515,7 +515,7 @@ public String list(Model model) {
 
 #### 1.  自定义拦截器
 
-1. 创建拦截器: com.itheima.ex.interceptor.CustomInterceptor
+1. 创建拦截器: com.itheima.json.interceptor.CustomInterceptor
 
    ```java
    
