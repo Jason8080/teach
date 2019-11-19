@@ -384,6 +384,7 @@
     <!-- 远程仓库的地址 -->
     <url>http://127.0.0.1:8081/nexus/content/groups/public/</url>
     <!-- 拦截指定仓库的请求 -->
+    <!-- lib/maven-model-builder-3.6.0.jar/org/apache\maven\model -->
     <mirrorOf>central</mirrorOf>
 </mirror>
 ```
