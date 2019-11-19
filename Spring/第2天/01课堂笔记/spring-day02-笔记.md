@@ -170,16 +170,17 @@
 
 #### 目标
 
-- 对象的结果集映射器
+- 结果集映射器的前提
 - 自定义结果集映射器
 
 
 
-#### 1. 对象的结果集映射器
+#### 1. 结果集映射器的前提
 
 - 类名: org.springframework.jdbc.core.BeanPropertyRowMapper
 - 接口: **org.springframework.jdbc.core.RowMapper**
 - 作用: 将结果集( ResultSet )映射到对象( Bean )
+- **前提**: 数据库表字段需要与对象属性一致, 否则不起作用
 
 
 
