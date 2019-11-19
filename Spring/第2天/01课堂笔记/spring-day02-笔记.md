@@ -186,7 +186,7 @@
 
 #### 2.自定义结果集映射器
 
-1. 外部类: com.itheima.jdbc.AccountRowMapper
+1. 实现类: com.itheima.jdbc.AccountRowMapper
 
    ```java
    
