@@ -78,16 +78,16 @@
 
 
 
-### 02使用Spring-jdbc【掌握】
+### 02使用JdbcTemplate【掌握】
 
 #### 目标
 
-- 了解Spring-jdbc概念
+- 了解JdbcTemplate概念
 - 编写JdbcTemplate案例
 
 
 
-#### 1. Spring-jdbc概念
+#### 1. JdbcTemplate概念
 
 -  SpringJDBC **封装了基础的 JDBC 操作**，让我们不用去关心 获取驱动、建立连接、关闭连接等非业务操作，让我们更加专注于业务的实现。 
 -  SpringJDBC 采用的是 **模板设计模式**, 将 JDBC 封装在 **JdbcTemplate** 模板中, 使操作更简单。
@@ -126,7 +126,7 @@
 
 - JdbcTemplate是什么?
   - 
-- 案例中如何注入数据源?
+- 案例中如何注入连接池?
   - 
 
 
@@ -159,14 +159,14 @@
 
 #### 小结
 
-- IOC中jdbcTemplate在什么时候创建?
+- 如何配置Spring的连接池?
   - 
 - BeanPropertyRowMapper的作用是什么?
   - 
 
 
 
-### 04结果集映射器【理解】
+### 04自定义映射器【理解】
 
 #### 目标
 
@@ -178,8 +178,8 @@
 #### 1. 对象的结果集映射器
 
 - 类名: org.springframework.jdbc.core.BeanPropertyRowMapper
-- 接口: org.springframework.jdbc.core.RowMapper
-- 作用: 
+- 接口: **org.springframework.jdbc.core.RowMapper**
+- 作用: 将结果集( ResultSet )映射到对象( Bean )
 
 
 
@@ -197,11 +197,6 @@
    
    ```
 
-3. 内部类: JdbcTests
-
-   ```java
-   
-   ```
 
 
 
