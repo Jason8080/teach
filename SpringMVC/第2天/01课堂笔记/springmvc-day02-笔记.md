@@ -174,10 +174,10 @@
 
 - 以下是传统URL编码风格与RESTful的对比
 
-  |             | 增        | 删                   | 查                | 改                   |
-  | ----------- | --------- | -------------------- | ----------------- | -------------------- |
-  | 传统        | /user/add | /user/delete?id={id} | /user/get?id={id} | /user/update?id={id} |
-  | **RESTful** | /user     | /user/{id}           | /user/{id}        | /user/{id}           |
+  |             | 增        | 删                   | 改                   | 查                |
+  | ----------- | --------- | -------------------- | -------------------- | ----------------- |
+  | 传统        | /user/add | /user/delete?id={id} | /user/update?id={id} | /user/get?id={id} |
+  | **RESTful** | /user     | /user/{id}           | /user/{id}           | /user/{id}        |
 
 
 
