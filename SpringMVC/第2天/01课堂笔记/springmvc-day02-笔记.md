@@ -161,83 +161,77 @@
 
 #### 目标
 
-- 了解RESTful风格
-- RESTful参数绑定
+- RESTful的简介
+- RESTful的特点
 
 
 
-#### 1. RESTful介绍
+#### 1. RESTful的简介
 
-##### 1.1 基本概诉
+- REST(presentational State Transfer)是**URL编码规范**
+- RESTful本身并不是技术, 组件或服务
+- 符合RESTful特点的架构称之为RESTful架构
 
-- REST全称是Representational State Transfer，REST本身并没有创造新的技术、组件或服务。
-- REST指的是约束条件和原则，如果一个架构符合REST的约束条件和原则，就称它为RESTful架构。
+- 以下是传统URL编码风格与RESTful的对比
 
-##### 1.2 风格对比
-
-|             | 增        | 删                | 查             | 改                |
-| ----------- | --------- | ----------------- | -------------- | ----------------- |
-| 传统        | /user/add | /user/delete?id=1 | /user/get?id=1 | /user/update?id=1 |
-| **RESTful** | /user     | /user/1           | /user/1        | /user/1           |
-
-#### 2. RESTful参数
-
-- com.itheima.json.RestController
-
-    ```java
-    // 使用@PathVariable映射URL中的参数
-
-    ```
+  |             | 增        | 删                   | 查                | 改                   |
+  | ----------- | --------- | -------------------- | ----------------- | -------------------- |
+  | 传统        | /user/add | /user/delete?id={id} | /user/get?id={id} | /user/update?id={id} |
+  | **RESTful** | /user     | /user/{id}           | /user/{id}        | /user/{id}           |
 
 
 
-#### 小结
+#### 2. RESTful的特点
 
-- RESTful是什么?
-  - 
-- @PathVariable的作用?
-  - 
+##### 2.1 唯一标识: Url
 
+> ​	每个资源都有一个唯一的URL
 
+1. com.itheima.json.RestController
 
-### 04RESTful支持【了解】
-
-#### 目标
-
-- 了解RESTful的方法支持
+   ```java
+   // 使用@PathVariable映射URL中的参数
+   ```
 
 
 
-#### 1. RESTful的方法支持
+##### 2.2 统一接口: Method
+
+> ​	同类资源的各种操作只需一个URL
 
 1. web.xml
 
-    ```xml
-    <!-- 配置HiddenHttpMethodFilter支持 -->
-    ```
-    
+   ```xml
+   <!-- 配置HiddenHttpMethodFilter支持 -->
+   ```
+
 2. com.itheima.json.RestController
 
-    ```java
-    // 注意: 浏览器不支持的方法只能返回Json数据
-    ```
+   ```java
+   // 注意: 浏览器不支持的方法只能返回Json数据
+   ```
 
 3. index.jsp
 
-    ```jsp
-    
-    ```
+   ```jsp
+   
+   ```
 
 
 
 #### 小结
 
+- RESTful的特点有哪些?
+  - 
+  - 
+- @PathVariable的作用?
+  - 
 - HiddenHttpMethodFilter的作用?
   - 
 
 
 
-### 05文件上传-传统【了解】
+### 04文件上传-传统【了解】
 
 #### 目标
 
@@ -316,7 +310,7 @@
 
 
 
-### 07异常处理方案【理解】
+### 06异常处理方案【理解】
 
 #### 目标
 
@@ -432,7 +426,7 @@ public String list(Model model) {
 
 
 
-### 08统一异常处理【掌握】
+### 07统一异常处理【掌握】
 
 #### 目标
 
@@ -504,7 +498,7 @@ public String list(Model model) {
 
 
 
-### 09自定义拦截器【理解】
+### 08自定义拦截器【理解】
 
 #### 目标
 
@@ -545,7 +539,7 @@ public String list(Model model) {
 
 
 
-### 10总结
+### 09总结
 
 1. 使用Json交互需要什么依赖?
    - 
