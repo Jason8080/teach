@@ -1023,25 +1023,19 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 
 
-### 14返回值-void【理解】
+
+
+### 14返回值的用法【理解】
 
 #### 目标
 
-- 理解返回值void的意义
-- 理解返回值void的用法
+- 理解string的用法
+- 理解mv的用法
+- 理解void的用法
 
 
 
-#### 1. 返回值void的意义
-
-- SpringMVC不响应任何内容
-
-
-
-
-#### 2. 返回值void的用法
-
-##### 1.1 转发
+#### 1. string的用法
 
 - com.itheima.demo.ReturnController
 
@@ -1049,7 +1043,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
   
   ```
 
-##### 1.2 重定向
+#### 2. mv的用法
 
 - com.itheima.demo.ReturnController
 
@@ -1057,7 +1051,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
   
   ```
 
-##### 1.3 响应数据
+#### 3. void的用法
 
 - com.itheima.demo.ReturnController
 
@@ -1069,81 +1063,14 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 小结
 
-- 为什么可以不返回视图呢?
+- 关键字forward:的作用?
+  - 
+- 返回值mv与string的关系?
   - 
 
 
 
-### 15返回值-string【掌握】
-
-#### 目标
-
-- 理解返回值string的用法
-
-
-
-#### 1. 返回值string的用法
-
-##### 1.1 转发
-
-- com.itheima.demo.ReturnController
-
-  ```java
-  
-  ```
-
-##### 1.2 重定向
-
-- com.itheima.demo.ReturnController
-
-  ```java
-  
-  ```
-
-##### 1.3 响应数据
-
-- com.itheima.demo.ReturnController
-
-  ```java
-  // 需要配合Model使用
-  
-  ```
-
-
-
-#### 小结
-
-- 使用forward:的作用?
-  - 
-
-
-
-### 16返回值-MV【理解】
-
-#### 目标
-
-- 理解返回值ModelAndView的用法
-
-
-
-#### 1. 返回值ModelAndView的用法
-
-- com.itheima.demo.ReturnController
-
-  ```java
-  
-  ```
-
-
-
-#### 小结
-
-- 返回值mv与string的区别?
-  - 
-
-
-
-### 17总结
+### 15总结
 
 1. 什么是SpringMVC?
    - 
