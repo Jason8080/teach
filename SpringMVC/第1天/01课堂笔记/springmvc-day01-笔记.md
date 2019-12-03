@@ -711,6 +711,8 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 
 
+
+
 ### 07@RequestMapping【理解】
 
 #### 目标
@@ -721,19 +723,20 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 #### 1. 注解的作用
 
-- 映射与限制请求
+- 映射请求
+- 限制请求
 
-##### 1.1 映射请求地址
 
-1. 控制器: com.itheima.demo.RequestMappingController
+
+##### 1.1 映射请求
+
+1. com.itheima.demo.RequestMappingController
 
    ```java
    
    ```
 
-
-
-##### 1.2 限制请求方法
+##### 1.2 限制请求
 
 1. 控制器: com.itheima.demo.RequestMappingController
 
@@ -744,16 +747,6 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 2. 页面演示: index.jsp
 
    ```jsp
-   
-   ```
-
-
-
-##### 1.3 根路径映射限制
-
-1. 控制器: com.itheima.demo.RequestMappingController
-
-   ```java
    
    ```
 
