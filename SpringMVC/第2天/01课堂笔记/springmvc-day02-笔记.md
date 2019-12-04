@@ -170,8 +170,6 @@
 
 - REST(presentational State Transfer)是**URL编码规范**
 - RESTful本身并不是技术, 组件或服务
-- 符合RESTful特点的架构称之为RESTful架构
-
 - 以下是传统URL编码风格与RESTful的对比
 
   |             | 增        | 删                   | 改                   | 查                |
@@ -179,13 +177,19 @@
   | 传统        | /user/add | /user/delete?id={id} | /user/update?id={id} | /user/get?id={id} |
   | **RESTful** | /user     | /user/{id}           | /user/{id}           | /user/{id}        |
 
+- 提供方法: com.itheima.json.RestController
 
+  ```java
+  
+  ```
+
+  
 
 #### 2. RESTful的特点
 
-##### 2.1 唯一标识: Url
+##### 2.1 接口唯一
 
-> ​	每个资源都有一个唯一的URL
+> ​	每个资源都有一个唯一的 **URL**
 
 1. com.itheima.json.RestController
 
@@ -195,9 +199,9 @@
 
 
 
-##### 2.2 统一接口: Method
+##### 2.2 接口统一
 
-> ​	同类资源的各种操作只需一个URL
+> ​	同类资源的各种操作只需一个URL, 各种操作以 **Method** 区分
 
 1. web.xml
 
