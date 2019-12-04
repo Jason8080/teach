@@ -2,20 +2,17 @@
 
 #### 目标
 
-- 理解开发中的 **三层架构**
-- 理解分层架构的作用
+- 搭建 **三层架构** 的项目
+- 理解 **分层架构** 的作用
 
 
 
-#### 1. 理解三层架构
+#### 1. 搭建三层架构的项目
 
-##### 1.1 分层概念
-
-- 三层架构(3-tier architecture): **视图层**, **业务层**, **持久层**
+- 项目开发(3-tier architecture): 视图层 (**处理参数**), 业务层 (**处理业务**), 持久层 (**处理数据**)
+- 分层架构(3-tier architecture): 其实就是将 **代码分类** , 按功能/职责划分为3类分别存放在web,service,dao包中
 
 ![1559290090936](assets/1559290090936.png)
-
-##### 1.2 分层案例
 
 1. 创建项目: spring01_tier_01
 
@@ -55,7 +52,7 @@
 
 
 
-#### 2. 分层架构的作用
+#### 2. 理解分层架构的作用
 
 1. 项目结构清晰 (提高代码可读性)
 
@@ -229,64 +226,18 @@
 
 - 依赖问题 ( 代码耦合度过高 ) 如何解决?
   - 
-
-
-
-### 04分层的其他问题【了解】
-
-#### 目标
-
-- 了解分层架构的其他问题
-
-
-
-#### 1. 依赖关系问题
-
-![1564713528158](assets/1564713528158.png) 
-
-
-
-#### 2. 创建顺序问题
-
-![1564716026508](assets/1564716026508.png) 
-
-#### 3. 对象个数问题
-
-- 每次请求都创建新的对象 (消耗内存)
-
-    ```java
-    public static Object getBean(String name){
-        try {
-            Properties props = new Properties();
-    		props.load(BeanFactory.class.getClassLoader()
-               				.getResourceAsStream("beans.properties"))
-            String clazz = props.getProperty(name);
-            // 创建对象 (每次使用都创建新的对象)
-            return getBean2(clazz);
-        } catch (IOException e) {
-            System.out.println("文件读取失败");
-        }
-        return null;
-    }
-    ```
-
-
-
-#### 小结
-
-- 分层架构还有哪些问题?
-  - 
-  - 
+- 三层架构还有其他问题吗?
   - 
 
 
 
-### 05Spring框架概述【了解】
+
+
+### 04Spring框架概述【了解】
 
 #### 目标
 
 - 了解Spring框架
-- 了解Spring结构
 - 了解Spring优点
 
 
@@ -309,11 +260,7 @@
 - Spring核心是**IOC**(控制反转) 和 **AOP**(面向切面编程)
 - Spring提供了对各种优秀框架的支持和 **整合**
 
-
-
-#### 2. Spring结构
-
-- Spring框架采用分层架构，根据不同的功能被划分成了多个模块
+- Spring框架采用分层架构，结构清晰, 根据不同的功能被划分成了多个模块
 
 ![1559212182908](assets/1557482552440.png)
 
@@ -360,31 +307,31 @@
 
 
 
-#### 3. Spring优点
+#### 2. Spring优点
 
-##### 3.1 IOC解耦
+##### 2.1 IOC解耦
 
 - 可以将对象间的依赖关系交由spring管理
 - 避免硬编码造成的程序间过渡耦合
 
-##### 3.2 支持AOP
+##### 2.2 支持AOP
 
 - 可以使用切面编程思想对方法进行增强
 
-##### 3.3 支持声明式事务
+##### 2.3 支持声明式事务
 
 - 可以通过配置或者注解的方式管理事务
 - 不需要硬编码管理事务
 
-##### 3.4 方便测试
+##### 2.4 方便测试
 
 - 可以通过注解方便的测试Spring程序
 
-##### 3.5 方便集成
+##### 2.5 方便集成
 
 - 其内部提供了对各种优秀框架的直接支持
 
-##### 3.6 使用简单
+##### 2.6 使用简单
 
 - Spring对很多难用的API做了简单的封装
 
@@ -407,7 +354,7 @@
 
 
 
-### 06IOC容器概念【理解】
+### 05IOC容器概念【理解】
 
 #### 目标
 
@@ -444,7 +391,7 @@
 
 
 
-### 07IOC入门案例【掌握】
+### 06IOC入门案例【掌握】
 
 #### 目标
 
@@ -507,7 +454,7 @@
 
 
 
-### 08Bean-标签属性【了解】
+### 07Bean-标签属性【了解】
 
 #### 目标
 
@@ -567,7 +514,7 @@
 
 
 
-### 09Bean-作用范围【理解】
+### 08Bean-作用范围【理解】
 
 #### 目标
 
@@ -598,7 +545,7 @@
 
 
 
-### 10创建IOC的方式【理解】
+### 09创建IOC的方式【理解】
 
 #### 目标
 
@@ -672,7 +619,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 11创建对象的方式【理解】
+### 10创建对象的方式【理解】
 
 #### 目标
 
@@ -739,7 +686,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 12依赖注入 - 概念【掌握】
+### 11依赖注入 - 概念【掌握】
 
 #### 目标
 
@@ -761,7 +708,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 13DI - 注入方式【理解】
+### 12DI - 注入方式【理解】
 
 #### 目标
 
@@ -840,7 +787,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 14DI - 注入对象【理解】
+### 13DI - 注入对象【理解】
 
 #### 目标
 
@@ -871,7 +818,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 15DI - 注入集合【理解】
+### 14DI - 注入集合【理解】
 
 #### 目标
 
@@ -906,7 +853,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 16基于注解创建对象【掌握】
+### 15基于注解创建对象【掌握】
 
 #### 目标
 
@@ -956,7 +903,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 17创建对象的注解【掌握】
+### 16创建对象的注解【掌握】
 
 #### 目标
 
@@ -983,7 +930,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 18依赖注入的注解【掌握】
+### 17依赖注入的注解【掌握】
 
 #### 目标
 
@@ -1038,7 +985,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 19生命周期的注解【了解】
+### 18生命周期的注解【了解】
 
 #### 目标
 
@@ -1080,46 +1027,9 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 20注解与配置的关系【了解】
-
-#### 目标
-
-- 了解注解和配置的关系
 
 
-
-#### 1. 注解和配置的关系
-
-- 注解是配置的代替方案 (是配置的一种)
-
-|              | 配置方式 (常用)                        | 注解方式 (常用)                |
-| ------------ | -------------------------------------- | ------------------------------ |
-| Bean定义     | <bean class=""/>                       | @Component                     |
-| Bean名称     | bean标签的id或name属性                 | @Component的value值            |
-| Bean注入     | bean标签的子标签<property..            | @Autowired(1) + @Qualifier (?) |
-| Bean生命周期 | bean标签的init- \| destroy- method属性 | @PostConstruct \| @PreDestroy  |
-| Bean延迟创建 | bean标签的lazy-init \| scope 属性      | @Lazy \| @Scope                |
-| **适用场景** | 第三方源码类的对象创建                 | 自定义类的简单应用对象创建     |
-
-- 注解的优势: 简单, 可读性高 (找到类就相当于找到配置)
-- 配置的优势: 解耦, 非侵入性 (代码与配置分开互不干扰)
-
-
-
-
-
-#### 小结
-
-- 注解和配置是什么关系?
-  - 
-- 注解和配置能否混搭使用?
-  - 
-
-
-
-
-
-### 21总结
+### 19总结
 
 1. Spring是什么?
    - 
