@@ -609,7 +609,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 #### 1. 事务的传播行为
 
-- 当前方法对事务的要求
+- 传播行为可以理解为: **内部方法对外部方法的事务要求**
 
 ![1562831970253](assets/1562831970253.png) 
 
