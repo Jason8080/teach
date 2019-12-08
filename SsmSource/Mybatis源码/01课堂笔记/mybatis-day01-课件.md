@@ -766,6 +766,8 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
 
 
+> ​	温馨提示: 如果发现配置文件没有找到的问题, 应确保target/classes包下是否存在 !!!
+
 
 
 
