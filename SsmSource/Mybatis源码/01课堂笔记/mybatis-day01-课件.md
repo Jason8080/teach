@@ -444,6 +444,7 @@
   
       @After
       public void after(){
+          // 5. 最后提交事务
           sqlSession.commit();
           sqlSession.close();
       }
@@ -482,5 +483,164 @@
   
   ```
 
-  
+
+
+### 三、框架的执行流程
+
+#### 3.1 代码回顾: ProxyTests
+
+```java
+@Before
+public void before() throws Exception {
+    // 1. 加载配置文件
+    InputStream in = Resources.getResourceAsStream("sqlMapConfig.xml");
+    // 2. 构建会话工厂
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);
+    // 3. 获取会话对象
+    sqlSession = sqlSessionFactory.openSession();
+    // 4. 生成代理对象
+    accountDao = sqlSession.getMapper(AccountDao.class);
+}
+```
+
+
+
+#### 3.2 流程分析
+
+![image-20191208115629337](assets/Myabtis框架执行流程图.png)
+
+1. 加载配置文件: sqlMapConfig.xml
+   - 加载映射文件: accountDao.xml
+2. 解析配置文件 *
+   - 将sqlMapConfig.xml文件中的内容封装到对象: Configuration
+   - 将accountDao.xml文件中的内容封装到对象: MappedStatement
+   - 返回SqlSessionFactory对象
+3. 获取会话对象
+   - 返回SqlSession对象
+4. 获取代理对象
+   - 返回代理对象
+5. 执行查询操作 *
+   - 通过MappedStatement的id值获取相应的SQL语句
+   - 根据MappedStatement的parameterType值处理SQL语句中的占位符
+   - 调用SQL语句执行工具Executor执行最终的SQL
+6. 返回结果映射 *
+   - 根据MappedStatement的resultType/resultMap封装结果集返回
+
+
+
+### 四、Mybatis 架构设计
+
+![image-20191208160702818](assets/Mybatis框架架构设计-接口层.png)
+
+![image-20191208160748828](assets/Mybatis框架架构设计-数据处理层.png) 
+
+![image-20191208160824019](assets/Mybatis框架架构设计-框架支撑层.png)
+
+![image-20191208160917137](assets/Mybatis框架架构设计-引导层.png)   
+
+
+
+#### 4.1 接口层 *
+
+> ​	提供给外部使用的接口API，开发人员通过这些本地API来操纵数据库。接口层一接收到调用请求就会调用数据处理层来完成具体的数据处理。 例: AccountDao
+
+####  4.2 数据处理层
+
+> ​	负责具体的SQL查找、SQL解析、SQL执行和执行结果映射处理等。它主要的目的是根据调用的请求完成一次数据库操作。例: SqlSource, ParameterHandler, Executor, ResultSetHandler
+
+1. 通过Statement ID和参数，构建出动态sql语句
+2. 通过sql语句，执行数据库操作
+3. 通过sql语句执行结果，完成结果集数据的封装
+
+#### 4.3 框架支撑层
+
+> ​	负责最基础的功能支撑，包括连接管理、事务管理、配置加载和缓存处理，这些都是共用的东西，将他们抽取出来作为最基础的组件。为上层的数据处理层提供最基础的支撑。 例: Cache, Transaction
+
+1. 作为持久层ORM框架，事务管理机制是必备的
+2. 作为持久层的ORM框架，连接池管理是必备的
+3. 为了提高数据利用率、和系统性能，mybatis框架提供了一级缓存(会话级)和二级缓存(Mapper级)。
+4. 在应用层面，mybatis框架提供了基于xml的配置方式，和更加面向接口的注解配置方式
+
+#### 4.4 引导层 *
+
+> ​	提供框架引导的API, 也就是启动框架的代码。 以下例子皆来源于官网。
+
+##### 例1: XML方式
+
+```java
+String resource = "org/mybatis/example/mybatis-config.xml";
+
+InputStream inputStream = Resources.getResourceAsStream(resource);
+
+SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+```
+
+##### 例2: Java Api方式
+
+```java
+DataSource dataSource = BlogDataSourceFactory.getBlogDataSource();
+
+TransactionFactory transactionFactory = new JdbcTransactionFactory();
+
+Environment environment = new Environment("development", transactionFactory, dataSource);
+
+Configuration configuration = new Configuration(environment);
+
+configuration.addMapper(BlogMapper.class);
+
+SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
+```
+
+
+
+### 五、Mybatis 核心组件
+
+#### 5.1 Mybatis核心组件表
+
+| 序号 | 组件名称                 | 组件描述                                                     |
+| ---- | ------------------------ | ------------------------------------------------------------ |
+| 1    | Configuration            | 用于封装、维护Mybatis框架的所有配置信息                      |
+| 2    | MappedStatement          | 每个MappedStatement，封装维护了一个<select\|update\|delete\|insert>节点 |
+| 3    | SqlSessionFactoryBuilder | 构建器，用于解析封装主配置文件内容，构建SqlSessionFactory核心对象 |
+| 4    | SqlSessionFactory        | 工厂类接口，通过工厂方法openSession创建SqlSession对象        |
+| 5    | SqlSession               | Mybatis框架的顶层API，表示和数据库交互的会话，提供了完成数据库增删改查操作的接口方法 |
+| 6    | Executor                 | Mybatis框架执行器，是框架的调度核心，负责sql语句的生成和查询缓存维护 |
+| 7    | StatementHandler         | 封装Jdbc Statement操作，比如设置参数、将Statement结果集转换成List |
+| 8    | ParameterHandler         | 将用户传递的参数，转换成Jdbc Statement 所需要的参数          |
+| 9    | SqlSource                | 根据用户传递的ParameterObject，动态生成sql语句，将信息封装到BoundSql对象中 |
+| 10   | BoundSql                 | 动态生成的sql语句、和参数信息                                |
+| 11   | ResultSetHandler         | 将jdbc返回的ResultSet结果集对象，进行结果集封装，转换成List类型的集合 |
+| 12   | TypeHandler              | 类型处理器，完成java数据类型和jdbc数据类型之间的映射和转换   |
+
+#### 5.2 Mybatis核心组件结构
+
+![image-20191208160917137](assets/Mybatis框架核心组件层次&职责.png)
+
+
+
+### 六、Mybatis 源码分析
+
+#### 6.1 Debug使用
+
+1. 在入口方法中调用源代码: 如下第4行
+
+    ```java
+    @Before
+    public void before() throws Exception {
+        // 1. 加载配置文件
+        InputStream in = Resources.getResourceAsStream("sqlMapConfig.xml");
+        // 2. 构建会话工厂
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);
+        // 3. 获取会话对象
+        sqlSession = sqlSessionFactory.openSession();
+        // 4. 生成代理对象
+        accountDao = sqlSession.getMapper(AccountDao.class);
+    }
+    ```
+
+1. 进入源代码所在位置, 在需要调试的位置打下断点
+
+    ![image-20191208170112311](assets/image-20191208170112311.png) 
+
+1. 
 

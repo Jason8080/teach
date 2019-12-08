@@ -41,6 +41,7 @@ public class ProxyTests {
 
     @After
     public void after(){
+        // 5. 最后提交事务
         sqlSession.commit();
         sqlSession.close();
     }
