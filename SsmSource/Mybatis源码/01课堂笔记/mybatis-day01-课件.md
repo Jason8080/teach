@@ -620,7 +620,14 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
 ### 六、Mybatis 源码分析
 
-#### 6.1 Debug使用
+#### 6.1 学习目标
+
+1. 熟练debug工具的使用
+2. 跟踪配置文件(sqlMapConfig.xml)的加载
+
+
+
+#### 6.2 Debug使用
 
 1. 在入口方法中调用源代码: 如下第4行
 
@@ -642,5 +649,124 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
     ![image-20191208170112311](assets/image-20191208170112311.png) 
 
-1. 
+1. 以Debug方式运行代码, 图示如下
+
+    ![image-20191208170541537](assets/image-20191208170541537.png)
+
+1. Debug模式界面示例
+
+    ![image-20191208171624561](assets/image-20191208171624561.png) 
+
+1. 步入: 进入方法内部
+
+    ![image-20191208172235833](assets/image-20191208172235833.png)
+
+1. 强入: 强迫进入方法内部, 暴力提取源代码
+
+    ![image-20191208173534271](assets/image-20191208173534271.png) 
+
+1. 下一步: 进行下一行代码的调试
+
+    ![image-20191208172402448](assets/image-20191208172402448.png) 
+
+1. 步出: 返回上一层调用方法内部
+
+    ![image-20191208172552964](assets/image-20191208172552964.png) 
+
+1. 放行: 调试完毕 或 进入下一个断点位置
+
+
+
+#### 6.3 跟踪: 配置文件的加载
+
+##### 6.3.1 牛刀小试
+
+> ​	跟踪技巧: 盯着传进去 **参数** 不放, 直到得到正确的 **返回值** 为止
+
+1. 进入Mybatis框架加载文件的位置
+
+   ```java
+   InputStream getResourceAsStream(String resource, ClassLoader[] classLoader) {
+       ClassLoader[] var3 = classLoader;
+       int var4 = classLoader.length;
+   
+       for(int var5 = 0; var5 < var4; ++var5) {
+           ClassLoader cl = var3[var5];
+           if (null != cl) {
+               // 源代码54行: org.apache.ibatis.io.ClassLoaderWrapper
+               InputStream returnValue = cl.getResourceAsStream(resource);
+               if (null == returnValue) {
+                   returnValue = cl.getResourceAsStream("/" + resource);
+               }
+   
+               if (null != returnValue) {
+                   return returnValue;
+               }
+           }
+       }
+   
+       return null;
+   }
+   ```
+
+2. 进入JDK加载文件的位置
+
+   ```java
+   public URL findResource(final String name) {
+       // 源代码569行: java.net.URLClassLoader
+       URL url = AccessController.doPrivileged(
+           new PrivilegedAction<URL>() {
+               public URL run() {
+                   // 【提示】: 进入该行需要暴力提取源码: 即点击【强入】按钮
+                   return ucp.findResource(name, true);
+               }
+           }, acc);
+   
+       return url != null ? ucp.checkURL(url) : null;
+   }
+   ```
+
+   ```java
+   public URL findResource(String var1, boolean var2) {
+       int[] var4 = this.getLookupCache(var1);
+   
+       URLClassPath.Loader var3;
+       for(int var5 = 0; (var3 = this.getNextLoader(var4, var5)) != null; ++var5) {
+           // 源代码155行: sun.misc.URLClassPath
+           // 【提示】: 当var5遍历第27时可以找到文件
+           URL var6 = var3.findResource(var1, var2);
+           if (var6 != null) {
+               return var6;
+           }
+       }
+   
+       return null;
+   }
+   ```
+
+##### 6.3.2 研究成果
+
+1. 发现JDK默认从targer目录查找配置文件
+2. 源码中有对文件名编码, 所以文件名的字符集问题已解决
+
+    ```java
+    Resource getResource(final String var1, boolean var2) {
+        try {
+            // 源代码533行: sun.misc.URLClassPath
+            // 【提示】: this = UrlClassPath$FileLoader
+            // 【提示】: this.getBaseURL() = target/classes
+            // 【成果】: 现JDK默认从targer目录查找配置文件
+            URL var4 = new URL(this.getBaseURL(), ".");
+            // 【成果】: 对文件名编码
+            final URL var3 = new URL(this.getBaseURL(), ParseUtil.encodePath(var1, false));
+            if (!var3.getFile().startsWith(var4.getFile())) {
+                return null;
+            } else {
+    ```
+
+
+
+
+
+
 
