@@ -679,9 +679,16 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
 #### 6.3 跟踪: 配置文件的加载
 
-##### 6.3.1 牛刀小试
-
 > ​	跟踪技巧: 盯着传进去 **参数** 不放, 直到得到正确的 **返回值** 为止
+
+##### 6.3.1 研究方向
+
+1. 配置文件最终是由Mybatis框架加载, 还是调用了JDK API完成
+2. 配置文件是从哪个目录加载的
+
+
+
+##### 6.3.2 牛刀小试
 
 1. 进入Mybatis框架加载文件的位置
 
@@ -744,7 +751,9 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
    }
    ```
 
-##### 6.3.2 研究成果
+
+
+##### 6.3.3 研究成果
 
 1. 发现JDK默认从targer目录查找配置文件
 2. 源码中有对文件名编码, 所以文件名的字符集问题已解决
