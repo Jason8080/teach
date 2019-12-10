@@ -1353,7 +1353,15 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
 ##### 6.6.2 牛刀小试
 
+1. 进入accountDao.findAll方法org.apache.ibatis.binding.MapperProxy
 
+   ```java
+   
+   ```
+
+   
+
+2. 
 
 
 
