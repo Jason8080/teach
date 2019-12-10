@@ -779,5 +779,590 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
 
 
+#### 6.4 跟踪: 配置文件的封装
+
+##### 6.4.1 研究方向
+
+1. 配置文件的解析使用什么技术实现的
+2. 映射文件什么时候加载的
+3. 映射文件如何封装的
+4. 配置文件和映射文件封装后保存在哪里
 
 
+
+##### 6.4.2 牛刀小试
+
+1. 进入SqlSessionFactoryBuilder.build方法
+
+   ```java
+   public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
+       try {
+           // 【成果】: 在配置文件解析前创建Configuration对象
+         XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
+         // 源代码106: org.apache.ibatis.session.SqlSessionFactoryBuilder
+         // 【成果】: 最终构建的对象是 DefaultSqlSessionFactory
+         return build(parser.parse());
+       } catch (Exception e) {
+         throw ExceptionFactory.wrapException("Error building SqlSession.", e);
+       } finally {
+         ErrorContext.instance().reset();
+         try {
+           inputStream.close();
+         } catch (IOException e) {
+           // Intentionally ignore. Prefer previous error.
+         }
+       }
+     }
+   ```
+
+   
+
+2. 进入配置文件解析流程: XMLConfigBuilder.parse
+
+   ```java
+   public Configuration parse() {
+       if (parsed) {
+           throw new BuilderException("Each XMLConfigBuilder can only be used once.");
+       }
+       parsed = true;
+       // 【成果】: 框架只解析configuration标签中的内容
+       parseConfiguration(parser.evalNode("/configuration"));
+       return configuration;
+   }
+   ```
+
+   
+
+3. 进入根标签的解析: XMLConfigBuilder.parseConfiguration
+
+   ```java
+   private void parseConfiguration(XNode root) {
+       try {
+           //issue #117 read properties first
+           propertiesElement(root.evalNode("properties"));
+           Properties settings = settingsAsProperties(root.evalNode("settings"));
+           loadCustomVfs(settings);
+           loadCustomLogImpl(settings);
+           // 【成果】: 所有的标签内容都封装好存储在了Configuration对象中
+           typeAliasesElement(root.evalNode("typeAliases"));
+           pluginElement(root.evalNode("plugins"));
+           objectFactoryElement(root.evalNode("objectFactory"));
+           objectWrapperFactoryElement(root.evalNode("objectWrapperFactory"));
+           reflectorFactoryElement(root.evalNode("reflectorFactory"));
+           settingsElement(settings);
+           // read it after objectFactory and objectWrapperFactory issue #631
+           environmentsElement(root.evalNode("environments"));
+           databaseIdProviderElement(root.evalNode("databaseIdProvider"));
+           typeHandlerElement(root.evalNode("typeHandlers"));
+           // 源代码146: org.apache.ibatis.builder.xml.XMLConfigBuilder 
+           // 【成果】: 配置文件中标签的解析顺序: 最后解析mappers标签
+           mapperElement(root.evalNode("mappers"));
+       } catch (Exception e) {
+           throw new BuilderException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
+       }
+   }
+   ```
+
+   
+
+4. 进入mapper标签的解析: XMLConfigBuilder.mapperElement
+
+   ```java
+   private void mapperElement(XNode parent) throws Exception {
+       if (parent != null) {
+           for (XNode child : parent.getChildren()) {
+               // 【成果】: 批量加载根据package标签解析 <package name="com.itheima.mybatis.dao"/>
+               // 【成果】: 加载映射配置的方式有
+               //            1. 批量加载: package
+               //            2. 单独加载本地文件: <mapper resource 或 class
+               //            3. 单独加载远程文件: <mapper url
+               // 源代码412: org.apache.ibatis.builder.xml.XMLConfigBuilder
+               if ("package".equals(child.getName())) {
+                   String mapperPackage = child.getStringAttribute("name");
+                   configuration.addMappers(mapperPackage);
+               } else {
+                   String resource = child.getStringAttribute("resource");
+                   String url = child.getStringAttribute("url");
+                   String mapperClass = child.getStringAttribute("class");
+                   if (resource != null && url == null && mapperClass == null) {
+                       ErrorContext.instance().resource(resource);
+                       InputStream inputStream = Resources.getResourceAsStream(resource);
+                       XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, resource, configuration.getSqlFragments());
+                       mapperParser.parse();
+                   } else if (resource == null && url != null && mapperClass == null) {
+                       ErrorContext.instance().resource(url);
+                       InputStream inputStream = Resources.getUrlAsStream(url);
+                       XMLMapperBuilder mapperParser = new XMLMapperBuilder(inputStream, configuration, url, configuration.getSqlFragments());
+                       mapperParser.parse();
+                   } else if (resource == null && url == null && mapperClass != null) {
+                       Class<?> mapperInterface = Resources.classForName(mapperClass);
+                       configuration.addMapper(mapperInterface);
+                   } else {
+                       throw new BuilderException("A mapper element may only specify a url, resource or class, but not more than one.");
+                   }
+               }
+           }
+       }
+   }
+   ```
+
+5. 进入package标签解析: Configuration.addMappers -> MapperRegistry.addMappers
+
+   ```java
+   public void addMappers(String packageName, Class<?> superType) {
+       ResolverUtil<Class<?>> resolverUtil = new ResolverUtil<>();
+       // 【成果】: 查找包路径下所有的字节码并保存
+       resolverUtil.find(new ResolverUtil.IsA(superType), packageName);
+       Set<Class<? extends Class<?>>> mapperSet = resolverUtil.getClasses();
+       for (Class<?> mapperClass : mapperSet) {
+           // 源代码128行: org.apache.ibatis.binding.MapperRegistry
+           addMapper(mapperClass);
+       }
+   }
+   ```
+
+   
+
+6. 进入代理方法调用处理器的保存 以及 映射文件的解析: MapperRegistry.addMappers
+
+   ```java
+   public <T> void addMapper(Class<T> type) {
+       if (type.isInterface()) {
+         if (hasMapper(type)) {
+           throw new BindingException("Type " + type + " is already known to the MapperRegistry.");
+         }
+         boolean loadCompleted = false;
+         try {
+           // 【成果】: 保存代理对象的工厂(创建代理对象的对象)
+           knownMappers.put(type, new MapperProxyFactory<>(type));
+           // It's important that the type is added before the parser is run
+           // otherwise the binding may automatically be attempted by the
+           // mapper parser. If the type is already known, it won't try.
+           MapperAnnotationBuilder parser = new MapperAnnotationBuilder(config, type);
+           // 源代码94: org.apache.ibatis.binding.MapperRegistry
+           // 【提示】: 处理完代理对象方法处理器之后解析映射文件内容
+           parser.parse();
+           loadCompleted = true;
+         } finally {
+           if (!loadCompleted) {
+             knownMappers.remove(type);
+           }
+         }
+       }
+     }
+   ```
+
+7. 进入映射文件的解析: MapperAnnotationBuilder.parse -> MapperAnnotationBuilder.loadXmlResource
+
+   ```java
+   public void parse() {
+       String resource = type.toString();
+       // 【成果】: 映射文件和映射注解可以一起使用, 但是
+       //              由于MappedStatementId值为 (namespace+id),
+       //              所以方法不能重载, 也不能注解和配置作用在一个方法上
+       if (!configuration.isResourceLoaded(resource)) {
+         // 源代码146: org.apache.ibatis.builder.annotation.MapperAnnotationBuilder
+         loadXmlResource();
+         configuration.addLoadedResource(resource);
+         assistant.setCurrentNamespace(type.getName());
+         parseCache();
+         parseCacheRef();
+         Method[] methods = type.getMethods();
+         for (Method method : methods) {
+           try {
+             // issue #237
+             if (!method.isBridge()) {
+               parseStatement(method);
+             }
+           } catch (IncompleteElementException e) {
+             configuration.addIncompleteMethod(new MethodResolver(this, method));
+           }
+         }
+       }
+       parsePendingMethods();
+     }
+   ```
+
+   ```java
+   private void loadXmlResource() {
+       // Spring may not know the real resource name so we check a flag
+       // to prevent loading again a resource twice
+       // this flag is set at XMLMapperBuilder#bindMapperForNamespace
+       if (!configuration.isResourceLoaded("namespace:" + type.getName())) {
+         // 【成果】: 固定从类路径相同的文件夹路径查找映射文件
+         // 变量值提示: xmlResource = com/itheima/mybatis/dao/AccountDao.xml
+         String xmlResource = type.getName().replace('.', '/') + ".xml";
+         // #1347
+         InputStream inputStream = type.getResourceAsStream("/" + xmlResource);
+         if (inputStream == null) {
+           // Search XML mapper that is not in the module but in the classpath.
+           try {
+             inputStream = Resources.getResourceAsStream(type.getClassLoader(), xmlResource);
+           } catch (IOException e2) {
+             // ignore, resource is not required
+           }
+         }
+         if (inputStream != null) {
+           XMLMapperBuilder xmlParser = new XMLMapperBuilder(inputStream, assistant.getConfiguration(), xmlResource, configuration.getSqlFragments(), type.getName());
+           // 源代码202: org.apache.ibatis.builder.annotation.MapperAnnotationBuilder
+           // 【位置】: 下一步
+           xmlParser.parse();
+         }
+       }
+     }
+   ```
+
+   ```java
+   public void parse() {
+       if (!configuration.isResourceLoaded(resource)) {
+           // 源代码109: org.apache.ibatis.builder.xml.XMLMapperBuilder
+           // 【成果】: 映射文件只解析<mapper>..</mapper>中的内容
+           configurationElement(parser.evalNode("/mapper"));
+           configuration.addLoadedResource(resource);
+           bindMapperForNamespace();
+       }
+   
+       parsePendingResultMaps();
+       parsePendingCacheRefs();
+       parsePendingStatements();
+   }
+   ```
+
+8. 进入mapper标签的解析: XMLMapperBuilder.configurationElement
+
+   ```java
+   private void configurationElement(XNode context) {
+       try {
+           String namespace = context.getStringAttribute("namespace");
+           if (namespace == null || namespace.equals("")) {
+               throw new BuilderException("Mapper's namespace cannot be empty");
+           }
+           builderAssistant.setCurrentNamespace(namespace);
+           cacheRefElement(context.evalNode("cache-ref"));
+           cacheElement(context.evalNode("cache"));
+           parameterMapElement(context.evalNodes("/mapper/parameterMap"));
+           resultMapElements(context.evalNodes("/mapper/resultMap"));
+           sqlElement(context.evalNodes("/mapper/sql"));
+           // 源代码151: org.apache.ibatis.builder.xml.XMLMapperBuilder
+           // 【成果】: 整个映射文件中的内容全部保存在了Configuration对象中
+           buildStatementFromContext(context.evalNodes("select|insert|update|delete"));
+       } catch (Exception e) {
+           throw new BuilderException("Error parsing Mapper XML. The XML location is '" + resource + "'. Cause: " + e, e);
+       }
+   }
+   ```
+
+   
+
+9. 进入select|insert|update|delete标签的封装: XMLStatementBuilder.parseStatementNode
+
+   ```java
+   public void parseStatementNode() {
+       String id = context.getStringAttribute("id");
+       String databaseId = context.getStringAttribute("databaseId");
+   
+       if (!databaseIdMatchesCurrent(id, databaseId, this.requiredDatabaseId)) {
+           return;
+       }
+   
+       Integer fetchSize = context.getIntAttribute("fetchSize");
+       Integer timeout = context.getIntAttribute("timeout");
+       String parameterMap = context.getStringAttribute("parameterMap");
+       String parameterType = context.getStringAttribute("parameterType");
+       Class<?> parameterTypeClass = resolveClass(parameterType);
+       String resultMap = context.getStringAttribute("resultMap");
+       String resultType = context.getStringAttribute("resultType");
+       String lang = context.getStringAttribute("lang");
+       LanguageDriver langDriver = getLanguageDriver(lang);
+   
+       Class<?> resultTypeClass = resolveClass(resultType);
+       String resultSetType = context.getStringAttribute("resultSetType");
+       StatementType statementType = StatementType.valueOf(context.getStringAttribute("statementType", StatementType.PREPARED.toString()));
+       ResultSetType resultSetTypeEnum = resolveResultSetType(resultSetType);
+   
+       String nodeName = context.getNode().getNodeName();
+       SqlCommandType sqlCommandType = SqlCommandType.valueOf(nodeName.toUpperCase(Locale.ENGLISH));
+       boolean isSelect = sqlCommandType == SqlCommandType.SELECT;
+       boolean flushCache = context.getBooleanAttribute("flushCache", !isSelect);
+       boolean useCache = context.getBooleanAttribute("useCache", isSelect);
+       boolean resultOrdered = context.getBooleanAttribute("resultOrdered", false);
+   
+       // Include Fragments before parsing
+       XMLIncludeTransformer includeParser = new XMLIncludeTransformer(configuration, builderAssistant);
+       includeParser.applyIncludes(context.getNode());
+   
+       // Parse selectKey after includes and remove them.
+       processSelectKeyNodes(id, parameterTypeClass, langDriver);
+   
+       // Parse the SQL (pre: <selectKey> and <include> were parsed and removed)
+       SqlSource sqlSource = langDriver.createSqlSource(configuration, context, parameterTypeClass);
+       String resultSets = context.getStringAttribute("resultSets");
+       String keyProperty = context.getStringAttribute("keyProperty");
+       String keyColumn = context.getStringAttribute("keyColumn");
+       KeyGenerator keyGenerator;
+       String keyStatementId = id + SelectKeyGenerator.SELECT_KEY_SUFFIX;
+       keyStatementId = builderAssistant.applyCurrentNamespace(keyStatementId, true);
+       if (configuration.hasKeyGenerator(keyStatementId)) {
+           keyGenerator = configuration.getKeyGenerator(keyStatementId);
+       } else {
+           keyGenerator = context.getBooleanAttribute("useGeneratedKeys",
+                                                      configuration.isUseGeneratedKeys() && SqlCommandType.INSERT.equals(sqlCommandType))
+               ? Jdbc3KeyGenerator.INSTANCE : NoKeyGenerator.INSTANCE;
+       }
+   	// 源代码122: org.apache.ibatis.builder.xml.XMLStatementBuilder
+       builderAssistant.addMappedStatement(id, sqlSource, statementType, sqlCommandType,
+                                           fetchSize, timeout, parameterMap, parameterTypeClass, resultMap, resultTypeClass,
+                                           resultSetTypeEnum, flushCache, useCache, resultOrdered,
+                                           keyGenerator, keyProperty, keyColumn, databaseId, langDriver, resultSets);
+   }
+   ```
+
+   
+
+10. 进入MappedStatement对象的保存: MapperBuilderAssistant.addMappedStatement
+
+    ```java
+    public MappedStatement addMappedStatement(
+        String id,
+        SqlSource sqlSource,
+        StatementType statementType,
+        SqlCommandType sqlCommandType,
+        Integer fetchSize,
+        Integer timeout,
+        String parameterMap,
+        Class<?> parameterType,
+        String resultMap,
+        Class<?> resultType,
+        ResultSetType resultSetType,
+        boolean flushCache,
+        boolean useCache,
+        boolean resultOrdered,
+        KeyGenerator keyGenerator,
+        String keyProperty,
+        String keyColumn,
+        String databaseId,
+        LanguageDriver lang,
+        String resultSets) {
+    
+        if (unresolvedCacheRef) {
+            throw new IncompleteElementException("Cache-ref not yet resolved");
+        }
+    
+        id = applyCurrentNamespace(id, false);
+        boolean isSelect = sqlCommandType == SqlCommandType.SELECT;
+        // 【成果】: MappedStatement对象封装的是 select|insert|update|delete 标签完整的内容
+        // 变量值提示: id = com.itheima.mybatis.dao.AccountDao.save
+        // 【成果】: MappedStatement对象的id值时 namespace+id (接口类名+方法名)
+        // 变量值提示: sqlSource = insert into account values(?, ?, ?)
+        // 变量值提示: sqlCommandType = SELECT
+        MappedStatement.Builder statementBuilder = new MappedStatement.Builder(configuration, id, sqlSource, sqlCommandType)
+            // 变量值提示: com/itheima/mybatis/dao/AccountDao.xml
+            .resource(resource)
+            .fetchSize(fetchSize)
+            .timeout(timeout)
+            .statementType(statementType)
+            .keyGenerator(keyGenerator)
+            .keyProperty(keyProperty)
+            .keyColumn(keyColumn)
+            .databaseId(databaseId)
+            .lang(lang)
+            .resultOrdered(resultOrdered)
+            .resultSets(resultSets)
+            .resultMaps(getStatementResultMaps(resultMap, resultType, id))
+            .resultSetType(resultSetType)
+            .flushCacheRequired(valueOrDefault(flushCache, !isSelect))
+            .useCache(valueOrDefault(useCache, isSelect))
+            .cache(currentCache);
+    
+        ParameterMap statementParameterMap = getStatementParameterMap(parameterMap, parameterType, id);
+        if (statementParameterMap != null) {
+            statementBuilder.parameterMap(statementParameterMap);
+        }
+    
+        MappedStatement statement = statementBuilder.build();
+        // 源代码318: org.apache.ibatis.builder.MapperBuilderAssistant
+        // 【成果】: MappedStatement对象封装完成放置在Configuration对象中
+        configuration.addMappedStatement(statement);
+        return statement;
+    }
+    ```
+
+
+
+##### 6.4.3 研究成果
+
+1. Mybatis框架解析配置文件使用的技术是内部封装的Xpath解析器
+2. 映射文件在配置文件解析完成后加载并解析 (保存代理对象工厂后)
+3. 映射文件中的select|insert|update|delete标签内容封装在MappedStatement对象中
+4. 配置文件以及映射文件中所有内容都保存在Configuration对象中
+
+
+
+> ​	温馨提示: 会话对象获取代理对象是调用的是MapperProxyFactory的newInstance方法 !!!
+
+
+
+#### 6.4 跟踪: 打开会话连接时
+
+##### 6.4.1 研究方向
+
+1. 创建会话连接的时候做了什么事情
+
+
+
+##### 6.4.2 牛刀小试
+
+1. 进入DefaultSqlSessionFactory.openSession方法
+
+   ```java
+   @Override
+   public SqlSession openSession() {
+       // 源代码48: org.apache.ibatis.session.defaults.DefaultSqlSessionFactory
+       // 获取默认的执行器类型打开会话对象 {@link Configuration#getDefaultExecutorType()}
+       return openSessionFromDataSource(configuration.getDefaultExecutorType(), null, false);
+   }
+   ```
+
+   
+
+2. 进入会话对象的创建: DefaultSqlSessionFactory.openSessionFromDataSource
+
+   ```java
+   private SqlSession openSessionFromDataSource(ExecutorType execType, TransactionIsolationLevel level, boolean autoCommit) {
+       Transaction tx = null;
+       try {
+           //获取sqlMapConfig.xml文件中的environment标签中的内容 {@code <environment id="test">}
+           final Environment environment = configuration.getEnvironment();
+   
+           //根据环境信息获取Jdbc事务工厂对象 {@code <transactionManager type="JDBC"/>}
+           final TransactionFactory transactionFactory = getTransactionFactoryFromEnvironment(environment);
+   		// 源代码119: org.apache.ibatis.session.defaults.DefaultSqlSessionFactory
+           // 创建事务
+           tx = transactionFactory.newTransaction(environment.getDataSource(), level, autoCommit);
+   
+           // 创建执行器: new CachingExecutor(executor) -> new SimpleExecutor(this, transaction)
+           final Executor executor = configuration.newExecutor(tx, execType);
+   
+           // 创建DefaultSqlSession对象返回
+           // 【成果】: 事务的范围是整个SqlSession对象 (假设: 提交事务的方法没有加同步锁, 会有线程安全问题)
+           // 【成果】: 打开的是一个默认的会话对象
+           return new DefaultSqlSession(configuration, executor, autoCommit);
+       } catch (Exception e) {
+           closeTransaction(tx); // may have fetched a connection so lets call close()
+           throw ExceptionFactory.wrapException("Error opening session.  Cause: " + e, e);
+       } finally {
+           ErrorContext.instance().reset();
+       }
+   }
+   ```
+
+
+
+##### 6.4.3 研究成果
+
+1. 创建会话对象之前创建了事务, 执行器
+2. 事务放在了执行器中
+3. 执行器放在了会话对象中
+
+
+
+> ​	温馨提示: 事务的作用范围是整个会话对象, 使用SqlSession进行多个操作同时进行会有事务冲突 !!!
+
+
+
+#### 6.5 跟踪: 代理对象的创建
+
+##### 6.5.1 研究方向
+
+1. 代理对象是怎么创建的
+2. 代理对象的方法执行后会怎么样
+
+
+
+##### 6.5.2 牛刀小试
+
+1. 
+
+
+
+##### 6.5.3 研究成果
+
+1. 进入DefaultSqlSession.getMapper方法
+
+   ```java
+   public <T> T getMapper(Class<T> type) {
+       // 源代码305: org.apache.ibatis.session.defaults.DefaultSqlSession
+       return configuration.<T>getMapper(type, this);
+   }
+   ```
+
+   
+
+2. 进入代理方法调用处理器的封装: MapperRegistry.getMapper -> 
+
+   ```java
+   public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
+       // 【成果】: 封装配置文件的时候保存了代理对象工厂, 现在拿出来使用
+       final MapperProxyFactory<T> mapperProxyFactory = (MapperProxyFactory<T>) knownMappers.get(type);
+       if (mapperProxyFactory == null) {
+           throw new BindingException("Type " + type + " is not known to the MapperRegistry.");
+       }
+       try {
+           // 源代码62: org.apache.ibatis.binding.MapperRegistry
+           // 【提示】: 调用工厂方法创建代理对象 (底层是JDK动态代理)
+           return mapperProxyFactory.newInstance(sqlSession);
+       } catch (Exception e) {
+           throw new BindingException("Error getting mapper instance. Cause: " + e, e);
+       }
+   }
+   ```
+
+3. 进入代理对象的创建方法: MapperProxyFactory.newnewInstance
+
+   ```java
+   protected T newInstance(MapperProxy<T> mapperProxy) {
+       // 【成果】: 底层使用了JDK动态代理技术创建代理技术
+       // 【成果】: 当代理方法被调用会触发以下方法  (invoke)
+       /** {@link MapperProxy#invoke(Object, Method, Object[])} */
+       return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[] { mapperInterface }, mapperProxy);
+   }
+   ```
+
+
+
+##### 6.5.3 研究成果
+
+1. Mybatis的映射器代理对象默认有JDK动态代理技术实现
+2. 代理对象的方法调用会触发MapperProxy的invoke方法
+
+
+
+> ​	温馨提示: 真正操作数据库的流程应该在代理对象方法调用处理器(MapperProxy)中查看 !!!
+
+
+
+
+
+#### 6.6 跟踪: 查询操作的流程
+
+##### 6.6.1 研究方向
+
+1. 一个完整的查询操作底层经历了什么
+
+
+
+##### 6.6.2 牛刀小试
+
+
+
+
+
+##### 6.6.3 研究成果
+
+
+
+
+
+### 七、Myabtis 常见面试题
+
+1. 
