@@ -1202,15 +1202,15 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
 
 
-#### 6.4 跟踪: 打开会话连接时
+#### 6.5 跟踪: 打开会话连接时
 
-##### 6.4.1 研究方向
+##### 6.5.1 研究方向
 
 1. 创建会话连接的时候做了什么事情
 
 
 
-##### 6.4.2 牛刀小试
+##### 6.5.2 牛刀小试
 
 1. 进入DefaultSqlSessionFactory.openSession方法
 
@@ -1258,7 +1258,7 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
 
 
-##### 6.4.3 研究成果
+##### 6.5.3 研究成果
 
 1. 创建会话对象之前创建了事务, 执行器
 2. 事务放在了执行器中
@@ -1270,22 +1270,16 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
 
 
-#### 6.5 跟踪: 代理对象的创建
+#### 6.6 跟踪: 代理对象的创建
 
-##### 6.5.1 研究方向
+##### 6.6.1 研究方向
 
 1. 代理对象是怎么创建的
 2. 代理对象的方法执行后会怎么样
 
 
 
-##### 6.5.2 牛刀小试
-
-1. 
-
-
-
-##### 6.5.3 研究成果
+##### 6.6.2 牛刀小试
 
 1. 进入DefaultSqlSession.getMapper方法
 
@@ -1330,7 +1324,7 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
 
 
-##### 6.5.3 研究成果
+##### 6.6.3 研究成果
 
 1. Mybatis的映射器代理对象默认有JDK动态代理技术实现
 2. 代理对象的方法调用会触发MapperProxy的invoke方法
@@ -1343,15 +1337,15 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
 
 
-#### 6.6 跟踪: 查询操作的流程
+#### 6.7 跟踪: 查询操作的流程
 
-##### 6.6.1 研究方向
+##### 6.7.1 研究方向
 
 1. 一个完整的查询操作底层经历了什么
 
 
 
-##### 6.6.2 牛刀小试
+##### 6.7.2 牛刀小试
 
 1. 进入accountDao.findAll方法
 
@@ -1650,7 +1644,7 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
 
 
-##### 6.6.3 研究成果
+##### 6.7.3 研究成果
 
 - 代理开发的底层调用了传统开发的API
 
