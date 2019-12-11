@@ -1353,21 +1353,367 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
 ##### 6.6.2 牛刀小试
 
-1. 进入accountDao.findAll方法org.apache.ibatis.binding.MapperProxy
+1. 进入accountDao.findAll方法
 
    ```java
-   
+   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+       try {
+           // 变量值提示: method.getDeclaringClass() = interface com.itheima.mybatis.dao.AccountDao
+           if (Object.class.equals(method.getDeclaringClass())) {
+               return method.invoke(this, args);
+           } else if (isDefaultMethod(method)) {
+               return invokeDefaultMethod(proxy, method, args);
+           }
+       } catch (Throwable t) {
+           throw ExceptionUtil.unwrapThrowable(t);
+       }
+       // 缓存映射器方法, 并且根据sql类型封装SqlCommand对象
+       final MapperMethod mapperMethod = cachedMapperMethod(method);
+       // 执行代理对象方法: AccountDao.findAll()
+       // 源代码75: org.apache.ibatis.binding.MapperProxy
+       return mapperMethod.execute(sqlSession, args);
+   }
    ```
 
    
 
-2. 
+2. 进入SQL语句和执行方法标记处理:  MapperMethod.MapperMethod
+
+   ```java
+   public MapperMethod(Class<?> mapperInterface, Method method, Configuration config) {
+       // 【提示】: 给SQL语句打标签:
+       //        1. 判断SQL类型: select|insert|update|delete
+       //        2. 记录接口名称+方法名称以便将来从Configuration中获取MappedStatement对象
+       this.command = new SqlCommand(config, mapperInterface, method);
+       // 【提示】: 给执行方法打标签
+       //        1. 判断是否单条记录查询
+       //        2. 判断是否多条记录查询 以及 方法上是否有结果映射注解等..
+       // 源代码67: org.apache.ibatis.binding.MapperMethod
+       this.method = new MethodSignature(config, mapperInterface, method);
+   }
+   ```
+
+   
+
+3. 进入查询多条记录的处理:  MapperMethod.executeForMany
+
+   ```java
+   private <E> Object executeForMany(SqlSession sqlSession, Object[] args) {
+       List<E> result;
+       Object param = method.convertArgsToSqlCommandParam(args);
+       if (method.hasRowBounds()) {
+           RowBounds rowBounds = method.extractRowBounds(args);
+           result = sqlSession.<E>selectList(command.getName(), param, rowBounds);
+       } else {
+           // 【成果】: 代理开发的底层调用的是传统开发的API
+           // 变量值提示: command.getName() = com.itheima.mybatis.dao.AccountDao.findAll
+           // 源代码181: org.apache.ibatis.binding.MapperMethod
+           result = sqlSession.<E>selectList(command.getName(), param);
+       }
+       // issue #510 Collections & arrays support
+       if (!method.getReturnType().isAssignableFrom(result.getClass())) {
+           if (method.getReturnType().isArray()) {
+               return convertToArray(result);
+           } else {
+               return convertToDeclaredCollection(sqlSession.getConfiguration(), result);
+           }
+       }
+       return result;
+   }
+   ```
+
+   
+
+4. 进入SQL语句的处理: CachingExecutor.query
+
+   ```java
+   public <E> List<E> query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler) throws SQLException {
+       // 【提示】: 封装动态sql, 此时用?号代替占位符: #{id}
+       // 变量值提示: boundSql = select * from account
+       // 源代码94: org.apache.ibatis.executor.CachingExecutor
+       BoundSql boundSql = ms.getBoundSql(parameterObject);
+       // 【提示】：创建查询语句的缓存主键 (相同的查询将会实现缓存)
+       CacheKey key = createCacheKey(ms, parameterObject, rowBounds, boundSql);
+       return query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);
+   }
+   ```
+
+   ```java
+   public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql) throws SQLException {
+       ErrorContext.instance().resource(ms.getResource()).activity("executing a query").object(ms.getId());
+       if (closed) {
+           throw new ExecutorException("Executor was closed.");
+       }
+       // 【成果】: select标签可以设置是否禁用缓存
+       if (queryStack == 0 && ms.isFlushCacheRequired()) {
+           clearLocalCache();
+       }
+       List<E> list;
+       try {
+           queryStack++;
+           // 【成果】: 优先使用缓存数据
+           list = resultHandler == null ? (List<E>) localCache.getObject(key) : null;
+           if (list != null) {
+               handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);
+           } else {
+               // 源代码170: org.apache.ibatis.executor.BaseExecutor
+               list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql);
+           }
+       } finally {
+           queryStack--;
+       }
+       if (queryStack == 0) {
+           for (DeferredLoad deferredLoad : deferredLoads) {
+               deferredLoad.load();
+           }
+           // issue #601
+           deferredLoads.clear();
+           if (configuration.getLocalCacheScope() == LocalCacheScope.STATEMENT) {
+               // issue #482
+               clearLocalCache();
+           }
+       }
+       return list;
+   }
+   ```
+
+   
+
+5. 进入原生的JDBC操作:  SimpleExecutor.doQuery
+
+   ```java
+   public <E> List<E> doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
+       Statement stmt = null;
+       try {
+           Configuration configuration = ms.getConfiguration();
+           StatementHandler handler = configuration.newStatementHandler(wrapper, ms, parameter, rowBounds, resultHandler, boundSql);
+           // 【提示】: 调用原生的连接对象创建预编译对象
+           stmt = prepareStatement(handler, ms.getStatementLog());
+           // 【提示】: 调用原生的JDBC执行操作
+           // 源代码80: org.apache.ibatis.executor.SimpleExecutor
+           return handler.query(stmt, resultHandler);
+       } finally {
+           closeStatement(stmt);
+       }
+   }
+   ```
+
+   ```java
+   protected Statement instantiateStatement(Connection connection) throws SQLException {
+       if (mappedStatement.getResultSetType() == ResultSetType.DEFAULT) {
+           // 【成果】： 调用原生的连接对象创建预编译对象
+           // 源代码100: org.apache.ibatis.executor.statement.SimpleStatementHandler
+           return connection.createStatement();
+       } else {
+           return connection.createStatement(mappedStatement.getResultSetType().getValue(), ResultSet.CONCUR_READ_ONLY);
+       }
+   }
+   ```
+
+   
+
+6. 执行数据库操作并封装结果集: PreparedStatementHandler.query
+
+   ```java
+   public <E> List<E> query(Statement statement, ResultHandler resultHandler) throws SQLException {
+       PreparedStatement ps = (PreparedStatement) statement;
+       // 【成果】: 调用原生的JDBC执行操作
+       ps.execute();
+       // 【成果】: 使用ResultSetHandler处理结果集: 封装成方法的返回值对象
+       // 源代码82: org.apache.ibatis.executor.statement.PreparedStatementHandler
+       return resultSetHandler.handleResultSets(ps);
+   }
+   ```
+
+   
+
+7. 进入结果集处理: DefaultResultSetHandler.handleResultSets
+
+   ```java
+   public List<Object> handleResultSets(Statement stmt) throws SQLException {
+       ErrorContext.instance().activity("handling results").object(mappedStatement.getId());
+   
+       final List<Object> multipleResults = new ArrayList<>();
+   
+       int resultSetCount = 0;
+       ResultSetWrapper rsw = getFirstResultSet(stmt);
+   
+       List<ResultMap> resultMaps = mappedStatement.getResultMaps();
+       int resultMapCount = resultMaps.size();
+       validateResultMapsCount(rsw, resultMapCount);
+       while (rsw != null && resultMapCount > resultSetCount) {
+           // 变量值提示: resultMap.id = com.itheima.mybatis.dao.AccountDao.findAll-Inline
+           // 变量值提示: resultMap.type = class com.itheima.mybatis.domain.Account
+           ResultMap resultMap = resultMaps.get(resultSetCount);
+           // 【提示】: 封装结果集成为对象
+           // 源代码209: org.apache.ibatis.executor.resultset.DefaultResultSetHandler
+           handleResultSet(rsw, resultMap, multipleResults, null);
+           rsw = getNextResultSet(stmt);
+           cleanUpAfterHandlingResultSet();
+           resultSetCount++;
+       }
+   ```
+
+   
+
+8. 进入结果集遍历: 封装对象处理: DefaultResultSetHandler.handleRowValuesForSimpleResultMap
+
+   ```java
+   private void handleRowValuesForSimpleResultMap(ResultSetWrapper rsw, ResultMap resultMap, ResultHandler<?> resultHandler, RowBounds rowBounds, ResultMapping parentMapping)
+       throws SQLException {
+       DefaultResultContext<Object> resultContext = new DefaultResultContext<>();
+       ResultSet resultSet = rsw.getResultSet();
+       skipRows(resultSet, rowBounds);
+       // 【成果】: 遍历原生的结果集resultSet
+       while (shouldProcessMoreRows(resultContext, rowBounds) && !resultSet.isClosed() && resultSet.next()) {
+           ResultMap discriminatedResultMap = resolveDiscriminatedResultMap(resultSet, resultMap, null);
+           // 【提示】： 将每一行记录值封装到对象属性中
+           // 源代码381: org.apache.ibatis.executor.resultset.DefaultResultSetHandler
+           Object rowValue = getRowValue(rsw, discriminatedResultMap, null);
+           storeObject(resultHandler, resultContext, rowValue, parentMapping, resultSet);
+       }
+   }
+   ```
+
+   
+
+9. 进入反射创建对象并封装属性值处理: DefaultResultSetHandler.getRowValue
+
+   ```java
+   private Object getRowValue(ResultSetWrapper rsw, ResultMap resultMap, String columnPrefix) throws SQLException {
+       final ResultLoaderMap lazyLoader = new ResultLoaderMap();
+       // 【提示】: 创建对象
+       // 变量值提示: rowValue = Account{id=null, uid=null, money=null}
+       Object rowValue = createResultObject(rsw, resultMap, lazyLoader, columnPrefix);
+       if (rowValue != null && !hasTypeHandlerForResultObject(rsw, resultMap.getType())) {
+           final MetaObject metaObject = configuration.newMetaObject(rowValue);
+           boolean foundValues = this.useConstructorMappings;
+           if (shouldApplyAutomaticMappings(resultMap, false)) {
+               // 【成果】： 自动映射: 没有定义resultMap标签根据驼峰命名自动映射(封装对象属性的值)
+               // 源代码441: org.apache.ibatis.executor.resultset.DefaultResultSetHandler
+               foundValues = applyAutomaticMappings(rsw, resultMap, metaObject, columnPrefix) || foundValues;
+           }
+           // 【成果】： 结果集映射: 根据resultMap标签的映射关系封装属性值
+           foundValues = applyPropertyMappings(rsw, resultMap, metaObject, lazyLoader, columnPrefix) || foundValues;
+           foundValues = lazyLoader.size() > 0 || foundValues;
+           rowValue = foundValues || configuration.isReturnInstanceForEmptyRow() ? rowValue : null;
+       }
+   ```
+
+10. 根据映射配置将数据库数据类型转换成java数据类型: DefaultResultSetHandler.applyAutomaticMappings
+
+    ```java
+    private boolean applyAutomaticMappings(ResultSetWrapper rsw, ResultMap resultMap, MetaObject metaObject, String columnPrefix) throws SQLException {
+        List<UnMappedColumnAutoMapping> autoMapping = createAutomaticMappings(rsw, resultMap, metaObject, columnPrefix);
+        boolean foundValues = false;
+        if (!autoMapping.isEmpty()) {
+            for (UnMappedColumnAutoMapping mapping : autoMapping) {
+                // 【提示】: 根据映射配置获取数据相应的java类型的值
+                final Object value = mapping.typeHandler.getResult(rsw.getResultSet(), mapping.column);
+                if (value != null) {
+                    foundValues = true;
+                }
+                if (value != null || (configuration.isCallSettersOnNulls() && !mapping.primitive)) {
+                    // gcode issue #377, call setter on nulls (value is not 'found')
+                    // 变量值提示: 对象: Account{id=null, uid=null, money=null}
+                    // 源代码579: org.apache.ibatis.executor.resultset.DefaultResultSetHandler
+                    metaObject.setValue(mapping.property, value);
+                }
+            }
+        }
+        return foundValues;
+    }
+    ```
+
+11. 获取对象中的set方法赋值: BeanWrapper.setBeanProperty
+
+    ```java
+    private void setBeanProperty(PropertyTokenizer prop, Object object, Object value) {
+        try {
+            // 【成果】： 封装属性调值原理: 反射调用set方法
+            // 变量值提示: method = public void com.itheima.mybatis.domain.Account.setId(java.lang.Integer)
+            Invoker method = metaClass.getSetInvoker(prop.getName());
+            Object[] params = {value};
+            try {
+                // 变量值提示: object = 对象: Account{id=null, uid=null, money=null}
+                // 源代码196: org.apache.ibatis.reflection.wrapper.BeanWrapper
+                method.invoke(object, params);
+                // 【提示】: 对象封装完整, 整个查询操作的流程分析完毕 【恭喜: 所有源码分析完成】
+            } catch (Throwable t) {
+                throw ExceptionUtil.unwrapThrowable(t);
+            }
+        } catch (Throwable t) {
+            throw new ReflectionException("Could not set property '" + prop.getName() + "' of '" + object.getClass() + "' with value '" + value + "' Cause: " + t.toString(), t);
+        }
+    }
+    ```
 
 
 
 ##### 6.6.3 研究成果
 
+- 代理开发的底层调用了传统开发的API
 
+- 工作流程: 执行查询所有账户的操作
+
+  1. **触发处理器方法**
+
+     > public Object invoke(Object proxy, Method method, Object[] args)..
+
+  2. 执行多跳记录查询
+
+     > } else if (method.returnsMany()) { 
+     >
+     > ​	 	// 【提示】: 执行多条记录查询方法  
+     >
+     > ​		// 源代码106: org.apache.ibatis.binding.MapperMethod
+     >
+     > ​		result = executeForMany(sqlSession, args);
+     >
+     > } ..
+
+  3. **调用传统开发的API**
+
+     > // 【成果】: 代理开发的底层调用的是传统开发的API
+     >
+     > // 源代码181: org.apache.ibatis.binding.MapperMethod
+     >
+     > result = sqlSession.<E>selectList(command.getName(), param);
+
+  4. **处理动态SQL语句**
+
+     > // 【提示】: 封装动态sql, 此时用?号代替占位符: #{id}
+     >
+     > // 源代码94: org.apache.ibatis.executor.CachingExecutor 
+     >
+     > BoundSql boundSql = ms.getBoundSql(parameterObject);
+
+  5. 从缓存中获取数据
+
+     > // 【成果】: 优先使用缓存数据
+     >
+     > // 源代码166: org.apache.ibatis.executor.BaseExecutor
+     >
+     > list = resultHandler == null ? (List<E>) localCache.getObject(key) : null;
+
+  6. **执行原生JDBC操作**
+
+     > PreparedStatement ps = (PreparedStatement) statement;
+     > // 【成果】: 调用原生的JDBC执行操作
+     >
+     > // 源代码80: org.apache.ibatis.executor.statement.PreparedStatementHandler
+     >
+     > ps.execute();
+
+  7. 遍历结果集封装对象
+
+     > // 【成果】: 遍历原生的结果集resultSet
+     >
+     > // 源代码378: org.apache.ibatis.executor.resultset.DefaultResultSetHandler 
+     >
+     > while (shouldProcessMoreRows(resultContext, rowBounds) && !resultSet.isClosed() &&  **resultSet.next()** ) {..}
+
+  8. **反射调用set方法赋值**
 
 
 
