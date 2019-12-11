@@ -1719,4 +1719,91 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 
 ### 七、Myabtis 常见面试题
 
-1. 
+1. Mybatis框架解决了jdbc哪些问题?
+
+   ```shell
+   #题目背景
+   	1.java程序中，可以通过jdbc访问操作数据库。那为什么还需要mybatis框架呢？
+   
+   #答题思路
+   	1.Mybatis框架通过xml配置文件的方式，配置sql语句。让sql语句与java代码分离，结构清晰
+   	2.Mybatis框架提供了自动将sql语句执行的结果，映射封装到java对象上，减少了重复代码的编写
+   	3.Mybatis框架提供了连接池功能，可以复用Connection对象，支持更好的利用系统资源
+   ```
+
+2. Mybatis与Hibernate的区别是什么?
+
+   ```shell
+   #题目背景
+   	1.考察技术面广度，针对技术点的一些思考和深入理解
+   
+   #答题思路
+   	1.hibernate框架和mybatis框架都是主流的orm（对象关心映射）框架
+   	2.hibernate框架是一个完整orm框架，它是一个重量级的框架，封装程度更深，学习掌握的门槛比较高
+   	3.使用hibernate框架开发项目，不需要编写sql语句，直接配置实体类和数据库表的映射关系即可。开发代码量少，开发效率高
+   	4.使用hibernate框架开发项目，不需要编写sql语句，优点是对数据库无关性支持好，缺点是性能比较差（因为不能直接对sql语句进行优化）
+   	5.mybatis框架是一个【半】orm框架，它是一个轻量级的框架，学习掌握门槛低。只要会写sql语句，就可以使用mybatis框架
+   	6.使用mybatis框架开发项目，需要直接编写sql语句，通过sql语句的配置，实现实体类与数据库表的映射关系。相对来说，缺点是开发代码量多一些，不支持数据库无关性；优点是性能更好（因为可以直接对sql语句实现优化）
+   ```
+
+   
+
+3. Mybatis映射文件中的#和$的区别?
+
+   ```shell
+   #题目背景
+   	1.考察对mybatis框架使用是否熟悉
+   
+   #答题思路
+   	1.在mybatis框架中,#{}是一个占位符，相当于jdbc中的问号【?】，在执行的时候底层是通过PreparedStatement进行预编译，和参数设置值。可以有效防止sql注入
+       2.在mybatis框架中，${}是一个字符串拼接符，在执行的时候底层值字符串替换。会有sql注入的风险
+       3.#{}，如果参数传递的是java简单类型（八种基本类型+字符串String），那么花括号中可以是任意字符串；如果参数传递的是pojo类型，那么花括号中是pojo实体类的属性
+       4.${}，如果参数传递的是java简单类型（八种基本类型+字符串String），那么花括号中只能是value字符串；如果传递的是pojo类型，那么花括号中的是pojo实体类属性
+   ```
+
+   
+
+4. Mybatis映射器的方法支持重载吗?
+
+   ```shell
+   #题目背景
+   	1.考察对mybatis框架是否有深入的一些理解, 比如源码
+   
+   #答题思路
+   	1.Mybatis框架的mapper接口开发要求namespace与全限定类名一致, id与方法名称一致, resultType与返回值了行一致
+   	2.Myabtis底层将映射器的操作封装成一个MapperMethod对象存储, 获取方式是namesapce+id
+   	3.在java语言中方法重载指的是方法名称一样，也就是id一致, 所以结论是不支持
+   	4.当然如果不使用代理开发而是用传统的API方式操作便不受此束缚 !!!
+   ```
+
+   
+
+5. Mybatis的一级缓存和二级缓存的区别?
+
+   ```shell
+   #题目背景
+   	1.考察对Mybatis框架是否有深入的一些理解
+   
+   #答题思路
+   	1.在Mybatis框架中，支持一级缓存和二级缓存
+   	2.一级缓存是指SqlSession级别的缓存，在同一个会话SqlSession内部有效，每一次数据库操作一级缓存都存在，不需要关心
+   	3.二级缓存是指mapper接口级别的缓存，二级缓存的范围更大，可以在不同的SqlSession之间共享。二级缓存需要我们明确开启，在新版本中默认已经开启
+   	4.在企业项目中，一般不推荐直接使用Mybatis框架的二级缓存，原因是mybatis框架的二级缓存粒度太大，不能实现精确的细粒度控制。
+   	比如说: 只要对当前mapper接口的一个更新操作，就会把之前的缓存都清空，缓存重建的代价太大。
+   	5.那么在实际企业项目中，我们可以考虑在业务层，结合相关的缓存中间件实现缓存服务。常用的缓存中间件有（redis、memcache）
+   ```
+
+   
+
+6. Mybatis如何实现延迟加载的?
+
+   ```shell
+   #题目背景
+   	1. 考察对象Mybatis项目是否有优化层面的能力
+   	
+   #答题思路
+   	1. Mybatis仅支持association关联对象和collection关联集合对象的延迟加载，association指的就是一对一，collection指的就是一对多查询。在Mybatis配置文件中，可以配置是否启用延迟加载lazyLoadingEnabled=true|false。
+   	2. Myabtis延迟加载的原理是使用Cglib动态代理拦截返回值对象的getXXX方法实现的, 如果方法被调用并且返回值是null, 那么就会单独发送事先保存好的关联查询的sql,并将返回的结果调用set方法赋值, 最终getXXX方法即可完成数据的加载
+   ```
+
+   
