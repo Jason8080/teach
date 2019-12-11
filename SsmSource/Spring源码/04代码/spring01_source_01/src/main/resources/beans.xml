@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 定义控制层对象 -->
+    <bean id="customController" class="com.itheima.source.controller.CustomController">
+        <property name="customService" ref="customService"/>
+    </bean>
+    <!-- 定义业务层对象 -->
+    <bean id="customService" class="com.itheima.source.service.CustomService">
+        <property name="customDao" ref="customDao"/>
+    </bean>
+    <!-- 定义持久层对象 -->
+    <bean id="customDao" class="com.itheima.source.dao.CustomDao"/>
+
+</beans>
