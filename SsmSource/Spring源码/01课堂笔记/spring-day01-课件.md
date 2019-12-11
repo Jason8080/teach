@@ -227,6 +227,60 @@
 
 ### 四、Spring 构建流程
 
+#### 4.1 学习目标
+
+1. 熟练debug工具的使用
+
+
+
+#### 4.2 Debug使用
+
+1. 在入口方法中调用源代码: 如下第4行
+
+   ```java
+   @Before
+   public void before() throws Exception {
+       // 1. 加载配置文件
+       InputStream in = Resources.getResourceAsStream("sqlMapConfig.xml");
+       // 2. 构建会话工厂
+       SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);
+       // 3. 获取会话对象
+       sqlSession = sqlSessionFactory.openSession();
+       // 4. 生成代理对象
+       accountDao = sqlSession.getMapper(AccountDao.class);
+   }
+   ```
+
+1. 进入源代码所在位置, 在需要调试的位置打下断点
+
+   ![image-20191208170112311](assets/image-20191208170112311.png) 
+
+1. 以Debug方式运行代码, 图示如下
+
+   ![image-20191208170541537](assets/image-20191208170541537.png)
+
+1. Debug模式界面示例
+
+   ![image-20191208171624561](assets/image-20191208171624561.png) 
+
+1. 步入: 进入方法内部
+
+   ![image-20191208172235833](assets/image-20191208172235833.png)
+
+1. 强入: 强迫进入方法内部, 暴力提取源代码
+
+   ![image-20191208173534271](assets/image-20191208173534271.png) 
+
+1. 下一步: 进行下一行代码的调试
+
+   ![image-20191208172402448](assets/image-20191208172402448.png) 
+
+1. 步出: 返回上一层调用方法内部
+
+   ![image-20191208172552964](assets/image-20191208172552964.png) 
+
+1. 放行: 调试完毕 或 进入下一个断点位置
+
 
 
 

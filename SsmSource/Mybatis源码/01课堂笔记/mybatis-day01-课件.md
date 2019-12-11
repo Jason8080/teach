@@ -623,7 +623,6 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
 #### 6.1 学习目标
 
 1. 熟练debug工具的使用
-2. 跟踪配置文件(sqlMapConfig.xml)的加载
 
 
 
