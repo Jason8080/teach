@@ -231,7 +231,7 @@
            // 1. 获取连接
            SqlSession sqlSession = sqlSessionFactory.openSession();
            // 2. 执行操作
-           sqlSession.insert("com.itheima.mybatis.dao.AccountDao.update", account);
+           sqlSession.update("com.itheima.mybatis.dao.AccountDao.update", account);
            // 3. 提交事务
            sqlSession.commit();
            sqlSession.close();
@@ -242,7 +242,7 @@
            // 1. 获取连接
            SqlSession sqlSession = sqlSessionFactory.openSession();
            // 2. 执行操作
-           sqlSession.insert("com.itheima.mybatis.dao.AccountDao.del", account);
+           sqlSession.delete("com.itheima.mybatis.dao.AccountDao.del", account);
            // 3. 提交事务
            sqlSession.commit();
            sqlSession.close();
@@ -268,17 +268,17 @@
    <mapper namespace="com.itheima.mybatis.dao.AccountDao">
    
        <!-- 保存账户 -->
-       <select id="save" parameterType="account">
+       <insert id="save" parameterType="account">
            insert into account values(#{id}, #{uid}, #{money})
-       </select>
+       </insert>
        <!-- 修改账户 -->
-       <select id="update" parameterType="account">
+       <update id="update" parameterType="account">
            update account set money = #{money} where id = #{id}
-       </select>
+       </update>
        <!-- 删除账户 -->
-       <select id="del" parameterType="account">
+       <delete id="del" parameterType="account">
            delete from account where id = #{id}
-       </select>
+       </delete>
        <!-- 查询账户 -->
        <select id="findAll" resultType="account">
            select * from account

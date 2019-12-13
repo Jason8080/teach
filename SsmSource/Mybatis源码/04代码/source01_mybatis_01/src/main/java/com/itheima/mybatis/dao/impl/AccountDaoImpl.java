@@ -37,7 +37,7 @@ public class AccountDaoImpl implements AccountDao {
         // 1. 获取连接
         SqlSession sqlSession = sqlSessionFactory.openSession();
         // 2. 执行操作
-        sqlSession.insert("com.itheima.mybatis.dao.AccountDao.update", account);
+        sqlSession.update("com.itheima.mybatis.dao.AccountDao.update", account);
         // 3. 提交事务
         sqlSession.commit();
         sqlSession.close();
@@ -48,7 +48,7 @@ public class AccountDaoImpl implements AccountDao {
         // 1. 获取连接
         SqlSession sqlSession = sqlSessionFactory.openSession();
         // 2. 执行操作
-        sqlSession.insert("com.itheima.mybatis.dao.AccountDao.del", account);
+        sqlSession.delete("com.itheima.mybatis.dao.AccountDao.del", account);
         // 3. 提交事务
         sqlSession.commit();
         sqlSession.close();
