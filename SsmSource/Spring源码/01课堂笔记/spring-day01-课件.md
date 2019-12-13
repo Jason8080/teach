@@ -283,9 +283,65 @@
 
 
 
-#### 4.3 跟踪: 配置文件解析流程
+#### 4.3 跟踪: 容器构建主体流程
+
+1. 
 
 
+
+#### 4.4 跟踪: 配置文件解析流程
+
+1. 进入new ClassPathXmlApplicationContext()方法
+
+   ```java
+   public ClassPathXmlApplicationContext(String configLocation) throws BeansException {
+       // 【成果】: 支持多配置文件构建容器
+       this(new String[] {configLocation}, true, null);
+   }
+   ```
+
+   ```java
+   public ClassPathXmlApplicationContext(
+       String[] configLocations, boolean refresh, @Nullable ApplicationContext parent)
+       throws BeansException {
+       // 【成果】: Spring IOC容器支持父子关系
+       // 【成果】: 支持层级关系必须先创建父容器, 然后在创建子容器时将父容器传递进来
+       super(parent);
+       // 保存配置文件
+       // 变量值提示: configLocations = beans.xml
+       setConfigLocations(configLocations);
+       if (refresh) {
+           // 【成果】: 该方法可以构建新容器也可以刷新已经存在的容器
+           refresh();
+       }
+   }
+   ```
+
+   
+
+2. 进入容器构建方法: AbstractApplicationContext.refresh
+
+   ```java
+   
+   ```
+
+   
+
+3. 
+
+
+
+#### 4.5 跟踪: 对象的初始化流程
+
+1. 
+
+
+
+
+
+#### 4.6 跟踪: 对象的获取流程
+
+1. 
 
 
 
