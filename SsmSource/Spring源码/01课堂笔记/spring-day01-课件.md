@@ -285,11 +285,13 @@
 
 #### 4.3 跟踪: 容器构建主体流程
 
-1. 
+##### 4.3.1 研究方向
+
+1. 构建容器经历了哪些步骤
 
 
 
-#### 4.4 跟踪: 配置文件解析流程
+##### 4.3.2 小试牛刀
 
 1. 进入new ClassPathXmlApplicationContext()方法
 
@@ -299,6 +301,8 @@
        this(new String[] {configLocation}, true, null);
    }
    ```
+
+2. 进入多配置构建容器方法: ClassPathXmlApplicationContext.ClassPathXmlApplicationContext
 
    ```java
    public ClassPathXmlApplicationContext(
@@ -317,17 +321,123 @@
    }
    ```
 
-   
+3. 进入容器构建方法: ClassPathXmlApplicationContext.refresh
 
-2. 进入容器构建方法: AbstractApplicationContext.refresh
+   ```java
+   public void refresh() throws BeansException, IllegalStateException {
+       // 【成果】: 构建容器已经加了同步锁机制, 避免多个容器创建的线程安全问题
+       synchronized (this.startupShutdownMonitor) {
+           // 准备工作: 记录容器启动的时间和状态标记
+           prepareRefresh();
+           /**
+   			 * 配置文件解析流程: 封装GenericBeanDefinition对象
+   			 * 		1. 将bean标签封装成BeanDefinition对象
+   			 * 		2. 将BeanDefinition注册到BeanFactory中
+   			 */
+           ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
+   
+           /**
+   			 * 准备容器的基础设施: 创建特殊对象(框架内部使用的对象)
+   			 * {@link #prepareBeanFactory(ConfigurableListableBeanFactory)}
+   			 * 		1. 创建环境信息: environment 对象
+   			 * 		2. 保存系统文件: systemProperties 对象
+   			 * 		3. 保存环境变量: systemEnvironment 对象
+   			 */
+           prepareBeanFactory(beanFactory);
+   
+           try {
+               // 工厂后置处理器: 配合下一步使用: 可以实现扩展
+               // 内容提示: null
+               // 如果有需要可以往beanFactory.beanFactoryPostProcessors中添加BeanFactoryPostProcessor
+               postProcessBeanFactory(beanFactory);
+   
+               // 后置处理器调用: 配合上一步使用: 可以实现扩展
+               // 内容提示: 会将上一步添加的内容实现/调用
+               // 获取添加的beanFactory.beanFactoryPostProcessors, 调用BeanFactoryPostProcessor中的方法
+               invokeBeanFactoryPostProcessors(beanFactory);
+   
+               // 注册Bean处理器: 可以在对象创建的前后(参考值：init-method)做一些增强处理
+               /** {@link org.springframework.beans.factory.config.BeanPostProcessor} */
+               // 		1. 对象创建前执行: postProcessBeforeInitialization()
+               // 		2. 对象创建后执行: postProcessAfterInitialization()
+               registerBeanPostProcessors(beanFactory);
+   
+               // 初始化国际化语言的支持
+               // 		1. 创建相关对象: messageSource
+               initMessageSource();
+   
+               // 初始化事件广播器
+               // 		1. 创建相关对象: SimpleApplicationEventMulticaster
+               // 			作用: 可以往对象applicationListeners属性中添加ApplicationListener事件监听器
+               //				当有响应的事件发布, 将会执行监听器中的方法
+               initApplicationEventMulticaster();
+   
+               // 初始化特殊对象: 用于扩展
+               // 内容提示: null
+               onRefresh();
+   
+               // 注册监听器: 往广播器对象applicationListeners属性中添加监听器
+               // 			作用: 如果有相应的事件发布, 该监听器的方法会被调用
+               registerListeners();
+   
+               // 初始化对象流程: 创建所有非延迟加载的单例对象
+               finishBeanFactoryInitialization(beanFactory);
+   
+               // Last step: publish corresponding event.
+               // 最后一步: 发布广播世间: 初始化完成 !!!
+               finishRefresh();
+           }
+   
+           catch (BeansException ex) {
+               if (logger.isWarnEnabled()) {
+                   logger.warn("Exception encountered during context initialization - " +
+                               "cancelling refresh attempt: " + ex);
+               }
+   
+               // Destroy already created singletons to avoid dangling resources.
+               destroyBeans();
+   
+               // Reset 'active' flag.
+               cancelRefresh(ex);
+   
+               // Propagate exception to caller.
+               throw ex;
+           }
+   
+           finally {
+               // Reset common introspection caches in Spring's core, since we
+               // might not ever need metadata for singleton beans anymore...
+               resetCommonCaches();
+           }
+       }
+   }
+   ```
+
+
+
+##### 4.3.3 研究成果
+
+- 容器构建的步骤: 
+  1. **保存配置文件**
+  2. 保存父容器: 支持父子层级关系
+  3. 配置基础设施: 创建内部对象
+  4. **创建新容器**: 解析配置文件
+  5. 注册事件广播
+  6. 注册监听器
+  7. **初始化对象**: 创建单例对象
+  8. 发送构建完成事件
+
+
+
+#### 4.4 跟踪: 配置文件解析流程
+
+1. 进入配置文件解析方法: ClassPathXmlApplicationContext.obtainFreshBeanFactory
 
    ```java
    
    ```
 
-   
-
-3. 
+2. 
 
 
 
