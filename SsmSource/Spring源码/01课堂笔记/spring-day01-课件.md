@@ -417,6 +417,7 @@
 
 ##### 4.3.3 研究成果
 
+- 容器支持父子层级关系
 - 容器构建的步骤: 
   1. **保存配置文件**
   2. 保存父容器: 支持父子层级关系
@@ -431,28 +432,906 @@
 
 #### 4.4 跟踪: 配置文件解析流程
 
-1. 进入配置文件解析方法: ClassPathXmlApplicationContext.obtainFreshBeanFactory
+##### 4.4.1 研究方向
+
+1. 配置文件如何加载的
+2. 配置中的对象什么时候创建
+
+
+
+##### 4.4.2 牛刀小试
+
+1. 进入配置文件解析方法: org.springframework.context.support.ClassPathXmlApplicationContext
 
    ```java
-   
+   protected ConfigurableListableBeanFactory obtainFreshBeanFactory() {
+       // 构建最全功能的工厂空对象: new DefaultListableBeanFactory(null)
+       refreshBeanFactory();
+       // 获取工厂对象返回
+       return getBeanFactory();
+   }
    ```
 
-2. 
+   ```java
+   protected final void refreshBeanFactory() throws BeansException {
+       if (hasBeanFactory()) {
+           destroyBeans();
+           closeBeanFactory();
+       }
+       try {
+           // 内部提示: new DefaultListableBeanFactory(null)
+           DefaultListableBeanFactory beanFactory = createBeanFactory();
+           beanFactory.setSerializationId(getId());
+           customizeBeanFactory(beanFactory);
+           // 【提示】: 加载配置文件并将bean标签封装成BeanDefinition对象
+           loadBeanDefinitions(beanFactory);
+           synchronized (this.beanFactoryMonitor) {
+               // 【成果】: 对象保存在AbstractRefreshableApplicationContext类中
+               this.beanFactory = beanFactory;
+           }
+       }
+       catch (IOException ex) {
+           throw new ApplicationContextException("I/O error parsing bean definition source for " + getDisplayName(), ex);
+       }
+   }
+   ```
+
+   
+
+2. 进入加载配置文件流程: org.springframework.beans.factory.support.AbstractBeanDefinitionReader
+
+   ```java
+   public int loadBeanDefinitions(String... locations) throws BeanDefinitionStoreException {
+       Assert.notNull(locations, "Location array must not be null");
+       int count = 0;
+       for (String location : locations) {
+           // 【成果】: 如果有多个文件会同时加载
+           count += loadBeanDefinitions(location);
+       }
+       return count;
+   }
+   ```
+
+   ```java
+   protected int doLoadBeanDefinitions(InputSource inputSource, Resource resource)
+       throws BeanDefinitionStoreException {
+   
+       try {
+           // 【成果】: 调用JDK工具创建XML文档对象
+           Document doc = doLoadDocument(inputSource, resource);
+           // 【提示】: 解析创建并注册BeanDefinition对象入口
+           int count = registerBeanDefinitions(doc, resource);
+           if (logger.isDebugEnabled()) {
+               logger.debug("Loaded " + count + " bean definitions from " + resource);
+           }
+           return count;
+       }..
+   }
+   ```
+
+   
+
+3. 进入XML文档解析方法: org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader
+
+   ```java
+   protected void doRegisterBeanDefinitions(Element root) {
+       // Any nested <beans> elements will cause recursion in this method. In
+       // order to propagate and preserve <beans> default-* attributes correctly,
+       // keep track of the current (parent) delegate, which may be null. Create
+       // the new (child) delegate with a reference to the parent for fallback purposes,
+       // then ultimately reset this.delegate back to its original (parent) reference.
+       // this behavior emulates a stack of delegates without actually necessitating one.
+       BeanDefinitionParserDelegate parent = this.delegate;
+       this.delegate = createDelegate(getReaderContext(), root, parent);
+   
+       if (this.delegate.isDefaultNamespace(root)) {
+           // 【成果】: 根标签支持配置生效环境: <bean profile="dev" ..
+           String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);
+           if (StringUtils.hasText(profileSpec)) {
+               String[] specifiedProfiles = StringUtils.tokenizeToStringArray(
+                   profileSpec, BeanDefinitionParserDelegate.MULTI_VALUE_ATTRIBUTE_DELIMITERS);
+               // We cannot use Profiles.of(...) since profile expressions are not supported
+               // in XML config. See SPR-12458 for details.
+               // 提示: 切换环境
+               if (!getReaderContext().getEnvironment().acceptsProfiles(specifiedProfiles)) {
+                   if (logger.isDebugEnabled()) {
+                       logger.debug("Skipped XML bean definition file due to specified profiles [" + profileSpec +
+                                    "] not matching: " + getReaderContext().getResource());
+                   }
+                   return;
+               }
+           }
+       }
+   
+       // 【成果】： Spring支持在处理配置文件之前做一些扩展, 只需要实现以下方法
+       preProcessXml(root);
+       parseBeanDefinitions(root, this.delegate);
+       // 【成果】： Spring支持在处理配置文件之后做一些扩展, 只需要实现以下方法
+       postProcessXml(root);
+   
+       this.delegate = parent;
+   }
+   ```
+
+   
+
+4. 进入标签解析方法: org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader
+
+   ```java
+   protected void parseBeanDefinitions(Element root, BeanDefinitionParserDelegate delegate) {
+       if (delegate.isDefaultNamespace(root)) {
+           NodeList nl = root.getChildNodes();
+           for (int i = 0; i < nl.getLength(); i++) {
+               Node node = nl.item(i);
+               // 【成果】: 只解析标签元素, 注释空格等字符不处理
+               if (node instanceof Element) {
+                   Element ele = (Element) node;
+                   // 【成果】: 判断是否是Spring命名空间下的标签, 不是则使用自定义标签的解析方案
+                   if (delegate.isDefaultNamespace(ele)) {
+                       parseDefaultElement(ele, delegate);
+                   }
+                   else {
+                       delegate.parseCustomElement(ele);
+                   }
+               }
+           }
+       }
+       else {
+           delegate.parseCustomElement(root);
+       }
+   }
+   ```
+
+   ```java
+   private void parseDefaultElement(Element ele, BeanDefinitionParserDelegate delegate) {
+       // 【提示】: 处理import标签
+       if (delegate.nodeNameEquals(ele, IMPORT_ELEMENT)) {
+           importBeanDefinitionResource(ele);
+       }
+       // 【提示】: 处理alias标签
+       else if (delegate.nodeNameEquals(ele, ALIAS_ELEMENT)) {
+           processAliasRegistration(ele);
+       }
+       // 【提示】: 处理bean标签
+       else if (delegate.nodeNameEquals(ele, BEAN_ELEMENT)) {
+           processBeanDefinition(ele, delegate);
+       }
+       // 【提示】: 处理beans标签
+       else if (delegate.nodeNameEquals(ele, NESTED_BEANS_ELEMENT)) {
+           // recurse
+           doRegisterBeanDefinitions(ele);
+       }
+   }
+   ```
+
+   
+
+5. 进入bean标签的解析: org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader
+
+   ```java
+   protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) {
+       // 【提示】: 创建BeanDefinition对象
+       BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
+       if (bdHolder != null) {
+           bdHolder = delegate.decorateBeanDefinitionIfRequired(ele, bdHolder);
+           try {
+               // Register the final decorated instance.
+               // 【提示】： 保存对象, 保存完文件解析流程结束
+               BeanDefinitionReaderUtils.registerBeanDefinition(bdHolder, getReaderContext().getRegistry());
+           }
+           catch (BeanDefinitionStoreException ex) {
+               getReaderContext().error("Failed to register bean definition with name '" +
+                                        bdHolder.getBeanName() + "'", ele, ex);
+           }
+           // Send registration event.
+           getReaderContext().fireComponentRegistered(new BeanComponentDefinition(bdHolder));
+       }
+   }
+   ```
+
+   
+
+6. 进入BeanDefinition对象的创建: org.springframework.beans.factory.xml.BeanDefinitionParserDelegate
+
+   ```java
+   public BeanDefinitionHolder parseBeanDefinitionElement(Element ele, @Nullable BeanDefinition containingBean) {
+       // 【成果】: 获取id属性值: customController
+       String id = ele.getAttribute(ID_ATTRIBUTE);
+       // 【成果】: 获取name属性值: null
+       String nameAttr = ele.getAttribute(NAME_ATTRIBUTE);
+   
+       List<String> aliases = new ArrayList<>();
+       if (StringUtils.hasLength(nameAttr)) {
+           String[] nameArr = StringUtils.tokenizeToStringArray(nameAttr, MULTI_VALUE_ATTRIBUTE_DELIMITERS);
+           aliases.addAll(Arrays.asList(nameArr));
+       }
+   
+       // 【成果】: 将id值赋值给beanName
+       String beanName = id;
+       if (!StringUtils.hasText(beanName) && !aliases.isEmpty()) {
+           beanName = aliases.remove(0);
+           if (logger.isTraceEnabled()) {
+               logger.trace("No XML 'id' specified - using '" + beanName +
+                            "' as bean name and " + aliases + " as aliases");
+           }
+       }
+   
+       if (containingBean == null) {
+           // 【成果】: 检查名称和别名是否已经使用过, 皆不能重复, 否则抛出异常
+           // 内容提示: usedNames.contains(beanName,aliases)
+           // 		this.usedNames.add(beanName);
+           //		this.usedNames.addAll(aliases);
+           checkNameUniqueness(beanName, aliases, ele);
+       }
+   	// 【提示】: 创建BeanDefinition对象跟踪位置
+       AbstractBeanDefinition beanDefinition = parseBeanDefinitionElement(ele, beanName, containingBean);
+       if (beanDefinition != null) {
+           if (!StringUtils.hasText(beanName)) {
+               try {
+                   if (containingBean != null) {
+                       beanName = BeanDefinitionReaderUtils.generateBeanName(
+                           beanDefinition, this.readerContext.getRegistry(), true);
+                   }
+                   else {
+                       //【成果】: 假如没有给id属性赋值, 将会自动生成相应的值
+                       // 变量值提示: beanName = com.itheima.source.controller.CustomController#0
+                       beanName = this.readerContext.generateBeanName(beanDefinition);
+                       // Register an alias for the plain bean class name, if still possible,
+                       // if the generator returned the class name plus a suffix.
+                       // This is expected for Spring 1.2/2.0 backwards compatibility.
+                       String beanClassName = beanDefinition.getBeanClassName();
+                       if (beanClassName != null &&
+                           beanName.startsWith(beanClassName) && beanName.length() > beanClassName.length() &&
+                           !this.readerContext.getRegistry().isBeanNameInUse(beanClassName)) {
+                           aliases.add(beanClassName);
+                       }
+                   }
+                   if (logger.isTraceEnabled()) {
+                       logger.trace("Neither XML 'id' nor 'name' specified - " +
+                                    "using generated bean name [" + beanName + "]");
+                   }
+               }
+               catch (Exception ex) {
+                   error(ex.getMessage(), ele);
+                   return null;
+               }
+           }
+           String[] aliasesArray = StringUtils.toStringArray(aliases);
+           // 【提示】： 最后封装在BeanDefinitionHolder对象中
+           return new BeanDefinitionHolder(beanDefinition, beanName, aliasesArray);
+       }
+   
+       return null;
+   }
+   ```
+
+   ```java
+   public static AbstractBeanDefinition createBeanDefinition(
+       @Nullable String parentName, @Nullable String className, @Nullable ClassLoader classLoader) throws ClassNotFoundException {
+   
+       // 【成果】： 使用通用的对象封装标签内容
+       GenericBeanDefinition bd = new GenericBeanDefinition();
+       bd.setParentName(parentName);
+       if (className != null) {
+           if (classLoader != null) {
+               // 【成果】: 在解析配置文件时加载了字节码对象
+               bd.setBeanClass(ClassUtils.forName(className, classLoader));
+           }
+           else {
+               bd.setBeanClassName(className);
+           }
+       }
+       return bd;
+   }
+   ```
+
+   
+
+7. 进入BeanDefinition注册方法: org.springframework.beans.factory.support.DefaultListableBeanFactory
+
+   ```java
+   public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition)
+       throws BeanDefinitionStoreException {
+   
+       Assert.hasText(beanName, "Bean name must not be empty");
+       Assert.notNull(beanDefinition, "BeanDefinition must not be null");
+   
+       BeanDefinition existingDefinition = this.beanDefinitionMap.get(beanName);
+       if (existingDefinition != null) {
+           ...
+       }
+       else {
+           if (hasBeanCreationStarted()) {
+               ...
+           }
+           else {
+               // Still in startup registration phase
+               // 【成果】: BeanDefinition保存在工厂中的map集合中(beanDefinitionMap)
+               // 【提示】： 配置文件的解析流程完毕
+               this.beanDefinitionMap.put(beanName, beanDefinition);
+               this.beanDefinitionNames.add(beanName);
+               removeManualSingletonName(beanName);
+           }
+           this.frozenBeanDefinitionNames = null;
+       }
+   
+       if (existingDefinition != null || containsSingleton(beanName)) {
+           resetBeanDefinition(beanName);
+       }
+   }
+   ```
+
+##### 4.4.3 研究成果
+
+1. Spring底层用的是JDK代码解析XML文档的
+2. 将配置文件中的bean标签内容封装到BeanDefinition(元数据对象)
+3. 在解析文件的过程中Bean标签定义的对象并未创建
 
 
 
 #### 4.5 跟踪: 对象的初始化流程
 
-1. 
+##### 4.5.1 研究方向
+
+1. 容器中的对象什么时候创建
+2. 容器是什么
+
+
+
+##### 4.5.2 牛刀小试
+
+1. 进入对象初始化流程: org.springframework.context.support.AbstractApplicationContext
+
+   ```java
+   protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory) {
+       // Initialize conversion service for this context.
+       if (beanFactory.containsBean(CONVERSION_SERVICE_BEAN_NAME) &&
+           beanFactory.isTypeMatch(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class)) {
+           beanFactory.setConversionService(
+               beanFactory.getBean(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class));
+       }
+   
+       // Register a default embedded value resolver if no bean post-processor
+       // (such as a PropertyPlaceholderConfigurer bean) registered any before:
+       // at this point, primarily for resolution in annotation attribute values.
+       if (!beanFactory.hasEmbeddedValueResolver()) {
+           beanFactory.addEmbeddedValueResolver(strVal -> getEnvironment().resolvePlaceholders(strVal));
+       }
+   
+       // Initialize LoadTimeWeaverAware beans early to allow for registering their transformers early.
+       String[] weaverAwareNames = beanFactory.getBeanNamesForType(LoadTimeWeaverAware.class, false, false);
+       for (String weaverAwareName : weaverAwareNames) {
+           getBean(weaverAwareName);
+       }
+   
+       // Stop using the temporary ClassLoader for type matching.
+       beanFactory.setTempClassLoader(null);
+   
+       // Allow for caching all bean definition metadata, not expecting further changes.
+       // 【成果】: 创建单例对象时, 配置被冻结, 不可更改
+       beanFactory.freezeConfiguration();
+   
+       // Instantiate all remaining (non-lazy-init) singletons.
+       // 【提示】: 创建单例对象的跟踪位置
+       beanFactory.preInstantiateSingletons();
+   }
+   ```
+
+2. 进入单例对象创建的处理方法: org.springframework.beans.factory.support.DefaultListableBeanFactory
+
+   ```java
+   public void preInstantiateSingletons() throws BeansException {
+       if (logger.isTraceEnabled()) {
+           logger.trace("Pre-instantiating singletons in " + this);
+       }
+   
+       // Iterate over a copy to allow for init methods which in turn register new bean definitions.
+       // While this may not be part of the regular factory bootstrap, it does otherwise work fine.
+       List<String> beanNames = new ArrayList<>(this.beanDefinitionNames);
+   
+       // Trigger initialization of all non-lazy singleton beans...
+       for (String beanName : beanNames) {
+           RootBeanDefinition bd = getMergedLocalBeanDefinition(beanName);
+           // 判断非抽象类, 非多例模式, 非延迟加载
+           if (!bd.isAbstract() && bd.isSingleton() && !bd.isLazyInit()) {
+               if (isFactoryBean(beanName)) {
+                   ...
+               }
+               else {
+                   // 【成果】: 创建对象是由getBean(String)方法创建的
+                   getBean(beanName);
+               }
+           }
+       }
+   
+       // Trigger post-initialization callback for all applicable beans...
+       for (String beanName : beanNames) {
+           Object singletonInstance = getSingleton(beanName);
+           if (singletonInstance instanceof SmartInitializingSingleton) {
+               final SmartInitializingSingleton smartSingleton = (SmartInitializingSingleton) singletonInstance;
+               if (System.getSecurityManager() != null) {
+                   AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
+                       smartSingleton.afterSingletonsInstantiated();
+                       return null;
+                   }, getAccessControlContext());
+               }
+               else {
+                   smartSingleton.afterSingletonsInstantiated();
+               }
+           }
+       }
+   }
+   ```
+
+   
+
+3. 进入对象的获取方法: org.springframework.beans.factory.support.AbstractBeanFactory
+
+   ```java
+   protected <T> T doGetBean(final String name, @Nullable final Class<T> requiredType,
+                             @Nullable final Object[] args, boolean typeCheckOnly) throws BeansException {
+   
+       final String beanName = transformedBeanName(name);
+       Object bean;
+   
+       // Eagerly check singleton cache for manually registered singletons.
+       // 【成果】: 检查对象是否已经在单例对象中 (已创建)
+       Object sharedInstance = getSingleton(beanName);
+       if (sharedInstance != null && args == null) {
+           if (logger.isTraceEnabled()) {
+               if (isSingletonCurrentlyInCreation(beanName)) {
+                   logger.trace("Returning eagerly cached instance of singleton bean '" + beanName +
+                                "' that is not fully initialized yet - a consequence of a circular reference");
+               }
+               else {
+                   logger.trace("Returning cached instance of singleton bean '" + beanName + "'");
+               }
+           }
+           bean = getObjectForBeanInstance(sharedInstance, name, beanName, null);
+       }
+   
+       else {
+           // Fail if we're already creating this bean instance:
+           // We're assumably within a circular reference.
+           //【成果】: 如果有循环的引用(依赖注入)抛出异常..
+           if (isPrototypeCurrentlyInCreation(beanName)) {
+               throw new BeanCurrentlyInCreationException(beanName);
+           }
+   
+           // Check if bean definition exists in this factory.
+           // 【成果】: 当前容器没有则从父容器中获取
+           BeanFactory parentBeanFactory = getParentBeanFactory();
+           if (parentBeanFactory != null && !containsBeanDefinition(beanName)) {
+               ...
+           }
+   
+           if (!typeCheckOnly) {
+               // 【成果】: 标记为已经创建的对象  (准备实例化)
+               markBeanAsCreated(beanName);
+           }
+   
+           try {
+               final RootBeanDefinition mbd = getMergedLocalBeanDefinition(beanName);
+               checkMergedBeanDefinition(mbd, beanName, args);
+   			...
+   
+               // Create bean instance.
+               // 【成果】: 判断是否单例模式
+               if (mbd.isSingleton()) {
+                   sharedInstance = getSingleton(beanName, () -> {
+                       try {
+                           // 提示: 创建并保存对象
+                           return createBean(beanName, mbd, args);
+                       }
+                       catch (BeansException ex) {
+                           // 提示: 销毁对象
+                           // Explicitly remove instance from singleton cache: It might have been put there
+                           // eagerly by the creation process, to allow for circular reference resolution.
+                           // Also remove any beans that received a temporary reference to the bean.
+                           destroySingleton(beanName);
+                           throw ex;
+                       }
+                   });
+                   bean = getObjectForBeanInstance(sharedInstance, name, beanName, mbd);
+               }
+   
+               else if (mbd.isPrototype()) {
+                   // It's a prototype -> create a new instance.
+                   Object prototypeInstance = null;
+                   try {
+                       beforePrototypeCreation(beanName);
+                       prototypeInstance = createBean(beanName, mbd, args);
+                   }
+                   finally {
+                       afterPrototypeCreation(beanName);
+                   }
+                   bean = getObjectForBeanInstance(prototypeInstance, name, beanName, mbd);
+               }...
+       }
+       return (T) bean;
+   }
+   ```
+
+   
+
+4. 进入单例对象创建子流程: org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory
+
+   ```java
+   protected Object doCreateBean(final String beanName, final RootBeanDefinition mbd, final @Nullable Object[] args)
+       throws BeanCreationException {
+   
+       // Instantiate the bean.
+       BeanWrapper instanceWrapper = null;
+       if (mbd.isSingleton()) {
+           instanceWrapper = this.factoryBeanInstanceCache.remove(beanName);
+       }
+       if (instanceWrapper == null) {
+           // 【成果】: 反射调用构造方法创建对象
+           instanceWrapper = createBeanInstance(beanName, mbd, args);
+       }
+       final Object bean = instanceWrapper.getWrappedInstance();
+       ...
+       Object exposedObject = bean;
+   	...
+       return exposedObject;
+   }
+   ```
+
+   
+
+5. 反射调用构造方法创建对象: org.springframework.beans.BeanUtils
+
+   ```java
+   public static <T> T instantiateClass(Constructor<T> ctor, Object... args) throws BeanInstantiationException {
+       Assert.notNull(ctor, "Constructor must not be null");
+       try {
+           ReflectionUtils.makeAccessible(ctor);
+           if (KotlinDetector.isKotlinReflectPresent() && KotlinDetector.isKotlinType(ctor.getDeclaringClass())) {
+               return KotlinDelegate.instantiateClass(ctor, args);
+           }
+           else {
+               Class<?>[] parameterTypes = ctor.getParameterTypes();
+               Assert.isTrue(args.length <= parameterTypes.length, "Can't specify more arguments than constructor parameters");
+               Object[] argsWithDefaultValues = new Object[args.length];
+               for (int i = 0 ; i < args.length; i++) {
+                   if (args[i] == null) {
+                       Class<?> parameterType = parameterTypes[i];
+                       argsWithDefaultValues[i] = (parameterType.isPrimitive() ? DEFAULT_TYPE_VALUES.get(parameterType) : null);
+                   }
+                   else {
+                       argsWithDefaultValues[i] = args[i];
+                   }
+               }
+               //【成果】: 使用构造方法反射创建对象
+               return ctor.newInstance(argsWithDefaultValues);
+           }
+       }...
+   }
+   
+   ```
+
+   
+
+6. 进入保存单例对象到容器子流程: org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+
+   ```java
+   public Object getSingleton(String beanName, ObjectFactory<?> singletonFactory) {
+       Assert.notNull(beanName, "Bean name must not be null");
+       synchronized (this.singletonObjects) {
+           Object singletonObject = this.singletonObjects.get(beanName);
+           if (singletonObject == null) {
+               if (this.singletonsCurrentlyInDestruction) {
+                   throw new BeanCreationNotAllowedException(beanName,
+                                                             "Singleton bean creation not allowed while singletons of this factory are in destruction " +
+                                                             "(Do not request a bean from a BeanFactory in a destroy method implementation!)");
+               }
+               ...
+               try {
+                   // 【提示】: 回调AbstractBeanFactory中的Lambda表达式创建对象
+                   // {@code return createBean(beanName, mbd, args)}
+                   singletonObject = singletonFactory.getObject();
+                   newSingleton = true;
+               }
+               ...
+               if (newSingleton) {
+                   // 【成果】: 如果是单例模式, 则保存到容器
+                   addSingleton(beanName, singletonObject);
+               }
+           }
+           return singletonObject;
+       }
+   }
+   ```
+
+   
+
+7. 保存到单例对象到容器中: org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
+
+   ```java
+   protected void addSingleton(String beanName, Object singletonObject) {
+       // 给容器加锁
+       synchronized (this.singletonObjects) {
+           // 【成果】: IOC容器本质上是名为singletonObjects的Map集合
+           // 【成果】: 猜想当调用getBean方法时应该是从此集合中获取对象
+           this.singletonObjects.put(beanName, singletonObject);
+           this.singletonFactories.remove(beanName);
+           this.earlySingletonObjects.remove(beanName);
+           this.registeredSingletons.add(beanName);
+       }
+   }
+   ```
+
+   
+
+
+
+##### 4.5.3 研究结果
+
+1. 单例对象在配置文件解析完成之后创建的
+2. 子容器没有获取到对象再从父容器中尝试
+3. IOC容器本质上是名为singletonObjects的Map集合
 
 
 
 
 
-#### 4.6 跟踪: 对象的获取流程
+#### 4.6 跟踪: 根据名称获取对象
 
-1. 
+##### 4.6.1 研究方向
+
+1. 如何根据名称从容器中获取对象
 
 
 
-### 五、Spring 常见面试题
+##### 4.6.2 小试牛刀
+
+1. 进入对象获取方法: org.springframework.context.support.AbstractApplicationContext
+
+   ```java
+   public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+       assertBeanFactoryActive();
+       // 变量值提示: getBeanFactory() = DefaultListableBeanFactory
+       return getBeanFactory().getBean(name, requiredType);
+   }
+   ```
+
+   
+
+2. 从容器中获取对象: org.springframework.beans.factory.support.AbstractBeanFactory
+
+   ```java
+   protected <T> T doGetBean(final String name, @Nullable final Class<T> requiredType,
+                             @Nullable final Object[] args, boolean typeCheckOnly) throws BeansException {
+   
+       final String beanName = transformedBeanName(name);
+       Object bean;
+   
+       // Eagerly check singleton cache for manually registered singletons.
+       // 【成果】: 检查对象是否已经在单例对象中 (已创建)
+       // 【提示】: 对象获取流程跟踪位置
+       Object sharedInstance = getSingleton(beanName);
+       ...
+       // 【成果】： 名称和类型同时提供， 只使用名称， 得到对象后强转
+       return (T) bean;
+   }
+   
+   ```
+
+
+
+
+
+
+##### 4.6.3 研究成果
+
+1. 对象的初始化存储就是根据名称为key存储在singletonObjects名称的Map中
+2. 如果当前容器没有还会尝试从父容器中获取
+
+
+
+#### 4.7 跟踪: 根据类型获取对象
+
+##### 4.7.1 研究方向
+
+1. 如何根据类型获取对象
+
+
+
+##### 4.7.2 牛刀小试
+
+1. 根据类型获取对象:  org.springframework.context.support.AbstractApplicationContext
+
+   ```java
+   public <T> T getBean(Class<T> requiredType) throws BeansException {
+       assertBeanFactoryActive();
+       // 变量值提示: getBeanFactory() = DefaultListableBeanFactory
+       return getBeanFactory().getBean(requiredType);
+   }
+   ```
+
+   
+
+2. 根据字节码类型匹配对象:  org.springframework.beans.factory.support.DefaultListableBeanFactory
+
+   ```java
+   private <T> T resolveBean(ResolvableType requiredType, @Nullable Object[] args, boolean nonUniqueAsNull) {
+       // 【提示】: 根据类型获取匹配的对象
+       NamedBeanHolder<T> namedBean = resolveNamedBean(requiredType, args, nonUniqueAsNull);
+       if (namedBean != null) {
+           return namedBean.getBeanInstance();
+       }
+       BeanFactory parent = getParentBeanFactory();
+       if (parent instanceof DefaultListableBeanFactory) {
+           return ((DefaultListableBeanFactory) parent).resolveBean(requiredType, args, nonUniqueAsNull);
+       }
+       else if (parent != null) {
+           ObjectProvider<T> parentProvider = parent.getBeanProvider(requiredType);
+           if (args != null) {
+               return parentProvider.getObject(args);
+           }
+           else {
+               return (nonUniqueAsNull ? parentProvider.getIfUnique() : parentProvider.getIfAvailable());
+           }
+       }
+       return null;
+   }
+   ```
+
+   
+
+3. 根据类型与配置中的标签匹配:  org.springframework.beans.factory.support.DefaultListableBeanFactory
+
+   ```java
+   private <T> NamedBeanHolder<T> resolveNamedBean(
+       ResolvableType requiredType, @Nullable Object[] args, boolean nonUniqueAsNull) throws BeansException {
+   
+       Assert.notNull(requiredType, "Required type must not be null");
+       String[] candidateNames = getBeanNamesForType(requiredType);
+       ...
+           // 【提示】: 只有一个则直接返回
+           if (candidateNames.length == 1) {
+               String beanName = candidateNames[0];
+               return new NamedBeanHolder<>(beanName, (T) getBean(beanName, requiredType.toClass(), args));
+           }
+       // 【成果】： 如果有多个符合要求,则抛出异常 (除非设置主要次要关系)
+       // 【成果】： bean标签支持配置主要和次要关系:
+       // 			(primary="true"): true则是主要的, 当多个类型时使用
+       else if (candidateNames.length > 1) {
+           Map<String, Object> candidates = new LinkedHashMap<>(candidateNames.length);
+           for (String beanName : candidateNames) {
+               if (containsSingleton(beanName) && args == null) {
+                   Object beanInstance = getBean(beanName);
+                   candidates.put(beanName, (beanInstance instanceof NullBean ? null : beanInstance));
+               }
+               else {
+                   candidates.put(beanName, getType(beanName));
+               }
+           }
+           // 【提示】： 根据主次关系选择主要的对象返回
+           String candidateName = determinePrimaryCandidate(candidates, requiredType.toClass());
+           if (candidateName == null) {
+               candidateName = determineHighestPriorityCandidate(candidates, requiredType.toClass());
+           }
+           if (candidateName != null) {
+               Object beanInstance = candidates.get(candidateName);
+               if (beanInstance == null || beanInstance instanceof Class) {
+                   beanInstance = getBean(candidateName, requiredType.toClass(), args);
+               }
+               return new NamedBeanHolder<>(candidateName, (T) beanInstance);
+           }
+           // 【成果】: 决定不了使用具体的对象则抛出异常
+           if (!nonUniqueAsNull) {
+               throw new NoUniqueBeanDefinitionException(requiredType, candidates.keySet());
+           }
+       }
+   
+       return null;
+   }
+   ```
+
+   
+
+4. 匹配配置中的bean标签: org.springframework.beans.factory.support.DefaultListableBeanFactory
+
+   ```java
+   private String[] doGetBeanNamesForType(ResolvableType type, boolean includeNonSingletons, boolean allowEagerInit) {
+       List<String> result = new ArrayList<>();
+   
+       // 【成果】遍历BeanDefinition对象, 逐个匹配
+       for (String beanName : this.beanDefinitionNames) {
+           // Only consider bean as eligible if the bean name
+           // is not defined as alias for some other bean.
+           if (!isAlias(beanName)) {
+               try {
+                   RootBeanDefinition mbd = getMergedLocalBeanDefinition(beanName);
+                   // Only check bean definition if it is complete.
+                   if (!mbd.isAbstract() && (allowEagerInit ||
+                                             (mbd.hasBeanClass() || !mbd.isLazyInit() || isAllowEagerClassLoading()) &&
+                                             !requiresEagerInitForType(mbd.getFactoryBeanName()))) {
+                       boolean isFactoryBean = isFactoryBean(beanName, mbd);
+                       BeanDefinitionHolder dbd = mbd.getDecoratedDefinition();
+                       boolean matchFound = false;
+                       boolean allowFactoryBeanInit = allowEagerInit || containsSingleton(beanName);
+                       boolean isNonLazyDecorated = dbd != null && !mbd.isLazyInit();
+                       if (!isFactoryBean) {
+                           if (includeNonSingletons || isSingleton(beanName, mbd, dbd)) {
+                               // 【提示】: 匹配规则跟踪位置
+                               matchFound = isTypeMatch(beanName, type, allowFactoryBeanInit);
+                           }
+                       }
+                       ...
+                       if (matchFound) {
+                           // 【提示】: 匹配成果则将名称一起返回
+                           result.add(beanName);
+                       }
+                   }
+               }
+           }
+       }
+   	...
+   
+       return StringUtils.toStringArray(result);
+   }
+   
+   ```
+
+   
+
+5. 根据类型获取对象匹配规则: org.springframework.beans.factory.support.AbstractBeanFactory
+
+   ```java
+   protected boolean isTypeMatch(String name, ResolvableType typeToMatch, boolean allowFactoryBeanInit)
+       throws NoSuchBeanDefinitionException {
+   
+       String beanName = transformedBeanName(name);
+       boolean isFactoryDereference = BeanFactoryUtils.isFactoryDereference(name);
+   
+       // Check manually registered singletons.
+       // 【提示】: 先确认单例对象已经创建
+       Object beanInstance = getSingleton(beanName, false);
+       if (beanInstance != null && beanInstance.getClass() != NullBean.class) {
+           if (beanInstance instanceof FactoryBean) {
+               if (!isFactoryDereference) {
+                   Class<?> type = getTypeForFactoryBean((FactoryBean<?>) beanInstance);
+                   return (type != null && typeToMatch.isAssignableFrom(type));
+               }
+               else {
+                   return typeToMatch.isInstance(beanInstance);
+               }
+           }
+           else if (!isFactoryDereference) {
+               // 【成果】: 如果类型相同则匹配成功
+               if (typeToMatch.isInstance(beanInstance)) {
+                   // 【提示】: 类型相同直接匹配成功
+                   return true;
+               }
+               ...
+           }
+           return false;
+       }
+       else if (containsSingleton(beanName) && !containsBeanDefinition(beanName)) {
+           // null instance registered
+           return false;
+       }
+   
+       // No singleton instance found -> check bean definition.
+       BeanFactory parentBeanFactory = getParentBeanFactory();
+       // 【成果】: 同时也从父容器中匹配, 如果有则也返回
+       // (所以父子容器都存会有冲突)
+       if (parentBeanFactory != null && !containsBeanDefinition(beanName)) {
+           // No bean definition found in this factory -> delegate to parent.
+           return parentBeanFactory.isTypeMatch(originalBeanName(name), typeToMatch);
+       }
+       ...
+   }
+   ```
+
+##### 4.7.3 研究成果
+
+1. 指定类型获取对象的方法是遍历配置中所有的bean标签匹配
+2. Bean标签支持配置属性(primary="true"), 将对象作为主要的使用对象 (当类型出现多个时使用该对象)
+
+
+
+### 五、Spring常见面试题
+
