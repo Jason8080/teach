@@ -285,7 +285,7 @@ CustomController customController = (CustomController) ioc.getBean("customContro
 
 #### 3.2 Spring核心组件类图
 
-- 容器构建器: org.springframework.context.support.ClassPathXmlApplicationContext
+- 构建工具: org.springframework.context.support.ClassPathXmlApplicationContext
 
   ![ClassPathXmlApplicationContext](assets/ClassPathXmlApplicationContext.png)
 
