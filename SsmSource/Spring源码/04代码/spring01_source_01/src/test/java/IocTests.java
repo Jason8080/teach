@@ -28,7 +28,8 @@ public class IocTests {
 
     @Test
     public void testSave() {
-        CustomController customController = ioc.getBean(/*"customController",*/ CustomController.class);
+        CustomController customController = (CustomController) ioc.getBean("customController");
+//        CustomController customController = ioc.getBean(CustomController.class);
         customController.save();
     }
 }

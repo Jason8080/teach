@@ -200,7 +200,21 @@
 
 ### 三、Spring 工作流程
 
+##### 3.1 代码回顾: IocTests
 
+```java
+// 创建容器
+ioc = new ClassPathXmlApplicationContext("classpath:beans.xml");
+
+// 获取对象
+CustomController customController = (CustomController) ioc.getBean("customController");
+```
+
+
+
+##### 3.2 流程分析
+
+![Spring 工作流程图](assets/Spring 工作流程图.png)
 
 
 
@@ -208,7 +222,7 @@
 
 ![1559212182908](assets/1557482552440.png)
 
-##### Data Access/Integration
+##### 4.1 集成区
 
 - JDBC: 对各大数据库厂商进行抽象处理
 - ORM: 集成orm框架支持对象关系映射处理
@@ -218,7 +232,7 @@
 
 
 
-##### Web
+##### 4.2 网络区
 
 - Websocket: 提供了WebSocket和SocketJS的实现
 - Servlet: 利用MVC(model-view-controller)的实现分离代码
@@ -227,7 +241,7 @@
 
 
 
-##### 中间层
+##### 4.3 中间层
 
 - AOP: 提供了符合AOP要求的面向切面的编程实现
 
@@ -238,14 +252,14 @@
 
 
 
-##### Core Container
+##### 4.4 核心层
 
 - Beans: Bean工厂与bean的装配
 - Core: 依赖注入IoC与DI的最基本实现
 - Content: IOC容器的企业服务扩展
 - SpEl: 用于在运行时查询和操纵对象的表达式
 
-##### Test
+##### 4.5 Test
 
 - 支持使用 JUnit 和 TestNG 对 Spring 组件进行测试
 

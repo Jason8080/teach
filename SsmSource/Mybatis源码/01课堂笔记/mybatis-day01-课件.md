@@ -485,7 +485,7 @@
 
 
 
-### 三、框架的执行流程
+### 三、Mybatis 工作流程
 
 #### 3.1 代码回顾: ProxyTests
 
@@ -507,7 +507,7 @@ public void before() throws Exception {
 
 #### 3.2 流程分析
 
-![image-20191208115629337](assets/Myabtis框架执行流程图.png)
+![image-20191208115629337](assets/Myabtis 工作流程图.png)
 
 1. 加载配置文件: sqlMapConfig.xml
    - 加载映射文件: accountDao.xml
