@@ -272,24 +272,24 @@ CustomController customController = (CustomController) ioc.getBean("customContro
 | 序号 | 名称                                        | 描述                                                         |
 | ---- | ------------------------------------------- | ------------------------------------------------------------ |
 | 1    | BeanFactory                                 | 【重点】spring框架工厂体系结构的顶层接口，提供了基础规范：获取bean对象、bean的作用范围、bean的类型。 |
-| 2    | ListableBeanFactory                         | BeanFactory接口中的getBean方法只能获取单个对象。ListableBeanFactory可以获取多个对象 |
-| 3    | HierarchicalBeanFactory                     | 在一个spring应用中，支持有多个BeanFactory，并且可以设置为它们的父子关系。比如ssm框架整合中的两个ioc容器 |
+| 2    | ListableBeanFactory                         | BeanFactory接口中的getBean方法只能获取单个对象。ListableBeanFactory可以 **获取多个对象** |
+| 3    | HierarchicalBeanFactory                     | 在一个spring应用中，支持有多个BeanFactory，并且可以 **设置为它们的父子关系**。比如ssm框架整合中的两个ioc容器 |
 | 4    | ApplicationContext                          | 【重点】项目中直接使用的工厂接口，它同时继承了ListableBeanFactory和HierarchicalBeanFactory接口 |
 | 5    | ConfigurableApplicationContext              | 支持更多系统配置的工厂接口。比如：conversionService、environment、systemProperties、systemEnvironment |
 | 6    | AbstractApplicationContext                  | 【重点】ApplicationContext工厂抽象类，提供了ioc容器初始化公共实现 |
-| 7    | AbstractRefreshableApplicationContext       | 在AbstractApplicationContext基础上，增加了ioc容器重建支持    |
+| 7    | AbstractRefreshableApplicationContext       | 在AbstractApplicationContext基础上，增加了ioc容器 **重建** 支持 |
 | 8    | AbstractRefreshableConfigApplicationContext | 增加了配置文件解析处理                                       |
 | 9    | AbstractXmlApplicationContext               | 增加了配置文件解析处理                                       |
 | 10   | ClassPathXmlApplicationContext              | 【重点】项目中，直接使用的工厂实现类。从类的根路径下加载配置文件，创建spring ioc容器 |
-| 11   | DefaultListableBeanFactory                  | 【重点】在spring框架工厂体系结构中，它是最强大的工厂类，也是我们最终创建的ioc容器，它内部持有了一系列Map集合。 |
+| 11   | DefaultListableBeanFactory                  | 【重点】在spring框架工厂体系结构中，它是最强大的工厂类，也是我们最终创建的ioc **容器** ，它内部持有了一系列Map集合。 |
 
 #### 3.2 Spring核心组件类图
 
-- org.springframework.context.support.ClassPathXmlApplicationContext
+- 容器构建器: org.springframework.context.support.ClassPathXmlApplicationContext
 
   ![ClassPathXmlApplicationContext](assets/ClassPathXmlApplicationContext.png)
 
-- org.springframework.beans.factory.support.DefaultListableBeanFactory
+- 最强容器: org.springframework.beans.factory.support.DefaultListableBeanFactory
 
   ![ClassPathXmlApplicationContext](assets/DefaultListableBeanFactory.png)
 
