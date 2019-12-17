@@ -9,10 +9,14 @@ import com.itheima.source.service.CustomService;
  * @version : 1.0
  */
 public class CustomController {
+    public CustomController() {
+        System.out.println("Controller init finish..");
+    }
 
     CustomService customService;
 
     public void setCustomService(CustomService customService) {
+        System.out.println("Controller Di ing..");
         this.customService = customService;
     }
 

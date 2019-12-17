@@ -9,10 +9,14 @@ import com.itheima.source.dao.CustomDao;
  * @version : 1.0
  */
 public class CustomService {
+    public CustomService() {
+        System.out.println("Service init finish..");
+    }
 
     CustomDao customDao;
 
     public void setCustomDao(CustomDao customDao) {
+        System.out.println("Service Di ing..");
         this.customDao = customDao;
     }
 

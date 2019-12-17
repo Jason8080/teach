@@ -7,6 +7,9 @@ package com.itheima.source.dao;
  * @version : 1.0
  */
 public class CustomDao {
+    public CustomDao() {
+        System.out.println("Dao init finish..");
+    }
 
     /**
      * 保存用户.
