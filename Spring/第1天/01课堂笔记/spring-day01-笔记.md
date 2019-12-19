@@ -686,7 +686,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 11依赖注入 - 概念【掌握】
+### 11依赖注入 - 概念【理解】
 
 #### 目标
 
@@ -787,7 +787,7 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 
 
 
-### 13DI - 注入对象【理解】
+### 13DI - 注入对象【掌握】
 
 #### 目标
 
@@ -1032,9 +1032,13 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 ### 19总结
 
 1. Spring是什么?
+   
    - 
+   
 2. 什么是IOC ?
+   
    - 
+   
 3. 如何创建IOC容器 ?
    - 
    - 
@@ -1045,25 +1049,36 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
    - 
    - 
 
-5. IOC通过什么功能做到依赖关系管理?
    - 
-6. 什么是DI ?
+   
+5. 什么是DI ?
+
    - 
+
+6. 依赖注入的方式有哪些?
+
+   - 
+   - 
+
 7. 创建对象的注解有哪些?
    - 
    - 
    - 
    - 
+
 8. 依赖注入的注解有哪些?
    - 
    - 
    - 
    - 
+
 9. 生命周期相关注解有哪些?
    - 
    - 
    - 
    - 
+
 10. 注解与配置是什么关系?
+
     - 
 
