@@ -1766,11 +1766,10 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(confi
    	1.Mybatis框架的mapper接口开发要求namespace与全限定类名一致, id与方法名称一致, resultType与返回值了行一致
    	2.Myabtis底层将映射器的操作封装成一个MapperMethod对象存储, 获取方式是namesapce+id
    	3.在java语言中方法重载指的是方法名称一样，也就是id一致, 所以结论是不支持
-   	4.当然如果不使用代理开发而是用传统的API方式操作便不受此束缚 !!!
    ```
-
    
 
+   
 5. Mybatis的一级缓存和二级缓存的区别?
 
    ```shell
