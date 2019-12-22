@@ -609,9 +609,9 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 #### 1. 事务的传播行为
 
-- 传播行为可以理解为: **内部方法对外部方法的事务要求**
+- 传播行为可以理解为: 被调用方法 **对事务的要求**
 
-![1562831970253](assets/1562831970253.png) 
+![1562831970253](assets/Spring 传播行为流程图.png) 
 
 ##### 1.1 REQUIRED
 
