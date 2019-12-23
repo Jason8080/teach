@@ -682,19 +682,16 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 ##### 1.6 源码说明
 
-1. 用户发送请求至前端控制器DispatcherServlet 
-2. DispatcherServlet收到请求调用HandlerMapping处理器映射器。 
-3. HandlerMapping根据请求URI找到具体的处理器， 生成处理器对象及处理器拦
-   截器(如果有则生成)一并返回给DispatcherServlet。 
-4. DispatcherServlet通过HandlerAdapter处理器适配器调用处理器 
-5. 执行处理器(Controller， 也叫后端控制器)。 
-6. Controller执行完成返回ModelAndView 
-7. HandlerAdapter将controller执行结果ModelAndView返回给
-   DispatcherServlet 
-8. DispatcherServlet将ModelAndView传给ViewReslover视图解析器 
+1. 用户发起请求
+2. DispatcherServlet处理请求获取URI: hello.do
+3. DispatcherServlet调用处理器映射器匹配处理器方法: hello()
+4. DispatcherServlet获取处理器适配器: ha
+5. DispatcherServlet调用处理器适配器执行处理器方法: hello()
+6. DispatcherServlet获取执行方法的返回值: mv
+7. DispatcherServlet根据mv中的视图名称解析View对象: view
 9. ViewReslover解析后返回具体View
-10. DispatcherServlet对View进行渲染视图（ 即将模型数据填充至视图中） 。
-11. DispatcherServlet响应用户 (实际上是视图做的跳转(转发,重定向等..))
+10. DispatcherServlet调用view对象的渲染方法: (合并数据+模型)
+11. 响应用户请求 (实际上是视图做的跳转(转发,重定向等..))
 
 
 
