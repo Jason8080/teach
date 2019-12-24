@@ -177,7 +177,7 @@
   | 传统        | /user/add | /user/delete?id={id} | /user/update?id={id} | /user/get?id={id} |
   | **RESTful** | /user     | /user/{id}           | /user/{id}           | /user/{id}        |
 
-- 提供方法: com.itheima.json.RestController
+- 【先】提供方法: com.itheima.json.RestController
 
   ```java
   
@@ -553,7 +553,7 @@ public String list(Model model) {
    - 
 4. @PathVariable的作用?
    - 
-5. 为什么配置multipartResolver?
+5. multipartResolver的作用?
    - 
 6. 如何对SSM项目做统一异常处理?
    - 
