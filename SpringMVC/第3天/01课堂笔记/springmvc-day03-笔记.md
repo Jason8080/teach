@@ -158,7 +158,7 @@
    <!-- 4. 注册事务管理器【包括数据源】 -->
    ```
 
-3. 单元测试: SsmTests
+3. 单元测试: SpringTests
 
    ```java
    
@@ -312,7 +312,7 @@
    <!-- 3. 配置Mybatis映射器 -->
    ```
 
-3. 单元测试: SsmTests
+3. 单元测试: MybatisTests
 
    ```java
    // 1. 加载配置文件
