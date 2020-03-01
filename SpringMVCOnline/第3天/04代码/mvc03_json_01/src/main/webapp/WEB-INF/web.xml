@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+
+
+	<!-- 1. 启动SpringMVC框架 -->
+	<servlet-mapping>
+		<servlet-name>json</servlet-name>
+		<!-- /: 表示拦截所有的资源: (不包括jsp)(访问不了html页面等...) -->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>json</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:springMVC.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+
+	<!-- 2. 读取隐藏域支持RESTful的特点 -->
+	<filter-mapping>
+		<filter-name>rest</filter-name>
+		<!-- /*: 过滤任何资源: 包括jsp -->
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>rest</filter-name>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	</filter>
+</web-app>
