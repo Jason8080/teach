@@ -1,4 +1,4 @@
-### 08事务的概念【了解】
+### 01事务的概念【了解】
 
 #### 目标
 
@@ -46,7 +46,7 @@
 
 
 
-### 09Spring声明式事务【了解】
+### 02Spring声明式事务【了解】
 
 #### 目标
 
@@ -106,7 +106,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 
 
-### 10事务的隔离级别【理解】
+### 03事务的隔离级别【理解】
 
 #### 目标
 
@@ -186,7 +186,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 
 
-### 11事务的传播行为【理解】
+### 04事务的传播行为【理解】
 
 #### 目标
 
@@ -241,7 +241,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 
 
-### 12TX - XML案例【掌握】
+### 05TX - XML案例【掌握】
 
 #### 目标
 
@@ -351,7 +351,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 
 
-### 13TX - 注解案例【掌握】
+### 06TX - 注解案例【掌握】
 
 #### 目标
 
@@ -396,7 +396,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 
 
-### 14TX - 纯注解案例【理解】
+### 07TX - 纯注解案例【理解】
 
 #### 目标
 
@@ -433,7 +433,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 
 
-### 15Spring编程式事务【了解】
+### 08Spring编程式事务【了解】
 
 #### 目标
 
@@ -503,7 +503,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 
 
-### 16总结
+### 09总结
 
 1. 什么是代理模式?
 
