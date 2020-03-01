@@ -22,9 +22,9 @@
 
 - MVC(Model, View, Controller)是视图层的一种设计模式
 
-- M:  Model: 模型: 数据模型: 专门封装数据库数据的实体类
-- V: View: 视图: 页面: json数据: 用户需要的页面+数据
-- C: controller: 控制器: Servlet, Controller: 接收用户请求
+- M: 
+- V:
+- C:
 
 
 
@@ -37,9 +37,9 @@
 #### 小结
 
 - 什么是MVC ?
-  - SpringMVC在控制层的一种设计模式
+  - 
 - MVC与三层架构是什么关系?
-  - 3层架构包含MVC
+  - 
 
 
 
@@ -75,11 +75,11 @@
 #### 小结
 
 - SpringMVC是什么?
-  - SpringMVC是应用于web工程的基于MVC设计模式的轻量级开源框架
+  - 
 - 至少说出SpringMVC的3个角色划分?
-  - 前端控制器
-  - 处理器适配器
-  - 处理器映射器
+  - 
+  - 
+  - 
 
 
 
@@ -99,28 +99,6 @@
 - 添加依赖: pom.xml
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
-  <modelVersion>4.0.0</modelVersion>  
-  <groupId>com.itheima</groupId>  
-  <artifactId>mvc01_demo_01</artifactId>  
-  <version>1.0-SNAPSHOT</version>
-
-  <!--  WEB应用必须的打包类型 -->
-  <packaging>war</packaging>
-
-
-
-  <dependencies>
-    <!-- 1. 添加SpringMVC框架依赖 -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>5.0.2.RELEASE</version>
-    </dependency>
-  </dependencies>
-</project>
 
 ```
 
@@ -131,129 +109,28 @@
 - web.xml
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	version="2.5">
 
-	<!-- 1. 通知容器(Tomcat)启动SpringMVC框架 -->
-
-	<!-- 用什么来处理(接收)用户请求 -->
-	<servlet-mapping>
-		<servlet-name>mvc</servlet-name>
-		<!-- 需要处理所有.do结尾的请求: http://localhost:8080/...do -->
-		<url-pattern>*.do</url-pattern>
-	</servlet-mapping>
-	
-	
-	<servlet>
-		<servlet-name>mvc</servlet-name>
-		<!-- 前端控制器: 统一处理(分发)用户请求 -->
-		<!-- 部分同学编译报错: 但是不用管, 照样部署运行 -->
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:springMVC.xml</param-value>
-		</init-param>
-		<!-- Servlet默认在第一次请求时创建, 对第一个用户不公平 0-6 -->
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-</web-app>
 ```
 
 - springMVC.xml
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+<!-- 1. 配置Spring注解扫描 -->
 
+<!-- 2. 配置SpringMVC注解驱动 -->
 
-    <!-- 1. 添加Spring组件扫描配置 -->
-    <!-- 配置控制器所在的包名 -->
-    <context:component-scan base-package="com.itheima.demo"/>
-    <!-- 2. 创建处理器映射器 -->
-    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>-->
-    <!-- 3. 创建处理器适配器 -->
-<!--    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>-->
-
-
-    <!-- 配置SpringMVC注解支持: 其中包括: 注册处理器映射器和处理器是配置 -->
-    <mvc:annotation-driven />
-
-
-
-    <!-- 4. 创建视图解析器 -->
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/pages/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
-</beans>
+<!-- 3. 配置SpringMVC视图解析器 -->
 ```
 
 - com.itheima.demo.HelloController
 
 ```java
-package com.itheima.demo;
-
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-/**
- * @Controller: 修饰类 .
- *  作用: 创建控制器对象并添加到容器中.
- *
- * @author : Jason.lee
- * @version : 1.0
- */
-@Controller // 不能用其他创建对象的注解创建控制器对象: @Repository @Service @Component
-public class HelloController {
-
-
-    /**
-     * http://localhost:8080/hello.do
-     * @param model 模型
-     * @return 视图名称
-     */
-    @RequestMapping("hello.do")
-    public String hello(Model model){
-        System.out.println("执行了hello方法...");
-        // 如果没有配置视图解析器的前缀和后缀
-//        return "/pages/success.jsp";
-        return "success";
-    }
-
-}
 
 ```
 
 - pages/success.jsp
 
 ```jsp
-<%--
-  Created by IntelliJ IDEA.
-  User: Jason
-  Date: 2020/2/29
-  Time: 9:53
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>OK</title>
-</head>
-<body>
-    操作成功! ${msg}
-</body>
-</html>
 
 ```
 
@@ -262,9 +139,9 @@ public class HelloController {
 #### 小结
 
 - 如何创建SpringMVC的控制器?
-  - @Controller修饰类
+  - 
 - hello方法的返回值代表什么?
-  - 视图
+  - 
 
 
 
@@ -285,9 +162,9 @@ public class HelloController {
 #### 小结
 
 - 案例中哪个是前端控制器?
-  - DispatcherServlet
+  - 
 - 案例中哪个是处理器?
-  - HelloController
+  - 
 
 
 
@@ -353,12 +230,12 @@ public class HelloController {
 #### 小结
 
 - SpringMVC的三大组件有哪些?
-  - 处理器映射器
-  - 处理器适配器
-  - 视图解析器
+  - 
+  - 
+  - 
 - 如何配置SpringMVC三大组件?
-  - <mv:annotation-driver ...
-  - <bean class...
+  - 
+  - 
 
 
 
@@ -805,7 +682,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
 ##### 1.6 源码说明
 
-1. 用户发起请求: service() -> doDispatch()
+1. 用户发起请求
 2. DispatcherServlet处理请求获取URI: hello.do
 3. DispatcherServlet调用处理器映射器匹配处理器方法: hello()
 4. DispatcherServlet获取处理器适配器: ha
@@ -823,12 +700,12 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 #### 小结
 
 - 项目中最早被加载的配置文件?
-  - web.xml
+  - 
 - SpringMVC的入口类是哪个?
-  - DispatcherServlet
+  - 
 
 - 最终的页面跳转由什么组件完成?
-  - View
+  - 
 
 
 
@@ -854,41 +731,6 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 1. com.itheima.demo.RequestMappingController
 
    ```java
-   package com.itheima.demo;
-   
-   import org.springframework.stereotype.Controller;
-   import org.springframework.web.bind.annotation.RequestMapping;
-   
-   /**
-    * RequestMappingController.
-    *
-    * @author : Jason.lee
-    * @version : 1.0
-    */
-   @Controller
-   /**
-    * 修饰类: 表示映射(限制)根路径
-    */
-   // @RequestMapping("user"): http://localhost:8080/user/list.do
-   @RequestMapping("user")
-   public class RequestMappingController {
-   
-   
-       /**
-        * http://localhost:8080/list.do
-        * @RequestMapping: 修饰方法, 类
-        *  作用: 映射请求地址
-        *  举例: value: list.do, 那么访问地址就应该是http://localhost:8080/list.do
-        * @return
-        */
-       @RequestMapping("list") // 访问后缀可以省略
-   //    @RequestMapping("list.do")
-   //    @RequestMapping("/list.do") // 一般/开头
-       public String list(){
-           System.out.println("执行了list方法...");
-           return "success";
-       }
-   }
    
    ```
 
@@ -898,46 +740,11 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
    ```java
    
-   
-       /**
-        * method: 限制请求的方法 (不写method表示不限制任何方式的请求)
-        * params: 限制请求的参数 (不写不限制)
-        * @return
-        */
-       @RequestMapping(value = "list2", method = {RequestMethod.GET, RequestMethod.POST},
-               params = {"id!=1", "name=Jason1"},
-               headers = {"Host=localhost:8080", "Cookie=JSESSIONID=1A1053F6C113A25FE9C66217113F7615"}
-       )
-       public String list2() {
-           System.out.println("执行了list2方法...");
-           return "success";
-       }
    ```
 
 2. 页面演示: index.jsp
 
    ```jsp
-   <%--
-     Created by IntelliJ IDEA.
-     User: Jason
-     Date: 2020/2/29
-     Time: 14:20
-     To change this template use File | Settings | File Templates.
-   --%>
-   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-   <html>
-   <head>
-       <title>首页|欢迎光临</title>
-   </head>
-   <body>
-       <h3>演示: 限制请求</h3>
-       <form method="post" action="/list2.do">
-           <input type="text" name="id" value="1">
-           <input type="text" name="name" value="Jason1">
-           <input type="submit"/>
-       </form>
-   </body>
-   </html>
    
    ```
 
@@ -946,7 +753,7 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 #### 小结
 
 - @RequestMapping的作用是什么?
-  - 映射和限制请求
+  - 
 
 
 
@@ -964,43 +771,6 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 1. 接收基本类型: com.itheima.demo.ParamController
 
    ```java
-   package com.itheima.demo;
-   
-   import org.springframework.stereotype.Controller;
-   import org.springframework.web.bind.annotation.RequestMapping;
-   
-   import javax.servlet.http.HttpServletRequest;
-   
-   /**
-    * 演示参数绑定.
-    *
-    * @author : Jason.lee
-    * @version : 1.0
-    */
-   @Controller
-   public class ParamController {
-   
-   
-       /**
-        * 资源: 控制器方法
-        *
-        * @param id   参数名
-        * @param name 参数名, 如果是中文, 可能乱码
-        *             1. tomcat比较老的版本, GET方法就会乱码
-        *             2. 哪怕是比较新的版本, POST方法就会乱码
-        *
-        *             参数列表中:
-        *             不建议使用基本数据类型, 比如int, long...,
-        *             建议同意使用包装类型(支持null: 可以不传)
-        * @return 视图
-        */
-       @RequestMapping("list3")
-       public String list3(int id, String name){
-           System.out.println(id);
-           System.out.println(name);
-           return "success";
-       }
-   }
    
    ```
 
@@ -1008,12 +778,6 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 
    ```jsp
    
-       <h3>演示: POST乱码</h3>
-       <form method="post" action="/list3.do">
-           <input type="text" name="id" value="3">
-           <input type="text" name="name" value="小李3">
-           <input type="submit"/>
-       </form>
    ```
 
 
@@ -1023,34 +787,17 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 - web.xml
 
   ```xml
-  
-  
-	<!-- 2. 定义字符集过滤器 -->
-  	<filter-mapping>
-  		<filter-name>code</filter-name>
-  		<!-- /*: 表示所有的请求 -->
-  		<url-pattern>/*</url-pattern>
-  	</filter-mapping>
-  	
-  	
-  	<filter>
-  		<filter-name>code</filter-name>
-  		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-  		<init-param>
-  			<param-name>encoding</param-name>
-  			<param-value>UTF-8</param-value>
-  		</init-param>
-  	</filter>
+  <!-- 配置CharacterEncodingFilter(SpringMVC字符集过滤器: 乱码解决方案) -->
   ```
-  
+
   
 
 #### 小结
 
 - 为什么不建议使用int(基本类型)接收参数?
-  - int不支持传null值, 所以导致必须传参
+  - 
 - SpringMVC是如何解决参数乱码的问题?
-  - 在web.xml中配置SpringMVC字符集编码过滤器
+  - 
 
 
 
@@ -1070,54 +817,6 @@ protected void sendRedirect(HttpServletRequest request, HttpServletResponse resp
 - 创建实体: com.itheima.demo.Account
 
 ```java
-package com.itheima.demo;
-
-/**
- * Account.
- *
- * @author : Jason.lee
- * @version : 1.0
- */
-public class Account {
-
-
-    private Integer id;
-    private Integer uid;
-    private Double money;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getUid() {
-        return uid;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
-
-    public Double getMoney() {
-        return money;
-    }
-
-    public void setMoney(Double money) {
-        this.money = money;
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", uid=" + uid +
-                ", money=" + money +
-                '}';
-    }
-}
 
 ```
 
@@ -1125,16 +824,6 @@ public class Account {
 
 ```java
 
-    /**
-     * 将参数列表封装成对象后, 请求的参数不会改变
-     * @param account 对象
-     * @return
-     */
-    @RequestMapping("list4")
-    public String list4(Account account){
-        System.out.println(account);
-        return "success";
-    }
 ```
 
 
@@ -1144,154 +833,13 @@ public class Account {
 - 创建实体: com.itheima.demo.domain.User
 
 ```java
-package com.itheima.demo.domain;
-
-import java.util.Date;
-
-/**
- * User.
- *
- * @author : Jason.lee
- * @version : 1.0
- */
-public class User {
-    private Integer id;
-    private String username;
-    private Date birthday;
-    private String sex;
-    private String address;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", birthday=" + birthday +
-                ", sex='" + sex + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
-}
 
 ```
 
 - 嵌套实体: com.itheima.demo.domain.Account
 
 ```java
-package com.itheima.demo;
 
-import com.itheima.demo.domain.User;
-
-/**
- * Account.
- *
- * @author : Jason.lee
- * @version : 1.0
- */
-public class Account {
-
-
-    private Integer id;
-    private Integer uid;
-    private Double money;
-    private User user;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getUid() {
-        return uid;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
-
-    public Double getMoney() {
-        return money;
-    }
-
-    public void setMoney(Double money) {
-        this.money = money;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", uid=" + uid +
-                ", money=" + money +
-                ", user=" + user +
-                '}';
-    }
-}
-
-```
-
-```jsp
-
-    <h3>演示: 嵌套对象</h3>
-    <form method="post" action="/list4.do">
-        <input type="text" name="id" value="4">
-        <input type="text" name="money" value="10.0">
-        <input type="text" name="user.id" value="4">
-        <input type="text" name="user.username" value="Jason4">
-<%--        <input type="text" name="user.birthday" value="2020-02-29">--%>
-        <input type="submit"/>
-    </form>
 ```
 
 
@@ -1299,6 +847,7 @@ public class Account {
 #### 小结
 
 - 使用对象接收参数的好处?
-  - 可以简化参数列表
+  - 
+
 
 
