@@ -310,20 +310,15 @@ public String list(Model model) {
 
 ### 06总结
 
-1. 使用Json交互需要什么依赖?
-   - 
-2. @RequestBody的作用?
-   - 
-3. @ResponseBody的作用?
-   - 
-4. @PathVariable的作用?
-   - 
 5. multipartResolver的作用?
    - 
-6. 如何对SSM项目做统一异常处理?
+2. SpringMVC统一异常处理的原理是什么?
    - 
-7. 过滤器与拦截器的区别是什么?
+3. 三层架构中应该在在哪1层做异常处理?
    - 
+4. 过滤器与拦截器的区别是什么?
+   - 过滤器: 
+   - 拦截器: 
 
 
 
