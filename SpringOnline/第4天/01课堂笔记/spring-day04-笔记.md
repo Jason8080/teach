@@ -505,49 +505,6 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 ### 09总结
 
-1. 什么是代理模式?
-
-   - 
-
-2. 动态代理JDK和CGLIB的区别?
-
-   - jdk: 
-   - cglib: 
-
-3. Spring AOP的底层是什么?
-
-   - 
-
-4. 切面和切入点以及通知是什么?
-
-   - 
-   - 
-   - 
-
-5. 通知类型有哪些?
-
-   - 
-
-   - 
-
-   - 
-
-   - 
-
-   - 
-
-6. AOP相关的注解有哪些?
-
-   - 
-
-   - 
-
-   - 
-
-   - 
-
-   - 
-
 7. 事务的作用是什么?
 
    - 

@@ -847,4 +847,30 @@ XmlBeanFactory context = new XmlBeanFactory(resource);
 - 注入了那些集合属性?
   - 
 
+### 15总结
 
+1. Spring是什么?
+
+   - 
+2. 什么是IOC ?
+
+   - 
+3. 如何创建IOC容器 ?
+   - 
+   - 
+   - 
+4. 创建对象有哪几种方式?
+   - 
+   - 
+
+   - 
+5. 什么是DI ?
+
+   - 
+6. 依赖注入的方式有哪些?
+
+   - 
+   - 
+7. 依赖注入时value和ref的区别?
+   - value: 
+   - ref: 
