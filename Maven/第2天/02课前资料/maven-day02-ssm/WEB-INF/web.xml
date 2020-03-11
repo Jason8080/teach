@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns="http://java.sun.com/xml/ns/javaee"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+		 id="WebApp_ID" version="2.5">
+
+	<!--配置spring提供的监听器：ContextLoaderListener,说明：
+        1.ContextLoaderListener监听器，监听ServletContext对象的创建和销毁，一旦ServletContet
+        对象创建，就创建spring的容器，并且把spring容器放到ServletContext对象中
+        2.该监听器默认只能加载WEB-INF目录下applicationContext.xml文件
+        3.通过<context-param>标签配置指定spring配置文件的位置，改变默认的加载位置
+    -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!--配置spring的配置文件位置(全局参数)-->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/applicationContext.xml</param-value>
+	</context-param>
+
+
+	<!--配置前端控制器（DispatcherServlet）-->
+	<servlet>
+		<servlet-name>ssm</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+		<!--加载springmvc的主配置文件-->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/springmvc.xml</param-value>
+		</init-param>
+
+		<!--配置tomcat启动就加载前端控制器-->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ssm</servlet-name>
+		<!--配置请求的url规则，说明：
+            1.*.do，表示以.do结尾的请求进入前端控制器
+            2./，表示所有请求都进入前端控制器
+        -->
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+</web-app>
