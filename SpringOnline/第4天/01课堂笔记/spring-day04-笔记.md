@@ -505,11 +505,9 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 ### 09总结
 
-7. 事务的作用是什么?
-
+1. 事务的作用是什么?
    - 
-
-8. 什么是ACID原则?
+2. 什么是ACID原则?
 
    - Atomicity:
 
@@ -518,8 +516,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
    - Isolation: 
 
    - Durability:
-
-9. 以下隔离级别分别解决了什么问题?
+3. 以下隔离级别分别解决了什么问题?
 
    - ISOLATION_READ_UNCOMMITTED:
 
@@ -528,35 +525,31 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
    - ISOLATION_REPEATABLE_READ:
 
    - ISOLATION_SERIALIZABLE: 
+4. 请说出以下传播行为的含义:
 
-10. 请说出以下传播行为的含义:
+   - REQUIRED:
 
-    - REQUIRED:
+   - SUPPORTS:
 
-    - SUPPORTS:
+   - MANDATORY:
 
-    - MANDATORY:
+   - REQUIRES_NEW:
 
-    - REQUIRES_NEW:
+   - NOT_SUPPORTED:
 
-    - NOT_SUPPORTED:
+   - NEVER:
 
-    - NEVER:
+   - NESTED:
+5. 声明式事务的好处是什么?
 
-    - NESTED:
+   - 
+6. 请描述以下注解的作用?
 
-11. 声明式事务的好处是什么?
+   - @EnableTransactionManagement:
 
-    - 
+   - @Transactional: 
+7. Spring的优点有哪些?
 
-12. 请描述以下注解的作用?
-
-    - @EnableTransactionManagement:
-
-    - @Transactional: 
-
-13. Spring的优点有哪些?
-
-    - 
-    - 
-    - 
+   - 
+   - 
+   - 
