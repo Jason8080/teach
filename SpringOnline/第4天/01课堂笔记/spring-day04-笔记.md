@@ -336,7 +336,7 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 ##### 1.4 单元测试
 
-1. 单元测试: XmlTests.java
+1. 单元测试: XmlTests
 
    ```java
    
@@ -406,13 +406,13 @@ TransactionAspectSupport.currentTransactionStatus().rollbackToSavepoint(savepoin
 
 #### 1. 使用注解代替所有配置
 
-1. 创建配置类: com.itheima.xml.config.SpringConfig
+1. 创建数据库配置类: com.itheima.xml.config.DbConfig
 
    ```java
    
    ```
 
-2. 创建数据库配置类: com.itheima.xml.config.JdbcConfig
+2. 创建配置类: com.itheima.xml.config.SpringConfig
 
    ```java
    
